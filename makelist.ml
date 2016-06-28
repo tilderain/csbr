@@ -2,7 +2,7 @@
 <DEFAULT
 COMPILE=g++ -g -O2 -c %SRCFILE% -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o %MODULE%.%OBJ_EXT%
 LPREFIX=g++ -o %OUTPUT%
-LSUFFIX=`sdl-config --libs` -lSDL_ttf -lstdc++ -lm
+LSUFFIX=`sdl-config --libs` -lstdc++ -lm
 OBJ_EXT=o
 OUTPUT=nx
 
@@ -22,7 +22,6 @@ TextBox/SaveSelect.cpp
 profile.cpp
 settings.cpp
 platform.cpp
-platform/Linux/vbesync.c
 
 caret.cpp
 slope.cpp

@@ -40,7 +40,7 @@ char fname[MAXPATHLEN];
 			current_tileset = -1;
 		}
 		
-		sprintf(fname, "%s/Prt%s.pbm", stage_dir, tileset_names[new_tileset]);
+		sprintf(fname, "%s/Prt%s.bmp", stage_dir, tileset_names[new_tileset]);
 		
 		// always use SDL_DisplayFormat on tilesets; they need to come out of 8-bit
 		// so that we can replace the destroyable star tiles without them palletizing.

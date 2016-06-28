@@ -11,8 +11,8 @@ enum
 	STATE_NO_SELECTED
 };
 
-#define YESNO_X				216
-#define YESNO_Y				144
+#define YESNO_X				197
+#define YESNO_Y				135
 #define YESNO_POP_SPEED		4
 
 /*

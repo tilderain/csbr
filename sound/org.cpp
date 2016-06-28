@@ -1,16 +1,21 @@
 
-#include <SDL/SDL.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <endian.h>
 
 #include "../common/basics.h"
 #include "org.h"
 #include "pxt.h"			// for loading drums
 #include "sslib.h"			// SAMPLE_RATE
 #include "org.fdh"
+
+#include "../platform.h"
+
+
 
 //#define QUIET
 #define DRUM_PXT
@@ -20,6 +25,10 @@
 #else
 	#define drumK		30050
 #endif
+
+# define htole16(x) x
+
+
 
 static bool org_inited = false;
 

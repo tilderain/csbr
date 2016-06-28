@@ -448,7 +448,7 @@ char fname[MAXPATHLEN];
 		// use chromakey (transparency) on bkwater, all others don't
 		bool use_chromakey = (backdrop_no == 8);
 		
-		sprintf(fname, "%s/%s.pbm", data_dir, backdrop_names[backdrop_no]);
+		sprintf(fname, "%s/%s.bmp", data_dir, backdrop_names[backdrop_no]);
 		
 		backdrop[backdrop_no] = NXSurface::FromFile(fname, use_chromakey);
 		if (!backdrop[backdrop_no])

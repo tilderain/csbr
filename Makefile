@@ -1,39 +1,14 @@
 
-all: nx
+TARGET :=bin/nx
 
-nx:  main.o game.o object.o ObjManager.o \
+all: $(TARGET)
+
+$(dir $(TARGET)):
+	mkdir -p $@
+
+$(TARGET):  main.o game.o object.o ObjManager.o \
 	 map.o TextBox/TextBox.o TextBox/YesNoPrompt.o TextBox/ItemImage.o TextBox/StageSelect.o \
-	 TextBox/SaveSelect.o profile.o settings.o platform.o platform/Linux/vbesync.o \
-	 caret.o slope.o player.o playerstats.o p_arms.o \
-	 statusbar.o tsc.o screeneffect.o floattext.o input.o \
-	 replay.o trig.o inventory.o map_system.o debug.o \
-	 console.o niku.o ai/ai.o ai/first_cave/first_cave.o ai/village/village.o \
-	 ai/village/balrog_boss_running.o ai/village/ma_pignon.o ai/egg/egg.o ai/egg/igor.o ai/egg/egg2.o \
-	 ai/weed/weed.o ai/weed/balrog_boss_flying.o ai/weed/frenzied_mimiga.o ai/sand/sand.o ai/sand/puppy.o \
-	 ai/sand/curly_boss.o ai/sand/toroko_frenzied.o ai/maze/maze.o ai/maze/critter_purple.o ai/maze/gaudi.o \
-	 ai/maze/pooh_black.o ai/maze/balrog_boss_missiles.o ai/maze/labyrinth_m.o ai/almond/almond.o ai/oside/oside.o \
-	 ai/plantation/plantation.o ai/last_cave/last_cave.o ai/final_battle/balcony.o ai/final_battle/misery.o ai/final_battle/final_misc.o \
-	 ai/final_battle/doctor.o ai/final_battle/doctor_frenzied.o ai/final_battle/doctor_common.o ai/final_battle/sidekicks.o ai/hell/hell.o \
-	 ai/hell/ballos_priest.o ai/hell/ballos_misc.o ai/npc/balrog.o ai/npc/curly.o ai/npc/curly_ai.o \
-	 ai/npc/misery.o ai/npc/npcregu.o ai/npc/npcguest.o ai/npc/npcplayer.o ai/weapons/weapons.o \
-	 ai/weapons/polar_mgun.o ai/weapons/missile.o ai/weapons/fireball.o ai/weapons/blade.o ai/weapons/snake.o \
-	 ai/weapons/nemesis.o ai/weapons/bubbler.o ai/weapons/spur.o ai/weapons/whimstar.o ai/sym/sym.o \
-	 ai/sym/smoke.o ai/balrog_common.o ai/IrregularBBox.o stageboss.o ai/boss/omega.o \
-	 ai/boss/balfrog.o ai/boss/x.o ai/boss/core.o ai/boss/ironhead.o ai/boss/sisters.o \
-	 ai/boss/undead_core.o ai/boss/heavypress.o ai/boss/ballos.o endgame/island.o endgame/misc.o \
-	 endgame/credits.o endgame/CredReader.o intro/intro.o intro/title.o pause/pause.o \
-	 pause/options.o pause/dialog.o pause/message.o pause/objects.o graphics/nxsurface.o \
-	 graphics/graphics.o graphics/sprites.o graphics/tileset.o graphics/font.o graphics/safemode.o \
-	 graphics/palette.o sound/sound.o sound/sslib.o sound/org.o sound/pxt.o \
-	 siflib/sif.o siflib/sifloader.o siflib/sectSprites.o siflib/sectStringArray.o extract/extract.o \
-	 extract/extractpxt.o extract/extractfiles.o extract/extractstages.o extract/crc.o autogen/AssignSprites.o \
-	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
-	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
-	 common/misc.o
-	g++ -o nx \
-	 main.o game.o object.o ObjManager.o \
-	 map.o TextBox/TextBox.o TextBox/YesNoPrompt.o TextBox/ItemImage.o TextBox/StageSelect.o \
-	 TextBox/SaveSelect.o profile.o settings.o platform.o platform/Linux/vbesync.o \
+	 TextBox/SaveSelect.o profile.o settings.o platform.o \
 	 caret.o slope.o player.o playerstats.o p_arms.o \
 	 statusbar.o tsc.o screeneffect.o floattext.o input.o \
 	 replay.o trig.o inventory.o map_system.o debug.o \
@@ -60,7 +35,38 @@ nx:  main.o game.o object.o ObjManager.o \
 	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
 	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
 	 common/misc.o \
-	 `sdl-config --libs` -lSDL_ttf -lstdc++ -lm
+	 $(dir $(TARGET))
+	g++ -o $(TARGET) \
+	 main.o game.o object.o ObjManager.o \
+	 map.o TextBox/TextBox.o TextBox/YesNoPrompt.o TextBox/ItemImage.o TextBox/StageSelect.o \
+	 TextBox/SaveSelect.o profile.o settings.o platform.o \
+	 caret.o slope.o player.o playerstats.o p_arms.o \
+	 statusbar.o tsc.o screeneffect.o floattext.o input.o \
+	 replay.o trig.o inventory.o map_system.o debug.o \
+	 console.o niku.o ai/ai.o ai/first_cave/first_cave.o ai/village/village.o \
+	 ai/village/balrog_boss_running.o ai/village/ma_pignon.o ai/egg/egg.o ai/egg/igor.o ai/egg/egg2.o \
+	 ai/weed/weed.o ai/weed/balrog_boss_flying.o ai/weed/frenzied_mimiga.o ai/sand/sand.o ai/sand/puppy.o \
+	 ai/sand/curly_boss.o ai/sand/toroko_frenzied.o ai/maze/maze.o ai/maze/critter_purple.o ai/maze/gaudi.o \
+	 ai/maze/pooh_black.o ai/maze/balrog_boss_missiles.o ai/maze/labyrinth_m.o ai/almond/almond.o ai/oside/oside.o \
+	 ai/plantation/plantation.o ai/last_cave/last_cave.o ai/final_battle/balcony.o ai/final_battle/misery.o ai/final_battle/final_misc.o \
+	 ai/final_battle/doctor.o ai/final_battle/doctor_frenzied.o ai/final_battle/doctor_common.o ai/final_battle/sidekicks.o ai/hell/hell.o \
+	 ai/hell/ballos_priest.o ai/hell/ballos_misc.o ai/npc/balrog.o ai/npc/curly.o ai/npc/curly_ai.o \
+	 ai/npc/misery.o ai/npc/npcregu.o ai/npc/npcguest.o ai/npc/npcplayer.o ai/weapons/weapons.o \
+	 ai/weapons/polar_mgun.o ai/weapons/missile.o ai/weapons/fireball.o ai/weapons/blade.o ai/weapons/snake.o \
+	 ai/weapons/nemesis.o ai/weapons/bubbler.o ai/weapons/spur.o ai/weapons/whimstar.o ai/sym/sym.o \
+	 ai/sym/smoke.o ai/balrog_common.o ai/IrregularBBox.o stageboss.o ai/boss/omega.o \
+	 ai/boss/balfrog.o ai/boss/x.o ai/boss/core.o ai/boss/ironhead.o ai/boss/sisters.o \
+	 ai/boss/undead_core.o ai/boss/heavypress.o ai/boss/ballos.o endgame/island.o endgame/misc.o \
+	 endgame/credits.o endgame/CredReader.o intro/intro.o intro/title.o pause/pause.o \
+	 pause/options.o pause/dialog.o pause/message.o pause/objects.o graphics/nxsurface.o \
+	 graphics/graphics.o graphics/sprites.o graphics/tileset.o graphics/font.o graphics/safemode.o \
+	 graphics/palette.o sound/sound.o sound/sslib.o sound/org.o sound/pxt.o \
+	 siflib/sif.o siflib/sifloader.o siflib/sectSprites.o siflib/sectStringArray.o extract/extract.o \
+	 extract/extractpxt.o extract/extractfiles.o extract/extractstages.o extract/crc.o autogen/AssignSprites.o \
+	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
+	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
+	 common/misc.o \
+	 `sdl-config --libs` -lSDL_mixer -lstdc++ -lm
 
 main.o:	main.cpp main.fdh nx.h config.h \
 		common/basics.h common/BList.h common/SupportDefs.h \
@@ -281,9 +287,6 @@ settings.o:	settings.cpp settings.fdh settings.h input.h \
 
 platform.o:	platform.cpp platform.fdh config.h
 	g++ -g -O2 -c platform.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o platform.o
-
-platform/Linux/vbesync.o:	platform/Linux/vbesync.c platform/Linux/vbesync.fdh
-	g++ -g -O2 -c platform/Linux/vbesync.c -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o platform/Linux/vbesync.o
 
 caret.o:	caret.cpp caret.fdh nx.h config.h \
 		common/basics.h common/BList.h common/SupportDefs.h \
@@ -2164,7 +2167,7 @@ sound/sslib.o:	sound/sslib.cpp sound/sslib.fdh common/basics.h sound/sslib.h
 
 sound/org.o:	sound/org.cpp sound/org.fdh common/basics.h sound/org.h \
 		sound/pxt.h sound/sslib.h
-	g++ -g -O2 -c sound/org.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o sound/org.o
+	g++ -g -O2 -c sound/org.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -lSDL_mixer -fpermissive -o sound/org.o
 
 sound/pxt.o:	sound/pxt.cpp sound/pxt.fdh config.h sound/pxt.h \
 		common/basics.h sound/sslib.h
@@ -2275,7 +2278,6 @@ clean:
 	rm -f profile.o
 	rm -f settings.o
 	rm -f platform.o
-	rm -f platform/Linux/vbesync.o
 	rm -f caret.o
 	rm -f slope.o
 	rm -f player.o
@@ -2417,7 +2419,6 @@ cleanfdh:
 	rm -f profile.fdh
 	rm -f settings.fdh
 	rm -f platform.fdh
-	rm -f platform/Linux/vbesync.fdh
 	rm -f caret.fdh
 	rm -f slope.fdh
 	rm -f player.fdh

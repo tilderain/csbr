@@ -25,7 +25,9 @@ public:
 	bool InitCharsShadowed(TTF_Font *top, uint32_t color, uint32_t shadowcolor);
 	
 	bool InitBitmapChars(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color);
+	bool InitBigBitmapChars(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color);
 	bool InitBitmapCharsShadowed(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color, uint32_t shadowcolor);
+	bool InitBigBitmapCharsShadowed(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color, uint32_t shadowcolor);
 	
 	void free();
 	
@@ -41,8 +43,8 @@ extern NXFont greenfont;
 extern NXFont bluefont;		// used for "F3:Options" text on pause screen
 extern NXFont shadowfont;	// white letters w/ drop shadow
 
-int font_draw(int x, int y, const char *text, int spacing=0, NXFont *font=&whitefont);
-int font_draw_shaded(int x, int y, const char *text, int spacing=0, NXFont *font=&whitefont);
+int font_draw(int x, int y, const char *text, int spacing=0, NXFont *font=&shadowfont);
+int font_draw_shaded(int x, int y, const char *text, int spacing=0, NXFont *font=&shadowfont);
 
 int GetFontWidth(const char *text, int spacing=0, bool is_shaded=false);
 int GetFontHeight();

@@ -1,9 +1,10 @@
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include "../graphics/safemode.h"
 #include "../common/basics.h"
 #include "extractpxt.fdh"
@@ -160,7 +161,7 @@ int s, c, i;
 		sprintf(outfilename, "pxt/fx%02x.pxt", snd[s].id);
 		status("[ %s ]", outfilename);
 		
-		mkdir("pxt", 0755);
+		mkdir("pxt");
 		FILE *fpo = fileopen(outfilename, "wb");
 		if (!fpo)
 		{

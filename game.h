@@ -11,7 +11,7 @@ enum Directions
 	CENTER	= 5
 };
 
-#define GAME_FPS		50
+#define GAME_FPS		60
 
 // for UpdateBlockedStates
 #define RIGHTMASK		0x01
