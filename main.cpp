@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "graphics/safemode.h"
 #include "main.fdh"
+#include "statusbar.fdh"
 
 const char *data_dir = "data";
 const char *stage_dir = "data/Stage";
@@ -367,12 +368,9 @@ void update_fps()
 		fps = (fps_so_far << 1);
 		fps_so_far = 0;
 	}
-	
-	char fpstext[64];
-	sprintf(fpstext, "%d fps", fps);
-	
-	int x = (SCREEN_WIDTH - 4) - GetFontWidth(fpstext, 0, true);
-	font_draw_shaded(x, 4, fpstext, 0, &greenfont);
+	int x = (SCREEN_WIDTH - 39);
+	int y = (SCREEN_HEIGHT - 231);
+	DrawNumber(x, y, fps);
 }
 
 

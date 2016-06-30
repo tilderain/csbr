@@ -2,11 +2,13 @@
 #include "../nx.h"
 #include "TextBox.h"
 #include "TextBox.fdh"
+#include "math.h"
 
-#define MAXLINELEN_FACE		26
+#define MAXLINELEN_FACE		30
 #define MAXLINELEN_NO_FACE	35
 
 #define CONTENT_X			(fCoords.x + 14)
+#define FACE_X				(fCoords.x + 182)
 #define CONTENT_Y			10
 #define FACE_W				48
 
@@ -81,16 +83,18 @@ void TextBox::SetFlags(uint8_t flags)
 {
 	fFlags = flags;
 	fCoords.y = (fFlags & TB_DRAW_AT_TOP) ? MSG_UPPER_Y : MSG_NORMAL_Y;
+	stat("setflags called 1");
 }
 
 void TextBox::SetFlags(uint8_t flags, bool enable)
 {
-	//stat("TextBox::SetFlags(0x%x, %s)", flags, enable?"true":"false");
+	stat("TextBox::SetFlags(0x%x, %s)", flags, enable?"true":"false");
 	
-	if (enable)
+	if (enable) 
 		SetFlags(fFlags | flags);
-	else
+	else	
 		SetFlags(fFlags & ~flags);
+	
 }
 
 /*
@@ -249,13 +253,13 @@ void TextBox::DrawTextBox()
 	// draw face
 	if (fFace != 0)
 	{
-		draw_sprite(CONTENT_X+fFaceXOffset, fCoords.y+CONTENT_Y-3, SPR_FACES, fFace);
-		text_x += (FACE_W + 8);		// move text over by width of face
+		draw_sprite_clip_width(FACE_X-fFaceXOffset, fCoords.y+CONTENT_Y-3, SPR_FACES, fFace, ceil(FACE_W + fFaceXOffset)); 
+		// text_x += (FACE_W + 8);		// move text over by width of face
 		
 		// face slide-in animation
 		if (fFaceXOffset < 0)
-		{
-			fFaceXOffset += (sprites[SPR_FACES].w / 6);
+		{	
+			fFaceXOffset = fFaceXOffset / 1.16; // ease out
 			if (fFaceXOffset > 0) fFaceXOffset = 0;
 		}
 	}
@@ -277,9 +281,13 @@ void TextBox::DrawTextBox()
 	
 	for(int i=0;i<MSG_NLINES;i++)
 	{
-		int lineWidth = \
-			font_draw(text_x, y, fLines[i], char_spacing);
-		
+		int lineWidth;
+
+		if (game.mode != GM_INVENTORY) {
+			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &shadowfont);
+		} else {
+			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &whitefont);
+		}
 		// draw the cursor
 		if (i == fCurLine && fCursorTimer < 7)
 		{

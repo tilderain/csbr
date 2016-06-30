@@ -21,7 +21,7 @@ struct BulletInfo
 BulletInfo bullet_table[] =
 {
 //		sprite			  lvl  frm st ttl dmg spd  manset      sound
-	SPR_SHOT_POLARSTAR, 	0,  0, 1, 8,   1, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
+	SPR_SHOT_POLARSTAR, 	0,  0, 1, 80,   1, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
 	SPR_SHOT_POLARSTAR, 	1,  1, 1, 12,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l2
 	SPR_SHOT_POLARSTAR_L3, 	2,  0, 1, 16,  4, 0x1000, 0, SND_POLAR_STAR_L3,		// polarstar l3
 	

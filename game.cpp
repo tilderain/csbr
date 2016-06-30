@@ -453,6 +453,8 @@ int i;
 	player->whimstar.nstars = p->num_whimstars;
 	player->equipmask = p->equipmask;
 	
+	player->xp = p->xp;
+	
 	// load weapons
 	for(i=0;i<WPN_COUNT;i++)
 	{
@@ -534,6 +536,8 @@ int i;
 	
 	// save weapons
 	p->curWeapon = player->curWeapon;
+	
+	p->xp = player->xp;
 	
 	for(i=0;i<WPN_COUNT;i++)
 	{

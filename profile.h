@@ -14,6 +14,8 @@ struct Profile
 	int px, py, pdir;
 	int hp, maxhp, num_whimstars;
 	uint32_t equipmask;
+
+	int xp;
 	
 	int curWeapon;
 	struct

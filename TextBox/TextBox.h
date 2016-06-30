@@ -10,7 +10,7 @@
 #define MSG_W				244
 #define MSG_H				64
 #define MSG_X				((SCREEN_WIDTH / 2) - (MSG_W / 2))
-#define MSG_NORMAL_Y		((SCREEN_HEIGHT - MSG_H) - 2)
+#define MSG_NORMAL_Y		((SCREEN_HEIGHT - MSG_H) - 6)
 #define MSG_UPPER_Y			24
 
 #define MSG_NLINES			4
@@ -70,7 +70,7 @@ private:
 	uint8_t fFlags;
 	
 	uint8_t fFace;			// current NPC face or 0 if none
-	int fFaceXOffset;		// for face slide-in animation
+	double fFaceXOffset;		// for face slide-in animation
 	
 	// currently visible lines
 	char fLines[MSG_NLINES][80];

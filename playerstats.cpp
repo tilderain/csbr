@@ -11,45 +11,13 @@ void AddHealth(int hp)
 
 void AddXP(int xp, bool quiet)
 {
-Weapon *weapon = &player->weapons[player->curWeapon];
-bool leveled_up = false;
+	player->xp += xp;
 
-	weapon->xp += xp;
-	
-	// leveling up...
-	while(weapon->xp > weapon->max_xp[weapon->level])
-	{
-		if (weapon->level < 2)
-		{
-			weapon->xp -= weapon->max_xp[weapon->level];
-			weapon->level++;
-			leveled_up = true;
-		}
-		else
-		{
-			weapon->xp = weapon->max_xp[weapon->level];
-			break;
-		}
-	}
-	
-	statusbar.xpflashcount = 30;
-	
-	if (player->curWeapon == WPN_SPUR)
-		leveled_up = false;
-	
 	if (!quiet)
 	{
 		if (!player->hide)
 		{
-			if (leveled_up)
-			{
-				sound(SND_LEVEL_UP);
-				effect(player->CenterX(), player->CenterY(), EFFECT_LEVELUP);
-			}
-			else
-			{
-				sound(SND_GET_XP);
-			}
+			sound(SND_GET_XP);
 		}
 		
 		player->XPText->AddQty(xp);

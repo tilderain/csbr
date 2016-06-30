@@ -631,8 +631,8 @@ int cmdip;
 		{
 			case OP_END: StopScript(s); return;
 			
-			case OP_FAI: fade.Start(FADE_IN, parm[0], SPR_FADE_DIAMOND); return;
-			case OP_FAO: fade.Start(FADE_OUT, parm[0], SPR_FADE_DIAMOND); return;
+			case OP_FAI: fade.Start(FADE_IN, parm[0], SPR_FADE_CIRCLE); return;
+			case OP_FAO: fade.Start(FADE_OUT, parm[0], SPR_FADE_CIRCLE); return;
 			case OP_FLA: flashscreen.Start(); break;
 			
 			case OP_SOU: sound(parm[0]); break;
@@ -950,7 +950,6 @@ int cmdip;
 			case OP_MSG:		// bring up text box
 			{
 				// required for post-Ballos cutscene
-				textbox.SetFlags(TUR_PARAMS, false);
 				textbox.SetVisible(true, TB_DEFAULTS);
 			}
 			break;
@@ -958,14 +957,12 @@ int cmdip;
 			case OP_MS2:		// bring up text box, at top, with no border
 			{
 				textbox.SetFace(0);		// required for Undead Core intro
-				textbox.SetFlags(TUR_PARAMS, false);
 				textbox.SetVisible(true, TB_DRAW_AT_TOP | TB_NO_BORDER);
 			}
 			break;
 			
 			case OP_MS3:		// bring up text box, at top
 			{
-				textbox.SetFlags(TUR_PARAMS, false);
 				textbox.SetVisible(true, TB_DRAW_AT_TOP);
 			}
 			break;

@@ -212,7 +212,7 @@ void ai_xp(Object *o)
 {
 	if (o->state == 0)
 	{
-		o->yinertia = random(-400, 0);
+		o->xinertia = 0;
 		o->state = 1;
 	}
 	
@@ -225,7 +225,6 @@ void ai_xp(Object *o)
 				if (o->onscreen || pdistly((SCREEN_HEIGHT - (SCREEN_HEIGHT / 3)) << CSF))
 					sound(SND_XP_BOUNCE);
 				
-				o->xinertia = 0x100;
 				o->yinertia *= 2;
 				o->yinertia /= 3;
 			}
@@ -252,18 +251,12 @@ void ai_xp(Object *o)
 				sound(SND_XP_BOUNCE);
 			
 			o->yinertia = -0x280;
-			o->xinertia *= 2;
-			o->xinertia /= 3;
 		}
 		else
 		{
 			o->yinertia += 42;
 		}
 		
-		if (o->blockl || o->blockr)
-		{
-			o->xinertia = -o->xinertia;
-		}
 	}
 	
 	

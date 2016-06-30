@@ -38,7 +38,7 @@ void PInitFirstTime()
 	player->curWeapon = WPN_NONE;
 	
 	if (player->XPText) delete player->XPText;
-	player->XPText = new FloatText(SPR_WHITENUMBERS);
+	player->XPText = new FloatText(SPR_REDNUMBERS);
 	
 	// initialize player repel points
 	PInitRepel();

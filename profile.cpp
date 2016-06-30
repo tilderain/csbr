@@ -46,7 +46,8 @@ FILE *fp;
 	file->num_whimstars = fgeti(fp);
 	file->hp = fgeti(fp);
 	
-	fgeti(fp);						// unknown value
+	file->xp = fgeti(fp);						// unknown value
+	
 	curweaponslot = fgetl(fp);		// current weapon (slot, not number, converted below)
 	fgetl(fp);						// unknown value
 	file->equipmask = fgetl(fp);	// equipped items
@@ -145,6 +146,7 @@ int i;
 	fputi(file->maxhp, fp);
 	fputi(file->num_whimstars, fp);
 	fputi(file->hp, fp);
+	fputi(file->xp, fp);
 	
 	fseek(fp, 0x2C, SEEK_SET);
 	fputi(file->equipmask, fp);

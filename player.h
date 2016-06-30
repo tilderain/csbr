@@ -75,6 +75,8 @@ public:
 	
 	int maxHealth;					// max health
 	
+	int xp;
+	
 	int hurt_time;					// timer for blinks after getting hit
 	bool hurt_flash_state;			// if 1, player is invisible because he's blinking
 	
