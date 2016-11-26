@@ -75,12 +75,7 @@ int curwpn = 0;
 	
 	if (game.mode != GM_INVENTORY)
 		return 0;
-	
-	inv.w = 244;
-	inv.h = 152;
-	inv.x = (SCREEN_WIDTH / 2) - (inv.w / 2);
-	inv.y = 8;
-	
+
 	// find current weapon and count # items for armssel selector
 	inv.armssel.items[0] = 0;		// show "no weapon" in case of no weapon
 	inv.armssel.nitems = 0;
@@ -129,12 +124,43 @@ void UnlockInventoryInput(void)
 void c------------------------------() {}
 */
 
-
 static void DrawInventory(void)
 {
 int x, y, w, i, c;
 
 	// draw the box
+		
+	inv.w = 84;
+	inv.h = 32;
+	inv.x = 38;
+	inv.y = 8;
+	
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
+	inv.y += 32;
+	
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
+
+	inv.x += 160;
+	inv.h = 24;
+
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
+	
+	inv.y -= 32;
+	
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
+	
+	inv.x -= 72;
+	
+	inv.w = 68;
+	inv.h = 64;
+	
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
+	inv.x -= 88;
+	inv.y += 64;
+	
+	inv.w = 244;
+	inv.h = 80;
+	
 	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
 	
 	// - draw the weapons ----
@@ -150,7 +176,7 @@ int x, y, w, i, c;
 	{
 		if (!player->weapons[w].hasWeapon) continue;
 		
-		draw_sprite(x+1, y+1, SPR_ARMSICONS, w, 0);
+		draw_sprite(x+1, y+1, SPR_ITEMIMAGE, w, 0);
 		DrawWeaponLevel(x+1, y+16, w);
 		DrawWeaponAmmo(x+1, y+16+8, w);
 		
@@ -179,6 +205,33 @@ int x, y, w, i, c;
 			c = 0;
 		}
 	}
+	// - draw the player ----
+	
+	if (player->curWeapon != WPN_NONE)
+	{
+		int s, frame;
+		//todo don't be lazy
+		switch(player->curWeapon)
+		{
+			case WPN_SUPER_MISSILE: s = SPR_SUPER_MLAUNCHER; break;
+			case WPN_NEMESIS: s = SPR_NEMESIS; break;
+			case WPN_BUBBLER: s = SPR_BUBBLER; break;
+			case WPN_SPUR: s = SPR_SPUR; break;
+			case WPN_BLADE: s = SPR_BLADEARMS; break;
+		
+			default:
+				s = SPR_WEAPONS_START + (player->curWeapon * 2);
+			break;
+		}
+		
+		// draw the gun at the player's Action Point. Since guns have their Draw Point set
+		// to point at their handle, this places the handle in the player's hand.
+		draw_sprite_at_dp(157, \
+						  44, \
+						  s, 0, 1);
+	}
+	
+	draw_sprite(152, 32, SPR_MYCHAR, 0, 1);
 }
 
 static void RunSelector(stSelector *selector)

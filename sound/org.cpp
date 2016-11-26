@@ -18,7 +18,7 @@
 
 
 //#define QUIET
-#define DRUM_PXT
+//#define DRUM_PXT
 
 #ifdef DRUM_PXT
 	#define drumK		22050
@@ -81,7 +81,6 @@ static struct
 } drumtable[NUM_DRUMS];
 
 static int pitch[NUM_NOTES];
-
 
 static void init_pitch(void)
 {
@@ -193,22 +192,35 @@ uint16_t version;
 
 #ifndef DRUM_PXT
 
+static Uint8 *audio_pos; // global pointer to the audio buffer to be played
+static Uint32 audio_len; // remaining length of the sample we have to play
+
 static bool load_drum(char *fname, int d)
 {
-Mix_Chunk *chunk;
+SDL_AudioSpec *chunk;
 int i, read_pt;
 int left,right;
 signed short *abuf;
+	
+	static Uint32 wav_length; // length of our sample
+	static Uint8 *wav_buffer; // buffer containing our audio file
+	static SDL_AudioSpec wav_spec; // the specs of our piece of music
 
 	//stat("load_drum: loading %s into drum index %d", fname, d);
-	if (!(chunk = Mix_LoadWAV(fname)))
+	if (!(chunk = SDL_LoadWAV(fname, &wav_spec, &wav_buffer, &wav_length)))
 	{
 		staterr("Missing drum sample: '%s'", fname);
 		return 1;
 	}
 	
 	//stat("chunk: %d bytes in chunk", chunk->alen);
-	drumtable[d].nsamples = chunk->alen / 2 / 2;	// 16-bit stereo sound
+	
+	wav_spec.userdata = NULL;
+	// set our global static variables
+	audio_pos = wav_buffer; // copy sound buffer
+	audio_len = wav_length; // copy file length
+	
+	drumtable[d].nsamples = audio_len / 2 / 2;	// 16-bit stereo sound
 	drumtable[d].samples = malloc(drumtable[d].nsamples * 2);
 	
 	#ifndef QUIET
@@ -216,16 +228,16 @@ signed short *abuf;
 	#endif
 	
 	read_pt = 0;
-	abuf = (signed short *)chunk->abuf;
+	abuf = (signed short *)audio_pos;
 	for(i=0;i<drumtable[d].nsamples;i++)
 	{
 		left = abuf[read_pt++]; right = abuf[read_pt++];
 		
-		drumtable[d].samples[i] = (left + right) / 2;
-		drumtable[d].samples[i] += drumtable[d].samples[i];		// make drums louder--sounds better
+		drumtable[d].samples[i] = (left + right);
+;		// make drums louder--sounds better
 	}
 	
-	Mix_FreeChunk(chunk);
+	SDL_FreeWAV(wav_buffer);
 	return 0;
 }
 

@@ -283,8 +283,9 @@ Object *o;
 	map_scroll_do();
 	
 	DrawScene();
-	DrawStatusBar();
+
 	fade.Draw();
+	DrawStatusBar();
 	
 	niku_run();
 	if (player->equipmask & EQUIP_NIKUMARU)

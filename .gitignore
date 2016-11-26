@@ -50,3 +50,5 @@ Temporary Items
 bin/stdout.txt
 bin/debug.txt
 bin/error.log
+
+bin/replay/

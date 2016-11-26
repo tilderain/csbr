@@ -24,7 +24,7 @@
 #define XPBAR_X				(STATUS_X+24)		// X of yellow XP bar
 
 #define AMMO_X				33
-#define AMMO_Y				26
+#define AMMO_Y				25
 
 #define NIKU_X				STATUS_X
 #define NIKU_Y				8
@@ -78,13 +78,12 @@ bool maxed_out;
 	// draw boss bar
 	if (game.bossbar.object && !game.bossbar.defeated)
 	{
-		#define BOSSBAR_W	198
+		#define BOSSBAR_W	184
 		// BOSS_X = 32 at normal resolution
 		#define BOSS_X		(72)
 		#define BOSS_Y		(SCREEN_HEIGHT-224)
-		draw_sprite(BOSS_X, BOSS_Y, SPR_TEXTBOX, 0, 0);
-		draw_sprite(BOSS_X, BOSS_Y+8, SPR_TEXTBOX, 2, 0);
-		draw_sprite(BOSS_X+8, BOSS_Y+4, SPR_BOSSHPICON, 0, 0);
+		draw_sprite(BOSS_X, BOSS_Y, SPR_BOSS_BAR, 0, 0);
+
 		
 		// e.g. bosses w/ multiple forms (Ballos)
 		if (game.bossbar.object->hp > game.bossbar.starting_hp)
@@ -112,20 +111,18 @@ bool maxed_out;
 				//DrawNumberRAlign(HEALTH_X+24, HEALTH_Y, SPR_WHITENUMBERS, PHealthBar.displayed_value);
 				}
 			}
-			
-			curxp = player->xp;
-			
-			// draw "cion"
-			draw_sprite(51, 218, SPR_XPBAR, FRAME_XP_MAX, 0);
-			
-			// cion Number
-			DrawNumber(17, 217, curxp);
 		}
+		
+		curxp = player->xp;
+		// draw "cion"
+		draw_sprite(51, 218, SPR_XPBAR, FRAME_XP_MAX, 0);
+		// cion Number
+		DrawNumber(17, 217, curxp);
 		
 		// -- draw the weapon bar -----------------------------
 		// draw current weapon
 		if (player->curWeapon != WPN_NONE)
-			draw_sprite(CURWEAPON_X + slide.wpn_offset, WEAPONBAR_Y, SPR_ARMSICONS, slide.firstWeapon, 0);
+			draw_sprite(CURWEAPON_X + slide.wpn_offset, WEAPONBAR_Y, SPR_ITEMIMAGE, slide.firstWeapon, 0);
 		
 		// draw ammo, note we draw ammo of firstweapon NOT current weapon, for slide effect
 		DrawWeaponAmmo((AMMO_X + slide.wpn_offset + slide.ammo_offset), AMMO_Y, slide.firstWeapon);
@@ -140,7 +137,7 @@ bool maxed_out;
 			
 			if (player->weapons[w].hasWeapon)
 			{
-				draw_sprite(x, WEAPONBAR_Y, SPR_ARMSICONS, w, RIGHT);
+				draw_sprite(x, WEAPONBAR_Y, SPR_ITEMIMAGE, w, RIGHT);
 				x += 16;
 			}
 		}

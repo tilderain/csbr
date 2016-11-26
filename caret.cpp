@@ -172,7 +172,7 @@ int i;
 		case EFFECT_STARSOLID:	  c = CreateCaret(x, y, SPR_STAR_SOLID, caret_animate3); break;
 		case EFFECT_STARPOOF:	  c = CreateCaret(x, y, SPR_STAR_POOF, caret_animate3); break;
 		case EFFECT_FISHY: 		  c = CreateCaret(x, y, SPR_FISHY, caret_fishy); break;
-		case EFFECT_BOOMFLASH:	  c = CreateCaret(x, y, SPR_BOOMFLASH, caret_animate3); break;
+		case EFFECT_BOOMFLASH:	  c = CreateCaret(x, y, SPR_BOOMFLASH, caret_animate2); break;
 		case EFFECT_BUBBLE_BURST: c = CreateCaret(x, y, SPR_BUBBLE_BURST, caret_animate3); break;
 		case EFFECT_SPUR_HIT: 	  c = CreateCaret(x, y, SPR_SPUR_HIT, caret_spur_hit); break;
 		case EFFECT_ZZZZ: 		  c = CreateCaret(x, y, SPR_ZZZZ, caret_zzzz); break;
@@ -235,8 +235,6 @@ int i;
 		
 		case EFFECT_QMARK:
 		{
-			// only 1 question mark is ever shown at a time
-			DeleteEffectsOfType(EFFECT_QMARK);
 			c = CreateCaret(x, y, SPR_QMARK, caret_qmark);
 		}
 		break;

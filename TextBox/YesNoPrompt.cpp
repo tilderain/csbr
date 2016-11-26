@@ -11,7 +11,7 @@ enum
 	STATE_NO_SELECTED
 };
 
-#define YESNO_X				197
+#define YESNO_X				190
 #define YESNO_Y				135
 #define YESNO_POP_SPEED		4
 
@@ -32,10 +32,8 @@ void TB_YNJPrompt::SetVisible(bool enable)
 	if (fVisible)
 	{
 		fState = STATE_APPEAR;
-		fCoords.y = YESNO_Y + (YESNO_POP_SPEED * 2);
+		fCoords.y = YESNO_Y + 1;
 		fAnswer = -1;
-		
-		sound(SND_MENU_PROMPT);
 	}
 }
 
@@ -68,7 +66,7 @@ void TB_YNJPrompt::Draw()
 			{
 				fCoords.y = YESNO_Y;
 				fState = STATE_WAIT;
-				fTimer = 15;
+				fTimer = 20;
 			}
 			else break;
 		}

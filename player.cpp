@@ -30,10 +30,10 @@ void PInitFirstTime()
 	InitWeapon(WPN_NEMESIS,			1,  1,  0);
 	
 	player->weapons[WPN_MGUN].SetFireRate(6, 6, 6);
-	player->weapons[WPN_MGUN].SetRechargeRate(5, 5, 5);
+	//player->weapons[WPN_MGUN].SetRechargeRate(5, 5, 5);
 	
-	player->weapons[WPN_BUBBLER].SetFireRate(0, 7, 7);
-	player->weapons[WPN_BUBBLER].SetRechargeRate(20, 1, 1);
+	player->weapons[WPN_BUBBLER].SetFireRate(7, 7, 7);
+	//player->weapons[WPN_BUBBLER].SetRechargeRate(20, 1, 1);
 	
 	player->curWeapon = WPN_NONE;
 	
@@ -220,14 +220,6 @@ void HandlePlayer_am(void)
 	{
 		// he behaves a bit differently when bonking his head on a
 		// solid-brick object vs. bonking his head on the map.
-		
-		// bonk-head star effect
-		if (player->yinertia < -0x200 && !player->hide && \
-			player->blocku == BLOCKED_MAP)
-		{
-			sound(SND_BONK_HEAD);
-			effect(player->CenterX(), player->y, EFFECT_BONKPLUS);
-		}
 		
 		// bounces off ceiling with booster 0.8
 		if (player->booststate == BOOST_08)
@@ -552,7 +544,7 @@ int limit;
 			}
 			else
 			{
-				player->xinertia = 0;
+
 			}
 		}
 		else if (player->xinertia < 0)
@@ -579,13 +571,13 @@ int limit;
 		//		of a high inertia when he hit it
 		if (player->blockr)
 		{
-			limit = (player->dir == RIGHT) ? 0x180 : 0;
+			limit = (player->dir == RIGHT) ? 0x036 : 0;
 			if (player->xinertia > limit) player->xinertia = limit;
 		}
 		
 		if (player->blockl)
 		{
-			limit = (player->dir == LEFT) ? -0x180 : 0;
+			limit = (player->dir == LEFT) ? -0x036: 0;
 			if (player->xinertia < limit) player->xinertia = limit;
 		}
 	}
@@ -683,7 +675,6 @@ int i, key;
 				if (!inputs[DEBUG_MOVE_KEY] || !settings->enable_debug_keys)
 				{
 					player->lookaway = true;
-					player->xinertia = 0;
 					PTryActivateScript();
 				}
 			}
@@ -1557,6 +1548,7 @@ int s;
 		case WPN_NEMESIS: s = SPR_NEMESIS; break;
 		case WPN_BUBBLER: s = SPR_BUBBLER; break;
 		case WPN_SPUR: s = SPR_SPUR; break;
+		case WPN_BLADE: s = SPR_BLADEARMS; break;
 		
 		default:
 			s = SPR_WEAPONS_START + (wpn * 2);
@@ -1618,7 +1610,7 @@ int scr_x, scr_y;
 	scr_y = (player->y >> CSF) - (map.displayed_yscroll >> CSF);
 	
 	// draw his gun
-	if (player->curWeapon != WPN_NONE && player->curWeapon != WPN_BLADE)
+	if (player->curWeapon != WPN_NONE)
 	{
 		int spr, frame;
 		GetSpriteForGun(player->curWeapon, player->look, &spr, &frame);

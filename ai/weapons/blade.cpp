@@ -138,7 +138,7 @@ void c------------------------------() {}
 
 void aftermove_blade_l12_shot(Object *o)
 {
-	int level = (o->shot.btype - B_BLADE_L1);
+	int level = 1;
 	ANIMATE(1, 0, 3);
 	
 	if (--o->shot.ttl < 0)

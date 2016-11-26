@@ -21,15 +21,15 @@ struct BulletInfo
 BulletInfo bullet_table[] =
 {
 //		sprite			  lvl  frm st ttl dmg spd  manset      sound
-	SPR_SHOT_POLARSTAR, 	0,  0, 1, 80,   1, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
+	SPR_SHOT_POLARSTAR, 	0,  0, 1, 80,  1, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
 	SPR_SHOT_POLARSTAR, 	1,  1, 1, 12,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l2
 	SPR_SHOT_POLARSTAR_L3, 	2,  0, 1, 16,  4, 0x1000, 0, SND_POLAR_STAR_L3,		// polarstar l3
 	
 	SPR_SHOT_MGUN_L1, 		0,  0, 1, 20,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l1
 	
-	SPR_SHOT_MGUN_L2,		1,  0, 1, 20,  4, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l2, white piece
-	SPR_SHOT_MGUN_L2,		1,  1, 0, 21,  0, 0x1000, 0, 0,						// mgun l2, blue piece
-	SPR_SHOT_MGUN_L2,		1,  2, 0, 22,  0, 0x1000, 0, 0,						// mgun l2, dark piece
+	SPR_SHOT_MGUN_L2,		1,  0, 1, 80,  4, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l2, white piece
+	SPR_SHOT_MGUN_L2,		1,  1, 0, 80,  0, 0x1000, 0, 0,						// mgun l2, blue piece
+	SPR_SHOT_MGUN_L2,		1,  2, 0, 80,  0, 0x1000, 0, 0,						// mgun l2, dark piece
 	
 	SPR_SHOT_MGUN_L3LEAD,	2,  0, 1, 20,  6, 0x1000, 0, SND_POLAR_STAR_L3,		// mgun l3
 	SPR_SHOT_MGUN_L3TAIL,	2,  0, 0, 21,  0, 0x1000, 0, 0,						// the very long...
@@ -51,21 +51,21 @@ BulletInfo bullet_table[] =
 	SPR_SHOT_FIREBALL23,	1,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l2
 	SPR_SHOT_FIREBALL23,	2,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l3
 	
-	SPR_SHOT_BLADE_L1,		0,  0, 0, 29, 15, 0x800,  0, SND_FIREBALL,		// Blade L1
-	SPR_SHOT_BLADE_L2,		1,  0, 0, 17, 6,  0x800,  0, SND_FIREBALL,		// Blade L2
-	SPR_SHOT_BLADE_L3,		2,  0, 0, 30, 1,  0x800,  0, SND_FIREBALL,		// Blade L3
+	SPR_SHOT_BLADE_L1,		0,  0, 0, 29,  15, 0x800,  0, SND_FIREBALL,		// Blade L1
+	SPR_SHOT_BLADE_L2,		1,  0, 0, 30,  6,  0x800,  0, SND_FIREBALL,		// Blade L2
+	SPR_SHOT_BLADE_L3,		2,  0, 0, 30,  1,  0x800,  0, SND_FIREBALL,		// Blade L3
 	
-	SPR_SHOT_SNAKE_L1,		0,  0, 1, 20, 4,  0x600,  2, SND_SNAKE_FIRE,	// Snake L1
-	SPR_SHOT_FIREBALL23,	1,	0, 1, 23, 6,  0x200,  2, SND_SNAKE_FIRE,	// Snake L2
-	SPR_SHOT_FIREBALL23,	2,	0, 1, 30, 8,  0x200,  2, SND_SNAKE_FIRE,	// Snake L3
+	SPR_SHOT_SNAKE_L1,		0,  0, 1, 20,  4,  0x600,  2, SND_SNAKE_FIRE,	// Snake L1
+	SPR_SHOT_FIREBALL23,	1,	0, 1, 23,  6,  0x200,  2, SND_SNAKE_FIRE,	// Snake L2
+	SPR_SHOT_FIREBALL23,	2,	0, 1, 30,  8,  0x200,  2, SND_SNAKE_FIRE,	// Snake L3
 	
-	SPR_SHOT_NEMESIS_L1,	0,  0, 2, 20, 12, 0x1000, 0, SND_NEMESIS_FIRE,
-	SPR_SHOT_NEMESIS_L2,	1,  0, 2, 20, 6,  0x1000, 0, SND_POLAR_STAR_L3,
-	SPR_SHOT_NEMESIS_L3,	2,  0, 2, 20, 1,  0x555,  0, 0,		// 1/3 speed
+	SPR_SHOT_NEMESIS_L1,	0,  0, 2, 20,  12, 0x1000, 0, SND_NEMESIS_FIRE,
+	SPR_SHOT_NEMESIS_L2,	1,  0, 2, 20,  6,  0x1000, 0, SND_POLAR_STAR_L3,
+	SPR_SHOT_NEMESIS_L3,	2,  0, 2, 20,  1,  0x555,  0, 0,		// 1/3 speed
 	
-	SPR_SHOT_BUBBLER_L1,	0,	0, 1, 40, 1,  0x600,  2, SND_BUBBLER_FIRE,
-	SPR_SHOT_BUBBLER_L2,	1,	0, 1, 60, 2,  0x600,  2, SND_BUBBLER_FIRE,
-	SPR_SHOT_BUBBLER_L3,	2,	0, 1, 100,2,  0x600,  2, SND_BUBBLER_FIRE,
+	SPR_SHOT_BUBBLER_L1,	0,	0, 1, 40,  1,  0x600,  2, SND_BUBBLER_FIRE,
+	SPR_SHOT_BUBBLER_L2,	1,	0, 1, 60,  2,  0x600,  2, SND_BUBBLER_FIRE,
+	SPR_SHOT_BUBBLER_L3,	2,	0, 1, 100, 2,  0x600,  2, SND_BUBBLER_FIRE,
 	
 	// Spur also messes with it's damage at runtime; see spur.cpp for details.
 	SPR_SHOT_POLARSTAR,		0,	0, 1, 30, 4,  0x1000, 0, SND_SPUR_FIRE_1,
@@ -180,7 +180,7 @@ int level = curweapon->level;
 		break;
 		
 		case WPN_MGUN:
-			PFireMachineGun(level);
+			PFireMachineGun(level = 1);
 		break;
 		
 		case WPN_MISSILE:
@@ -201,7 +201,7 @@ int level = curweapon->level;
 		break;
 		
 		case WPN_BUBBLER:
-			PFireBubbler(level);
+			PFireBubbler(level = 1);
 		break;
 		
 		case WPN_SPUR:
@@ -578,14 +578,14 @@ int count;
 static void PFireBlade(int level)
 {
 	int numblades = CountObjectsOfType(OBJ_BLADE12_SHOT) + CountObjectsOfType(OBJ_BLADE3_SHOT);
-	if (numblades >= 1) return;
+	if (numblades >= 3) return;
 	
 	int dir = (player->look) ? player->look : player->dir;
 	
 	int x = player->CenterX();
 	int y = player->CenterY();
 	
-	if (level == 2)
+	if (1 == 2)
 	{
 		if (dir == RIGHT || dir == LEFT)
 		{
@@ -604,8 +604,8 @@ static void PFireBlade(int level)
 		}
 	}
 	
-	Object *shot = CreateObject(x, y, (level != 2) ? OBJ_BLADE12_SHOT : OBJ_BLADE3_SHOT);
-	SetupBullet(shot, x, y, B_BLADE_L1+level, dir);
+	Object *shot = CreateObject(x, y, (1 != 2) ? OBJ_BLADE12_SHOT : OBJ_BLADE3_SHOT);
+	SetupBullet(shot, x, y, B_BLADE_L1+1, dir);
 }
 
 /*
