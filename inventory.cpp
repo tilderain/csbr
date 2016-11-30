@@ -57,7 +57,9 @@ void inventory_tick(void)
 	// draw
 	DrawScene();
 	DrawInventory();
+	if (inv.doneDrawing) {
 	textbox.Draw();
+	}
 }
 
 /*
@@ -130,12 +132,44 @@ int x, y, w, i, c;
 
 	// draw the box
 		
-	inv.w = 84;
-	inv.h = 32;
+	//inv.w = 84;
+	//inv.h = 32;
 	inv.x = 38;
 	inv.y = 8;
+	int ROW_SPEED = 16;
 	
-	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
+	if (inv.exiting == true)
+	{
+		inv.doneDrawing = false;
+	}
+	if (!inv.doneDrawing)
+	{
+		inv.lockinput = 1;
+		if (inv.exiting)
+		{
+			inv.curRow -= ROW_SPEED;
+			if (inv.curRow <= 0)
+			{
+				inv.curRow = 0;
+				inv.doneDrawing = false;
+				inv.exiting == false;
+				inv.lockinput = false;
+				ExitInventory();
+			}
+			draw_sprite_clip_length(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, inv.curRow);
+		}
+		else 
+		{
+			inv.curRow += ROW_SPEED;
+			draw_sprite_clip_length(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, inv.curRow);
+			if (inv.curRow >= sprites[SPR_INVENTORY_SCREEN].h)
+			{
+				inv.curRow = sprites[SPR_INVENTORY_SCREEN].h;
+				inv.doneDrawing = true;
+			}
+		}
+	}
+/* 	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
 	inv.y += 32;
 	
 	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
@@ -161,81 +195,87 @@ int x, y, w, i, c;
 	inv.w = 244;
 	inv.h = 80;
 	
-	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
-	
-	// - draw the weapons ----
-	x = inv.x + ARMS_X;
-	y = inv.y + ARMS_Y;
-	draw_sprite(x, y, SPR_TEXT_ARMS, 0, 0);
-	y += sprites[SPR_TEXT_ARMS].h;
-	
-	DrawSelector(&inv.armssel, x, y);
-	
-	// draw the arms
-	for(w=1;w<WPN_COUNT;w++)
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h); */
+	if (inv.doneDrawing)
 	{
-		if (!player->weapons[w].hasWeapon) continue;
+		draw_sprite(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, 0);
+		// - draw the weapons ----
+		x = inv.x + ARMS_X;
 		
-		draw_sprite(x+1, y+1, SPR_ITEMIMAGE, w, 0);
-		DrawWeaponLevel(x+1, y+16, w);
-		DrawWeaponAmmo(x+1, y+16+8, w);
+		// start of items box
+		inv.y = 72;
+		y = inv.y + ARMS_Y;
+		draw_sprite(x, y, SPR_TEXT_ARMS, 0, 0);
+		y += sprites[SPR_TEXT_ARMS].h;
 		
-		x += inv.armssel.spacing_x;
-	}
-	
-	// - draw the items ----
-	x = inv.x + ITEMS_X;
-	y = inv.y + ITEMS_Y;
-	draw_sprite(x, y, SPR_TEXT_ITEMS, 0, 0);
-	y += sprites[SPR_TEXT_ITEMS].h;
-	
-	DrawSelector(&inv.itemsel, x, y);
-	
-	c = 0;
-	for(i=0;i<inv.itemsel.nitems;i++)
-	{
-		draw_sprite(x, y, SPR_ITEMIMAGE, inv.itemsel.items[i], 0);
+		DrawSelector(&inv.armssel, x, y);
 		
-		x += inv.itemsel.spacing_x;
-		
-		if (++c >= inv.itemsel.rowlen)
+		// draw the arms
+		for(w=1;w<WPN_COUNT;w++)
 		{
-			x = inv.x + ITEMS_X;
-			y += inv.itemsel.spacing_y;
-			c = 0;
-		}
-	}
-	// - draw the player ----
-	
-	if (player->curWeapon != WPN_NONE)
-	{
-		int s, frame;
-		//todo don't be lazy
-		switch(player->curWeapon)
-		{
-			case WPN_SUPER_MISSILE: s = SPR_SUPER_MLAUNCHER; break;
-			case WPN_NEMESIS: s = SPR_NEMESIS; break;
-			case WPN_BUBBLER: s = SPR_BUBBLER; break;
-			case WPN_SPUR: s = SPR_SPUR; break;
-			case WPN_BLADE: s = SPR_BLADEARMS; break;
-		
-			default:
-				s = SPR_WEAPONS_START + (player->curWeapon * 2);
-			break;
+			if (!player->weapons[w].hasWeapon) continue;
+			
+			draw_sprite(x+1, y+1, SPR_ITEMIMAGE, w, 0);
+			// ammo y is a weird odd number
+			DrawWeaponAmmo(x+16, y+9, w);
+			
+			x += inv.armssel.spacing_x;
 		}
 		
-		// draw the gun at the player's Action Point. Since guns have their Draw Point set
-		// to point at their handle, this places the handle in the player's hand.
-		draw_sprite_at_dp(157, \
-						  44, \
-						  s, 0, 1);
+		// - draw the items ----
+		x = inv.x + ITEMS_X;
+		y = inv.y + ITEMS_Y;
+		draw_sprite(x, y, SPR_TEXT_ITEMS, 0, 0);
+		y += sprites[SPR_TEXT_ITEMS].h;
+		
+		DrawSelector(&inv.itemsel, x, y);
+		
+		c = 0;
+		for(i=0;i<inv.itemsel.nitems;i++)
+		{
+			draw_sprite(x, y, SPR_ITEMIMAGE, inv.itemsel.items[i], 0);
+			
+			x += inv.itemsel.spacing_x;
+			
+			if (++c >= inv.itemsel.rowlen)
+			{
+				x = inv.x + ITEMS_X;
+				y += inv.itemsel.spacing_y;
+				c = 0;
+			}
+		}
+		// - draw the player ----
+		
+		if (player->curWeapon != WPN_NONE)
+		{
+			int s, frame;
+			//todo don't be lazy
+			switch(player->curWeapon)
+			{
+				case WPN_SUPER_MISSILE: s = SPR_SUPER_MLAUNCHER; break;
+				case WPN_NEMESIS: s = SPR_NEMESIS; break;
+				case WPN_BUBBLER: s = SPR_BUBBLER; break;
+				case WPN_SPUR: s = SPR_SPUR; break;
+				case WPN_BLADE: s = SPR_BLADEARMS; break;
+			
+				default:
+					s = SPR_WEAPONS_START + (player->curWeapon * 2);
+				break;
+			}
+			
+			// draw the gun at the player's Action Point. Since guns have their Draw Point set
+			// to point at their handle, this places the handle in the player's hand.
+			draw_sprite_at_dp(157, \
+							45, \
+							s, 0, 1);
+		}
+		
+		draw_sprite(152, 32, SPR_MYCHAR, 0, 1);
 	}
-	
-	draw_sprite(152, 32, SPR_MYCHAR, 0, 1);
 }
 
-static void RunSelector(stSelector *selector)
-{
+
+static void RunSelector(stSelector *selector){
 int nrows;
 int currow, curcol;
 char toggle = 0;
@@ -343,7 +383,7 @@ char toggle = 0;
 		if (buttonjustpushed())
 		{	// select the new weapon
 			weapon_slide(LEFT, selector->items[selector->cursel]);
-			ExitInventory();
+			inv.exiting = true;
 		}
 	}
 	else									// selecting an item
@@ -354,16 +394,16 @@ char toggle = 0;
 			inv.lockinput = 1;
 		}
 		
-		if (justpushed(INVENTORYKEY) || justpushed(FIREKEY))
-			ExitInventory();
+		if (justpushed(INVENTORYKEY) || justpushed(FIREKEY)) 
+		{
+			inv.exiting = true;
+		}
 	}
 }
-
 static void ExitInventory(void)
 {
 	StopScripts();
 	game.setmode(GM_NORMAL);
-	memset(inputs, 0, sizeof(inputs));
 }
 
 

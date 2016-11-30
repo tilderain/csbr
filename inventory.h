@@ -17,11 +17,16 @@ struct stSelector
 	
 	int scriptbase;
 	int items[MAXLISTLEN];
+	
+	
 };
 
 struct stInventory
 {
 	int x, y, w, h;
+	int curRow;
+	bool doneDrawing;
+	bool exiting;
 	
 	stSelector armssel;
 	stSelector itemsel;

@@ -36,7 +36,7 @@ void ai_polar_shot(Object *o)
 		}
 		else if (IsBlockedInShotDir(o))
 		{
-			shot_spawn_effect(o, EFFECT_STARSOLID);
+			shot_spawn_effect(o, EFFECT_FISHY);
 			o->state = STATE_SHOT_HIT;
 			
 			if (!shot_destroy_blocks(o))

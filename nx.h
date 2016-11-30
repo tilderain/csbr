@@ -25,6 +25,7 @@ using Sprites::draw_sprite;
 using Sprites::draw_sprite_at_dp;
 using Sprites::draw_sprite_clipped;
 using Sprites::draw_sprite_clip_width;
+using Sprites::draw_sprite_clip_length;
 using Sprites::draw_sprite_chopped;
 using Sprites::draw_sprite_repeating_x;
 using Sprites::create_spritesheet;

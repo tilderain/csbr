@@ -19,7 +19,7 @@ uint8_t run_shot(Object *o, bool destroys_blocks)
 	
 	if (IsBlockedInShotDir(o))
 	{
-		shot_spawn_effect(o, EFFECT_STARSOLID);
+		shot_spawn_effect(o, EFFECT_FISHY);
 		
 		if (destroys_blocks)
 		{
@@ -180,7 +180,7 @@ int x, y;
 		y = o->CenterY();
 	}
 	
-	if (effectno == EFFECT_STARSOLID || effectno == EFFECT_SPUR_HIT)
+	if (effectno == EFFECT_FISHY || effectno == EFFECT_SPUR_HIT)
 	{	// embed it in the wall, instead of the spot where we hit at
 		switch(o->shot.dir)
 		{

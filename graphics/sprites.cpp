@@ -131,6 +131,11 @@ void Sprites::draw_sprite_clip_width(int x, int y, int s, int frame, int wd)
 	BlitSprite(x, y, s, frame, 0, 0, 0, wd, sprites[s].h);
 }
 
+void Sprites::draw_sprite_clip_length(int x, int y, int s, int frame, int ln)
+{
+	BlitSprite(x, y, s, frame, 0, 0, 0, sprites[s].w, ln);
+}
+
 // draws a sprite at less than it's actual width by chopping it into two chunks.
 // on the left, the first "repeat_at" pixels are drawn.
 // then, the remaining "wd" is drawn from the right half of the sprite.

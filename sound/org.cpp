@@ -206,6 +206,11 @@ signed short *abuf;
 	static Uint8 *wav_buffer; // buffer containing our audio file
 	static SDL_AudioSpec wav_spec; // the specs of our piece of music
 
+	wav_spec.freq = SAMPLE_RATE;
+	wav_spec.format = AUDIO_S16;
+	wav_spec.channels = 2;
+	wav_spec.samples = 512;
+	wav_spec.userdata = NULL;
 	//stat("load_drum: loading %s into drum index %d", fname, d);
 	if (!(chunk = SDL_LoadWAV(fname, &wav_spec, &wav_buffer, &wav_length)))
 	{
@@ -213,15 +218,14 @@ signed short *abuf;
 		return 1;
 	}
 	
-	//stat("chunk: %d bytes in chunk", chunk->alen);
-	
-	wav_spec.userdata = NULL;
+	stat("chunk: %d bytes in chunk", wav_length);
+
 	// set our global static variables
 	audio_pos = wav_buffer; // copy sound buffer
 	audio_len = wav_length; // copy file length
 	
 	drumtable[d].nsamples = audio_len / 2 / 2;	// 16-bit stereo sound
-	drumtable[d].samples = malloc(drumtable[d].nsamples * 2);
+	drumtable[d].samples = (short int *)malloc(drumtable[d].nsamples * 2);
 	
 	#ifndef QUIET
 		stat("drum0%X [%s]: %d samples", d, fname, drumtable[d].nsamples);
@@ -234,7 +238,7 @@ signed short *abuf;
 		left = abuf[read_pt++]; right = abuf[read_pt++];
 		
 		drumtable[d].samples[i] = (left + right);
-;		// make drums louder--sounds better
+		drumtable[d].samples[i] += drumtable[d].samples[i];		// make drums louder--sounds better
 	}
 	
 	SDL_FreeWAV(wav_buffer);

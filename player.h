@@ -45,6 +45,8 @@ public:
 	bool disabled;
 	
 	bool lookaway;				// 1 makes him look away from screen (eg when you push DOWN)
+	bool inspecting;            // activates scripts for 30 frames 
+	int inspecttimer;
 	
 	int inventory[MAX_INVENTORY];		// list of inventory items we have
 	int ninventory;						// how many objects are in inventory[]

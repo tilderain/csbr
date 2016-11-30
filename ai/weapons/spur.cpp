@@ -24,7 +24,7 @@ void ai_spur_shot(Object *o)
 		if (!shot_destroy_blocks(o))
 		{
 			sound(SND_SHOT_HIT);
-			shot_spawn_effect(o, EFFECT_STARSOLID);
+			shot_spawn_effect(o, EFFECT_FISHY);
 			shot_spawn_effect(o, EFFECT_SPUR_HIT);
 			
 			o->Delete();

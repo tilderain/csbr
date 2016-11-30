@@ -2,7 +2,6 @@
 #include "../stdai.h"
 #include "sym.fdh"
 
-
 INITFUNC(AIRoutines)
 {
 	ONTICK(OBJ_NULL, ai_null);
@@ -439,17 +438,73 @@ void c------------------------------() {}
 
 void ai_save_point(Object *o)
 {
-	if (o->state == 0)
+	int topSpeed = 0x100;
+	int minSpeed = 0x30;
+	int xDistFromOrigin = (10 << CSF);
+	int yDistFromOrigin = (2 << CSF);
+	
+	switch(o->state)
 	{
-		smoke_if_bonus_item(o);
-		o->flags |= FLAG_SCRIPTONACTIVATE;	// needed for SP after Sisters fight
-		o->state = 1;
+		case 0: 
+		{
+			//spawned, set our origin
+			o->xmark = o->x;
+			o->ymark = o->y;
+			//move to a random distance from origin
+			o->x = o->xmark + random(-xDistFromOrigin, xDistFromOrigin);
+			o->y = o->ymark + random(-yDistFromOrigin, yDistFromOrigin);
+			o->dir = random(0,1);
+			o->state = 1;
+			break;
+		}
+		case 1:
+		{
+			//in case of going left
+			//if x <= xmark - xdistfromorigin
+			//turn right
+			//when going right
+			//if x >= xmark + xdistfromorigin
+			//turn left
+			//speed is a ratio of distance to origin and topspeed
+			//topspeed will be divided by a number up to (topSpeed - 5) for safety
+			//when going left
+			//distance from xmark = abs(x - xmark)
+			//(xdistfromorgin / current distance) * 20
+			//
+			int curXDistance = abs(o->x - o->xmark);
+			stat("curXDistance(%d)", curXDistance);
+			int curYDistance = abs(o->y - o->ymark);
+			float ratio = (float)curXDistance / (float)xDistFromOrigin;
+			stat("ratio=%f", ratio);
+			float xSpeed = topSpeed * (1 - ratio);
+			if (xSpeed > (float)topSpeed) {
+				xSpeed = (float)topSpeed;
+			}
+			if (xSpeed < (float)minSpeed){
+				xSpeed = (float)minSpeed;
+			}
+			stat("topSpeed - 0x20 = %d", (topSpeed - 0x20));
+			stat("xDistFromOrigin%d", xDistFromOrigin);
+
+			stat("xSpeed(%f)", xSpeed);
+			float yspeed = abs(yDistFromOrigin / curYDistance) * topSpeed;
+
+			if ((o->dir == LEFT) && (o->x <= (o->xmark - xDistFromOrigin))){
+				o->dir = RIGHT;
+				break;
+			}
+			else if ((o->dir == RIGHT) && (o->x >= (o->xmark + xDistFromOrigin))) {
+				o->dir = LEFT;
+				break;
+			}
+			stat("dir(%d)", o->dir);
+			// need to tweek this
+			o->xinertia = (o->dir == LEFT) ? ceil(-xSpeed) : ceil(xSpeed);
+			stat("o->xinertia(%d)", o->xinertia);
+			//o->yinertia += yspeed;
+		}break;
 	}
-	
 	ai_animate3(o);
-	
-	o->yinertia += 0x40;
-	LIMITY(0x5ff);
 }
 
 

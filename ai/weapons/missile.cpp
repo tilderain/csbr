@@ -177,10 +177,13 @@ void ai_missile_shot(Object *o)
 				// create the boom-spawner object for the flashes, smoke, and AoE damage
 				Object *sp = CreateObject(o->CenterX(), o->CenterY(), OBJ_MISSILE_BOOM_SPAWNER);
 				
+				shot_destroy_blocks(o);
+				
 				sp->shot.boomspawner.range = settings->boomrange;
 				sp->shot.boomspawner.booms_left = settings->num_booms;
 				sp->shot.damage = settings->boomdamage;
 				
+				shot_destroy_blocks(sp);
 				o->Delete();
 				return;
 			}
@@ -251,6 +254,7 @@ static void missilehitsmoke(Object *o)
 	{
 		smoke = CreateObject(smokex, smokey, OBJ_SMOKE_CLOUD);
 		smoke->sprite = SPR_MISSILEHITSMOKE;
+
 		vector_from_angle(random(0,255), random(0x100,0x3ff), &smoke->xinertia, &smoke->yinertia);
 	}
 }

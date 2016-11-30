@@ -569,16 +569,38 @@ int limit;
 		//	1) if player partially hits a brick while in air, his inertia is lesser after he passes it
 		//	2) but, if he's trying to turn around, let him! don't "stick" him to it just because
 		//		of a high inertia when he hit it
+		
+		int limit = 0x036;
 		if (player->blockr)
 		{
-			limit = (player->dir == RIGHT) ? 0x036 : 0;
-			if (player->xinertia > limit) player->xinertia = limit;
+			if (pinputs[LEFTKEY] || pinputs[RIGHTKEY]){ //interpret as eagerness to get away.
+				if (pinputs[LEFTKEY]){
+					//give him a little boost in the direction he's going, but not too much
+					player->xinertia -= limit;
+				}
+				if (pinputs[RIGHTKEY]){
+					player->xinertia = limit * 6; //6 is a good number
+				}
+			}else{
+				player->xinertia = 0;
+			}
+			//limit = (player->dir == LEFT) ? 0x036: 0;
+			//if (player->xinertia < limit) player->xinertia -= limit;
 		}
 		
 		if (player->blockl)
 		{
-			limit = (player->dir == LEFT) ? -0x036: 0;
-			if (player->xinertia < limit) player->xinertia = limit;
+			if (pinputs[LEFTKEY] || pinputs[RIGHTKEY]){
+				if (pinputs[RIGHTKEY]){
+					//give him a little boost in the direction he's going, but not too much
+					player->xinertia += limit;
+				}
+				if (pinputs[LEFTKEY]){
+					player->xinertia = -(limit * 6);
+				}
+			}else{
+				player->xinertia = 0;
+			}
 		}
 	}
 }
@@ -675,7 +697,7 @@ int i, key;
 				if (!inputs[DEBUG_MOVE_KEY] || !settings->enable_debug_keys)
 				{
 					player->lookaway = true;
-					PTryActivateScript();
+					player->inspecting = true;
 				}
 			}
 		}
@@ -707,14 +729,12 @@ int i, key;
 	{
 		player->lookscroll_timer = 0;
 	}
-	
+	// keys which deactivate lookaway when you are facing away from player
+	static const char actionkeys[] = \
+		{ LEFTKEY, RIGHTKEY, UPKEY, JUMPKEY, FIREKEY, -1 };
 	// deactivation of lookaway
 	if (player->lookaway)
 	{
-		// keys which deactivate lookaway when you are facing away from player
-		static const char actionkeys[] = \
-			{ LEFTKEY, RIGHTKEY, UPKEY, JUMPKEY, FIREKEY, -1 };
-		
 		// stop looking away if any keys are pushed
 		for(i=0;;i++)
 		{
@@ -731,6 +751,40 @@ int i, key;
 		if (!player->blockd)
 			player->lookaway = false;
 	}
+	if (player->inspecting)
+	{
+		int inspectTimeMax = 30;
+		
+		player->inspecttimer += 1;
+		if (player->inspecttimer <= inspectTimeMax){
+			
+			if (PTryActivateScript()){
+				player->inspecttimer = 0;
+				player->inspecting = false;
+			}
+		}else{
+			player->inspecttimer = 0;
+			player->inspecting = false;
+		}
+			// stop inspecting away if any keys are pushed
+		for(i=0;;i++)
+		{
+			key = actionkeys[i];
+			if (key == -1) break;
+			
+			if (pinputs[key])
+			{
+			player->inspecttimer = 0;
+			player->inspecting = false;
+				break;
+			}
+		}
+		// if the script isn't activated instantly, make a questionmark
+		if (player->inspecttimer == 2){ 
+		effect(player->CenterX(), player->CenterY(), EFFECT_QMARK);
+		}
+	}
+	
 }
 
 /*
@@ -1397,31 +1451,18 @@ void c------------------------------() {}
 
 // called when you press down.
 // Tries to find an SCRIPTONACTIVATE object you are standing near and activate it.
-// if it can't find anything to activate, spawns the "question mark" effect.
-void PTryActivateScript()
+int PTryActivateScript()
 {
 	if (RunScriptAtX(player->CenterX()))
-		return;
-	
-	if (player->dir == RIGHT)
-	{
-		if (RunScriptAtX(player->Right()) || RunScriptAtX(player->Left()))
-			return;
-	}
-	else
-	{
-		if (RunScriptAtX(player->Left()) || RunScriptAtX(player->Right()))
-			return;
-	}
-	
+		return 1;
+
 	// e.g. Plantation Rocket
 	if (player->riding && (player->riding->flags & FLAG_SCRIPTONACTIVATE))
 	{
 		StartScript(player->riding->id2);
-		return;
+		return 1;
 	}
-	
-	effect(player->CenterX(), player->CenterY(), EFFECT_QMARK);
+	return 0;
 }
 
 static bool RunScriptAtX(int x)
@@ -1448,6 +1489,9 @@ static bool RunScriptAtLocation(int x, int y)
 			if (x >= o->Left() && x <= o->Right() && \
 				y >= o->Top() && y <= o->Bottom())
 			{
+				player->xinertia = 0;
+				player->look = 0;
+				
 				StartScript(o->id2);
 				return true;
 			}

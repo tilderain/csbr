@@ -61,7 +61,7 @@ void ai_blade_l3_shot(Object *o)
 				{
 					if (enemy->flags & FLAG_INVULNERABLE)
 					{
-						shot_spawn_effect(o, EFFECT_STARSOLID);
+						shot_spawn_effect(o, EFFECT_FISHY);
 						sound(SND_SHOT_HIT);
 						o->Delete();
 					}
@@ -82,7 +82,7 @@ void ai_blade_l3_shot(Object *o)
 					if (!shot_destroy_blocks(o))
 						sound(SND_SHOT_HIT);
 					
-					shot_spawn_effect(o, EFFECT_STARSOLID);
+					shot_spawn_effect(o, EFFECT_FISHY);
 					o->Delete();
 				}
 			}
@@ -167,7 +167,7 @@ void aftermove_blade_l12_shot(Object *o)
 			if (!shot_destroy_blocks(o))
 				sound(SND_SHOT_HIT);
 			
-			shot_dissipate(o, EFFECT_STARSOLID);
+			shot_dissipate(o, EFFECT_FISHY);
 			return;
 		}
 	}
