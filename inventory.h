@@ -28,6 +28,8 @@ struct stInventory
 	bool doneDrawing;
 	bool exiting;
 	
+	int selection;
+	
 	stSelector armssel;
 	stSelector itemsel;
 	stSelector *curselector;
@@ -41,9 +43,10 @@ void inventory_tick(void);
 
 enum INVENTORY
 {
+	ITEM_NONE = 0,
 	ITEM_ARTHURS_KEY = 1,
 	ITEM_MAP_SYSTEM,
-	ITEM_STANTAS_KEY,
+	ITEM_STANTAS_KEY, //STANTAAAAA!!!!!!!!!!!!
 	ITEM_SILVER_LOCKET,
 	ITEM_BEAST_FANG,
 	ITEM_LIFE_CAPSULE,

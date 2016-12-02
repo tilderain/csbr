@@ -4,7 +4,7 @@
 
 #include "p_arms.h"
 #include "ai/weapons/whimstar.h"
-#define MAX_INVENTORY		42
+#define MAX_INVENTORY		16
 
 class Player : public Object
 {

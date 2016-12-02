@@ -196,14 +196,12 @@ void TextBox::DrawTextBox()
 	int text_x = CONTENT_X;
 	
 	// allow player to speed up text by holding the button
+	if (buttonjustpushed()) fCanSpeedUp = true;
+
 	if (buttondown())
 	{
 		if (fCanSpeedUp)
 			fTextTimer = 9999;
-	}
-	else
-	{
-		fCanSpeedUp = true;
 	}
 	
 	// in the middle of scrolling a line up?

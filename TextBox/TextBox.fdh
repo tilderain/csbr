@@ -5,6 +5,7 @@
 
 //----------------[referenced from TextBox/TextBox.cpp]--------------//
 bool buttondown(void);
+bool buttonjustpushed(void);
 
 
 /* located in graphics/font.cpp */

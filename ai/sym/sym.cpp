@@ -1,6 +1,7 @@
 
 #include "../stdai.h"
 #include "sym.fdh"
+#include "math.h"
 
 INITFUNC(AIRoutines)
 {
@@ -510,40 +511,13 @@ void ai_save_point(Object *o)
 
 void ai_recharge(Object *o)
 {
-	switch(o->state)
+
+	if (pdistlx(48 << CSF) && pdistly(48 << CSF))
 	{
-		case 0:
-		{
-			smoke_if_bonus_item(o);
-			o->state = 1;
-		}
-		case 1:		// flickery animation
-		{
-			int x = random(0, 30);
-			
-			if (x < 10) o->state = 2;
-			else if (x < 25) o->state = 3;
-			else o->state = 4;
-			
-			o->timer = random(16, 64);
-			o->animtimer = 0;
-		}
-		break;
-		
-		case 2: o->frame = 0; break;				// solid on
-		
-		case 3:										// flickery
-			o->animtimer++;
-			o->frame = (o->animtimer & 1);
-		break;
-		
-		case 4: o->frame = 1; break;				// solid off
+		o->frame = 1;
+	}else{
+		o->frame = 0;
 	}
-	
-	if (--o->timer <= 0)
-		o->state = 1;
-	
-	o->yinertia += 0x40;
 	LIMITY(0x5ff);
 }
 

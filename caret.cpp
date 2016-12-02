@@ -208,9 +208,8 @@ int i;
 		
 		// "blood" spatters from shot hitting enemy
 		case EFFECT_BLOODSPLATTER:
-		{
-
-			c = CreateCaret(x, y, SPR_STAR_HIT, caret_animate2);
+		{	
+			c = CreateCaret(x, y, SPR_STAR_HIT, caret_animate3);
 		}
 		break;
 		
@@ -232,7 +231,7 @@ int i;
 		
 		case EFFECT_QMARK:
 		{
-			c = CreateCaret(x, y, SPR_EXCLMMARK, caret_qmark);
+			c = CreateCaret(x, y, SPR_QMARK, caret_qmark);
 		}
 		break;
 		

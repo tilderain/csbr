@@ -18,12 +18,12 @@
 
 
 //#define QUIET
-//#define DRUM_PXT
+#define DRUM_PXT
 
 #ifdef DRUM_PXT
 	#define drumK		22050
 #else
-	#define drumK		30050
+	#define drumK		22050
 #endif
 
 # define htole16(x) x
@@ -208,7 +208,7 @@ signed short *abuf;
 
 	wav_spec.freq = SAMPLE_RATE;
 	wav_spec.format = AUDIO_S16;
-	wav_spec.channels = 2;
+	wav_spec.channels = 1;
 	wav_spec.samples = 512;
 	wav_spec.userdata = NULL;
 	//stat("load_drum: loading %s into drum index %d", fname, d);
@@ -218,13 +218,13 @@ signed short *abuf;
 		return 1;
 	}
 	
-	stat("chunk: %d bytes in chunk", wav_length);
+	stat("chunk: %d bytes in chunk", audio_len);
 
 	// set our global static variables
 	audio_pos = wav_buffer; // copy sound buffer
 	audio_len = wav_length; // copy file length
 	
-	drumtable[d].nsamples = audio_len / 2 / 2;	// 16-bit stereo sound
+	drumtable[d].nsamples = audio_len;	// 16-bit stereo sound
 	drumtable[d].samples = (short int *)malloc(drumtable[d].nsamples * 2);
 	
 	#ifndef QUIET
@@ -235,15 +235,69 @@ signed short *abuf;
 	abuf = (signed short *)audio_pos;
 	for(i=0;i<drumtable[d].nsamples;i++)
 	{
-		left = abuf[read_pt++]; right = abuf[read_pt++];
+		left = audio_pos[read_pt++];
 		
-		drumtable[d].samples[i] = (left + right);
-		drumtable[d].samples[i] += drumtable[d].samples[i];		// make drums louder--sounds better
+		drumtable[d].samples[i] = (left);
+		drumtable[d].samples[i] += drumtable[d].samples[i] * 64;		// make drums louder--sounds better
 	}
 	
 	SDL_FreeWAV(wav_buffer);
 	return 0;
 }
+
+/* static Uint8 *audio_pos; // global pointer to the audio buffer to be played
+static Uint32 audio_len; // remaining length of the sample we have to play
+
+static bool load_drum(char *fname, int d)
+{
+SDL_AudioSpec *chunk;
+int i, read_pt;
+int left,right;
+signed short *abuf;
+	
+	static Uint32 wav_length; // length of our sample
+	static Uint8 *wav_buffer; // buffer containing our audio file
+	static SDL_AudioSpec wav_spec; // the specs of our piece of music
+
+	wav_spec.freq = SAMPLE_RATE;
+	wav_spec.format = AUDIO_S16;
+	wav_spec.channels = 1;
+	wav_spec.samples = 256;
+	wav_spec.userdata = NULL;
+	//stat("load_drum: loading %s into drum index %d", fname, d);
+	if (!(chunk = SDL_LoadWAV(fname, &wav_spec, &wav_buffer, &wav_length)))
+	{
+		staterr("Missing drum sample: '%s'", fname);
+		return 1;
+	}
+	
+	stat("chunk: %d bytes in chunk", audio_len);
+
+	// set our global static variables
+	audio_pos = wav_buffer; // copy sound buffer
+	audio_len = wav_length; // copy file length
+	
+	drumtable[d].nsamples = audio_len;	// 16-bit stereo sound
+	drumtable[d].samples = (short int *)malloc(drumtable[d].nsamples * 2);
+	
+	#ifndef QUIET
+		stat("drum0%X [%s]: %d samples", d, fname, drumtable[d].nsamples);
+	#endif
+	
+	read_pt = 0;
+	abuf = (signed short *)audio_pos;
+	for(i=0;i<drumtable[d].nsamples;i++)
+	{
+		left = audio_pos[read_pt++];
+		
+		drumtable[d].samples[i] = (left);
+		drumtable[d].samples[i] += drumtable[d].samples[i] * 64;		// make drums louder--sounds better
+	}
+	
+	SDL_FreeWAV(wav_buffer);
+	return 0;
+}
+ */
 
 #else
 

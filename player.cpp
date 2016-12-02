@@ -10,11 +10,17 @@ bool lastpinputs[INPUT_COUNT];
 
 void PInitFirstTime()
 {
+int i;
 	player->dir = RIGHT;
 	player->hp = player->maxHealth = 3;
 	player->nxflags |= NXFLAG_FOLLOW_SLOPE;
 	
-	player->ninventory = 0;
+	player->ninventory = MAX_INVENTORY;
+	
+	for(i=0;i<MAX_INVENTORY;i++)
+	{
+		player->inventory[i] = 0; //ITEM_NONE;
+	}
 	
 	memset(player->weapons, 0, sizeof(player->weapons));
 	
@@ -579,7 +585,7 @@ int limit;
 					player->xinertia -= limit;
 				}
 				if (pinputs[RIGHTKEY]){
-					player->xinertia = limit * 6; //6 is a good number
+					player->xinertia = limit * 9; //9 is a good number
 				}
 			}else{
 				player->xinertia = 0;
@@ -596,7 +602,7 @@ int limit;
 					player->xinertia += limit;
 				}
 				if (pinputs[LEFTKEY]){
-					player->xinertia = -(limit * 6);
+					player->xinertia = -(limit * 9);
 				}
 			}else{
 				player->xinertia = 0;
@@ -1234,7 +1240,7 @@ void hurtplayer(int damage)
 	
 	if (player->hp <= 0)
 	{
-		sound(SND_PLAYER_DIE);
+		sound(SND_EXPLOSION1);
 		SmokeClouds(player, 64, 16, 16);
 		
 		killplayer(SCRIPT_DIED);

@@ -23,8 +23,9 @@ bool inventory_init(int param)
 {
 	memset(&inv, 0, sizeof(inv));
 	
-	inv.curselector = &inv.armssel;
-	inv.armssel.cursel = RefreshInventoryScreen();
+	inv.curselector = &inv.itemsel;
+	inv.itemsel.cursel = RefreshInventoryScreen();
+	inv.selection = -1;
 	inv.curselector->lastsel = -9999;		// run the script first time
 	
 	// returning from map system?
@@ -57,9 +58,7 @@ void inventory_tick(void)
 	// draw
 	DrawScene();
 	DrawInventory();
-	if (inv.doneDrawing) {
-	textbox.Draw();
-	}
+	if (inv.doneDrawing) textbox.Draw();
 }
 
 /*
@@ -78,38 +77,19 @@ int curwpn = 0;
 	if (game.mode != GM_INVENTORY)
 		return 0;
 
-	// find current weapon and count # items for armssel selector
-	inv.armssel.items[0] = 0;		// show "no weapon" in case of no weapon
-	inv.armssel.nitems = 0;
-	for(i=1;i<WPN_COUNT;i++)
-	{
-		if (!player->weapons[i].hasWeapon) continue;
-		
-		if (player->curWeapon == i) curwpn = inv.armssel.nitems;
-		inv.armssel.items[inv.armssel.nitems++] = i;
-	}
-	
-	inv.armssel.spacing_x = 40;
-	inv.armssel.spacing_y = 0;
-	inv.armssel.sprite = SPR_SELECTOR_ARMS;
-	inv.armssel.sound = SND_SWITCH_WEAPON;
-	inv.armssel.scriptbase = 1000;
-	inv.armssel.rowlen = inv.armssel.nitems;
-	
 	// setup itemsel...
 	inv.itemsel.nitems = player->ninventory;
-	inv.itemsel.items[0] = 0;		// show "no item" in case of no items
+	//inv.itemsel.items[0] = 0;		// show "no item" in case of no items
 	for(i=0;i<player->ninventory;i++)
 		inv.itemsel.items[i] = player->inventory[i];
 	
-	inv.itemsel.spacing_x = sprites[SPR_ITEMIMAGE].w;
-	inv.itemsel.spacing_y = sprites[SPR_ITEMIMAGE].h + 2;
+	inv.itemsel.spacing_x = 56;
+	inv.itemsel.spacing_y = sprites[SPR_ITEMIMAGE].h ;//16
 	inv.itemsel.sprite = SPR_SELECTOR_ITEMS;
 	inv.itemsel.sound = SND_MENU_MOVE;
-	inv.itemsel.rowlen = 6;
+	inv.itemsel.rowlen = 4;
 	inv.itemsel.scriptbase = 5000;
 	
-	inv.curselector->cursel = 0;
 	// after an item has been used don't bring up the script of whatever item
 	// the selector is moved to
 	inv.curselector->lastsel = inv.curselector->cursel;
@@ -200,35 +180,20 @@ int x, y, w, i, c;
 	{
 		draw_sprite(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, 0);
 		// - draw the weapons ----
-		x = inv.x + ARMS_X;
+
 		
 		// start of items box
-		inv.y = 72;
-		y = inv.y + ARMS_Y;
-		draw_sprite(x, y, SPR_TEXT_ARMS, 0, 0);
-		y += sprites[SPR_TEXT_ARMS].h;
+		inv.x = 54;
+		inv.y = 80;
 		
-		DrawSelector(&inv.armssel, x, y);
-		
+		x = inv.x;
+		y = inv.y;
+
 		// draw the arms
-		for(w=1;w<WPN_COUNT;w++)
-		{
-			if (!player->weapons[w].hasWeapon) continue;
-			
-			draw_sprite(x+1, y+1, SPR_ITEMIMAGE, w, 0);
-			// ammo y is a weird odd number
-			DrawWeaponAmmo(x+16, y+9, w);
-			
-			x += inv.armssel.spacing_x;
-		}
 		
 		// - draw the items ----
-		x = inv.x + ITEMS_X;
-		y = inv.y + ITEMS_Y;
-		draw_sprite(x, y, SPR_TEXT_ITEMS, 0, 0);
-		y += sprites[SPR_TEXT_ITEMS].h;
-		
-		DrawSelector(&inv.itemsel, x, y);
+
+
 		
 		c = 0;
 		for(i=0;i<inv.itemsel.nitems;i++)
@@ -239,12 +204,14 @@ int x, y, w, i, c;
 			
 			if (++c >= inv.itemsel.rowlen)
 			{
-				x = inv.x + ITEMS_X;
+				x = inv.x;
 				y += inv.itemsel.spacing_y;
 				c = 0;
 			}
 		}
 		// - draw the player ----
+		
+		DrawSelector(&inv.itemsel, inv.x, inv.y);
 		
 		if (player->curWeapon != WPN_NONE)
 		{
@@ -278,7 +245,6 @@ int x, y, w, i, c;
 static void RunSelector(stSelector *selector){
 int nrows;
 int currow, curcol;
-char toggle = 0;
 
 	if (inv.lockinput)
 	{
@@ -326,49 +292,29 @@ char toggle = 0;
 	
 	if (justpushed(DOWNKEY))
 	{
-		// on last row?
-		if (currow >= nrows) toggle = 1;
-		else
-		{
-			selector->cursel += selector->rowlen;
+
+		selector->cursel += selector->rowlen;
 			
-			// don't go past last item
-			if (selector->cursel >= selector->nitems)
-				selector->cursel = (selector->nitems - 1);
+		// don't go past last item
+		if (selector->cursel >= selector->nitems)
+			selector->cursel = (selector->nitems - 1);
 				
-			sound(selector->sound);
-		}
+		sound(selector->sound);
+
 	}
 	
 	if (justpushed(UPKEY))
 	{
-		// on top row?
-		if (currow == 0) toggle = 1;
-		else
-		{
-			selector->cursel -= selector->rowlen;
-			sound(selector->sound);
-		}
-	}
-	
-	// switch to other selector
-	if (toggle)
-	{
-		if (selector == &inv.itemsel)
-		{
-			selector = &inv.armssel;
-		}
-		else
-		{
-			selector = &inv.itemsel;
-		}
-		
-		inv.curselector = selector;
-		
+		//need to account for weapon and plug
+		if (currow == 0){
+		selector->cursel += 12; //this will probably never ever change
 		sound(selector->sound);
-		selector->lastsel = -9999;
+		}else{
+		selector->cursel -= selector->rowlen;
+		sound(selector->sound);
+		}
 	}
-	
+
 	// bring up scripts
 	if (selector->cursel != selector->lastsel)
 	{
@@ -389,15 +335,33 @@ char toggle = 0;
 	else									// selecting an item
 	{
 		if (justpushed(JUMPKEY))
-		{	// bring up "more info" or "equip" script for this item
+		{
+			if (inv.selection == -1){
+				inv.selection = selector->cursel;
+				sound(SND_MENU_SELECT);
+			}else{
+				
+			//swap items
+			//special behavior for trash and plug and weapon
+			player->inventory[selector->cursel] = selector->items[inv.selection];
+			player->inventory[inv.selection] = selector->items[selector->cursel];
+			sound(SND_MENU_SELECT);
+			inv.selection = -1;
+			RefreshInventoryScreen();
+			StartScript(selector->items[selector->cursel] + selector->scriptbase, SP_ARMSITEM);
+			}
+		}
+		if (justpushed(FIREKEY)) 
+		{
+			// bring up "more info" or "equip" script for this item
 			StartScript(selector->items[selector->cursel] + selector->scriptbase + 1000, SP_ARMSITEM);
 			inv.lockinput = 1;
 		}
-		
-		if (justpushed(INVENTORYKEY) || justpushed(FIREKEY)) 
+		if (justpushed(INVENTORYKEY)) 
 		{
 			inv.exiting = true;
 		}
+		
 	}
 }
 static void ExitInventory(void)
@@ -437,6 +401,15 @@ int xsel, ysel;
 	
 	selx = x + (xsel * selector->spacing_x);
 	sely = y + (ysel * selector->spacing_y);
-	draw_sprite(selx, sely, selector->sprite, selector->flashstate, 0);
+	draw_sprite(selx - 7, sely - 4, selector->sprite, selector->flashstate, 0);
+	
+	if (inv.selection != -1){
+		//todo replace with blinking hand
+		xsel = (inv.selection % selector->rowlen);
+		ysel = (inv.selection / selector->rowlen);
+		selx = x + (xsel * selector->spacing_x);
+		sely = y + (ysel * selector->spacing_y);
+		draw_sprite(selx - 7, sely - 4, selector->sprite, 1, 0);
+	}
 }
 
