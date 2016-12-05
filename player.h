@@ -3,6 +3,7 @@
 #define _PLAYER_H
 
 #include "p_arms.h"
+#include "inventory.h"
 #include "ai/weapons/whimstar.h"
 #define MAX_INVENTORY		16
 
@@ -48,7 +49,7 @@ public:
 	bool inspecting;            // activates scripts for 30 frames 
 	int inspecttimer;
 	
-	int inventory[MAX_INVENTORY];		// list of inventory items we have
+	Item inventory[MAX_INVENTORY];		// list of inventory items we have
 	int ninventory;						// how many objects are in inventory[]
 	
 	Object *riding;				// if non-null, he is "riding" this object (used for solidity)

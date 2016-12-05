@@ -1,6 +1,5 @@
 
 #include <SDL.h>
-#include <SDL_mixer.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,16 +8,19 @@
 
 #include "../common/basics.h"
 #include "org.h"
+
 #include "pxt.h"			// for loading drums
-#include "sslib.h"			// SAMPLE_RATE
+
 #include "org.fdh"
+
+#include "sslib.h"			// SAMPLE_RATE
 
 #include "../platform.h"
 
 
 
 //#define QUIET
-#define DRUM_PXT
+//#define DRUM_PXT
 
 #ifdef DRUM_PXT
 	#define drumK		22050
@@ -211,14 +213,16 @@ signed short *abuf;
 	wav_spec.channels = 1;
 	wav_spec.samples = 512;
 	wav_spec.userdata = NULL;
+
 	//stat("load_drum: loading %s into drum index %d", fname, d);
 	if (!(chunk = SDL_LoadWAV(fname, &wav_spec, &wav_buffer, &wav_length)))
 	{
 		staterr("Missing drum sample: '%s'", fname);
 		return 1;
 	}
-	
+
 	stat("chunk: %d bytes in chunk", audio_len);
+	
 
 	// set our global static variables
 	audio_pos = wav_buffer; // copy sound buffer

@@ -744,7 +744,7 @@ int cmdip;
 			case OP_FLMINUS: game.flags[parm[0]] = 0; break;
 			case OP_FLJ: JUMP_IF(game.flags[parm[0]]); break;
 			
-			case OP_ITPLUS: AddInventory(parm[0]); break;
+			case OP_ITPLUS: AddInventory(parm[0], parm[1]); break;
 			case OP_ITMINUS: DelInventory(parm[0]); break;
 			case OP_ITJ: JUMP_IF((FindInventory(parm[0]) != -1)); break;
 			

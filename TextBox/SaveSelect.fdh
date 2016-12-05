@@ -41,7 +41,7 @@ void GetSpriteForGun(int wpn, int look, int *spr, int *frame);
 /* located in playerstats.cpp */
 
 //--------------[referenced from TextBox/SaveSelect.cpp]-------------//
-int CheckInventoryList(int item, int *list, int nitems);
+int CheckInventoryList(int item, int nitems);
 
 
 /* located in statusbar.cpp */

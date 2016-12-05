@@ -26,7 +26,7 @@ static CommandEntry commands[] =
 	"flag", __flag, 1, 1,
 	"clearflags", __clearflags, 0, 0,
 	"equip", __equip, 1, 2,
-	"giveitem", __giveitem, 1, 1,
+	"giveitem", __giveitem, 1, 2,
 	"takeitem", __takeitem, 1, 1,
 	"qua", __qua, 0, 1,
 	"boa", __boa, 1, 1,
@@ -806,15 +806,10 @@ int i, mask;
 
 static void __giveitem(StringList *args, int num)
 {
-	if (FindInventory(num) == -1)
-	{
-		AddInventory(num);
-		Respond("Added item %d to your inventory.", num);
-	}
-	else
-	{
-		Respond("You already have item %d in your inventory.", num);
-	}
+	int item = atoi(args->StringAt(0));
+	int ammo = args->StringAt(1) ? atoi(args->StringAt(1)) : 0;
+	AddInventory(item, ammo);
+	Respond("Added item %d to your inventory.", num);
 }
 
 static void __takeitem(StringList *args, int num)

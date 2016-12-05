@@ -26,7 +26,7 @@ struct Profile
 		int ammo, maxammo;
 	} weapons[WPN_COUNT];
 	
-	int inventory[MAX_INVENTORY];
+	Item inventory[MAX_INVENTORY];
 	int ninventory;
 	
 	bool flags[NUM_GAMEFLAGS];

@@ -17,10 +17,7 @@ int i;
 	
 	player->ninventory = MAX_INVENTORY;
 	
-	for(i=0;i<MAX_INVENTORY;i++)
-	{
-		player->inventory[i] = 0; //ITEM_NONE;
-	}
+	memset(player->inventory, 0, sizeof(player->inventory));
 	
 	memset(player->weapons, 0, sizeof(player->weapons));
 	

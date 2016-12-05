@@ -2165,9 +2165,9 @@ sound/sound.o:	sound/sound.cpp sound/sound.fdh nx.h config.h \
 sound/sslib.o:	sound/sslib.cpp sound/sslib.fdh common/basics.h sound/sslib.h
 	g++ -g -O2 -c sound/sslib.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o sound/sslib.o
 
-sound/org.o:	sound/org.cpp sound/org.fdh common/basics.h sound/org.h \
-		sound/pxt.h sound/sslib.h
-	g++ -g -O2 -c sound/org.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -lSDL_mixer -o sound/org.o
+sound/org.o:	sound/org.cpp common/basics.h sound/org.h \
+		sound/pxt.h sound/org.fdh sound/sslib.h 
+	g++ -g -O2 -c sound/org.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o sound/org.o
 
 sound/pxt.o:	sound/pxt.cpp sound/pxt.fdh config.h sound/pxt.h \
 		common/basics.h sound/sslib.h

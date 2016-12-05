@@ -33,7 +33,7 @@ bool settings_save(Settings *setfile);
 void AddXP(int xp, bool quiet);
 void SubXP(int xp, bool quiet);
 int FindInventory(int item);
-void AddInventory(int item);
+void AddInventory(int item, int ammo);
 void DelInventory(int item);
 
 

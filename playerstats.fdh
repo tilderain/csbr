@@ -16,7 +16,7 @@ void SubXP(int xp, bool quiet);
 void AddInventory(int item);
 void DelInventory(int item);
 int FindInventory(int item);
-int CheckInventoryList(int item, int *list, int nitems);
+int CheckInventoryList(int item, int nitems);
 void GetWeapon(int wpn, int ammo);
 void LoseWeapon(int wpn);
 void TradeWeapon(int oldwpn, int newwpn, int ammo);

@@ -265,7 +265,7 @@ int x, y, s;
 	};
 	for(int i=0;items[i] != -1;i++)
 	{
-		if (CheckInventoryList(items[i], p->inventory, p->ninventory) != -1)
+		if (CheckInventoryList(items[i], p->ninventory) != -1)
 		{
 			draw_sprite(x, y, SPR_ITEMIMAGE, items[i]);
 			x += 28;

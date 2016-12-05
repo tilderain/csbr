@@ -81,11 +81,16 @@ FILE *fp;
 	fseek(fp, PF_INVENTORY_OFFS, SEEK_SET);
 	for(i=0;i<MAX_INVENTORY;i++)
 	{
-		int item = fgetl(fp);
-		if (!item) break;
+		int itemId = fgetl(fp);
+		int ammo = fgetl(fp);
+		int maxammo = fgetl(fp);
 		
-		file->inventory[file->ninventory++] = item;
+		file->inventory[i].itemId = itemId;
+		file->inventory[i].ammo = ammo;
+		file->inventory[i].maxammo = maxammo;
 	}
+	
+	file->ninventory = 15;
 	
 	// load teleporter slots
 	file->num_teleslots = 0;
@@ -182,9 +187,11 @@ int i;
 	
 	// save inventory
 	fseek(fp, PF_INVENTORY_OFFS, SEEK_SET);
-	for(i=0;i<file->ninventory;i++)
+	for(i=0;i<MAX_INVENTORY;i++)
 	{
-		fputl(file->inventory[i], fp);
+		fputl(file->inventory[i].itemId, fp);
+		fputl(file->inventory[i].ammo, fp);
+		fputl(file->inventory[i].maxammo, fp);
 	}
 	
 	fputl(0, fp);

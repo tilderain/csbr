@@ -11,12 +11,34 @@
 #define ITEMS_X			10
 #define ITEMS_Y			60
 
+//placeholders until i get hearts working
+#define HEALTH_X			38 + 170
+#define HEALTH_Y			8 + 9
+#define HEALTHFILL_X		38 + 170
+#define HEALTHFILL_Y		8 + 9
+#define HEALTHFILL_MAXLEN	39
+
+#define FRAME_XP_MAX		3			// "MAX" when XP is at max on L3
+
+#define INVWEAPON_X 54
+#define INVWEAPON_Y 16
+
+#define INVPLUG_X 54
+#define INVPLUG_Y 48
+
 static stInventory inv;
+
+static PercentBar PHealthBar;
 
 // can't enter Inven if
 //  * script is running
 //  * fade is in progress
 //  * player is dead
+
+//int invWeapons = {
+
+//}
+
 
 // param is passed as 1 when returning from Map System.
 bool inventory_init(int param)
@@ -28,6 +50,7 @@ bool inventory_init(int param)
 	inv.selection = -1;
 	inv.curselector->lastsel = -9999;		// run the script first time
 	
+	InitPercentBar(&PHealthBar, player->hp);
 	// returning from map system?
 	if (param == 1)
 	{
@@ -36,7 +59,7 @@ bool inventory_init(int param)
 		// highlight Map System
 		for(int i=0;i<inv.itemsel.nitems;i++)
 		{
-			if (inv.itemsel.items[i] == 2)
+			if (inv.itemsel.items[i].itemId == 2)
 			{
 				inv.curselector->cursel = i;
 				// textbox NOT up until they move the selector
@@ -53,8 +76,7 @@ bool inventory_init(int param)
 void inventory_tick(void)
 {
 	// run the selectors
-	RunSelector(inv.curselector);
-	
+	if (!inv.exiting) RunSelector(inv.curselector);
 	// draw
 	DrawScene();
 	DrawInventory();
@@ -81,7 +103,7 @@ int curwpn = 0;
 	inv.itemsel.nitems = player->ninventory;
 	//inv.itemsel.items[0] = 0;		// show "no item" in case of no items
 	for(i=0;i<player->ninventory;i++)
-		inv.itemsel.items[i] = player->inventory[i];
+		inv.itemsel.items[i].itemId = player->inventory[i].itemId;
 	
 	inv.itemsel.spacing_x = 56;
 	inv.itemsel.spacing_y = sprites[SPR_ITEMIMAGE].h ;//16
@@ -198,8 +220,14 @@ int x, y, w, i, c;
 		c = 0;
 		for(i=0;i<inv.itemsel.nitems;i++)
 		{
-			draw_sprite(x, y, SPR_ITEMIMAGE, inv.itemsel.items[i], 0);
+			draw_sprite(x, y, SPR_ITEMIMAGE, inv.itemsel.items[i].itemId, 0);
 			
+			if (!player->inventory[i].maxammo)
+			{ // do nothing
+			} else {
+				DrawNumber(x+16, y+9, player->inventory[i].ammo); //weird position
+				//add support for infinity symbol?
+			}
 			x += inv.itemsel.spacing_x;
 			
 			if (++c >= inv.itemsel.rowlen)
@@ -208,6 +236,11 @@ int x, y, w, i, c;
 				y += inv.itemsel.spacing_y;
 				c = 0;
 			}
+		}
+		
+		if (player->curWeapon){
+			draw_sprite(INVWEAPON_X, INVWEAPON_Y, SPR_ITEMIMAGE, player->curWeapon, 0);
+			DrawNumber(INVWEAPON_X+16, INVWEAPON_Y+9, player->weapons[player->curWeapon].ammo);
 		}
 		// - draw the player ----
 		
@@ -238,6 +271,21 @@ int x, y, w, i, c;
 		}
 		
 		draw_sprite(152, 32, SPR_MYCHAR, 0, 1);
+		
+		// - draw the health ----
+		//magic numbers everywhere
+		inv.x = 38;
+		inv.y = 8;
+		
+		draw_sprite(HEALTH_X, HEALTH_Y, SPR_HEALTHBAR, 0, 0);
+				
+		DrawHealthBar(&PHealthBar, HEALTHFILL_X, HEALTHFILL_Y, player->hp, player->maxHealth, HEALTHFILL_MAXLEN);
+		// - draw the money ----
+		
+		draw_sprite(inv.x + 205, inv.y + 42, SPR_XPBAR, FRAME_XP_MAX, 0);
+		// cion Number
+		DrawNumber(HEALTH_X - 1, inv.y + 41, player->xp);
+		
 	}
 }
 
@@ -292,24 +340,47 @@ int currow, curcol;
 	
 	if (justpushed(DOWNKEY))
 	{
-
-		selector->cursel += selector->rowlen;
-			
-		// don't go past last item
-		if (selector->cursel >= selector->nitems)
-			selector->cursel = (selector->nitems - 1);
-				
-		sound(selector->sound);
-
+		if (selector->cursel == 16) {
+			selector->cursel = 17;
+			sound(selector->sound);
+		} else if (selector->cursel == 17) {
+			selector->cursel = 0;
+			sound(selector->sound);
+		} else {
+			if (currow == 3 && curcol == 0){
+				selector->cursel = 16;
+				sound(selector->sound);
+			}else{
+				if (currow == 3){
+					selector->cursel -= 12;
+					sound(selector->sound);
+				} else {
+				selector->cursel += selector->rowlen;
+				sound(selector->sound);
+				}
+			}
+		}
 	}
 	
 	if (justpushed(UPKEY))
 	{
 		//need to account for weapon and plug
-		if (currow == 0){
-		selector->cursel += 12; //this will probably never ever change
-		sound(selector->sound);
-		}else{
+		//holy hell this is a mess
+		if (selector->cursel == 16) {
+			selector->cursel = 12;
+			sound(selector->sound);
+		} else if (selector->cursel == 17) {
+			selector->cursel = 16;
+			sound(selector->sound);
+		} else if (currow == 0){
+			if (curcol == 0){
+				selector->cursel = 17;
+				sound(selector->sound);
+			} else {
+				selector->cursel += 12; //this will probably never ever change
+				sound(selector->sound);
+			}
+		} else {
 		selector->cursel -= selector->rowlen;
 		sound(selector->sound);
 		}
@@ -320,7 +391,7 @@ int currow, curcol;
 	{
 		selector->lastsel = selector->cursel;
 		
-		StartScript(selector->items[selector->cursel] + selector->scriptbase, SP_ARMSITEM);
+		StartScript(selector->items[selector->cursel].itemId + selector->scriptbase, SP_ARMSITEM);
 	}
 	
 	
@@ -328,7 +399,7 @@ int currow, curcol;
 	{
 		if (buttonjustpushed())
 		{	// select the new weapon
-			weapon_slide(LEFT, selector->items[selector->cursel]);
+			weapon_slide(LEFT, selector->items[selector->cursel].itemId);
 			inv.exiting = true;
 		}
 	}
@@ -340,21 +411,50 @@ int currow, curcol;
 				inv.selection = selector->cursel;
 				sound(SND_MENU_SELECT);
 			}else{
-				
-			//swap items
-			//special behavior for trash and plug and weapon
-			player->inventory[selector->cursel] = selector->items[inv.selection];
-			player->inventory[inv.selection] = selector->items[selector->cursel];
-			sound(SND_MENU_SELECT);
-			inv.selection = -1;
-			RefreshInventoryScreen();
-			StartScript(selector->items[selector->cursel] + selector->scriptbase, SP_ARMSITEM);
+				//swap items
+				//special behavior for trash and plug and weapon
+				if (inv.selection == 16 || selector->cursel == 16){
+/* 					//literally just swap the curweapon values and the playr inventory item values
+					int itemId = (inv.selection == 16) ? player->curWeapon : 
+					int ammo = (inv.selection == 16) ? player->weapons[player->curWeapon].ammo : 
+					int maxammo = (inv.selection == 16) ? player->weapons[player->curWeapon].maxammo : 
+					
+					player->curWeapon 
+					player->weapons[player->curWeapon].ammo
+					player->weapons[player->curWeapon].maxammo
+					
+					sound(SND_MENU_SELECT);
+					inv.selection = -1;
+					RefreshInventoryScreen();
+					StartScript(selector->items[selector->cursel].itemId + selector->scriptbase, SP_ARMSITEM);
+					 */
+					//for plug just see if it has maxammo of -1
+				} else if (inv.selection == 17 || selector->cursel == 17) {
+					
+				} else {
+					Item temp;
+					temp.itemId = player->inventory[selector->cursel].itemId;
+					temp.ammo = player->inventory[selector->cursel].ammo;
+					temp.maxammo = player->inventory[selector->cursel].maxammo;
+			
+					player->inventory[selector->cursel].itemId = player->inventory[inv.selection].itemId;
+					player->inventory[selector->cursel].ammo = player->inventory[inv.selection].ammo;
+					player->inventory[selector->cursel].maxammo = player->inventory[inv.selection].maxammo;
+			
+					player->inventory[inv.selection].itemId = temp.itemId;
+					player->inventory[inv.selection].ammo = temp.ammo;
+					player->inventory[inv.selection].maxammo = temp.maxammo;
+					sound(SND_MENU_SELECT);
+					inv.selection = -1;
+					RefreshInventoryScreen();
+				}
 			}
 		}
+
 		if (justpushed(FIREKEY)) 
 		{
 			// bring up "more info" or "equip" script for this item
-			StartScript(selector->items[selector->cursel] + selector->scriptbase + 1000, SP_ARMSITEM);
+			StartScript(selector->items[selector->cursel].itemId + selector->scriptbase + 1000, SP_ARMSITEM);
 			inv.lockinput = 1;
 		}
 		if (justpushed(INVENTORYKEY)) 
@@ -399,10 +499,17 @@ int xsel, ysel;
 	}
 	else xsel = ysel = 0;
 	
+	
 	selx = x + (xsel * selector->spacing_x);
 	sely = y + (ysel * selector->spacing_y);
-	draw_sprite(selx - 7, sely - 4, selector->sprite, selector->flashstate, 0);
 	
+	if (selector->cursel == 16){
+		draw_sprite(INVWEAPON_X - 7, INVWEAPON_Y - 4, selector->sprite, selector->flashstate, 0);
+	}else if (selector->cursel == 17){
+		draw_sprite(INVPLUG_X - 7, INVPLUG_Y - 4, selector->sprite, selector->flashstate, 0);
+	}else{
+		draw_sprite(selx - 7, sely - 4, selector->sprite, selector->flashstate, 0);
+	}
 	if (inv.selection != -1){
 		//todo replace with blinking hand
 		xsel = (inv.selection % selector->rowlen);

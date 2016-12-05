@@ -538,7 +538,7 @@ void c------------------------------() {}
 static void PFireFireball(int level)
 {
 static const int object_types[] = { OBJ_FIREBALL1, OBJ_FIREBALL23, OBJ_FIREBALL23 };
-static uchar max_fireballs[] = { 2, 3, 4 };
+static uchar max_fireballs[] = { 6, 3, 4 };
 int count;
 
 	count = (CountObjectsOfType(OBJ_FIREBALL1) + CountObjectsOfType(OBJ_FIREBALL23));

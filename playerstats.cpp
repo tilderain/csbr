@@ -1,7 +1,7 @@
 
 #include "nx.h"
 #include "playerstats.fdh"
-
+#include "inventory.h"
 
 void AddHealth(int hp)
 {
@@ -61,22 +61,28 @@ void c------------------------------() {}
 */
 
 // add an item to the inventory list (generates an error msg if inventory is full)
-void AddInventory(int item)
+void AddInventory(int itemId, int ammo)
 {
-	player->inventory[FindInventory(0)] = item; //0 is ITEM_NONE
+int index;
+	index = FindInventory(0);
+	player->inventory[index].itemId = itemId; //0 is ITEM_NONE
+	if (ammo){
+		player->inventory[index].maxammo = ammo;
+		player->inventory[index].ammo = ammo;
+	}
 	sound(SND_GET_ITEM);
 	RefreshInventoryScreen();
 }
 
 // remove an item from the inventory list (does nothing if it's not in there)
-void DelInventory(int item)
+void DelInventory(int itemId)
 {
 int slot;
 int i;
 
 	for(;;)
 	{
-		slot = FindInventory(item);
+		slot = FindInventory(itemId);
 		if (slot == -1) break;
 		
 		for(i=slot;i<player->ninventory-1;i++)
@@ -90,19 +96,19 @@ int i;
 }
 
 // find which slot an item is in (returns -1 if player does not have it)
-int FindInventory(int item)
+int FindInventory(int itemId)
 {
-	return CheckInventoryList(item, player->inventory, player->ninventory);
+	return CheckInventoryList(itemId, player->ninventory);
 }
 
 // checks if the inventory list given contains the given item.
 // if so, returns the index of the item. if not, returns -1.
-int CheckInventoryList(int item, int *list, int nitems)
+int CheckInventoryList(int itemId, int nitems)
 {
 int i;
 
 	for(i=0;i<nitems;i++)
-		if (list[i] == item) return i;
+		if (player->inventory[i].itemId == itemId) return i;
 	
 	return -1;
 }

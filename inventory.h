@@ -4,6 +4,14 @@
 
 #define MAXLISTLEN		100
 
+struct Item
+{
+	int itemId;
+	int ammo;
+	int maxammo;
+};
+
+
 struct stSelector
 {
 	uchar flashstate, animtimer;
@@ -16,8 +24,7 @@ struct stSelector
 	int rowlen;
 	
 	int scriptbase;
-	int items[MAXLISTLEN];
-	
+	Item items[MAXLISTLEN];
 	
 };
 
