@@ -14,6 +14,7 @@ void DrawWeaponLevel(int x, int y, int wpn);
 void DrawWeaponAmmo(int x, int y, int wpn);
 void weapon_slide(int dir, int newwpn);
 void DrawNumber(int x, int y, int num);
+void DrawNumberGray(int x, int y, int num);
 
 void DrawHealthBar(PercentBar *bar, int x, int y, int curvalue, int maxvalue, int width);
 
@@ -45,6 +46,13 @@ static void DrawInventory(void);
 static void RunSelector(stSelector *selector);
 static void ExitInventory(void);
 static void DrawSelector(stSelector *selector, int x, int y);
+void SwapItem(int loc1, int dest);
+void SwapWeapon(int loc1, int dest);
+void SwapPlug(int loc1, int dest);
+void SwapTrash(int loc1, int dest);
+int GetPlug(void);
+void ThrowItem(void);
+
 
 
 /* located in sound/sound.cpp */

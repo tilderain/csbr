@@ -3,7 +3,7 @@
 #define _SPRITES_H
 
 #define MAX_SPRITESHEETS	64
-#define MAX_SPRITES			512
+#define MAX_SPRITES			1024
 
 #include "../siflib/sif.h"
 extern SIFSprite sprites[MAX_SPRITES];

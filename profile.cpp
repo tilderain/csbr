@@ -5,11 +5,11 @@
 
 #define PF_WEAPONS_OFFS		0x38
 #define PF_CURWEAPON_OFFS	0x24
-#define PF_INVENTORY_OFFS	0xD8
+#define PF_INVENTORY_OFFS	0x4C
 #define PF_TELEPORTER_OFFS	0x158
 #define PF_FLAGS_OFFS		0x218
 
-#define MAX_WPN_SLOTS		8
+#define MAX_WPN_SLOTS		1
 #define MAX_TELE_SLOTS		8
 
 // load savefile #num into the given Profile structure.
@@ -70,10 +70,9 @@ FILE *fp;
 		file->weapons[type].ammo = ammo;
 		file->weapons[type].maxammo = maxammo;
 		
-		if (i == curweaponslot)
-		{
-			file->curWeapon = type;
-		}
+
+		file->curWeapon = type;
+
 	}
 	
 	// load inventory
@@ -85,12 +84,11 @@ FILE *fp;
 		int ammo = fgetl(fp);
 		int maxammo = fgetl(fp);
 		
-		file->inventory[i].itemId = itemId;
-		file->inventory[i].ammo = ammo;
-		file->inventory[i].maxammo = maxammo;
+		file->inventory[file->ninventory].itemId = itemId;
+		file->inventory[file->ninventory].ammo = ammo;
+		file->inventory[file->ninventory].maxammo = maxammo;
+		file->ninventory++;
 	}
-	
-	file->ninventory = 15;
 	
 	// load teleporter slots
 	file->num_teleslots = 0;
@@ -160,22 +158,13 @@ int i;
 	fseek(fp, PF_WEAPONS_OFFS, SEEK_SET);
 	int slotno = 0, curweaponslot = 0;
 	
-	for(i=0;i<WPN_COUNT;i++)
+	for(i=0;i<MAX_WPN_SLOTS;i++)
 	{
-		if (file->weapons[i].hasWeapon)
-		{
-			fputl(i, fp);
-			fputl(file->weapons[i].level + 1, fp);
-			fputl(file->weapons[i].xp, fp);
-			fputl(file->weapons[i].maxammo, fp);
-			fputl(file->weapons[i].ammo, fp);
-			
-			if (i == file->curWeapon)
-				curweaponslot = slotno;
-			
-			slotno++;
-			if (slotno >= MAX_WPN_SLOTS) break;
-		}
+		fputl(player->curWeapon, fp);
+		fputl(file->weapons[player->curWeapon].level + 1, fp);
+		fputl(file->weapons[player->curWeapon].xp, fp);
+		fputl(file->weapons[player->curWeapon].maxammo, fp);
+		fputl(file->weapons[player->curWeapon].ammo, fp);
 	}
 	
 	if (slotno < MAX_WPN_SLOTS)

@@ -77,6 +77,18 @@ most of which are by now forgotten.<WAI9999<END
 asleep, but her dreams have been
 known to portend the future.<WAI9999<END
 
+#1300
+<KEY<MSGCan't throw this away!<NOD<END
+
+#1301
+<KEY<MSGDo you want to throw it away?<YNJ1302<EVE1303
+
+#1302
+<WAI0020<END //a hacky way for telling if you want it thrown away
+
+#1303
+<WAI0020<END
+
 #5000
 <MSG<TUR<WAI9999<END
 #5001
@@ -113,7 +125,7 @@ known to portend the future.<WAI9999<END
 <FLJ3004:1104
 <MSG<TURPuppy<WAI9999<END
 #5015
-<MSG<TURLife Pot<WAI9999<END
+<MSG<TURLife Tank<WAI9999<END
 #5016
 <MSG<TURCure-All<WAI9999<END
 #5017
@@ -170,6 +182,7 @@ known to portend the future.<WAI9999<END
 It was hidden near Arthur's
 gravestone.<WAI9999<END
 #6002
+<PRI<MSGNo data for this floor.<NOD<CLR<END
 <PRI<EVE7002<MPJ7002<MSGNo data for this floor.<NOD<CLR<END
 #6003
 <MSG<TURThe key to Santa's house.<WAI9999<END
@@ -182,14 +195,20 @@ like it's been treasured for years.<WAI9999<END
 Yamashita Farm. Is its owner still
 alive...?<WAI9999<END
 #6006
-<MSG<TURA life capsule.<WAI9999<END
+<MSGA life capsule.<NOD<CLRUse it?<YNJ0000
+<IT-0006<SOU0022<DNP0400<CMU0016
+<MSG<GIT1006Used a Life Capsule.<WAI0160<NOD<RMU<ML+0001
+Your energy increased.<NOD<END
+<WAI9999<END
 #6007
 <MSG<TURAn ID Card found in Egg No. 06.<WAI9999<END
 #6008
 <MSG<TURA fluid that can quench
 fireplaces.<WAI9999<END
 #6009
-<MSG<TURA rusty key.<WAI9999<END
+<MSG<TURA sword launcher.
+Who in their right mind
+would use it...?<WAI9999<END
 #6010
 <MSG<TURA tag says "Gum".<WAI9999<END
 #6011

@@ -211,7 +211,7 @@ static void handle_input()
 static void draw_title()
 {
 	// background is dk grey, not pure black
-	ClearScreen(0x20, 0x20, 0x20);
+	ClearScreen(0x00, 0x00, 0x20);
 	
 	// top logo
 	int tx = (SCREEN_WIDTH / 2) - (sprites[SPR_TITLE].w / 2) - 2;

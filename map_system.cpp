@@ -109,12 +109,7 @@ void ms_tick(void)
 			draw_sprite(ms.px, ms.py, SPR_MAP_PIXELS, 4);
 		
 		// dismissal
-		if (ms.lastbuttondown)
-		{
-			if (!buttondown())
-				ms.lastbuttondown = false;
-		}
-		else if (buttondown())
+		if (justpushed(MAPSYSTEMKEY))
 		{
 			ms.state = MS_CONTRACTING;
 		}

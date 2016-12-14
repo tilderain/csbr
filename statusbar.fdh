@@ -19,6 +19,7 @@ void RunPercentBar(PercentBar *bar, int current_value);
 void DrawPercentBar(PercentBar *bar, int x, int y, int curvalue, int maxvalue, int width);
 void DrawHealthBar(PercentBar *bar, int x, int y, int curvalue, int maxvalue, int width);
 void DrawNumber(int x, int y, int num);
+void DrawNumberGray(int x, int y, int num);
 void DrawPercentage(int x, int y, int fill_sprite, int fsframe, int curvalue, int maxvalue, int width_at_max);
 void DrawNumberRAlign(int x, int y, int s, int num);
 void DrawTwoDigitNumber(int x, int y, int num);

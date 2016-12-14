@@ -323,7 +323,7 @@ static int AddBuffer(SSChannel *chan, int bytes)
 }
 
 
-static void mixaudio(void *unused, uint8_t *stream, int len)
+void mixaudio(void *unused, uint8_t *stream, int len)
 {
 int bytes_copied;
 int bytestogo;

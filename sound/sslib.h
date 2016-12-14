@@ -34,9 +34,8 @@ struct SSChannel
 	
 	void (*FinishedCB)(int channel, int chunkid);
 	
-	static void mixaudio(void *unused, uint8_t *stream, int len);
-};
 
+};
 
 
 #endif

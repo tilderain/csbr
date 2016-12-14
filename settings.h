@@ -27,6 +27,8 @@ struct Settings
 	int reserved[8];
 	
 	int input_mappings[INPUT_COUNT];
+
+	bool game_fps;
 };
 
 bool settings_load(Settings *settings=NULL);

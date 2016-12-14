@@ -18,7 +18,7 @@
 #include "../siflib/sectSprites.h"
 #include "../siflib/sectStringArray.h"
 
-#define MAX_SPRITES			512
+#define MAX_SPRITES			1024
 
 enum Directions
 {

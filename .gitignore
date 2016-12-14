@@ -52,3 +52,6 @@ bin/debug.txt
 bin/error.log
 
 bin/replay/
+
+#Pesky output files
+.o

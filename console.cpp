@@ -561,30 +561,8 @@ static void __dropweapon(StringList *args, int num)
 // set weapon level
 static void __level(StringList *args, int num)
 {
-	num--;
-	if (num < 0) num = 0;
-	if (num > 2) num = 2;
-	
-	if (player->weapons[player->curWeapon].xp < 5)
-		player->weapons[player->curWeapon].xp = 5;
-	
-	for(int timeout=0;timeout<500;timeout++)
-	{
-		if (player->weapons[player->curWeapon].level == num)
-		{
-			return;
-		}
-		else if (player->weapons[player->curWeapon].level < num)
-		{
-			AddXP(1);
-		}
-		else
-		{
-			SubXP(1);
-		}
-	}
-	
-	Respond("Timeout");
+	int ammo = args->StringAt(0) ? atoi(args->StringAt(0)) : 0;
+	player->weapons[player->curWeapon].level = ammo;
 }
 
 

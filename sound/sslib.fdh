@@ -19,7 +19,7 @@ void SSSetVolume(int c, int newvol);
 void SSLockAudio(void);
 void SSUnlockAudio(void);
 static int AddBuffer(SSChannel *chan, int bytes);
-static void mixaudio(void *unused, uint8_t *stream, int len);
+void mixaudio(void *unused, uint8_t *stream, int len);
 
 
 /* located in common/stat.cpp */

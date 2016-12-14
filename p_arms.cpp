@@ -113,6 +113,7 @@ void PDoWeapons(void)
 	}
 	
 	PHandleSpur();
+	
 	run_whimstar(&player->whimstar);
 	
 	if (empty_timer)
@@ -193,7 +194,7 @@ int level = curweapon->level;
 		break;
 		
 		case WPN_SNAKE:
-			PFireSnake(level);
+			PFireSnake(level = 1);
 		break;
 		
 		case WPN_NEMESIS:
@@ -490,7 +491,7 @@ int xoff, yoff;
 	
 	// can only fire one missile at once on L1,
 	// two missiles on L2, and two sets of three missiles on L3.
-	static const uint8_t max_missiles_at_once[] = { 1, 2, 6 };
+	static const uint8_t max_missiles_at_once[] = { 4, 2, 6 };
 	if (CountObjectsOfType(object_type) >= max_missiles_at_once[level])
 	{
 		// give back the previously-decremented ammo so they don't lose it (hack)
@@ -544,6 +545,8 @@ int count;
 	count = (CountObjectsOfType(OBJ_FIREBALL1) + CountObjectsOfType(OBJ_FIREBALL23));
 	if (count >= max_fireballs[level])
 	{
+		// give back the previously-decremented ammo so they don't lose it (hack)
+		player->weapons[player->curWeapon].ammo++;
 		return;
 	}
 	
@@ -578,8 +581,11 @@ int count;
 static void PFireBlade(int level)
 {
 	int numblades = CountObjectsOfType(OBJ_BLADE12_SHOT) + CountObjectsOfType(OBJ_BLADE3_SHOT);
-	if (numblades >= 3) return;
-	
+	if (numblades >= 3){	
+		// give back the previously-decremented ammo so they don't lose it (hack)
+		player->weapons[player->curWeapon].ammo++;
+		return;
+	}
 	int dir = (player->look) ? player->look : player->dir;
 	
 	int x = player->CenterX();
@@ -620,6 +626,8 @@ static void PFireSnake(int level)
 					 CountObjectsOfType(OBJ_SNAKE23_SHOT));
 		
 		if (count >= 4)
+			// give back the previously-decremented ammo so they don't lose it (hack)
+			player->weapons[player->curWeapon].ammo++;
 			return;
 	}
 	
@@ -630,9 +638,11 @@ static void PFireSnake(int level)
 
 static void PFireNemesis(int level)
 {
-	if (CountObjectsOfType(OBJ_NEMESIS_SHOT) >= 2)
+	if (CountObjectsOfType(OBJ_NEMESIS_SHOT) >= 2) {
+		// give back the previously-decremented ammo so they don't lose it (hack)
+		player->weapons[player->curWeapon].ammo++;
 		return;
-	
+	}
 	FireSimpleBullet(OBJ_NEMESIS_SHOT, B_NEMESIS_L1+level);
 }
 
@@ -644,9 +654,11 @@ static const int max_bubbles[] = { 4, 16, 16 };
 	int count = CountObjectsOfType(OBJ_BUBBLER12_SHOT) + \
 				CountObjectsOfType(OBJ_BUBBLER3_SHOT);
 	
-	if (count >= max_bubbles[level])
+	if (count >= max_bubbles[level]){
+		// give back the previously-decremented ammo so they don't lose it (hack)
+		player->weapons[player->curWeapon].ammo++;
 		return;
-	
+	}
 	int objtype = (level != 2) ? OBJ_BUBBLER12_SHOT : OBJ_BUBBLER3_SHOT;
 	FireSimpleBulletOffset(objtype, B_BUBBLER_L1+level, -4<<CSF, 0);
 }

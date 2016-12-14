@@ -80,17 +80,14 @@ void DelInventory(int itemId)
 int slot;
 int i;
 
-	for(;;)
-	{
-		slot = FindInventory(itemId);
-		if (slot == -1) break;
-		
-		for(i=slot;i<player->ninventory-1;i++)
-		{
-			player->inventory[i] = player->inventory[i+1];
-		}
-		player->ninventory--;
-	}
+
+	slot = FindInventory(itemId);
+	if (slot == -1) return;
+	
+	player->inventory[slot].itemId = 0;
+	player->inventory[slot].ammo = 0;
+	player->inventory[slot].maxammo = 0;
+
 	
 	RefreshInventoryScreen();
 }

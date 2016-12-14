@@ -11,6 +11,7 @@ void DrawScene(void);
 
 //------------------[referenced from map_system.cpp]-----------------//
 bool buttondown(void);
+bool justpushed(int k);
 
 
 /* located in map_system.cpp */

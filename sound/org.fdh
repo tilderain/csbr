@@ -25,8 +25,6 @@ void SSLockAudio(void);
 int SSGetCurUserData(int c);
 int SSGetSamplePos(int c);
 void SSUnlockAudio(void);
-void mixaudio(void *unused, uint8_t *stream, int len);
-
 
 /* located in sound/org.cpp */
 

@@ -66,7 +66,7 @@ $(TARGET):  main.o game.o object.o ObjManager.o \
 	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
 	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
 	 common/misc.o \
-	 `sdl-config --libs` -lSDL_mixer -static-libstdc++ -lm
+	 `sdl-config --libs` -lSDL_mixer -static-libgcc -static-libstdc++ -lm
 
 main.o:	main.cpp main.fdh nx.h config.h \
 		common/basics.h common/BList.h common/SupportDefs.h \

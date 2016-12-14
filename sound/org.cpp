@@ -15,12 +15,14 @@
 
 #include "sslib.h"			// SAMPLE_RATE
 
+#include "sslib.fdh"			// SAMPLE_RATE
+
 #include "../platform.h"
 
 
 
 //#define QUIET
-//#define DRUM_PXT
+#define DRUM_PXT
 
 #ifdef DRUM_PXT
 	#define drumK		22050
@@ -223,6 +225,9 @@ signed short *abuf;
 
 	stat("chunk: %d bytes in chunk", audio_len);
 	
+	wav_spec.callback = mixaudio;
+	
+	chunk->callback = mixaudio;
 
 	// set our global static variables
 	audio_pos = wav_buffer; // copy sound buffer

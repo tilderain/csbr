@@ -25,9 +25,7 @@ public:
 	bool InitCharsShadowed(TTF_Font *top, uint32_t color, uint32_t shadowcolor);
 	
 	bool InitBitmapChars(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color);
-	bool InitBigBitmapChars(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color);
 	bool InitBitmapCharsShadowed(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color, uint32_t shadowcolor);
-	bool InitBigBitmapCharsShadowed(SDL_Surface *sheet, uint32_t fgcolor, uint32_t color, uint32_t shadowcolor);
 	
 	void free();
 	

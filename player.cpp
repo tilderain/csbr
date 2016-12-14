@@ -296,7 +296,10 @@ int i;
 		{
 			if (!game.frozen && !player->dead && GetCurrentScript() == -1)
 			{
-				game.setmode(GM_INVENTORY);
+				if (fade.getstate() == FS_NO_FADE && game.switchstage.mapno == -1)
+				{
+					game.setmode(GM_INVENTORY);
+				}
 			}
 		}
 		
@@ -307,7 +310,10 @@ int i;
 			{
 				if (fade.getstate() == FS_NO_FADE && game.switchstage.mapno == -1)
 				{
+					if (player->equipmask & EQUIP_MAP)
+					{
 					game.setmode(GM_MAP_SYSTEM, game.mode);
+					}
 				}
 			}
 		}
@@ -574,6 +580,9 @@ int limit;
 		//		of a high inertia when he hit it
 		
 		int limit = 0x036;
+		//need to make it easier to get onto blocks
+		//if blockr or blockl will not be true in one pixel upwards
+		//push him one pixel into the block
 		if (player->blockr)
 		{
 			if (pinputs[LEFTKEY] || pinputs[RIGHTKEY]){ //interpret as eagerness to get away.
@@ -582,7 +591,7 @@ int limit;
 					player->xinertia -= limit;
 				}
 				if (pinputs[RIGHTKEY]){
-					player->xinertia = limit * 9; //9 is a good number
+					player->xinertia = limit * 6; //6 is a good number
 				}
 			}else{
 				player->xinertia = 0;
@@ -599,7 +608,7 @@ int limit;
 					player->xinertia += limit;
 				}
 				if (pinputs[LEFTKEY]){
-					player->xinertia = -(limit * 9);
+					player->xinertia = -(limit * 6);
 				}
 			}else{
 				player->xinertia = 0;

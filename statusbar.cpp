@@ -234,7 +234,6 @@ int sign;
 	slide.timer = SLIDE_TIMER_START;
 	slide.ammo_offset = 16 * sign;
 	slide.move_dir = -2 * sign;
-	player->curWeapon = newwpn;
 }
 
 // the opening slide effect on load/new game
@@ -369,6 +368,36 @@ int place, digit, total;
 	
 	draw_sprite(x+(3*8), y, SPR_WHITENUMBERS, num);
 }
+
+void DrawNumberGray(int x, int y, int num)
+{
+static const int numtable[3] = { 1000, 100, 10 };
+int place, digit, total;
+
+	if (num > 9999) num = 9999;
+	
+	place = total = 0;
+	while(place < 3)
+	{
+		digit = 0;
+		while(num >= numtable[place])
+		{
+			num -= numtable[place];
+			digit++;
+		}
+		
+		total += digit;
+		
+		if (total)
+			draw_sprite(x+(place*8), y, SPR_GRAYNUMBERS, digit);
+		
+		place++;
+	}
+	
+	draw_sprite(x+(3*8), y, SPR_GRAYNUMBERS, num);
+}
+
+
 
 
 void DrawPercentage(int x, int y, int fill_sprite, int fsframe, int curvalue, int maxvalue, int width_at_max)

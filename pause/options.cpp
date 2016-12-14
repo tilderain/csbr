@@ -142,6 +142,10 @@ Dialog *dlg = opt.dlg;
 	dlg->AddItem("Sound: ", _sound_change, _sound_get);
 	
 	dlg->AddSeparator();
+	
+	dlg->AddItem("Show FPS: ", _showfps_change, _showfps_get);
+	dlg->AddItem("Frames Per Second: ", _fps_change, _fps_get);
+	
 	dlg->AddDismissalItem();
 	
 	dlg->SetSelection(opt.mm_cursel);
@@ -257,6 +261,31 @@ void _music_get(ODItem *item)
 	static const char *strs[] = { "Off", "On", "Boss Only" };
 	strcpy(item->suffix, strs[settings->music_enabled]);
 }
+
+void _fps_change(ODItem *item, int dir)
+{
+	settings->game_fps ^= 1;
+	sound(SND_MENU_SELECT);
+}
+
+void _fps_get(ODItem *item)
+{
+	static const char *strs[] = { "50", "60" };
+	strcpy(item->suffix, strs[settings->game_fps]);
+}
+
+void _showfps_change(ODItem *item, int dir)
+{
+	settings->show_fps ^= 1;
+	sound(SND_MENU_SELECT);
+}
+
+void _showfps_get(ODItem *item)
+{
+	static const char *strs[] = { "", " =" };
+	strcpy(item->suffix, strs[settings->show_fps]);
+}
+
 
 /*
 void c------------------------------() {}

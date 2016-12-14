@@ -18,7 +18,7 @@ static NXSurface *drawtarget = NULL;	// target of DrawRect etc; almost always sc
 bool use_palette = false;				// true if we are in an indexed-color video mode
 int screen_bpp;
 
-const NXColor DK_BLUE(0, 0, 0x21);		// the popular dk blue backdrop color
+const NXColor DK_BLUE(0, 0, 0x10);		// the popular dk **slightly blue backdrop color
 const NXColor BLACK(0, 0, 0);			// pure black, only works if no colorkey
 const NXColor CLEAR(0, 0, 0);			// the transparent/colorkey color
 
