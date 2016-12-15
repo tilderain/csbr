@@ -57,6 +57,8 @@ bool statusbar_init(void)
 {
 	InitPercentBar(&PHealthBar, player->hp);
 	
+	player->hurt_flash_health = 0; //prevent invisible healthbar on save load
+	
 	memset(&slide, 0, sizeof(slide));
 	slide.firstWeapon = player->curWeapon;
 	return 0;
@@ -103,9 +105,8 @@ bool maxed_out;
 				if (player->hp)
 				{
 				// -- draw the health bar -----------------------------
-				draw_sprite(HEALTH_X, HEALTH_Y, SPR_HEALTHBAR, 0, 0);
 				
-				DrawHealthBar(&PHealthBar, HEALTHFILL_X, HEALTHFILL_Y, player->hp, player->maxHealth, HEALTHFILL_MAXLEN);
+				DrawHealthBar(HEALTHFILL_X, HEALTHFILL_Y, player->hp, player->maxHealth);
 				
 				// don't draw the health in numbers
 				//DrawNumberRAlign(HEALTH_X+24, HEALTH_Y, SPR_WHITENUMBERS, PHealthBar.displayed_value);
@@ -326,12 +327,32 @@ void DrawPercentBar(PercentBar *bar, int x, int y, int curvalue, int maxvalue, i
 	DrawPercentage(x, y, SPR_HEALTHFILL, 0, curvalue, maxvalue, width);
 }
 
-void DrawHealthBar(PercentBar *bar, int x, int y, int curvalue, int maxvalue, int width)
+void DrawHealthBar(int x, int y, int curvalue, int maxvalue)
 {
-	if (bar->displayed_value != curvalue)
-		DrawPercentage(x, y, SPR_XPBAR, 1, bar->displayed_value, maxvalue, width);
-		
-	DrawPercentage(x, y, SPR_XPBAR, 0, curvalue, maxvalue, width);
+int i;
+	if (!player->hurt_time && curvalue==1){
+		if (player->hurt_health_time <= 0){
+			player->hurt_flash_health ^= 1;
+			player->hurt_health_time = 35;
+		} else {
+			player->hurt_health_time--;
+		}
+	} else {
+		player->hurt_flash_health = 0;
+	}
+	if (player->hurt_flash_health) return;
+	
+	for(i=0;i<maxvalue;i++){
+		if (i==0){ //skip a heart
+			continue;
+		}
+		if (i < curvalue){
+			draw_sprite(x, y, SPR_HEALTHBAR, 0); //full frame
+		} else {
+		draw_sprite(x, y, SPR_HEALTHBAR, 4); //empty frame
+		}
+		x += sprites[SPR_HEALTHBAR].w;
+	}
 }
 
 /*

@@ -42,7 +42,7 @@ const TSCCommandTable cmd_table[] =
 	"HMC", 0,
 	"INI", 0,
 	"INP", 3,
-	"IT+", 1,
+	"IT+", 2,
 	"IT-", 1,
 	"ITJ", 2,
 	"KEY", 0,

@@ -11,11 +11,30 @@
 <MNA<FAI0004<END//out
 
 #0100
-<KEY<FAO0000<TRA0020:0090:0017:0009
+<KEY<CNP0100:0000:0000<SOU0011<FAO0000<TRA0020:0090:0017:0009
 
 #0101
-<KEY<FAO0000<TRA0020:0090:0017:0009
+<KEY<FLJ0101:0201<FL+0101<MSG?!<NOD<CLRThe door is covered in soap...<NOD
+You can't get a grip on it...<NOD<END
 
+#0102
+<KEY<SOU0011<DNP0102<FAO0002<TRA0022:0092:0003:0011
+
+#0200
+<KEY<MSGIt says "Puu's Restaurant".<NOD
+Scratched in underneath, it reads:<NOD<CLR
+"Buyer beware!"<NOD<END
+
+#0201
+<KEY<MSGIt won't open no matter how hard
+you try.<NOD<END
+
+#0300
+<PRI<FLJ0100:0001<FL+0100
+<SOU0022<CNP0300:0021:0000
+<MSGOpened the treasure chest.<NOD<CLR<GIT1006<CLR
+<IT+0006:0000<MSGObtained a Life Capsule.<NOD<CLO
+<END
 
 #0400
 

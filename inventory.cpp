@@ -14,9 +14,6 @@
 //placeholders until i get hearts working
 #define HEALTH_X			38 + 170
 #define HEALTH_Y			8 + 9
-#define HEALTHFILL_X		38 + 170
-#define HEALTHFILL_Y		8 + 9
-#define HEALTHFILL_MAXLEN	39
 
 #define FRAME_XP_MAX		3			// "MAX" when XP is at max on L3
 
@@ -25,10 +22,6 @@
 
 #define INVPLUG_X 54
 #define INVPLUG_Y 48
-
-static stInventory inv;
-
-static PercentBar PHealthBar;
 
 int itemToBeThrown;
 
@@ -42,6 +35,9 @@ int itemToBeThrown;
 //
 
 // param is passed as 1 when returning from Map System.
+
+stInventory inv;
+
 bool inventory_init(int param)
 {
 	memset(&inv, 0, sizeof(inv));
@@ -50,8 +46,7 @@ bool inventory_init(int param)
 	inv.itemsel.cursel = RefreshInventoryScreen();
 	inv.selection = -1;
 	inv.curselector->lastsel = -9999;		// run the script first time
-	
-	InitPercentBar(&PHealthBar, player->hp);
+
 	// returning from map system?
 	if (param == 1)
 	{
@@ -274,10 +269,8 @@ int x, y, w, i, c;
 		//magic numbers everywhere
 		inv.x = 38;
 		inv.y = 8;
-		
-		draw_sprite(HEALTH_X, HEALTH_Y, SPR_HEALTHBAR, 0, 0);
 				
-		DrawHealthBar(&PHealthBar, HEALTHFILL_X, HEALTHFILL_Y, player->hp, player->maxHealth, HEALTHFILL_MAXLEN);
+		DrawHealthBar(HEALTH_X, HEALTH_Y, player->hp, player->maxHealth);
 		// - draw the money ----
 		
 		draw_sprite(inv.x + 205, inv.y + 42, SPR_XPBAR, FRAME_XP_MAX, 0);

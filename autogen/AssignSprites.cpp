@@ -250,7 +250,6 @@ void AssignSprites(void)
 	objprop[OBJ_UD_SPINNER_TRAIL].sprite = SPR_UD_SPINNER_TRAIL;
 	objprop[OBJ_UDMINI_PLATFORM].sprite = SPR_UDMINI_PLATFORM;
 	objprop[OBJ_BALROG_FLYING].sprite = SPR_BALROG_FLYING;
-	objprop[OBJ_BALROG_MEDIC].sprite = SPR_BALROG_MEDIC;
 	objprop[OBJ_GAUDI_PATIENT].sprite = SPR_GAUDI_PATIENT;
 	objprop[OBJ_BABY_PUPPY].sprite = SPR_BABY_PUPPY;
 	objprop[OBJ_TRANSMOGRIFIER].sprite = SPR_TRANSMOGRIFIER;

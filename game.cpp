@@ -624,6 +624,7 @@ void AssignExtraSprites(void)
 	objprop[OBJ_PUPPY_ITEMS].sprite = SPR_PUPPY;
 	
 	objprop[OBJ_BALROG_DROP_IN].sprite = SPR_BALROG;
+	objprop[OBJ_BALROG_MEDIC].sprite = SPR_ARMS_SIGN;
 	objprop[OBJ_BALROG_BUST_IN].sprite = SPR_BALROG;
 	
 	objprop[OBJ_CROWWITHSKULL].sprite = SPR_CROW;

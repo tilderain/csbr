@@ -25,6 +25,7 @@ extern InitList AIRoutines;
 
 void aftermove_StickToLinkedActionPoint(Object *o);
 void onspawn_set_frame_from_id2(Object *o);
+void onspawn_set_frame_from_id1(Object *o);
 void onspawn_snap_to_ground(Object *o);
 void ai_generic_angled_shot(Object *o);
 

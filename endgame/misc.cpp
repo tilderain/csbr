@@ -205,11 +205,20 @@ void aftermove_balrog_passenger(Object *o)
 void c------------------------------() {}
 */
 
-// seen in credits
+// actually an arms_sign
 void ai_balrog_medic(Object *o)
 {
-	o->frame = 0;
-	randblink(o, 1, 12);
+	o->flags |= FLAG_SOLID_BRICK;
+	if (!o->timer){
+		o->frame = random(0, 2);
+		if ( random(0,7) ){
+			o->timer = random(50, 70);
+		} else {
+			o->timer = random(5,15);
+		}
+	}
+	
+	o->timer--;
 }
 
 void ai_gaudi_patient(Object *o)

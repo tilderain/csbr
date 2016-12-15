@@ -312,6 +312,10 @@ void onspawn_set_frame_from_id2(Object *o)
 	o->frame = o->id2;
 }
 
+void onspawn_set_frame_from_id1(Object *o)
+{
+	o->frame = o->id1;
+}
 /*
 void c------------------------------() {}
 */

@@ -455,7 +455,7 @@ Object *shot;
 	shot->dir = dir;
 	shot->mgun.bultype = bultype_table[level];
 	shot->mgun.nlayers = no_layers[level];
-	shot->mgun.wave_amt = random(-0xAA, 0xAA);
+	shot->mgun.wave_amt = random(-0xBB, 0xBB);
 	shot->invisible = true;
 }
 

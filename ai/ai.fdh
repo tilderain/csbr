@@ -42,6 +42,7 @@ static void simpleanim(Object *o, int spd);
 void aftermove_StickToLinkedActionPoint(Object *o);
 void onspawn_snap_to_ground(Object *o);
 void onspawn_set_frame_from_id2(Object *o);
+void onspawn_set_frame_from_id1(Object *o);
 
 
 /* located in ai/sym/smoke.cpp */

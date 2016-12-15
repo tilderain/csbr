@@ -122,19 +122,17 @@ void ai_mgun_spawner(Object *o)
 {
 Object *shot;
 	
-	if (!o->timer)
-	{	// first layer (leader)
+	if (!o->timer){	// first layer (leader)
 		shot = CreateObject(o->x, o->y, OBJ_MGUN_LEADER);
 		o->linkedobject = shot;
-	}
-	else
-	{	// subsequent layers (trail)
+	} else if ((o->timer % 2) == 0) {	// subsequent layers (trail)
 		shot = CreateObject(o->x, o->y, OBJ_MGUN_TRAIL);
 		shot->linkedobject = o->linkedobject;
 	}
 	
 	// fire next layer
-	SetupBullet(shot, o->x, o->y, o->mgun.bultype, o->dir);
+	
+	if ((o->timer % 2) == 0) SetupBullet(shot, o->x, o->y, o->mgun.bultype, o->dir);
 	
 	// apply the wave
 	if (o->dir==UP || o->dir==DOWN)
@@ -143,8 +141,9 @@ Object *shot;
 		shot->yinertia = o->mgun.wave_amt;
 	
 	// fire next layer next time
-	o->mgun.bultype++;
-	if (++o->timer >= o->mgun.nlayers) o->Delete();
+	if ((o->timer % 2) == 0) o->mgun.bultype++;
+	
+	if (++o->timer > (5)) o->Delete();
 }
 
 /*

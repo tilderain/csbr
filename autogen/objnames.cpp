@@ -309,7 +309,7 @@ const char *object_names[] = {
 	NULL,
 	"GAUDI_PATIENT",
 	"BABY_PUPPY",
-	"BALROG_MEDIC",
+	"BALROG_MEDIC", //arms_sign
 	"SANTA_CAGED",
 	"STUMPY",
 	"BUTE_FLYING",

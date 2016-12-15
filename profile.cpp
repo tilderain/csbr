@@ -64,7 +64,6 @@ FILE *fp;
 		int maxammo = fgetl(fp);
 		int ammo = fgetl(fp);
 		
-		file->weapons[type].hasWeapon = true;
 		file->weapons[type].level = (level - 1);
 		file->weapons[type].xp = xp;
 		file->weapons[type].ammo = ammo;

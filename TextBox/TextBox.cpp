@@ -191,8 +191,10 @@ void TextBox::Draw(void)
 
 
 void TextBox::DrawTextBox()
-{
-	int text_top = (fCoords.y + 10);
+{	
+	//changing it to 6 just feels so wrong and uncavestory like
+	//was previously 10 but that cut off the portrait
+	int text_top = (fCoords.y + 9); 
 	int text_x = CONTENT_X;
 	
 	// allow player to speed up text by holding the button
@@ -244,14 +246,14 @@ void TextBox::DrawTextBox()
 	
 	// set clipping region to inside of frame, so that text cannot
 	// overflow during scrolling, etc.
-	set_clip_rect(CONTENT_X, text_top, SCREEN_WIDTH, 48);
+	set_clip_rect(CONTENT_X, text_top - 3, SCREEN_WIDTH, 48);
 	
 	//SDL_FillRect(screen, &cliprect, SDL_MapRGB(screen->format,0,0,255));
 	
 	// draw face
 	if (fFace != 0)
 	{
-		draw_sprite_clip_width(FACE_X-fFaceXOffset, fCoords.y+CONTENT_Y-3, SPR_FACES, fFace, ceil(FACE_W + fFaceXOffset)); 
+		draw_sprite_clip_width(FACE_X-fFaceXOffset, fCoords.y+CONTENT_Y-4, SPR_FACES, fFace, ceil(FACE_W + fFaceXOffset)); 
 		// text_x += (FACE_W + 8);		// move text over by width of face
 		
 		// face slide-in animation

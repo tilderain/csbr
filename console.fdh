@@ -34,7 +34,7 @@ void AddXP(int xp, bool quiet);
 void SubXP(int xp, bool quiet);
 int FindInventory(int item);
 void AddInventory(int item, int ammo);
-void DelInventory(int item);
+void DelInventory(int itemId);
 
 
 /* located in statusbar.cpp */
