@@ -18,7 +18,7 @@ Object * const &o = this;
 	// show any damage waiting to be added NOW instead of later
 	if (o->DamageWaiting > 0)
 	{
-		DamageText->AddQty(o->DamageWaiting);
+		//DamageText->AddQty(o->DamageWaiting);
 		o->DamageWaiting = 0;
 	}
 	
@@ -37,7 +37,7 @@ Object * const &o = this;
 	// make sure no pointers are pointing at us
 	DisconnectGamePointers();
 	// delete associated floaty text as soon as it's animation is done
-	DamageText->ObjectDestroyed = true;
+	//DamageText->ObjectDestroyed = true;
 	
 	// if any objects are linked to this obj then unlink them
 	Object *link;
@@ -72,7 +72,6 @@ Object * const &o = this;
 	if (o == ID2Lookup[this->id2]) ID2Lookup[this->id2] = NULL;
 	if (o == map.waterlevelobject) map.waterlevelobject = NULL;
 }
-
 /*
 void c------------------------------() {}
 */
@@ -723,7 +722,7 @@ int objectType, bonusType;
 		return;
 	
 	bonusType = random(1, 5);
-	if (bonusType >= 3)
+	if (true)
 	{
 		SpawnXP(objprop[o->type].xponkill);
 		return;

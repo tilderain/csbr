@@ -71,7 +71,7 @@ public:
 	bool hitwhileboosting;		// bit of a hack, to make hurthop work
 	
 	// controls "+xx" floattext numbers when you gain XP
-	FloatText *XPText;
+	FloatText* XPTexts[32];
 	
 	Weapon weapons[WPN_COUNT];
 	int curWeapon;

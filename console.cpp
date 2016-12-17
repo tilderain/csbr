@@ -10,7 +10,7 @@ static CommandEntry commands[] =
 	"warp", __warp, 1, 999,
 	"sound", __sound, 1, 1,
 	"music", __music, 1, 1,
-	"giveweapon", __giveweapon, 1, 1,
+	"giveweapon", __giveweapon, 1, 2,
 	"dropweapon", __dropweapon, 0, 1,
 	"level", __level, 1, 1,
 	"ammo", __ammo, 1, 1,
@@ -538,12 +538,16 @@ static void __giveweapon(StringList *args, int num)
 {
 	if (num >= 0 && num < WPN_COUNT)
 	{
-		player->weapons[num].hasWeapon = 1;
-		player->weapons[num].maxammo = 0;		// gives it unlimited ammo
-		player->weapons[num].ammo = 0;
+		int item = atoi(args->StringAt(0));
+		int ammo = args->StringAt(1) ? atoi(args->StringAt(1)) : 0;
+		player->weapons[num].maxammo = ammo;
+		player->weapons[num].ammo = ammo;
 		player->curWeapon = num;
+	} else {
+		Respond("Don't try to crash the game.");
 	}
 }
+
 
 static void __dropweapon(StringList *args, int num)
 {

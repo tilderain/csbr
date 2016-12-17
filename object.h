@@ -4,8 +4,8 @@
 
 // used in SpawnXP
 #define XP_SMALL_AMT			1
-#define XP_MED_AMT				5
-#define XP_LARGE_AMT			20
+#define XP_MED_AMT				3
+#define XP_LARGE_AMT			8
 
 class Object
 {
@@ -143,7 +143,7 @@ public:
 	int display_xoff;
 	
 	// rising damage points
-	FloatText *DamageText;
+	//FloatText *DamageText;
 	// tracks amount of damage dealt quickly, while the objects is still shaking from
 	// previous shots. displaying this damage is postponed until the enemy stops shaking.
 	int DamageWaiting;

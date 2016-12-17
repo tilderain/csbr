@@ -108,7 +108,8 @@ int x, y, i;
 			ft->timer ^= 1;
 			if (ft->timer)
 			{
-				if (--ft->yoff <= FT_Y_HOLD)
+				ft->yoff -= 4;
+				if (ft->yoff <= FT_Y_HOLD)
 				{
 					ft->state = FT_HOLD;
 					ft->timer = 0;
@@ -120,8 +121,12 @@ int x, y, i;
 		// hold at top for a moment
 		case FT_HOLD:
 		{
-			if (++ft->timer >= 42)
-				ft->state = FT_SCROLL_AWAY;
+			if (++ft->timer >= 42){
+				ft->state = FT_IDLE;
+				ft->shownAmount = 0;
+				ft->timer = 0;
+				return;
+			}
 		}
 		break;
 		
@@ -130,10 +135,7 @@ int x, y, i;
 		{
 			if (--ft->yoff <= FT_Y_RISEAWAY)
 			{
-				ft->state = FT_IDLE;
-				ft->shownAmount = 0;
-				ft->timer = 0;
-				return;
+
 			}
 		}
 		break;
@@ -175,7 +177,7 @@ int x, y, i;
 
 bool FloatText::IsScrollingAway()
 {
-	return (this->state == FT_SCROLL_AWAY);
+	return (this->state == FT_IDLE);
 }
 
 /*

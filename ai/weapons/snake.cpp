@@ -23,7 +23,6 @@ void ai_snake(Object *o)
 	if (o->state == 0)
 	{
 		o->state = 1;
-		o->flags |= FLAG_IGNORE_SOLID;
 		
 		o->frame = random(0, 2);
 	}
@@ -53,61 +52,32 @@ void ai_snake(Object *o)
 	if (damage_enemies(o))
 	{
 		shot_dissipate(o, EFFECT_STARPOOF);
+	} else if (IsBlockedInShotDir(o)) {
+		shot_spawn_effect(o, EFFECT_FISHY);
+		o->Delete();
 	}
 }
 
+
+
 void ai_snake_23(Object *o)
 {
-static int wave_dir = 0;
 
-	if (o->state == 0)
-	{
-		// start moving off at an angle to our direction.
-		// whether we start off going up or down alternates with each shot.
-		int wavespeed = (wave_dir & 1) ? -SNAKE_VERT_SPEED : SNAKE_VERT_SPEED;
-		wave_dir ^= 1;
-		
-		if (o->shot.dir == LEFT || o->shot.dir == RIGHT)
-		{
-			o->yinertia = wavespeed;
-		}
-		else
-		{
-			o->xinertia = wavespeed;
-		}
-		
-		// ...we don't set state to 1, that'll be done in ai_snake common code
-	}
-	else
-	{
 		// accelerate the shot
 		switch(o->shot.dir)
-		{
-			case LEFT:  o->xinertia -= 0x80; break;
-			case UP:    o->yinertia -= 0x80; break;
-			case RIGHT: o->xinertia += 0x80; break;
-			case DOWN:  o->yinertia += 0x80; break;
-		}
+	{
+		case LEFT:  o->xinertia = -0x900; break;
+		case UP:    o->yinertia = -0x900; break;
+		case RIGHT: o->xinertia = 0x900; break;
+		case DOWN:  o->yinertia = 0x900; break;
 	}
 	
 	// periodically abruptly change the wave's direction
-	if ((++o->timer % 5) == 2)
-	{
-		if (o->shot.dir == LEFT || o->shot.dir == RIGHT)
-		{
-			o->yinertia = -o->yinertia;
-		}
-		else
-		{
-			o->xinertia = -o->xinertia;
-		}
-	}
 	
 	// spawn trails
 	Object *trail = create_fire_trail(o, OBJ_SNAKE_TRAIL, o->shot.level);
 	trail->frame = random(0, 2);
 	trail->animtimer = 0;
-	trail->yinertia = -0x200;
 	
 	// ... and all the basic logic from level 1
 	ai_snake(o);
@@ -128,11 +98,4 @@ void ai_snake_trail(Object *o)
 			o->Delete();
 	}
 }
-
-
-
-
-
-
-
 

@@ -3,7 +3,7 @@
 #define _FLOATTEXT_H
 
 #define FT_Y_START		-4		// this starts it exactly centered, since the font is 8px tall
-#define FT_Y_HOLD		-19
+#define FT_Y_HOLD		-16
 #define FT_Y_RISEAWAY	(FT_Y_HOLD - 8)
 
 enum FloatTextStates

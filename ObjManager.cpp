@@ -35,7 +35,7 @@ Object *o;
 	// initialize
 	o->SetType(type);
 	o->flags = objprop[type].defaultflags;
-	o->DamageText = new FloatText(SPR_REDNUMBERS);
+	//o->DamageText = new FloatText(SPR_REDNUMBERS);
 	
 	o->x = x - (sprites[o->sprite].spawn_point.x << CSF);
 	o->y = y - (sprites[o->sprite].spawn_point.y << CSF);

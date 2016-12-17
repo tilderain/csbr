@@ -39,10 +39,10 @@ int i;
 	//player->weapons[WPN_BUBBLER].SetRechargeRate(20, 1, 1);
 	
 	player->curWeapon = WPN_NONE;
-	
-	if (player->XPText) delete player->XPText;
-	player->XPText = new FloatText(SPR_REDNUMBERS);
-	
+	for(i=0; i<sizeof(&player->XPTexts); i++){
+		if (player->XPTexts[i]) delete player->XPTexts[i];
+		player->XPTexts[i] = new FloatText(SPR_REDNUMBERS);
+	}
 	// initialize player repel points
 	PInitRepel();
 }
@@ -59,6 +59,7 @@ static void InitWeapon(int wpn, int l1, int l2, int l3, int maxammo)
 
 void InitPlayer(void)
 {
+int i;
 	player->lookaway = false;
 	player->walking = false;
 	player->dead = false;
@@ -82,8 +83,10 @@ void InitPlayer(void)
 	player->lastriding = NULL;
 	player->cannotride = NULL;
 	
-	player->DamageText->Reset();
-	player->XPText->Reset();
+	//player->DamageText->Reset();
+	for(i=0;player->XPTexts[i];i++){
+		player->XPTexts[i]->Reset();
+	}
 	statusbar.xpflashcount = 0;
 	
 	PResetWeapons();
@@ -98,10 +101,10 @@ void InitPlayer(void)
 
 Player::~Player()
 {
-	if (XPText)
-	{
-		delete XPText;
-		XPText = NULL;
+int i;
+	for(i=0;XPTexts[i];i++){
+		delete XPTexts[i];
+		XPTexts[i] = NULL;
 	}
 }
 
@@ -310,10 +313,12 @@ int i;
 			{
 				if (fade.getstate() == FS_NO_FADE && game.switchstage.mapno == -1)
 				{
-					if (player->equipmask & EQUIP_MAP)
-					{
+					//if (player->equipmask & EQUIP_MAP)
+					//{
+						
 					game.setmode(GM_MAP_SYSTEM, game.mode);
-					}
+					
+					//}
 				}
 			}
 		}
@@ -1233,7 +1238,7 @@ void hurtplayer(int damage)
 		return;
 	
 	player->hp -= damage;
-	player->DamageText->AddQty(damage);
+	//player->DamageText->AddQty(damage);
 	
 	player->lookaway = 0;
 	player->hurt_time = 128;
@@ -1246,7 +1251,7 @@ void hurtplayer(int damage)
 	
 	if (player->hp <= 0)
 	{
-		sound(SND_EXPLOSION1);
+		sound(SND_EXPL_SMALL);
 		SmokeClouds(player, 64, 16, 16);
 		
 		killplayer(SCRIPT_DIED);
@@ -1658,8 +1663,7 @@ int scr_x, scr_y;
 	
 	// keep his floattext position linked--do NOT update this if he is hidden
 	// so that floattext doesn't follow him after he dies.
-	player->DamageText->UpdatePos(player);
-	player->XPText->UpdatePos(player);
+	//player->DamageText->UpdatePos(player);
 	
 	// get screen position to draw him at
 	scr_x = (player->x >> CSF) - (map.displayed_xscroll >> CSF);

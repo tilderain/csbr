@@ -43,8 +43,6 @@ void ai_blade_l3_shot(Object *o)
 					slash->dir = RIGHT;
 					slash->x -= (10 << CSF);
 				}
-				
-				sound(SND_SLASH);
 			}
 			
 			if (++o->timer2 > o->shot.ttl)
@@ -98,7 +96,6 @@ void ai_blade_l3_shot(Object *o)
 											 OBJ_BLADE_SLASH);
 				
 				slash->dir = random(0, 1) ? LEFT : RIGHT;
-				sound(SND_SLASH);
 			}
 			
 			if (++o->timer > 50)
@@ -177,11 +174,6 @@ void aftermove_blade_l12_shot(Object *o)
 		case 0:
 			if ((o->timer % 5) == 1)
 				sound(SND_FIREBALL);
-		break;
-		
-		case 1:
-			if ((o->timer % 7) == 1)
-				sound(SND_SLASH);
 		break;
 	}
 }

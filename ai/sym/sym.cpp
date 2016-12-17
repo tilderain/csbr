@@ -223,10 +223,7 @@ void ai_xp(Object *o)
 		if (map.scrolltype == BK_FASTLEFT_LAYERS)	// as opposed to Ironhead (BK_FASTLEFT)
 		{
 			if (o->blockl)
-			{
-				if (o->onscreen || pdistly((SCREEN_HEIGHT - (SCREEN_HEIGHT / 3)) << CSF))
-					sound(SND_XP_BOUNCE);
-				
+			{	
 				o->yinertia *= 2;
 				o->yinertia /= 3;
 			}
@@ -248,9 +245,6 @@ void ai_xp(Object *o)
 				o->Delete();
 				return;
 			}
-			
-			if (o->onscreen || pdistlx((SCREEN_WIDTH - (SCREEN_WIDTH / 3)) << CSF))
-				sound(SND_XP_BOUNCE);
 			
 			o->yinertia = -0x280;
 		}

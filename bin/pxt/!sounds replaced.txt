@@ -1,0 +1,14 @@
+6a blade
+0e xp
+0f jump
+01 menu move
+02 txt
+12 menu select
+18 walk
+21 frontier
+27 puu fire
+30 bubbler
+47 soap
+10 hurt
+20 polar star
+2c missile

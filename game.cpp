@@ -351,7 +351,7 @@ extern int flipacceltime;
 		if (o == player) continue;	// player drawn specially in DrawPlayer
 		
 		// keep it's floattext linked with it's position
-		o->DamageText->UpdatePos(o);
+		//o->DamageText->UpdatePos(o);
 		
 		// shake enemies that were just hit. when they stop shaking,
 		// start rising up how many damage they took.
@@ -362,7 +362,7 @@ extern int flipacceltime;
 		}
 		else if (o->DamageWaiting > 0)
 		{
-			o->DamageText->AddQty(o->DamageWaiting);
+			//o->DamageText->AddQty(o->DamageWaiting);
 			o->DamageWaiting = 0;
 		}
 		

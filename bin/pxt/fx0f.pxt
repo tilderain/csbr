@@ -1,45 +1,45 @@
 use  :1
-size :1000
+size :6000
 main_model   :5
-main_freq    :1.00
+main_freq    :11.00
 main_top     :32
 main_offset  :0
-pitch_model  :3
-pitch_freq   :1.00
-pitch_top    :63
-pitch_offset :0
-volume_model :0
-volume_freq  :0.00
+pitch_model  :5
+pitch_freq   :2.70
+pitch_top    :38
+pitch_offset :218
+volume_model :3
+volume_freq  :1.20
+volume_top   :40
+volume_offset:0
+initialY:9
+ax      :39
+ay      :24
+bx      :169
+by      :16
+cx      :255
+cy      :5
+
+use  :0
+size :6000
+main_model   :1
+main_freq    :329.00
+main_top     :20
+main_offset  :0
+pitch_model  :2
+pitch_freq   :2.00
+pitch_top    :47
+pitch_offset :77
+volume_model :3
+volume_freq  :3.00
 volume_top   :63
 volume_offset:0
-initialY:0
-ax      :28
+initialY:63
+ax      :64
 ay      :63
-bx      :53
-by      :31
-cx      :210
-cy      :31
-
-use  :0
-size :0
-main_model   :0
-main_freq    :0.00
-main_top     :0
-main_offset  :0
-pitch_model  :0
-pitch_freq   :0.00
-pitch_top    :0
-pitch_offset :0
-volume_model :0
-volume_freq  :0.00
-volume_top   :0
-volume_offset:0
-initialY:0
-ax      :0
-ay      :0
-bx      :0
-by      :0
-cx      :0
+bx      :128
+by      :63
+cx      :255
 cy      :0
 
 use  :0
@@ -86,7 +86,39 @@ by      :0
 cx      :0
 cy      :0
 
-{1,1000,5,1.00,32,0,3,1.00,63,0,0,0.00,63,0,0,28,63,53,31,210,31},
+{1,6000,5,11.00,32,0,5,2.70,38,218,3,1.20,40,0,9,39,24,169,16,255,5},
+{0,6000,1,329.00,20,0,2,2.00,47,77,3,3.00,63,0,63,64,63,128,63,255,0},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
-{0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
+
+-> {0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0},
+-> {255,0,255,0,255,0,255,0},
+
+pitch2_model :5
+pitch2_freq  :2.70
+pitch2_top   :38
+pitch2_offset:218
+dx      :255
+dy      :0
+
+pitch2_model :2
+pitch2_freq  :2.00
+pitch2_top   :47
+pitch2_offset:77
+dx      :255
+dy      :0
+
+pitch2_model :0
+pitch2_freq  :0.00
+pitch2_top   :0
+pitch2_offset:0
+dx      :255
+dy      :0
+
+pitch2_model :0
+pitch2_freq  :0.00
+pitch2_top   :0
+pitch2_offset:0
+dx      :255
+dy      :0
+

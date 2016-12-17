@@ -11,6 +11,7 @@ void AddHealth(int hp)
 
 void AddXP(int xp, bool quiet)
 {
+int i;
 	player->xp += xp;
 
 	if (!quiet)
@@ -20,7 +21,13 @@ void AddXP(int xp, bool quiet)
 			sound(SND_GET_XP);
 		}
 		
-		player->XPText->AddQty(xp);
+		for(i=0;player->XPTexts[i];i++){
+			if (player->XPTexts[i]->IsScrollingAway()) { //actually IsIdle but i'm too lazy to change it
+				player->XPTexts[i]->AddQty(xp);
+				player->XPTexts[i]->UpdatePos(player);
+				break;
+			}
+		} // else no fancy text for you
 	}
 }
 

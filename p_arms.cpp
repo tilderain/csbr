@@ -21,13 +21,13 @@ struct BulletInfo
 BulletInfo bullet_table[] =
 {
 //		sprite			  lvl  frm st ttl dmg spd  manset      sound
-	SPR_SHOT_POLARSTAR, 	0,  0, 1, 80,  1, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
+	SPR_SHOT_POLARSTAR, 	0,  0, 1, 65,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
 	SPR_SHOT_POLARSTAR, 	1,  1, 1, 12,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l2
 	SPR_SHOT_POLARSTAR_L3, 	2,  0, 1, 16,  4, 0x1000, 0, SND_POLAR_STAR_L3,		// polarstar l3
 	
 	SPR_SHOT_MGUN_L1, 		0,  0, 1, 20,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l1
 	
-	SPR_SHOT_MGUN_L2,		1,  0, 1, 80,  4, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l2, white piece
+	SPR_SHOT_MGUN_L2,		1,  0, 1, 80,  1, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l2, white piece
 	SPR_SHOT_MGUN_L2,		1,  1, 0, 80,  0, 0x1000, 0, 0,						// mgun l2, blue piece
 	SPR_SHOT_MGUN_L2,		1,  2, 0, 80,  0, 0x1000, 0, 0,						// mgun l2, dark piece
 	
@@ -38,7 +38,7 @@ BulletInfo bullet_table[] =
 	SPR_SHOT_MGUN_L3TAIL,	2,  3, 0, 24,  0, 0x1000, 0, 0,						// ...machine gun
 	
 	// damage for missiles is set inside missile.cpp
-	SPR_SHOT_MISSILE1,		0,  0, 1, 50,  0, 0x0000, 0, SND_POLAR_STAR_L1_2,	// missile level 1
+	SPR_SHOT_MISSILE1,		0,  0, 1, 75,  0, 0x0000, 0, SND_POLAR_STAR_L1_2,	// missile level 1
 	SPR_SHOT_MISSILE2,		1,  0, 1, 65,  0, 0x0000, 0, SND_POLAR_STAR_L1_2,	// missile level 2
 	SPR_SHOT_MISSILE3,		2,  0, 1, 90,  0, 0x0000, 0, SND_POLAR_STAR_L1_2,	// missile level 3
 	
@@ -57,14 +57,14 @@ BulletInfo bullet_table[] =
 	
 	SPR_SHOT_SNAKE_L1,		0,  0, 1, 20,  4,  0x600,  2, SND_SNAKE_FIRE,	// Snake L1
 	SPR_SHOT_FIREBALL23,	1,	0, 1, 23,  6,  0x200,  2, SND_SNAKE_FIRE,	// Snake L2
-	SPR_SHOT_FIREBALL23,	2,	0, 1, 30,  8,  0x200,  2, SND_SNAKE_FIRE,	// Snake L3
+	SPR_SHOT_FIREBALL23,	2,	0, 1, 60,  3,  0x200,  2, SND_SNAKE_FIRE,	// Snake L3
 	
 	SPR_SHOT_NEMESIS_L1,	0,  0, 2, 20,  12, 0x1000, 0, SND_NEMESIS_FIRE,
 	SPR_SHOT_NEMESIS_L2,	1,  0, 2, 20,  6,  0x1000, 0, SND_POLAR_STAR_L3,
 	SPR_SHOT_NEMESIS_L3,	2,  0, 2, 20,  1,  0x555,  0, 0,		// 1/3 speed
 	
 	SPR_SHOT_BUBBLER_L1,	0,	0, 1, 40,  1,  0x600,  2, SND_BUBBLER_FIRE,
-	SPR_SHOT_BUBBLER_L2,	1,	0, 1, 60,  2,  0x600,  2, SND_BUBBLER_FIRE,
+	SPR_SHOT_BUBBLER_L2,	1,	0, 1, 60,  3,  0x600,  2, SND_BUBBLER_FIRE,
 	SPR_SHOT_BUBBLER_L3,	2,	0, 1, 100, 2,  0x600,  2, SND_BUBBLER_FIRE,
 	
 	// Spur also messes with it's damage at runtime; see spur.cpp for details.
@@ -194,7 +194,7 @@ int level = curweapon->level;
 		break;
 		
 		case WPN_SNAKE:
-			PFireSnake(level = 1);
+			PFireSnake(level = 2);
 		break;
 		
 		case WPN_NEMESIS:
@@ -611,6 +611,7 @@ static void PFireBlade(int level)
 	}
 	
 	Object *shot = CreateObject(x, y, (1 != 2) ? OBJ_BLADE12_SHOT : OBJ_BLADE3_SHOT);
+	sound(SND_SLASH);
 	SetupBullet(shot, x, y, B_BLADE_L1+1, dir);
 }
 
@@ -625,10 +626,11 @@ static void PFireSnake(int level)
 		int count = (CountObjectsOfType(OBJ_SNAKE1_SHOT) + \
 					 CountObjectsOfType(OBJ_SNAKE23_SHOT));
 		
-		if (count >= 4)
+		if (count >= 4) {
 			// give back the previously-decremented ammo so they don't lose it (hack)
 			player->weapons[player->curWeapon].ammo++;
 			return;
+		}
 	}
 	
 	int object_type = (level == 0) ? OBJ_SNAKE1_SHOT : OBJ_SNAKE23_SHOT;

@@ -54,4 +54,4 @@ bin/error.log
 bin/replay/
 
 #Pesky output files
-.o
+*.o
