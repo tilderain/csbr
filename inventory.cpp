@@ -640,21 +640,15 @@ static void DrawSelector(stSelector *selector, int x, int y)
 int selx, sely;
 int xsel, ysel;
 
-	if (selector == inv.curselector)
-	{
-		// flash the box
-		if (++selector->animtimer > 30)
-		{
-			selector->animtimer = 0;
-			selector->flashstate ^= 1;
-		}
-	}
-	else
-	{	// permanently dim
+	if (inv.selection == -1){
 		selector->flashstate = 1;
-		selector->animtimer = 99;		// light up immediately upon becoming active
+		selector->animtimer = 0;
+	} else if (++selector->animtimer > 30)
+	{
+		selector->animtimer = 0;
+		selector->flashstate ^= 1;
 	}
-	
+
 	if (selector->rowlen)
 	{
 		xsel = (selector->cursel % selector->rowlen);
@@ -673,7 +667,6 @@ int xsel, ysel;
 	}
 	
 	if (inv.selection != -1){
-		//todo replace with blinking hand
 		xsel = (inv.selection % selector->rowlen);
 		ysel = (inv.selection / selector->rowlen);
 		selx = x + (xsel * selector->spacing_x);

@@ -209,13 +209,16 @@ void c------------------------------() {}
 void ai_balrog_medic(Object *o)
 {
 	o->flags |= FLAG_SOLID_BRICK;
+	
 	if (!o->timer){
 		o->frame = random(0, 2);
+		
 		if ( random(0,7) ){
 			o->timer = random(50, 70);
 		} else {
 			o->timer = random(5,15);
 		}
+		
 	}
 	
 	o->timer--;

@@ -21,13 +21,13 @@ struct BulletInfo
 BulletInfo bullet_table[] =
 {
 //		sprite			  lvl  frm st ttl dmg spd  manset      sound
-	SPR_SHOT_POLARSTAR, 	0,  0, 1, 65,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
+	SPR_SHOT_POLARSTAR, 	0,  0, 1, 65,  3, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l1
 	SPR_SHOT_POLARSTAR, 	1,  1, 1, 12,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// polarstar l2
 	SPR_SHOT_POLARSTAR_L3, 	2,  0, 1, 16,  4, 0x1000, 0, SND_POLAR_STAR_L3,		// polarstar l3
 	
 	SPR_SHOT_MGUN_L1, 		0,  0, 1, 20,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l1
 	
-	SPR_SHOT_MGUN_L2,		1,  0, 1, 80,  1, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l2, white piece
+	SPR_SHOT_MGUN_L2,		1,  0, 2, 80,  2, 0x1000, 0, SND_POLAR_STAR_L1_2,		// mgun l2, white piece
 	SPR_SHOT_MGUN_L2,		1,  1, 0, 80,  0, 0x1000, 0, 0,						// mgun l2, blue piece
 	SPR_SHOT_MGUN_L2,		1,  2, 0, 80,  0, 0x1000, 0, 0,						// mgun l2, dark piece
 	
@@ -52,12 +52,12 @@ BulletInfo bullet_table[] =
 	SPR_SHOT_FIREBALL23,	2,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l3
 	
 	SPR_SHOT_BLADE_L1,		0,  0, 0, 29,  15, 0x800,  0, SND_FIREBALL,		// Blade L1
-	SPR_SHOT_BLADE_L2,		1,  0, 0, 30,  6,  0x800,  0, SND_FIREBALL,		// Blade L2
+	SPR_SHOT_BLADE_L2,		1,  0, 0, 30,  4,  0x800,  0, SND_FIREBALL,		// Blade L2
 	SPR_SHOT_BLADE_L3,		2,  0, 0, 30,  1,  0x800,  0, SND_FIREBALL,		// Blade L3
 	
 	SPR_SHOT_SNAKE_L1,		0,  0, 1, 20,  4,  0x600,  2, SND_SNAKE_FIRE,	// Snake L1
 	SPR_SHOT_FIREBALL23,	1,	0, 1, 23,  6,  0x200,  2, SND_SNAKE_FIRE,	// Snake L2
-	SPR_SHOT_FIREBALL23,	2,	0, 1, 60,  3,  0x200,  2, SND_SNAKE_FIRE,	// Snake L3
+	SPR_SHOT_FIREBALL23,	2,	0, 1, 60,  4,  0x200,  2, SND_SNAKE_FIRE,	// Snake L3
 	
 	SPR_SHOT_NEMESIS_L1,	0,  0, 2, 20,  12, 0x1000, 0, SND_NEMESIS_FIRE,
 	SPR_SHOT_NEMESIS_L2,	1,  0, 2, 20,  6,  0x1000, 0, SND_POLAR_STAR_L3,
@@ -492,6 +492,11 @@ int xoff, yoff;
 	// can only fire one missile at once on L1,
 	// two missiles on L2, and two sets of three missiles on L3.
 	static const uint8_t max_missiles_at_once[] = { 4, 2, 6 };
+	if (is_super && CountObjectsOfType(object_type) >= 1) {
+		// give back the previously-decremented ammo so they don't lose it (hack)
+		player->weapons[player->curWeapon].ammo++;
+		return;
+	}
 	if (CountObjectsOfType(object_type) >= max_missiles_at_once[level])
 	{
 		// give back the previously-decremented ammo so they don't lose it (hack)

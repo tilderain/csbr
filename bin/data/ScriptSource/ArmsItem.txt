@@ -201,7 +201,8 @@ alive...?<WAI9999<END
 Your energy increased.<NOD<END
 <WAI9999<END
 #6007
-<MSG<TURAn ID Card found in Egg No. 06.<WAI9999<END
+<MSG<TURFires highly corrosive bubbles.
+Also good for extinguishing fires.<WAI9999<END
 #6008
 <MSG<TURA fluid that can quench
 fireplaces.<WAI9999<END

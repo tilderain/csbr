@@ -839,6 +839,7 @@ FILE *fp = NULL;
 	stat("Loading Sound FX...");
 	load_top = top;
 	
+	/*
 	if (cache_name)
 	{
 		// try to load the cache if we can
@@ -858,7 +859,7 @@ FILE *fp = NULL;
 		fwrite(&magick, 4, 1, fp);	// fwrite allows us to verify endianness, as well
 		fputi(top, fp);
 	}
-	
+	*/
 	// get ready to do synthesis
 	pxt_initsynth();
 	
@@ -878,24 +879,27 @@ FILE *fp = NULL;
 			pxt_ChangePitch(&snd, 6.0f);
 		
 		// save the rendered audio to cache
+		/*
 		if (fp)
 		{
 			fputl(snd.final_size, fp);
 			fputc(slot, fp);
 			fwrite(snd.final_buffer, snd.final_size, 1, fp);
 		}
-		
+		*/
 		// upscale the sound to 16-bit for SDL_mixer then throw away the now unnecessary 8-bit data
 		pxt_PrepareToPlay(&snd, slot);
 		FreePXTBuf(&snd);
 	}
 	
+	/*
+	disabled for now
 	if (fp)
 	{
 		stat(" - created %s; %d bytes", cache_name, ftell(fp));
 		fclose(fp);
 	}
-	
+	*/
 	return 0;
 }
 
