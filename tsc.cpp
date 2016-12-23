@@ -748,6 +748,8 @@ int cmdip;
 			case OP_ITMINUS: DelInventory(parm[0]); break;
 			case OP_ITJ: JUMP_IF((FindInventory(parm[0]) != -1)); break;
 			
+			case OP_CIPLUS: player->xp += parm[0]; break;
+			
 			// the PSelectSprite is a hack so when the Mimiga Mask is taken
 			// it disappears immediately even though the game is in <PRI.
 			case OP_EQPLUS:	 player->equipmask |= parm[0]; PSelectSprite(); break;

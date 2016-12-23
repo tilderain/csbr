@@ -325,6 +325,7 @@ inline SIFSprite *Object::Sprite()	{ return &sprites[this->sprite]; }
 #define OBJ_BASIL					7
 #define OBJ_BEETLE_FREEFLY			8
 #define OBJ_BALROG_DROP_IN			9
+#define OBJ_BALROG_BOSS_SHOOTING	10
 #define OBJ_IGOR_SHOT				11
 #define OBJ_BALROG					12
 #define OBJ_FORCEFIELD				13

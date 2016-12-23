@@ -35,6 +35,7 @@ void KillObjectsOfType(int type);
 
 //----------[referenced from ai/weed/balrog_boss_flying.cpp]---------//
 void ai_balrog_boss_flying(Object *o);
+void ai_balrog_boss_shooting(Object *o);
 void ondeath_balrog_boss_flying(Object *o);
 void ai_balrog_shot_bounce(Object *o);
 

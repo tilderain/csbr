@@ -7,7 +7,9 @@
 INITFUNC(AIRoutines)
 {
 	ONTICK(OBJ_BALROG_BOSS_FLYING, ai_balrog_boss_flying);
+	ONTICK(OBJ_BALROG_BOSS_SHOOTING, ai_balrog_boss_shooting);
 	ONDEATH(OBJ_BALROG_BOSS_FLYING, ondeath_balrog_boss_flying);
+	ONDEATH(OBJ_BALROG_BOSS_SHOOTING, ondeath_balrog_boss_flying);
 	
 	ONTICK(OBJ_BALROG_SHOT_BOUNCE, ai_balrog_shot_bounce);
 }
@@ -191,6 +193,118 @@ void ondeath_balrog_boss_flying(Object *o)
 	KillObjectsOfType(OBJ_IGOR_SHOT);
 }
 
+void ai_balrog_boss_shooting(Object *o)
+{
+	enum
+	{
+		INIT = 0,
+		WAIT_BEGIN,
+		
+		SHOOT_PLAYER,
+		JUMP_BEGIN,
+		JUMP_UP,
+		FLYING,
+		JUMP_END,
+		LANDED
+	};
+	
+	switch(o->state)
+	{
+		case 0:
+			o->state = WAIT_BEGIN;
+			o->timer = 0;
+		case WAIT_BEGIN:	// wait at start of battle
+		{
+			FACEPLAYER;
+			if (++o->timer > 12)
+			{
+				o->state = SHOOT_PLAYER;
+				o->timer = 0;
+				o->timer2 = 0;
+				o->frame = 1;
+			}
+		}
+		break;
+		
+		case SHOOT_PLAYER:
+		{
+			FACEPLAYER;
+			if (++o->timer > 8)
+			{
+				o->timer = 0;
+				o->frame = 1;
+				
+				EmFireAngledShot(o, OBJ_IGOR_SHOT, 16, 0x200);
+				sound(SND_EM_FIRE);
+				
+				if (++o->timer2 > 6)	// number of shots to fire
+				{
+					o->state = JUMP_BEGIN;
+					o->timer = 0;
+				}
+			}
+		}
+		break;
+		
+		case JUMP_BEGIN:	// begin jump
+		{
+			FACEPLAYER;
+			if (++o->timer > 3)
+			{
+				o->state = JUMP_END;
+				o->timer = 0;
+				o->xinertia = (player->x - o->x) / STEPS_TO_PLAYER;
+				o->yinertia = -0x1250;
+				o->frame = 3;
+			}
+		}
+		break;
+		
+		case JUMP_END:		// coming down from jump
+		{
+			FACEPLAYER;
+			if ((o->y + (16 << CSF)) < player->y)
+			{
+				o->damage = 1;
+			}
+			else
+			{
+				o->damage = 0;
+			}
+			if ((++o->timer >= 15) && o->blockd)
+			{
+				o->xinertia = 0;
+				o->damage = 0;
+				
+				quake(15);
+				
+				SmokeSide(o, 6, DOWN);
+				
+				o->state = LANDED;
+				o->timer = 0;
+				o->frame = 2;
+			}
+		}
+		break;
+		
+		case LANDED:
+		{
+			o->frame = 2;
+			if (++o->timer > 5)
+			{
+				o->state = SHOOT_PLAYER;
+				o->timer = 0;
+				o->timer2 = 0;
+			}
+		}
+		break;
+	}
+	
+	if (o->state != FLYING)
+		o->yinertia += 0x25;
+	
+	LIMITY(0x5FF);
+}
 
 void ai_balrog_shot_bounce(Object *o)
 {
