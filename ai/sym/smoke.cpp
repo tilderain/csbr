@@ -35,7 +35,8 @@ Object *s;
 		s = SmokePuff(x + (random(-rangex, rangex) << CSF), \
 			 	      y + (random(-rangey, rangey) << CSF));
 		
-
+		if (push_behind)
+			s->PushBehind(push_behind);
 	}
 }
 
@@ -152,8 +153,6 @@ void ai_smokecloud(Object *o)
 	if (!o->state)
 	{
 		if (!random(0, 1)) o->frame = 1;
-		o->xinertia = random(-(5 << CSF), (5 << CSF));
-		o->yinertia = random(-(5 << CSF), 0x200);
 		o->state = 1;
 	}
 	
@@ -163,12 +162,9 @@ void ai_smokecloud(Object *o)
 		if (++o->frame >= sprites[o->sprite].nframes)
 			o->Delete();
 	}
-	/* //cool "my spirit is leaving!!" effect
-	o->xinertia /= 2;
-	o->yinertia -= 0x30;
-	*/
-	o->xinertia /= 1.01;
-	o->yinertia += 0x50;
+	
+	o->xinertia *= 20; o->xinertia /= 21;
+	o->yinertia *= 20; o->yinertia /= 21;
 }
 
 

@@ -349,7 +349,6 @@ extern int flipacceltime;
 		o = o->higher)
 	{
 		if (o == player) continue;	// player drawn specially in DrawPlayer
-		if (o->type == OBJ_SMOKE_CLOUD) continue; //hack to draw sparkles on top of tiles
 		
 		// keep it's floattext linked with it's position
 		//o->DamageText->UpdatePos(o);
@@ -419,52 +418,6 @@ extern int flipacceltime;
 	// draw carets (always-on-top effects such as boomflash)
 	Carets::DrawAll();
 	
-	for(Object *o = lowestobject; //gotta find a better way to do this
-		o != NULL;
-		o = o->higher)
-	{
-		if (o->type == OBJ_SMOKE_CLOUD){
-			scr_x = (o->x >> CSF) - (map.displayed_xscroll >> CSF);
-			scr_y = (o->y >> CSF) - (map.displayed_yscroll >> CSF);
-			scr_x -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.x;
-			scr_y -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.y;
-			
-			// don't draw objects that are completely offscreen
-			// (+26 so floattext won't suddenly disappear on object near bottom of screen)
-			if (scr_x <= SCREEN_WIDTH && scr_y <= SCREEN_HEIGHT+26 && \
-				scr_x >= -sprites[o->sprite].w && scr_y >= -sprites[o->sprite].h)
-			{
-				if (nOnscreenObjects < MAX_OBJECTS-1)
-				{
-					onscreen_objects[nOnscreenObjects++] = o;
-					o->onscreen = true;
-				}
-				else
-				{
-					staterr("%s:%d: Max Objects Overflow", __FILE__, __LINE__);
-					return;
-				}
-				
-				if (!o->invisible && o->sprite != SPR_NULL)
-				{
-					scr_x += o->display_xoff;
-					
-					if (o->clip_enable)
-					{
-						draw_sprite_clipped(scr_x, scr_y, o->sprite, o->frame, o->dir, o->clipx1, o->clipx2, o->clipy1, o->clipy2);
-					}
-					else
-					{
-						draw_sprite(scr_x, scr_y, o->sprite, o->frame, o->dir);
-					}
-				}
-			}
-			else
-			{
-				o->onscreen = false;
-			}
-		}
-	}
 	// draw rising/falling water in maps like Almond
 	map_drawwaterlevel();
 	
@@ -709,8 +662,6 @@ void AssignExtraSprites(void)
 	objprop[OBJ_FIREBALL1].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	objprop[OBJ_FIREBALL23].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	
-	objprop[OBJ_MUSHROOM_ENEMY].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
-	
 	objprop[OBJ_CURLY_AI].sprite = SPR_CURLY;
 	objprop[OBJ_CURLY_AI].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	
@@ -722,7 +673,6 @@ void AssignExtraSprites(void)
 	objprop[OBJ_CURLY_CARRIED].sprite = SPR_CURLY;
 	
 	objprop[OBJ_BALROG_BOSS_RUNNING].sprite = SPR_BALROG;
-	objprop[OBJ_BALROG_BOSS_SHOOTING].sprite = SPR_BALROG;
 	objprop[OBJ_BALROG_BOSS_FLYING].sprite = SPR_BALROG;
 	objprop[OBJ_BALROG_BOSS_MISSILES].sprite = SPR_BALROG;
 	

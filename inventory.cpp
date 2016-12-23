@@ -548,7 +548,8 @@ int i, mask;
 		return;
 	}
 	mask = 0x01;
-	for(i=0;equipidlist[i];i++){
+	for(i=0;equipidlist[i];i++)
+	{
 		if (player->inventory[loc2].itemId == 0){
 			player->inventory[loc2].itemId = GetPlug();
 			player->equipmask = 0x00;
@@ -557,7 +558,8 @@ int i, mask;
 			RefreshInventoryScreen();
 			return;
 		}
-		if (equipidlist[i] == player->inventory[loc2].itemId){
+		if (equipidlist[i] == player->inventory[loc2].itemId)
+		{
 			if (player->equipmask) {
 				player->inventory[loc2].itemId = GetPlug();
 			} else {
@@ -616,17 +618,9 @@ int i;
 
 void ThrowItem(){
 	if (itemToBeThrown != -1){
-		if (itemToBeThrown == 16){
-			player->weapons[player->curWeapon].ammo = 0;
-			player->weapons[player->curWeapon].maxammo = 0;
-			player->curWeapon = 0;
-		} else if (itemToBeThrown == 17){
-			player->equipmask = 0;
-		} else {
-			player->inventory[itemToBeThrown].itemId = 0;
-			player->inventory[itemToBeThrown].ammo = 0;
-			player->inventory[itemToBeThrown].maxammo = 0;
-		}
+		player->inventory[itemToBeThrown].itemId = 0;
+		player->inventory[itemToBeThrown].ammo = 0;
+		player->inventory[itemToBeThrown].maxammo = 0;
 		itemToBeThrown = -1;
 		inv.selection = -1;
 		RefreshInventoryScreen();

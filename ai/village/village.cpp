@@ -116,8 +116,7 @@ void ai_mushroom_enemy(Object *o)
 			STANDING,
 			BLINKING,
 			WALKING, WALKING2,
-			SHOT,
-			JUMPING
+			SHOT
 	};
 	
 	switch(o->state)
@@ -129,9 +128,35 @@ void ai_mushroom_enemy(Object *o)
 			o->state = STANDING;
 		case STANDING:		// stand around
 		{
-			o->state = WALKING;
-			o->frame = 0;
-			o->timer = random(30, 300);
+			if (!random(0, 100))
+			{	// blink
+				o->state = BLINKING;
+				o->frame = 1;
+				o->timer = 0;
+			}
+			else
+			{
+				if (!random(0, 150))
+					o->dir ^= 1;
+				
+				// start walking
+				if (!random(0, 150))
+				{
+					o->state = WALKING;
+					o->frame = 0;
+					o->timer = 50;
+				}
+			}
+		}
+		break;
+		
+		case BLINKING:		// eyes closed/blinking
+		{
+			if (++o->timer > 8)
+			{
+				o->frame = 0;
+				o->state = STANDING;
+			}
 		}
 		break;
 		
@@ -141,30 +166,21 @@ void ai_mushroom_enemy(Object *o)
 			o->animtimer = 0;
 		case WALKING+1:
 		{
-			if (!--o->timer){
-				o->yinertia += -0x420;
-				o->state = JUMPING;
-			}
-			if (o->blockl && o->dir == LEFT) //if blockl in 8 pixels (1/2 a block) jump.
+			if (!--o->timer)
+				o->state = INIT;
+			
+			if (o->blockl && o->dir == LEFT)
 			{
 				o->dir = RIGHT;
-				o->xinertia = 0x100;
+				o->xinertia = 0x200;
 			}
 			else if (o->blockr && o->dir == RIGHT)
 			{
 				o->dir = LEFT;
-				o->xinertia = -0x100;
+				o->xinertia = -0x200;
 			}
 			
-			static const uint8_t walkanimframes[] = { 0, 2, 0, 4 };
-		
-			if (++o->animtimer >= 5)
-			{
-				o->animtimer = 0;
-				if (++o->animframe >= 4) o->animframe = 0;
-			}
-			o->frame = walkanimframes[o->animframe];
-			
+			ANIMATE(2, 2, 4);
 			XMOVE(0x100);
 		}
 		break;
@@ -173,38 +189,19 @@ void ai_mushroom_enemy(Object *o)
 			if (o->blockd)
 				o->state = INIT;
 		break;
-		
-		case JUMPING:		// hit by shot
-			o->frame = 1;
-			if (o->blockl && o->dir == LEFT) //if blockl in 8 pixels (1/2 a block) jump.
-			{
-				o->dir = RIGHT;
-				o->xinertia = 0x100;
-			}
-			else if (o->blockr && o->dir == RIGHT)
-			{
-				o->dir = LEFT;
-				o->xinertia = -0x100;
-			}
-			if (o->blockd)
-			{
-				o->timer = random(30, 300);
-				o->state = WALKING;
-			}
-			XMOVE(0x100);
-		break;
 	}
 	
 	if (o->shaketime && o->state != SHOT)
 	{
 		o->state = SHOT;
-		o->yinertia = -0x300;
+		o->yinertia = -0x200;
 		o->frame = 6;
 	}
 	
-	o->yinertia += 0x25;
+	o->yinertia += 0x40;
 	LIMITY(0x5ff);
 }
+
 
 // guy with knife, Mimiga Graveyard
 void ai_gravekeeper(Object *o)

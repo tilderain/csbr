@@ -486,14 +486,14 @@ void ai_sue_teleport_in(Object *o)
 void c------------------------------() {}
 */
 
-void ai_king(Object *o) // monk
+void ai_king(Object *o)
 {
 Object *sword = o->linkedobject;
 
 	switch(o->state)
 	{
 		case 0:
-			o->frame = (pdistlx((32<<CSF)) && pdistly2((32<<CSF), (16<<CSF))) ? 1 : 0;
+			o->frame = 0; randblink(o, 1, 8);
 			o->xinertia = o->yinertia = 0;
 		break;
 		

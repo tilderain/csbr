@@ -643,7 +643,7 @@ void c------------------------------() {}
 void Object::DealDamage(int dmg, Object *shot)
 {
 Object * const &o = this;
-int xoff;
+
 	if (o->flags & FLAG_INVULNERABLE)
 		return;
 	
@@ -661,10 +661,8 @@ int xoff;
 			if (objprop[o->type].hurt_sound)
 				sound(objprop[o->type].hurt_sound);
 			
-			if (shot){
-				xoff = (shot->dir == LEFT ? -(16 << CSF) : (16 << CSF)); //centerx makes the blood too far off, we need more
-				effect(shot->CenterX() + xoff, shot->CenterY(), EFFECT_BLOODSPLATTER);
-			}
+			if (shot)
+				effect(shot->CenterX(), shot->CenterY(), EFFECT_BLOODSPLATTER);
 		}
 	}
 	else
