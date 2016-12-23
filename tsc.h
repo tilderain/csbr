@@ -144,8 +144,9 @@ bool JumpScript(int newscriptno, int pageno=-1);
 #define OP_XX1      88            // 1, 0,
 #define OP_YNJ      89            // 1, 0,
 #define OP_ZAM      90            // 0, 0
+#define OP_CIPLUS	91			  // 1, 0
 
-#define OP_COUNT	91
+#define OP_COUNT	92
 
 
 #define OP_TEXT		0xfa		// mine, denotes start of text
