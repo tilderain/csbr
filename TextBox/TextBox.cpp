@@ -192,6 +192,7 @@ void TextBox::Draw(void)
 
 void TextBox::DrawTextBox()
 {	
+bool shop;
 	//changing it to 6 just feels so wrong and uncavestory like
 	//was previously 10 but that cut off the portrait
 	int text_top = (fCoords.y + 9); 
@@ -241,7 +242,11 @@ void TextBox::DrawTextBox()
 	// draw the frame
 	if (!(fFlags & TB_NO_BORDER))
 	{
-		DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h);
+		if (!game.modeShop){
+			DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h);
+		} else {
+			DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h, shop);
+		}
 	}
 	
 	// set clipping region to inside of frame, so that text cannot
@@ -285,6 +290,8 @@ void TextBox::DrawTextBox()
 
 		if (game.mode != GM_INVENTORY) {
 			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &shadowfont);
+		} else if (game.modeShop){
+			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &shadowfont2);
 		} else {
 			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &whitefont);
 		}
@@ -388,6 +395,16 @@ void TextBox::DrawFrame(int x, int y, int w, int h)
 	draw_sprite_chopped(x, y, SPR_TEXTBOX, 2, w, 8);		// draw bottom
 }
 
-
-
-
+void TextBox::DrawFrame(int x, int y, int w, int h, bool shop) //pass a bool to this and you get the shop border
+{
+	draw_sprite_chopped(x, y, SPR_SHOP_TEXTBOX, 0, w, 8);		// draw top
+	y += 8;
+	
+	for(int draw=0;draw<h-16;draw+=8)
+	{
+		draw_sprite_chopped(x, y, SPR_SHOP_TEXTBOX, 1, w, 8);	// draw middle
+		y += 8;
+	}
+	
+	draw_sprite_chopped(x, y, SPR_SHOP_TEXTBOX, 2, w, 8);		// draw bottom
+}

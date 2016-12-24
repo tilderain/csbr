@@ -111,9 +111,10 @@ int CheckInventoryList(int itemId, int nitems)
 {
 int i;
 
-	for(i=0;i<nitems;i++)
+	for(i=0;i<nitems;i++){
+		if (i==15) break; //not sure how to handle this (trash)
 		if (player->inventory[i].itemId == itemId) return i;
-	
+	}
 	return -1;
 }
 

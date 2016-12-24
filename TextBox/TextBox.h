@@ -57,6 +57,7 @@ public:
 	
 	void Draw();
 	static void DrawFrame(int x, int y, int w, int h);
+	static void DrawFrame(int x, int y, int w, int h, bool shop);
 	
 	uint8_t GetFlags() { return fFlags; }
 	void SetCanSpeedUp(bool newstate);

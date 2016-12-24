@@ -13,7 +13,7 @@
 #define TUR_PARAMS		(TB_LINE_AT_ONCE | TB_VARIABLE_WIDTH_CHARS | TB_CURSOR_NEVER_SHOWN)
 
 static ScriptInstance curscript;
-static int lastammoinc = 0;
+int lastammoinc;
 
 struct ScriptPage
 {
@@ -749,6 +749,16 @@ int cmdip;
 			case OP_ITJ: JUMP_IF((FindInventory(parm[0]) != -1)); break;
 			
 			case OP_CIPLUS: player->xp += parm[0]; break;
+			case OP_CIMINUS: 
+				if (player->xp < parm[0]){
+					JumpScript(parm[1]);
+				} else {
+					player->xp -= parm[0];
+				} break; //jumps if cion more than player cion
+			
+			case OP_SHO:
+				game.modeShop = 2;
+				game.setmode(GM_INVENTORY, game.modeShop); break; //param == 2
 			
 			// the PSelectSprite is a hack so when the Mimiga Mask is taken
 			// it disappears immediately even though the game is in <PRI.

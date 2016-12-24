@@ -86,7 +86,7 @@ bool error = false;
 		error |= greenfont.InitBitmapChars(sheet, fgindex, 0x00ff80);
 		error |= bluefont.InitBitmapChars(sheet, fgindex, 0xa0b5de);
 		error |= shadowfont.InitBitmapCharsShadowed(sheet, fgindex, 0xffffff, 0x5f90ca);
-		error |= shadowfont2.InitBitmapCharsShadowed(sheet, fgindex, 0xffffff, 0xffda8c);
+		error |= shadowfont2.InitBitmapCharsShadowed(sheet, fgindex, 0xffffff, 0xa5675f);
 	}
 	#ifdef CONFIG_ENABLE_TTF
 	else

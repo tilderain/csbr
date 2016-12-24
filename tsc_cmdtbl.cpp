@@ -93,4 +93,7 @@ const TSCCommandTable cmd_table[] =
 	"YNJ", 1,
 	"ZAM", 0,
 	"CI+", 1,
+	"SHO", 1,
+	"CI-", 1,
+
 };

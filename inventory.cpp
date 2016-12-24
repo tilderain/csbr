@@ -37,30 +37,54 @@ int itemToBeThrown;
 // param is passed as 1 when returning from Map System.
 
 stInventory inv;
+stShop shop;
 
 bool inventory_init(int param)
 {
-	memset(&inv, 0, sizeof(inv));
-	
-	inv.curselector = &inv.itemsel;
-	inv.itemsel.cursel = RefreshInventoryScreen();
-	inv.selection = -1;
-	inv.curselector->lastsel = -9999;		// run the script first time
-
-	// returning from map system?
-	if (param == 1)
-	{
-		inv.curselector = &inv.itemsel;
+	//param == 2 then do shop things
+	if (param == 2) {
+		memset(&inv, 0, sizeof(inv));
+		memset(&shop, 0, sizeof(shop));
 		
-		// highlight Map System
-		for(int i=0;i<inv.itemsel.nitems;i++)
+		inv.selection = -1;
+		shop.curselector = &shop.itemsel;
+		shop.itemsel.cursel = RefreshShopScreen();
+		shop.curselector->lastsel = -9999;		// run the script first time
+		shop.inShop = true;
+		
+		shop.itemsel.shopitems[0].itemId = 2;
+		shop.itemsel.shopitems[0].price = 35;
+		shop.itemsel.shopitems[0].ammo = 250;
+		shop.itemsel.shopitems[0].maxammo = 250;
+		
+		shop.itemsel.shopitems[4].itemId = 1;
+		shop.itemsel.shopitems[4].price = 50;
+		shop.itemsel.shopitems[4].ammo = 75;
+		shop.itemsel.shopitems[4].maxammo = 75;
+		
+	} else {
+		memset(&inv, 0, sizeof(inv));
+		
+		inv.curselector = &inv.itemsel;
+		inv.itemsel.cursel = RefreshInventoryScreen();
+		inv.selection = -1;
+		inv.curselector->lastsel = -9999;		// run the script first time
+	
+		// returning from map system?
+		if (param == 1)
 		{
-			if (inv.itemsel.items[i].itemId == 2)
+			inv.curselector = &inv.itemsel;
+			
+			// highlight Map System
+			for(int i=0;i<inv.itemsel.nitems;i++)
 			{
-				inv.curselector->cursel = i;
-				// textbox NOT up until they move the selector
-				inv.curselector->lastsel = i;
-				break;
+				if (inv.itemsel.items[i].itemId == 2)
+				{
+					inv.curselector->cursel = i;
+					// textbox NOT up until they move the selector
+					inv.curselector->lastsel = i;
+					break;
+				}
 			}
 		}
 	}
@@ -72,11 +96,19 @@ bool inventory_init(int param)
 void inventory_tick(void)
 {
 	// run the selectors
-	if (!inv.exiting) RunSelector(inv.curselector);
-	// draw
-	DrawScene();
-	DrawInventory();
-	if (inv.doneDrawing) textbox.Draw();
+	//if we set param 2 do shop things instead.
+	if (shop.inShop){
+		RunShopSelector(shop.curselector);
+		DrawScene();
+		DrawShop();
+		textbox.Draw();
+	} else {
+		if (!inv.exiting) RunSelector(inv.curselector);
+		// draw
+		DrawScene();
+		DrawInventory();
+		if (inv.doneDrawing) textbox.Draw();
+	}
 }
 
 /*
@@ -151,7 +183,7 @@ int x, y, w, i, c;
 			inv.curRow -= ROW_SPEED;
 			if (inv.curRow <= 0)
 			{
-				inv.curRow = 0;
+				inv.curRow = 0; //is this really neccesary?
 				inv.doneDrawing = false;
 				inv.exiting == false;
 				inv.lockinput = false;
@@ -289,9 +321,9 @@ int currow, curcol;
 	{
 		switch(GetCurrentScript()){ //hacks
 			case -1: inv.lockinput = 0; break;
-			case 1302: 
+			case 1302: 					   //no for throwing away   
 				itemToBeThrown = -1;
-				inv.selection = -1; break;//no for throwing away   
+				inv.selection = -1; break;
 			case 1303: ThrowItem(); break; //yes
 			default: return;
 		}
@@ -308,8 +340,7 @@ int currow, curcol;
 		nrows = currow = curcol = 0;
 	}
 	
-	if (justpushed(LEFTKEY))
-	{
+	if (justpushed(LEFTKEY)){
 		sound(selector->sound);
 		
 		// at beginning of row?
@@ -321,10 +352,7 @@ int currow, curcol;
 				selector->cursel = selector->nitems - 1;
 		}
 		else selector->cursel--;
-	}
-	
-	if (justpushed(RIGHTKEY))
-	{
+	} else if (justpushed(RIGHTKEY)){
 		sound(selector->sound);
 		
 		// at end of row?
@@ -333,10 +361,7 @@ int currow, curcol;
 			selector->cursel = (currow * selector->rowlen);
 		}
 		else selector->cursel++;
-	}
-	
-	if (justpushed(DOWNKEY))
-	{
+	} else if (justpushed(DOWNKEY)){
 		if (selector->cursel == 16) {
 			selector->cursel = 17;
 			sound(selector->sound);
@@ -357,10 +382,7 @@ int currow, curcol;
 				}
 			}
 		}
-	}
-	
-	if (justpushed(UPKEY))
-	{
+	} else if (justpushed(UPKEY)){
 		//need to account for weapon and plug
 		//holy hell this is a mess
 		if (selector->cursel == 16) {
@@ -395,15 +417,6 @@ int currow, curcol;
 		}
 	}
 	
-	
-	if (selector == &inv.armssel)		// selecting a weapon
-	{
-		if (buttonjustpushed())
-		{	// select the new weapon
-			weapon_slide(LEFT, selector->items[selector->cursel].itemId);
-			inv.exiting = true;
-		}
-	}
 	else									// selecting an item
 	{
 		if (justpushed(JUMPKEY)){
@@ -466,6 +479,253 @@ int currow, curcol;
 			inv.exiting = true;
 		}
 		
+	}
+}
+
+/* what  i want the shop to do
+allow you to see your current inventory
+allow you to see the shop at the top
+allow you to see money
+allow you to purchase items
+
+it must include: the custom shop textbox
+*/
+
+int RefreshShopScreen(void)
+{
+int i;
+int curwpn = 0;
+	
+	if (game.mode != GM_INVENTORY)
+		return 0;
+
+	// setup itemsel...
+	shop.itemsel.nitems = 8;
+	//inv.itemsel.items[0] = 0;		// show "no item" in case of no items
+	for(i=0;i<player->ninventory;i++)
+		inv.itemsel.items[i].itemId = player->inventory[i].itemId;
+	
+	shop.itemsel.spacing_x = 56;
+	shop.itemsel.spacing_y = sprites[SPR_ITEMIMAGE].h ;//16
+	shop.itemsel.sprite = SPR_YESNOHAND;
+	shop.itemsel.sound = SND_MENU_MOVE;
+	shop.itemsel.rowlen = 4;
+	shop.itemsel.scriptbase = 5000;
+	
+	// after an item has been used don't bring up the script of whatever item
+	// the selector is moved to
+	return curwpn;
+}
+
+static void DrawShop(void){
+	int x, y, w, i, c;
+	bool shop_;
+	
+	inv.x = 38; //settings for item box
+	inv.y = 72;
+	
+	inv.w = 244;
+	inv.h = 80;
+	
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h, shop_); 
+	draw_sprite(inv.x, inv.y, SPR_SHOP_ITEM, 0, 0);
+	
+	inv.x = 38; //settings for shop box
+	inv.y = 32;
+	
+	inv.w = 244;
+	inv.h = 40;
+	
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h, shop_); 
+	draw_sprite(inv.x, inv.y, SPR_SHOP_SHOP, 0, 0);
+	
+	inv.x = 198;
+	inv.y = 8;
+	
+	inv.w = 84;
+	inv.h = 24;
+	
+	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h, shop_); 
+	draw_sprite(inv.x, inv.y, SPR_SHOP_MONEY, 0, 0);
+
+	// start of shop box
+	inv.x = 54;
+	inv.y = 37;
+	
+	x = inv.x;
+	y = inv.y;
+	
+	c = 0;
+	for(i=0;i<8;i++)
+	{
+		draw_sprite(x, y, SPR_ITEMIMAGE, shop.itemsel.shopitems[i].itemId, 0);
+		if (!shop.itemsel.shopitems[i].maxammo) { 
+		// do nothing
+		} else {
+			DrawNumber(x+17, y+8, shop.itemsel.shopitems[i].ammo); //weird position
+			//add support for infinity symbol?
+		}
+		x += shop.itemsel.spacing_x;
+		
+		if (++c >= shop.itemsel.rowlen)
+		{
+			x = inv.x;
+			y += shop.itemsel.spacing_y;
+			c = 0;
+		}
+	}
+		
+	DrawSelector(&shop.itemsel, inv.x, inv.y);
+	
+	// start of items box
+	inv.x = 54;
+	inv.y = 80;
+	
+	x = inv.x;
+	y = inv.y;
+
+	c = 0;
+	for(i=0;i<player->ninventory;i++)
+	{
+		if ( !(i==15) ){
+			draw_sprite(x, y, SPR_ITEMIMAGE, inv.itemsel.items[i].itemId, 0);
+		} else{
+			draw_sprite(x, y, SPR_ITEMIMAGE, 40, 0); //trash... placeholder for now?
+		}
+		
+		if (!player->inventory[i].maxammo) { 
+		// do nothing
+		} else {
+			DrawNumberGray(x+17, y+8, player->inventory[i].ammo); //weird position
+			//add support for infinity symbol?
+		}
+		x += shop.itemsel.spacing_x;
+		
+		if (++c >= shop.itemsel.rowlen)
+		{
+			x = inv.x;
+			y += shop.itemsel.spacing_y;
+			c = 0;
+		}
+	}
+	
+	// - draw the health ----
+	//magic numbers everywhere
+	inv.x = 38;
+	inv.y = 8;
+			
+	// - draw the money ----
+	
+	draw_sprite(inv.x + 205, inv.y + 10, SPR_XPBAR, FRAME_XP_MAX, 0);
+	// cion Number
+	DrawNumber(inv.x + 169, inv.y + 9, player->xp);
+}
+
+static void RunShopSelector(stSelector *selector){
+int nrows;
+int currow, curcol;
+int shopBuy;
+	if (shop.lockinput)
+	{
+		switch(GetCurrentScript()){ //hacks
+			case -1: shop.lockinput = 0; break;
+			case 1401:	 break;//didn't buy it.
+			case 1402:  //bought it
+				//change itemid to out of stock? set flags?  break;//buy the item, then do shopkeep dialogue 
+				if (selector->shopitems[selector->cursel].price > player->xp){ //bypass ci- cmd, too finnicky
+					shop.lockinput = 1;
+					StartScript(1510 + random(0,2), SP_ARMSITEM);
+					RefreshShopScreen();
+				} else if (FindInventory(0) == -1) {
+					shop.lockinput = 1;
+					StartScript(1520 + random(0,2), SP_ARMSITEM);
+					RefreshShopScreen();
+				} else {
+					shop.lockinput = 1;
+					player->xp -= selector->shopitems[selector->cursel].price;
+					shopBuy = FindInventory(0);
+					player->inventory[shopBuy].itemId = selector->shopitems[selector->cursel].itemId;
+					player->inventory[shopBuy].maxammo = selector->shopitems[selector->cursel].maxammo;
+					player->inventory[shopBuy].ammo = selector->shopitems[selector->cursel].ammo;
+					StartScript(1500 + random(0,2), SP_ARMSITEM);
+					RefreshShopScreen();
+				} break;
+
+			default: return;
+		}
+	}
+	
+	if (selector->nitems)
+	{
+		nrows = (selector->nitems - 1) / selector->rowlen;
+		currow = (selector->cursel / selector->rowlen);
+		curcol = (selector->cursel % selector->rowlen);
+	}
+	else
+	{
+		nrows = currow = curcol = 0;
+	}
+	
+	if (justpushed(LEFTKEY)){
+		sound(selector->sound);
+		// at beginning of row?
+		if (curcol == 0)
+		{	// wrap to end of row
+			if (currow < nrows)
+				selector->cursel += (selector->rowlen - 1);
+			else if (selector->nitems > 0)
+				selector->cursel = selector->nitems - 1;
+		}
+		else selector->cursel--;
+	} else if (justpushed(RIGHTKEY)){
+		sound(selector->sound);
+		// at end of row?
+		if (curcol==selector->rowlen-1 || selector->cursel+1 >= selector->nitems)
+		{	// wrap to beginning of row
+			selector->cursel = (currow * selector->rowlen);
+		}
+		else selector->cursel++;
+	} else if (justpushed(DOWNKEY)){
+		if (currow == 1){
+			selector->cursel -= 4;
+			sound(selector->sound);
+		} else {
+		selector->cursel += selector->rowlen;
+		sound(selector->sound);
+		}
+	} else if (justpushed(UPKEY)) {
+		if (currow == 0){
+			selector->cursel += 4; //this will probably never ever change
+			sound(selector->sound);
+		} else {
+			selector->cursel -= selector->rowlen;
+			sound(selector->sound);
+		}
+	}
+
+	// bring up scripts
+	if (selector->cursel != selector->lastsel)
+	{
+		selector->lastsel = selector->cursel;
+		//probably just keep as is
+		StartScript(selector->shopitems[selector->cursel].itemId + selector->scriptbase, SP_ARMSITEM); 
+	}
+	
+	if (justpushed(JUMPKEY)){
+		//bring up shop dialogue, then do purchase
+		lastammoinc = selector->shopitems[selector->cursel].price;
+		StartScript(1400, SP_ARMSITEM);
+		shop.lockinput = 1;
+	}
+	if (justpushed(FIREKEY)) 
+	{
+		// maybe do this?
+		//StartScript(selector->items[selector->cursel].itemId + selector->scriptbase + 1000, SP_ARMSITEM);
+		//shop.lockinput = 1;
+	}
+	if (justpushed(INVENTORYKEY)) 
+	{
+		ExitInventory(); //then go to shop exit script.
 	}
 }
 
@@ -636,10 +896,10 @@ void ThrowItem(){
 static void ExitInventory(void)
 {
 	StopScripts();
+	game.modeShop = false;
+	shop.inShop = false;
 	game.setmode(GM_NORMAL);
 }
-
-
 
 static void DrawSelector(stSelector *selector, int x, int y)
 {

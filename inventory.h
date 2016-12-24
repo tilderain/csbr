@@ -11,6 +11,17 @@ struct Item
 	int maxammo;
 };
 
+struct ShopItem
+{
+	int itemId;
+	int price;
+	int flag;
+	int ammo;
+	int maxammo;
+
+	//custom script?
+};
+
 
 struct stSelector
 {
@@ -25,6 +36,7 @@ struct stSelector
 	
 	int scriptbase;
 	Item items[MAXLISTLEN];
+	ShopItem shopitems[8];
 	
 };
 
@@ -37,13 +49,24 @@ struct stInventory
 	
 	int selection;
 	
-	stSelector armssel;
 	stSelector itemsel;
 	stSelector *curselector;
 	
 	char lockinput;
 };
 
+struct stShop
+{
+	int x, y, w, h;
+	
+	bool inShop;
+	
+	stSelector itemsel;
+	stSelector *curselector;
+	
+	char lockinput;
+	
+};
 
 bool inventory_init(int param);
 void inventory_tick(void);

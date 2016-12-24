@@ -40,6 +40,7 @@ ScriptInstance *StartScript(int scriptno, int pageno=SP_MAP);
 void StopScript(ScriptInstance *s);
 bool JumpScript(int newscriptno, int pageno=-1);
 
+extern int lastammoinc;
 
 // globally-accessible scripts in head.tsc
 #define SCRIPT_NULL				0
@@ -145,8 +146,10 @@ bool JumpScript(int newscriptno, int pageno=-1);
 #define OP_YNJ      89            // 1, 0,
 #define OP_ZAM      90            // 0, 0
 #define OP_CIPLUS	91			  // 1, 0
+#define OP_SHO		92			  // 1, 0
+#define OP_CIMINUS	93			  // 1, 0
 
-#define OP_COUNT	92
+#define OP_COUNT	94
 
 
 #define OP_TEXT		0xfa		// mine, denotes start of text

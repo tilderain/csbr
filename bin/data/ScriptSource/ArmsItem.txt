@@ -84,10 +84,45 @@ known to portend the future.<WAI9999<END
 <KEY<MSGDo you want to throw it away?<YNJ1302<EVE1303
 
 #1302
-<WAI0020<END //a hacky way for telling if you want it thrown away
+<WAI0001<END //a hacky way for telling if you want it thrown away
 
 #1303
-<WAI0020<END
+<WAI0001<END
+
+#1400 
+//start of shop scripts
+<MSG<FAC0012That'll be <NUM0000 cion.<NOD
+<CLR<FAC0000
+Do you want to buy it?<YNJ1401<EVE1402
+
+#1401 
+<WAI0001<END
+
+#1402
+<WAI0001<END
+
+#1500
+<MSG<FAC0012Thanks!<NOD<END
+#1501
+<MSG<FAC0012Thanks much!<NOD<END
+#1502
+<MSG<FAC0012Good choice.<NOD<END
+
+#1510
+<MSG<FAC0012Not enough money.<NOD<END
+#1511
+<MSG<FAC0012I gotta pay the bills!<NOD<END
+#1512
+<MSG<FAC0012Don't quit your day job,
+pal.<NOD<END //have you tried working a side job?
+
+#1520
+<MSG<FAC0012Not enough room...?<NOD<END
+#1521
+<MSG<FAC0012Looks like you've got too much
+on your hands.<NOD<END
+#1522
+<MSG<FAC0012Make some room, will ya?<NOD<END
 
 #5000
 <MSG<TUR<WAI9999<END

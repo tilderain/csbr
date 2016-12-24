@@ -57,6 +57,8 @@ struct Game
 	bool frozen;
 	
 	int mode;
+	int modeShop; //i'm lazy ok
+	
 	int paused;
 	
 	int curmap;

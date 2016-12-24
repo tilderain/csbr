@@ -53,10 +53,14 @@ void SwapTrash(int loc1, int dest);
 int GetPlug(void);
 void ThrowItem(void);
 
-
+int RefreshShopScreen(void);
+static void DrawShop(void);
+static void RunShopSelector(stSelector *selector);
 
 /* located in sound/sound.cpp */
 
 //-------------------[referenced from inventory.cpp]-----------------//
 void sound(int snd);
 
+/* located in playerstats.cpp */
+int FindInventory(int item);
