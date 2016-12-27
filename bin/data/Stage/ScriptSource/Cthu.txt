@@ -36,8 +36,8 @@ Welcome to Puu's Restaurant.<NOD<KEY<MYD0002<CLO<CNP0500:0009:0000
 <WAI0090<MSG<FAC0005Now, today's menu is<NOD.<WAI0030.<WAI0030.<NOD
 <CLRHuh,
 you aren't a Mimiga?<NOD
-<CLRThen hopefully, you want to
-be soap friends with me?<NOD
+<CLRThen hopefully, you want
+to be soap friends with me?<NOD
 <CLR<BSL0500<CMU0004There's no way that's going
 to happen.<NOD
 Poo, I know you.<NOD

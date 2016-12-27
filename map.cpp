@@ -258,11 +258,6 @@ unsigned char tc;
 		tileattr[i] = tilekey[tc];
 		//stat("Tile %02x   TC %02x    Attr %08x   tilekey[%02x] = %08x", i, tc, tileattr[i], tc, tilekey[tc]);
 		
-		if (tc == 0x43)	// destroyable block - have to replace graphics
-		{
-			CopySpriteToTile(SPR_DESTROYABLE, i, 0, 0);
-		}
-		
 		// add water currents to animation list
 		if (tileattr[i] & TA_CURRENT)
 		{
@@ -469,15 +464,6 @@ int i;
 	{
 		delete backdrop[i];
 		backdrop[i] = NULL;
-	}
-	
-	// re-copy star files
-	for(i=0;i<256;i++)
-	{
-		if (tilecode[i] == 0x43)
-		{
-			CopySpriteToTile(SPR_DESTROYABLE, i, 0, 0);
-		}
 	}
 }
 
@@ -854,7 +840,7 @@ void map_ChangeTileWithSmoke(int x, int y, int newtile, int nclouds, bool boomfl
 const char *map_get_stage_name(int mapno)
 {
 	if (mapno == STAGE_KINGS)
-		return "";//Studio Pixel Presents";
+		return "Studio Pixel Presents";//Studio Pixel Presents";
 	
 	return stages[mapno].stagename;
 }

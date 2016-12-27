@@ -104,7 +104,7 @@ int start;
 		fPicXOffset = -24;
 	}
 	
-	if (buttonjustpushed())
+	if (justpushed(JUMPKEY))
 	{
 		// when shown in a replay, the box is shown and everything just like what was done
 		// originally, but we won't actually overwrite any save files.
@@ -124,6 +124,11 @@ int start;
 		// or for loading, just end.
 		ScriptInstance *s = GetCurrentScriptInstance();
 		if (s) s->delaytimer = 0;
+	}
+	if (justpushed(FIREKEY))
+	{
+		SetVisible(false);
+		StartScript(15); //Save cancelled.
 	}
 }
 

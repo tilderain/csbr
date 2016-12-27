@@ -12,6 +12,7 @@
 #include "sprites.h"
 #include "../dirnames.h"
 #include "graphics.fdh"
+#include "nx_icon.h"
 
 NXSurface *screen = NULL;				// created from SDL's screen
 static NXSurface *drawtarget = NULL;	// target of DrawRect etc; almost always screen
@@ -77,6 +78,27 @@ bool Graphics::InitVideo()
 {
 SDL_Surface *sdl_screen;
 
+    SDL_Surface *icon;
+    icon = SDL_CreateRGBSurfaceFrom((void *)WINDOW_TITLE_ICON.pixel_data,
+                                    WINDOW_TITLE_ICON.width,
+                                    WINDOW_TITLE_ICON.height,
+                                    WINDOW_TITLE_ICON.bytes_per_pixel * 8,
+                                    WINDOW_TITLE_ICON.bytes_per_pixel * WINDOW_TITLE_ICON.width,
+                                #if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
+                                    0xff000000, /* Red bit mask. */
+                                    0x00ff0000, /* Green bit mask. */
+                                    0x0000ff00, /* Blue bit mask. */
+                                    0x000000ff  /* Alpha bit mask. */
+                                #else
+                                    0x000000ff, /* Red bit mask. */
+                                    0x0000ff00, /* Green bit mask. */
+                                    0x00ff0000, /* Blue bit mask. */
+                                    0xff000000  /* Alpha bit mask. */
+                                #endif
+                                    );
+    SDL_WM_SetIcon(icon, NULL);
+    SDL_FreeSurface(icon);
+
 	if (drawtarget == screen) drawtarget = NULL;
 	if (screen) delete screen;
 	
@@ -101,7 +123,7 @@ SDL_Surface *sdl_screen;
 		exit(1);
 	}
 	
-	SDL_WM_SetCaption("NXEngine", NULL);
+	SDL_WM_SetCaption("Cave Story Beta Remake", NULL);
 	SDL_ShowCursor(is_fullscreen == false);
 	
 	screen = new NXSurface(sdl_screen, false);

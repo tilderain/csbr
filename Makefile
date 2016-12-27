@@ -65,7 +65,7 @@ $(TARGET):  main.o game.o object.o ObjManager.o \
 	 extract/extractpxt.o extract/extractfiles.o extract/extractstages.o extract/crc.o autogen/AssignSprites.o \
 	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
 	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
-	 common/misc.o \
+	 common/misc.o nxicon.o \
 	 `sdl-config --libs` -lSDL_mixer -static-libgcc -static-libstdc++ -lm
 
 main.o:	main.cpp main.fdh nx.h config.h \
@@ -2071,7 +2071,7 @@ graphics/nxsurface.o:	graphics/nxsurface.cpp graphics/nxsurface.fdh settings.h i
 
 graphics/graphics.o:	graphics/graphics.cpp graphics/graphics.fdh config.h graphics/graphics.h \
 		graphics/nxsurface.h common/basics.h graphics/tileset.h \
-		graphics/sprites.h siflib/sif.h dirnames.h
+		graphics/sprites.h siflib/sif.h dirnames.h graphics/nx_icon.h
 	g++ -g -O2 -c graphics/graphics.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o graphics/graphics.o
 
 graphics/sprites.o:	graphics/sprites.cpp graphics/sprites.fdh graphics/graphics.h graphics/nxsurface.h \
@@ -2079,7 +2079,7 @@ graphics/sprites.o:	graphics/sprites.cpp graphics/sprites.fdh graphics/graphics.
 		common/BList.h common/SupportDefs.h siflib/sectSprites.h \
 		siflib/sectStringArray.h autogen/sprites.h common/StringList.h \
 		dirnames.h settings.h input.h \
-		graphics/sprites.h
+		graphics/sprites.h 
 	g++ -g -O2 -c graphics/sprites.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o graphics/sprites.o
 
 graphics/tileset.o:	graphics/tileset.cpp graphics/tileset.fdh graphics/graphics.h graphics/nxsurface.h \

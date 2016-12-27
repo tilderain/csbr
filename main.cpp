@@ -1,3 +1,10 @@
+#ifdef WIN32
+#    include <Windows.h>
+#    define clockType LARGE_INTEGER
+#else
+#    include <time.h>
+#    define clockType int
+#endif
 
 #include "nx.h"
 #include <stdarg.h>
@@ -20,6 +27,30 @@ static uint32_t fpstimer = 0;
 int framecount = 0;
 bool freezeframe = false;
 int flipacceltime = 0;
+
+static unsigned long clockDivisor;
+
+static void getClockTime(clockType *val){
+#ifdef WIN32
+    QueryPerformanceCounter(val);
+#else
+    *val = clock();
+#endif
+}
+
+typedef double framerate;
+
+static framerate getDiffClock(clockType a, clockType b){
+#ifdef WIN32
+    long diff = b.QuadPart - a.QuadPart;
+    return diff / (double) clockDivisor;
+#else
+    return (b - a) / (double) clockDivisor;
+#endif
+}
+
+
+framerate frameTime = 0, appTime = 0;
 
 int main(int argc, char *argv[])
 {
@@ -252,7 +283,6 @@ int32_t nexttick = 0;
 		}
 	}
 }
-
 static inline void run_tick()
 {
 static bool can_tick = true;

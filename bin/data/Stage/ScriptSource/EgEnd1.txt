@@ -30,7 +30,10 @@ Scratched in underneath, it reads:<NOD<CLR
 you try.<NOD<END
 
 #0300
-<PRI<FLJ0100:0001<FL+0100
+<PRI<FLJ0100:0001<ITJ0000:0301<EVE0033
+
+#0301
+<FL+0100
 <SOU0022<CNP0300:0021:0000
 <MSGOpened the treasure chest.<NOD<CLR<GIT1006<CLR
 <IT+0006:0000<MSGObtained a Life Capsule.<NOD<CLO

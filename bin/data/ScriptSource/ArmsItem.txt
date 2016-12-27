@@ -111,7 +111,7 @@ Do you want to buy it?<YNJ1401<EVE1402
 #1510
 <MSG<FAC0012Not enough money.<NOD<END
 #1511
-<MSG<FAC0012I gotta pay the bills!<NOD<END
+<MSG<FAC0012I gotta pay the bills.<NOD<END
 #1512
 <MSG<FAC0012Don't quit your day job,
 pal.<NOD<END //have you tried working a side job?
@@ -123,6 +123,45 @@ pal.<NOD<END //have you tried working a side job?
 on your hands.<NOD<END
 #1522
 <MSG<FAC0012Make some room, will ya?<NOD<END
+
+#SHOP_ENTER
+1|Oh, you're still alive.
+0|Welcome back.
+#SHOP_REENTER
+Forget something?
+#fakefakeremovethisafterE3
+Welcome back.
+Oh, you're still alive.
+Well met, adventurer!
+Sample my wares!
+#SHOP_EXIT
+0.6|Farewell!
+0.05|Good shooting!
+0.15|Don't forget to reload!
+0.3|Shell you later!
+#SHOP_NOMONEY
+I think your wallet needs to reload.
+#fakefakefakeremoveaftere3
+I'm not running a charity.
+Not enough %CURRENCY_SYMBOL. Sorry.
+Keep dreamin'.
+Not gunna happen.
+I've got a cat to feed.
+#SHOP_STEAL_COMMAND
+<Steal>
+#SHOP_PURCHASE
+An excellent choice.
+That will get you out of a jam!
+You have fine taste.
+That one's just firing off the shelves!
+Lock and load! Right?
+Thanks much!
+Thank you for your patronage!
+
+I've got nothing for you.
+Yeah, I got nothing.
+You've run me dry.
+Gonna have to wait until the next shipment.
 
 #5000
 <MSG<TUR<WAI9999<END
@@ -213,22 +252,18 @@ on your hands.<NOD<END
 #6000
 <MSG<TURNo item.<WAI9999<END
 #6001
-<MSG<TURThe key to Arthur's house.
-It was hidden near Arthur's
-gravestone.<WAI9999<END
+<MSG<TURThe latest in weapons technology.
+Fires a high damage laser.<WAI9999<END
 #6002
-<PRI<MSGNo data for this floor.<NOD<CLR<END
+<PRI<TURThe most basic gun.<WAI9999<END
 <PRI<EVE7002<MPJ7002<MSGNo data for this floor.<NOD<CLR<END
 #6003
-<MSG<TURThe key to Santa's house.<WAI9999<END
+<MSG<TURBounces along the floor.
+Rather powerful on gentle slopes.<WAI9999<END
 #6004
-<MSG<TURA silver locket in the shape of a fish.
-From the condition it's in, it looks
-like it's been treasured for years.<WAI9999<END
+<MSG<TURAn automatic rapid-fire gun.<WAI9999<END
 #6005
-<MSG<TURA sharp fang found at the
-Yamashita Farm. Is its owner still
-alive...?<WAI9999<END
+<MSG<TURWide range and powerful damage.<WAI9999<END
 #6006
 <MSGA life capsule.<NOD<CLRUse it?<YNJ0000
 <IT-0006<SOU0022<DNP0400<CMU0016
@@ -236,8 +271,8 @@ alive...?<WAI9999<END
 Your energy increased.<NOD<END
 <WAI9999<END
 #6007
-<MSG<TURFires highly corrosive bubbles.
-Also good for extinguishing fires.<WAI9999<END
+<MSG<TURFires highly corrosive acid.
+Good for extinguishing fires.<WAI9999<END
 #6008
 <MSG<TURA fluid that can quench
 fireplaces.<WAI9999<END

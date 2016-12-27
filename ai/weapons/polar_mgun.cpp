@@ -39,10 +39,7 @@ void ai_polar_shot(Object *o)
 			shot_spawn_effect(o, EFFECT_FISHY);
 			o->state = STATE_SHOT_HIT;
 			
-			if (!shot_destroy_blocks(o))
-			{
-				sound(SND_SHOT_HIT);
-			}
+			sound(SND_SHOT_HIT);
 		}
 		else if (--o->shot.ttl < 0)
 		{

@@ -710,14 +710,15 @@ int lookscroll_want;
 int i, key;
 
 	// looking/aiming up and down
+	//should probably disable scrolling up, for the authentic beta experience
 	player->look = lookscroll_want = 0;
 	
 	if (pinputs[DOWNKEY])
 	{
 		if (!player->blockd)
 		{
-			player->look = DOWN;
-		}
+		//	player->look = DOWN;
+		} 
 		else if (!lastpinputs[DOWNKEY])
 		{	// activating scripts/talking to NPC's
 			
@@ -739,7 +740,7 @@ int i, key;
 	
 	if (pinputs[UPKEY])
 	{
-		player->look = lookscroll_want = UP;
+		lookscroll_want = UP;
 	}
 	
 	// when looking, pause a second to be sure they really want to do it
@@ -759,9 +760,10 @@ int i, key;
 	{
 		player->lookscroll_timer = 0;
 	}
+	
 	// keys which deactivate lookaway when you are facing away from player
 	static const char actionkeys[] = \
-		{ LEFTKEY, RIGHTKEY, UPKEY, JUMPKEY, FIREKEY, -1 };
+		{ LEFTKEY, RIGHTKEY, JUMPKEY, FIREKEY, -1 }; //used to include UPKEY
 	// deactivation of lookaway
 	if (player->lookaway)
 	{

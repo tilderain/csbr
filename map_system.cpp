@@ -65,7 +65,6 @@ bool ms_init(int return_to_mode)
 
 void ms_close(void)
 {
-	memset(inputs, 0, sizeof(inputs));
 	delete ms.sfc;
 }
 

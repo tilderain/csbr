@@ -262,22 +262,6 @@ void ai_xp(Object *o)
 		if (++o->frame > 5) o->frame = 0;
 	}
 	
-	if (++o->timer > 0x1f4)
-	{
-		o->Delete();
-		return;
-	}
-	else if (o->timer > 0x1f2)
-	{	// twinkle before disappearing
-		o->frame = 0;
-		o->invisible = 0;
-		return;
-	}
-	else if (o->timer > 0x190)
-	{
-		o->invisible = (o->timer & 2);
-	}
-	
 	// let player get it!
 	if (hitdetect(o, player))
 	{

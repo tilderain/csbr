@@ -12,3 +12,4 @@
 10 hurt
 20 polar star
 2c missile
+16 chest

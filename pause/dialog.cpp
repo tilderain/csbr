@@ -22,7 +22,7 @@ Dialog::Dialog()
 	fCoords.y = DLG_Y;
 	fCoords.w = DLG_W;
 	fCoords.h = DLG_H;
-	fTextX = (fCoords.x + 48);
+	fTextX = (fCoords.x + 42);
 	
 	fCurSel = 0;
 	fNumShown = 0;
@@ -102,7 +102,7 @@ void Dialog::Draw()
 	TextBox::DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h);
 	
 	int x = fTextX;
-	int y = (fCoords.y + 18);
+	int y = (fCoords.y + 9);
 	for(int i=0;;i++)
 	{
 		ODItem *item = (ODItem *)fItems.ItemAt(i);

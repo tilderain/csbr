@@ -354,9 +354,10 @@ int currow, curcol;
 		else selector->cursel--;
 	} else if (justpushed(RIGHTKEY)){
 		sound(selector->sound);
-		
-		// at end of row?
-		if (curcol==selector->rowlen-1 || selector->cursel+1 >= selector->nitems)
+		if (selector->cursel == 16){
+			selector->cursel = 3;
+		}
+		else if (curcol==selector->rowlen-1 || selector->cursel+1 >= selector->nitems)
 		{	// wrap to beginning of row
 			selector->cursel = (currow * selector->rowlen);
 		}
@@ -634,11 +635,11 @@ int shopBuy;
 				//change itemid to out of stock? set flags?  break;//buy the item, then do shopkeep dialogue 
 				if (selector->shopitems[selector->cursel].price > player->xp){ //bypass ci- cmd, too finnicky
 					shop.lockinput = 1;
-					StartScript(1510 + random(0,2), SP_ARMSITEM);
+					StartScript(1510 + random(0,2), SP_ARMSITEM);//not enough money
 					RefreshShopScreen();
 				} else if (FindInventory(0) == -1) {
 					shop.lockinput = 1;
-					StartScript(1520 + random(0,2), SP_ARMSITEM);
+					StartScript(1520 + random(0,2), SP_ARMSITEM);//full
 					RefreshShopScreen();
 				} else {
 					shop.lockinput = 1;
@@ -647,7 +648,7 @@ int shopBuy;
 					player->inventory[shopBuy].itemId = selector->shopitems[selector->cursel].itemId;
 					player->inventory[shopBuy].maxammo = selector->shopitems[selector->cursel].maxammo;
 					player->inventory[shopBuy].ammo = selector->shopitems[selector->cursel].ammo;
-					StartScript(1500 + random(0,2), SP_ARMSITEM);
+					StartScript(1500 + random(0,2), SP_ARMSITEM);//buy
 					RefreshShopScreen();
 				} break;
 

@@ -156,6 +156,9 @@ void ai_mushroom_enemy(Object *o)
 				o->xinertia = -0x100;
 			}
 			
+			if (!o->blockd){
+				o->state = JUMPING;
+			}
 			static const uint8_t walkanimframes[] = { 0, 2, 0, 4 };
 		
 			if (++o->animtimer >= 5)
