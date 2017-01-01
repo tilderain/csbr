@@ -52,7 +52,7 @@ BulletInfo bullet_table[] =
 	SPR_SHOT_FIREBALL23,	2,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l3
 	
 	SPR_SHOT_BLADE_L1,		0,  0, 0, 29,  15, 0x800,  0, SND_FIREBALL,		// Blade L1
-	SPR_SHOT_BLADE_L2,		1,  0, 0, 30,  4,  0x800,  0, SND_SLASH,		// Blade L2
+	SPR_SHOT_BLADE_L2,		1,  0, 0, 30,  3,  0x800,  0, SND_SLASH,		// Blade L2
 	SPR_SHOT_BLADE_L3,		2,  0, 0, 30,  1,  0x800,  0, SND_FIREBALL,		// Blade L3
 	
 	SPR_SHOT_SNAKE_L1,		0,  0, 1, 20,  4,  0x600,  2, SND_SNAKE_FIRE,	// Snake L1

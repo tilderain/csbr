@@ -75,6 +75,7 @@ bool maxed_out;
 	//debug("%s", game.bossbar.defeated ? "true" : "false");
 	
 	// handle animations etc
+	if (game.mode == GM_INTRO) return;
 	RunStatusBar();
 	
 	// draw boss bar
@@ -352,6 +353,9 @@ int i;
 		draw_sprite(x, y, SPR_HEALTHBAR, 4); //empty frame
 		}
 		x += sprites[SPR_HEALTHBAR].w;
+		if (i==6){
+			
+		}
 	}
 }
 

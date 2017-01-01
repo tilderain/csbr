@@ -45,10 +45,13 @@ void intro_tick()
 	// lower time for startup
 	if (script && script->delaytimer && script->ip == 5)
 	{
-		game.showmapnametime = 0;
 		if (script->delaytimer > 20)
 			script->delaytimer = 20;
 	}
+	const char buff[64] = "test build";
+	const char bufff[64] = "original game do not steal";
+	font_draw_shaded(4, (SCREEN_HEIGHT-GetFontHeight()-15), buff, 0, &greenfont);
+	font_draw_shaded(4, (SCREEN_HEIGHT-GetFontHeight()-4), bufff, 0, &greenfont);
 }
 
 /*

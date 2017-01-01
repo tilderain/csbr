@@ -428,7 +428,7 @@ void InitNewGame(bool with_intro)
 	game.switchstage.mapno = STAGE_START_POINT;
 	game.switchstage.playerx = 10;
 	game.switchstage.playery = 7;
-	game.switchstage.eventonentry = (with_intro) ? 200 : 91;
+	game.switchstage.eventonentry = (with_intro) ? 91 : 91;
 	
 	fade.set_full(FADE_OUT);
 }

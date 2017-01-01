@@ -574,6 +574,7 @@ void ai_mannan(Object *o)
 		SmokeClouds(o, 8, 12, 12);
 		o->SpawnXP(objprop[o->type].xponkill);
 		o->flags &= ~FLAG_SHOOTABLE;
+		o->flags &= ~FLAG_SOLID_MUSHY;
 		o->state = 3;
 		o->timer = 0;
 		o->frame = 2;

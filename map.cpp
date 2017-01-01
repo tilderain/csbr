@@ -376,10 +376,12 @@ int x, y;
 		case BK_HIDE2:
 		case BK_HIDE3:
 		{
-			if (game.curmap == STAGE_KINGS)		// intro cutscene
+			if (game.curmap == STAGE_KINGS){	// intro cutscene
 				ClearScreen(BLACK);
-			else
+			}
+			else{
 				ClearScreen(DK_BLUE);
+			}
 		}
 		return;
 		

@@ -499,7 +499,7 @@ int tile;
 	if (currentmask & LEFTMASK)  player->xinertia -= 0x88;
 	if (currentmask & RIGHTMASK) player->xinertia += 0x88;
 	if (currentmask & UPMASK)    player->yinertia -= 0x80;
-	if (currentmask & DOWNMASK)  player->yinertia += 0x50;
+	if (currentmask & DOWNMASK)  player->yinertia += 0x46;
 }
 
 
@@ -1464,7 +1464,7 @@ void PDoRepel(void)
 			//debug("REPEL [down]");
 		}
 	}
-	
+	*/
 	// do repel up
 	if (player->CheckAttribute(player->repel_d, player->nrepel_d, TA_SOLID_PLAYER))
 	{
@@ -1474,7 +1474,7 @@ void PDoRepel(void)
 			//debug("REPEL [up]");
 		}
 	}
-	*/
+	
 }
 
 /*

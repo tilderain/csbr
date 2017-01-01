@@ -14,20 +14,34 @@
 <KEY<CNP0100:0000:0000<SOU0011<FAO0000<TRA0020:0090:0017:0009
 
 #0101
-<KEY<FLJ0101:0201<FL+0101<MSG?!<NOD<CLRThe door is covered in soap...<NOD
-You can't get a grip on it...<NOD<END
+<KEY<FLJ0105:0106<FLJ0101:0104<FL+0101<MSG?!<NOD<CLRThe door is covered in soap...<NOD
+You can't get a grip on it...<NOD<FLJ0102:0107<END
 
 #0102
 <KEY<SOU0011<DNP0102<FAO0002<TRA0022:0092:0003:0011
+
+#0103
+<KEY<SOU0011<DNP0102<FAO0002<TRA0022:0092:0003:0011
+
+#0104
+<KEY<FLJ0102:0105<MSGIt won't open no matter how hard
+you try.<NOD<END
+
+#0105
+<MSG...<NOD
+You can open the door now.<NOD<FL+0105<EVE0106
+
+#0106
+<KEY<DNP0101<SOU0011<FAO0001<TRA0004:0091:0033:0021
+
+#0107
+<MSG...<NOD
+But eventually...<NOD<CLO<EVE0106
 
 #0200
 <KEY<MSGIt says "Puu's Restaurant".<NOD
 Scratched in underneath, it reads:<NOD<CLR
 "Buyer beware!"<NOD<END
-
-#0201
-<KEY<MSGIt won't open no matter how hard
-you try.<NOD<END
 
 #0300
 <PRI<FLJ0100:0001<ITJ0000:0301<EVE0033
