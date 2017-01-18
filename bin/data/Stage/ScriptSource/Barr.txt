@@ -52,7 +52,7 @@ They break as you touch them.<NOD
 <PRI<SAT<MSG"Do NOT touch!!"<NOD<END
 
 #0201
-<KEY<MSGDisable shield?<YNJ0000<FL+0104<CLRShield disabled.<NOD<END
+<KEY<MSGDisable shield?<YNJ0000<FL+0104<CLRShield disabled.<NOD<QUA0050<SOU0026<END
 
 #0202
 <KEY<MSGDisable shield?<YNJ0000<FL+0110<CNP0110:0000:0000<CLRShield disabled.<NOD<END

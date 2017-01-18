@@ -39,10 +39,10 @@ bool input_init(void)
 		mappings[SDLK_DOWN] = DOWNKEY;
 		mappings[SDLK_z] = JUMPKEY;
 		mappings[SDLK_x] = FIREKEY;
-		mappings[SDLK_a] = PREVWPNKEY;
-		mappings[SDLK_s] = NEXTWPNKEY;
-		mappings[SDLK_q] = INVENTORYKEY;
-		mappings[SDLK_w] = MAPSYSTEMKEY;
+		mappings[SDLK_d] = PREVWPNKEY;
+		mappings[SDLK_f] = NEXTWPNKEY;
+		mappings[SDLK_s] = INVENTORYKEY;
+		mappings[SDLK_a] = MAPSYSTEMKEY;
 		
 		mappings[SDLK_ESCAPE] = ESCKEY;
 		
@@ -184,13 +184,13 @@ int ino, key;
 					
 					if (evt.type == SDL_KEYDOWN)
 					{
-						if (Replay::IsPlaying() && ino <= LASTCONTROLKEY)
-						{
-							stat("user interrupt - stopping playback of replay");
-							Replay::end_playback();
-							memset(inputs, 0, sizeof(inputs));
-							inputs[ino] = true;
-						}
+						//if (Replay::IsPlaying() && ino <= LASTCONTROLKEY)
+						//{
+						//	stat("user interrupt - stopping playback of replay");
+						//	Replay::end_playback();
+						//	memset(inputs, 0, sizeof(inputs));
+						//	inputs[ino] = true;
+						//}
 						
 						#ifndef __SDLSHIM__
 						if (key == '`')		// bring up console

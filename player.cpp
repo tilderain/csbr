@@ -39,7 +39,7 @@ int i;
 	//player->weapons[WPN_BUBBLER].SetRechargeRate(20, 1, 1);
 	
 	player->curWeapon = WPN_NONE;
-	for(i=0; i<sizeof(&player->XPTexts); i++){
+	for(i=0; i<32; i++){ //32 xp texts since i can't get sizeof to work
 		if (player->XPTexts[i]) delete player->XPTexts[i];
 		player->XPTexts[i] = new FloatText(SPR_REDNUMBERS);
 	}
@@ -1290,8 +1290,8 @@ void hurtplayer(int damage)
 // set the player state to "dead" and execute script "script"
 void killplayer(int script)
 {
-	Replay::end_record();
-	Replay::end_playback();
+	//Replay::end_record();
+	//Replay::end_playback();
 	
 	player->hp = 0;
 	player->dead = true;

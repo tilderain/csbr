@@ -281,7 +281,7 @@ void ai_gravekeeper(Object *o)
 		case 4:		// knife frame 2
 		{
 			o->frame = 5;
-			o->damage = 10;
+			o->damage = 1;
 			
 			if (++o->timer > 2)
 			{

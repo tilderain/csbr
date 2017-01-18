@@ -51,9 +51,9 @@ BulletInfo bullet_table[] =
 	SPR_SHOT_FIREBALL23,	1,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l2
 	SPR_SHOT_FIREBALL23,	2,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l3
 	
-	SPR_SHOT_BLADE_L1,		0,  0, 0, 29,  15, 0x800,  0, SND_FIREBALL,		// Blade L1
-	SPR_SHOT_BLADE_L2,		1,  0, 0, 30,  3,  0x800,  0, SND_SLASH,		// Blade L2
-	SPR_SHOT_BLADE_L3,		2,  0, 0, 30,  1,  0x800,  0, SND_FIREBALL,		// Blade L3
+	SPR_SHOT_BLADE_L1,		0,  0, 0, 29,  15, 0x0000,  0, SND_FIREBALL,		// Blade L1
+	SPR_SHOT_BLADE_L2,		1,  0, 0, 40,  3,  0x0000,  0, SND_SLASH,		// Blade L2
+	SPR_SHOT_BLADE_L3,		2,  0, 0, 40,  1,  0x0000,  0, SND_FIREBALL,		// Blade L3
 	
 	SPR_SHOT_SNAKE_L1,		0,  0, 1, 20,  4,  0x600,  2, SND_SNAKE_FIRE,	// Snake L1
 	SPR_SHOT_FIREBALL23,	1,	0, 1, 23,  6,  0x200,  2, SND_SNAKE_FIRE,	// Snake L2
@@ -153,12 +153,12 @@ int level = curweapon->level;
 	// check if we have enough ammo
 	if (curweapon->maxammo > 0 && curweapon->ammo <= 0)
 	{
-		sound(SND_GUN_CLICK);
+		sound(SND_GUN_CLICK); /*
 		if (empty_timer <= 0)
 		{
 			effect(player->CenterX(), player->CenterY(), EFFECT_EMPTY);
 			empty_timer = 50;
-		}
+		} */
 		
 		return;
 	}
@@ -608,13 +608,9 @@ static void PFireBlade(int level)
 	{
 		switch(dir)
 		{
-			case RIGHT: x -= (6 << CSF); y -= (3 << CSF); break;
-			case LEFT:  x += (6 << CSF); y -= (3 << CSF); break;
-			case UP:    y += (6 << CSF); break;
-			case DOWN:  y -= (6 << CSF); break;
+
 		}
 	}
-	
 	Object *shot = CreateObject(x, y, (1 != 2) ? OBJ_BLADE12_SHOT : OBJ_BLADE3_SHOT);
 	SetupBullet(shot, x, y, B_BLADE_L1+1, dir);
 }
@@ -708,7 +704,7 @@ Weapon *spur = &player->weapons[WPN_SPUR];
 		if (!IsWeaponMaxed())
 		{
 			int amt = (player->equipmask & EQUIP_TURBOCHARGE) ? 3 : 2;
-			AddXP(amt, true);
+			spur->chargetimer += amt;
 			
 			if (IsWeaponMaxed())
 			{
@@ -717,10 +713,18 @@ Weapon *spur = &player->weapons[WPN_SPUR];
 			else
 			{
 				spur->chargetimer++;
+				if (spur->chargetimer > 600) {
+					spur->level = 3;
+				} else if (spur->chargetimer > 300){
+					spur->level = 2;
+				} else if (spur->chargetimer > 100){
+					spur->level = 1;
+				}
 				if (spur->chargetimer & 2)
 				{
 					sound(SND_SPUR_CHARGE_1 + spur->level);
 				}
+				spur->ammo -= 1;
 			}
 		}
 		else
@@ -737,8 +741,7 @@ Weapon *spur = &player->weapons[WPN_SPUR];
 		{
 			if (spur->level > 0 && can_fire_spur())
 			{
-				int level = IsWeaponMaxed() ? 2 : (spur->level - 1);
-				FireSimpleBulletOffset(OBJ_SPUR_SHOT, B_SPUR_L1+level, -4<<CSF, 0);
+				
 			}
 			
 			spur->chargetimer = 0;
@@ -750,7 +753,10 @@ Weapon *spur = &player->weapons[WPN_SPUR];
 	
 	if (statusbar.xpflashcount > FLASH_TIME)
 		statusbar.xpflashcount = FLASH_TIME;
-
+	
+	int level = IsWeaponMaxed() ? 2 : (spur->level - 1);
+				FireSimpleBulletOffset(OBJ_SPUR_SHOT, B_SPUR_L1+2, -4<<CSF, 0);
+	spur->ammo -= 1;
 }
 
 static bool can_fire_spur(void)

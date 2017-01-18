@@ -53,9 +53,14 @@ bool inventory_init(int param)
 		shop.inShop = true;
 		
 		shop.itemsel.shopitems[0].itemId = 2;
-		shop.itemsel.shopitems[0].price = 35;
-		shop.itemsel.shopitems[0].ammo = 250;
-		shop.itemsel.shopitems[0].maxammo = 250;
+		shop.itemsel.shopitems[0].price = 70;
+		shop.itemsel.shopitems[0].ammo = 180;
+		shop.itemsel.shopitems[0].maxammo = 180;
+		
+		shop.itemsel.shopitems[2].itemId = 15;
+		shop.itemsel.shopitems[2].price = 40;
+		shop.itemsel.shopitems[2].ammo = 0;
+		shop.itemsel.shopitems[2].maxammo = 0;
 		
 		shop.itemsel.shopitems[4].itemId = 1;
 		shop.itemsel.shopitems[4].price = 50;
@@ -271,31 +276,14 @@ int x, y, w, i, c;
 		
 		DrawSelector(&inv.itemsel, inv.x, inv.y);
 		
+		int s, spr, frame;
 		if (player->curWeapon != WPN_NONE)
 		{
-			int s, frame;
-			//todo don't be lazy
-			switch(player->curWeapon)
-			{
-				case WPN_SUPER_MISSILE: s = SPR_SUPER_MLAUNCHER; break;
-				case WPN_NEMESIS: s = SPR_NEMESIS; break;
-				case WPN_BUBBLER: s = SPR_BUBBLER; break;
-				case WPN_SPUR: s = SPR_SPUR; break;
-				case WPN_BLADE: s = SPR_BLADEARMS; break;
-			
-				default:
-					s = SPR_WEAPONS_START + (player->curWeapon * 2);
-				break;
-			}
-			
-			// draw the gun at the player's Action Point. Since guns have their Draw Point set
-			// to point at their handle, this places the handle in the player's hand.
-			draw_sprite_at_dp(157, \
-							45, \
-							s, 0, 1);
+				GetSpriteForGun(player->curWeapon, 0, &spr, &frame);
+				draw_sprite_at_dp(157, 45, spr, frame, LEFT);	
 		}
-		
-		draw_sprite(152, 32, SPR_MYCHAR, 0, 1);
+		s = (player->equipmask & EQUIP_MIMIGA_MASK) ? SPR_MYCHAR_MIMIGA : SPR_MYCHAR;
+		draw_sprite(152, 32, s, 0, LEFT);
 		
 		// - draw the health ----
 		//magic numbers everywhere
@@ -307,7 +295,7 @@ int x, y, w, i, c;
 		
 		draw_sprite(inv.x + 205, inv.y + 42, SPR_XPBAR, FRAME_XP_MAX, 0);
 		// cion Number
-		DrawNumber(HEALTH_X - 1, inv.y + 41, player->xp);
+		DrawNumber(HEALTH_X - 1, inv.y + 41, player->xp); // 36 difference of x
 		
 	}
 }

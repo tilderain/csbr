@@ -501,12 +501,13 @@ void ai_chest_closed(Object *o)
 	}
 	
 	// gleaming animation
-	if (++o->timer < 3) o->frame = 1;
-	else if (o->timer < 6) o->frame = 2;
+	if (++o->timer < 5) o->frame = 1;
+	else if (o->timer < 10) o->frame = 2;
+	else if (o->timer < 15) o->frame = 1;
 	else
 	{
 		o->frame = 0;
-		if (o->timer >= 80) o->timer = 0;
+		if (o->timer >= 30) o->timer = 0;
 	}
 	
 	// need this for the big jelly that drops a chest in Weed

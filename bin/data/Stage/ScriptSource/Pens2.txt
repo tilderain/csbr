@@ -15,6 +15,43 @@
 
 #0101
 <KEY<FAO0002<TRA0030:0092:0011:0007
+
+#0110
+<PRI<MSGYou can't run!<NOD<END
+
+#0300
+<SKJ0001:0302<SK+0001<EVE0301
+
+#0301
+<KEY<MSGWhew...<NOD
+I thought I was gonna die.<NOD<CLO
+<WAI0060<WAI0020<MSG<FAC0001...<NOD
+And you are?<NOD
+<WAI0035.<WAI0035.<WAI0035.<NOD
+<CLRYou don't seem like a 
+bad person.<NOD
+<CLRSomeone's waiting for me, so 
+I'll return the favor later.<NOD//walk, introduce self, walk offscreen
+<CLROh, I almost forgot.<NOD
+<CLRBlah blah blah I'm su- amnesia you would say
+It's nice to meet you.<NOD<CLO<MYD0002
+<ANP0300:0003:0002<WAI0250<DNP0300
+<CLO<FAC0000<MSGI'm home!<MYD0000<NOD<CLO<CNP0500:0009:0002<WAI0100
+<MSG<FAC0005Fresh Mimiga become easier
+to eat if you kill them
+and put them in water.<NOD
+Hehe, I wonder if it's
+died yet?<NOD
+<CLR<WAI0020.<WAI0020.<WAI0020.<NOD
+<CLR<ANP0500:0005:0002Huh!?<NOD<ANP0500:0003:0002//stoop
+Where's my Mimiga?!<NOD
+<BSL0500<CMU0004You let him go, didn't you!!<NOD
+<CLRI won't forgive you!<NOD
+<CNP0500:0010:0002<ANP0500:0008:0002<END //anp to increase hp
+
+#0302
+<CAT<EVE0301
+
 #0700
 <KEY<FL-0440<FL-0443<CMU0021<FAI0004
 <MSG<TURConnecting to network...<WAI0050

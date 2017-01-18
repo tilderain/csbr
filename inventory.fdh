@@ -64,3 +64,4 @@ void sound(int snd);
 
 /* located in playerstats.cpp */
 int FindInventory(int item);
+void GetSpriteForGun(int wpn, int look, int *spr, int *frame);

@@ -245,7 +245,7 @@ static void draw_title()
 	draw_sprite(cx, acc_y, SPR_PIXEL_FOREVER);
 	
 	// version
-	static const char *VERSION = "CsBr NXEngine v. 0.5.1.4";
+	static const char *VERSION = "CsBr NXEngine v. 0.6.0.0";
 	static const int SPACING = 6;
 	int wd = GetFontWidth(VERSION, SPACING);
 	cx = (SCREEN_WIDTH / 2) - (wd / 2);

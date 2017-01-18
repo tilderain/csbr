@@ -70,6 +70,15 @@ void TB_SaveSelect::Run_Input()
 {
 int start;
 
+	switch(GetCurrentScript()){ 
+		case 13:
+				game_save(fCurSel);
+				stat("saving alternatively");
+				settings->last_save_slot = fCurSel;
+				settings_save();		// record new save/load slot
+				SetVisible(false);
+	}
+
 	if (justpushed(DOWNKEY))
 	{
 		start = fCurSel;
@@ -110,34 +119,32 @@ int start;
 		// originally, but we won't actually overwrite any save files.
 		if (!Replay::IsPlaying())
 		{
-			if (fSaving)
-				game_save(fCurSel);
+			if (fHaveProfile[fCurSel] && !(settings->last_save_slot == fCurSel) && fSaving)
+			{
+				StartScript(14); //overwrite existing save
+			}
+			else 
+			{
+				if (fSaving)
+					game_save(fCurSel);
 			
-			sound(SND_MENU_SELECT);
-			settings->last_save_slot = fCurSel;
-			settings_save();		// record new save/load slot
+				settings->last_save_slot = fCurSel;
+				settings_save();		// record new save/load slot
+				SetVisible(false);
+		
+				// when the script hit the <SVP, it froze itself in an artifical <WAI9999
+				// waiting for us to complete. Now unfreeze it so can say "Game saved.",
+				// or for loading, just end.
+				ScriptInstance *s = GetCurrentScriptInstance();
+				if (s) s->delaytimer = 0;
+			}
 		}
 		
-		SetVisible(false);
-		
-		// when the script hit the <SVP, it froze itself in an artifical <WAI9999
-		// waiting for us to complete. Now unfreeze it so can say "Game saved.",
-		// or for loading, just end.
-		ScriptInstance *s = GetCurrentScriptInstance();
-		if (s) s->delaytimer = 0;
 	}
 	if (justpushed(FIREKEY))
 	{
-		if (fSaving)
-		{
-			SetVisible(false);
-			StartScript(15); //Save cancelled.
-		} 
-		else
-		{
-			game.setmode(GM_TITLE);
-			SetVisible(false);
-		}
+		SetVisible(false);
+		StartScript(15); //Save cancelled.
 	}
 }
 
@@ -155,7 +162,7 @@ const int w = fCoords.w - 33;
 	draw_sprite_repeating_x(x+sidewd, y, SPR_SAVESELECTOR_MIDDLE, frame, repeatwd);
 	draw_sprite(x+sidewd+repeatwd, y, SPR_SAVESELECTOR_SIDES, frame, RIGHT);
 	
-	y += 5;
+	y += 4;
 	const int FONT_SPACING = 5;
 	
 	if (fHaveProfile[index])
@@ -164,11 +171,7 @@ const int w = fCoords.w - 33;
 		font_draw(x+8, y-1, stage, FONT_SPACING);
 		
 		// draw health.
-		DrawHealth(x+w - 64, y, p);
-		
-		draw_sprite(x+w - 24, y + 1, SPR_XPBAR, 3, 0);
-		// cion Number
-		DrawNumber(x+w - 24 - 36, y, p->xp); // 36 difference of x
+		DrawHealth(x+w, y, p);
 	}
 	else if (fCurSel == index)
 	{
@@ -200,7 +203,7 @@ int x, y, s;
 	draw_sprite(x, y, s, 0, RIGHT);
 	
 	// player gun
-	if (p->curWeapon != WPN_NONE)
+	if (p->curWeapon != WPN_NONE && p->curWeapon != WPN_BLADE)
 	{
 		int spr, frame;
 		GetSpriteForGun(p->curWeapon, 0, &spr, &frame);
@@ -229,47 +232,72 @@ int x, y, s;
 	x = MSG_X + 64;
 	y = MSG_NORMAL_Y + 8;
 	
+	// weapon list
+	for(int i=0;i<WPN_COUNT;i++)
+	{
+		if (p->weapons[i].hasWeapon)
+		{
+			draw_sprite(x, y, SPR_ARMSICONS, i);
+			x += 20;
+		}
+	}
+	
 	// xp of current weapon
 	if (p->curWeapon != WPN_NONE)
 	{
-		int xb = MSG_X + 7;
-		int yb = MSG_NORMAL_Y + 30;
+		int xb = MSG_X + 64;
+		int yb = MSG_NORMAL_Y + 26;
 		
-		draw_sprite(xb, yb, SPR_ITEMIMAGE, p->curWeapon, 0);
-		DrawNumber(xb+9, yb+8, p->weapons[p->curWeapon].ammo);
+		int level = p->weapons[p->curWeapon].level;
+		int curxp = p->weapons[p->curWeapon].xp;
+		int maxxp = player->weapons[p->curWeapon].max_xp[level];
 		
+		draw_sprite(xb, yb, SPR_XPLEVELICON); xb += 16;
+		draw_sprite(xb, yb, SPR_WHITENUMBERS, level+1); xb += 8;
+		draw_sprite(xb, yb, SPR_XPBAR);
+		
+		if ((curxp == maxxp) && level == 2)
+			draw_sprite(xb, yb, SPR_XPBAR, 3);		// MAX
+		else
+			DrawPercentage(xb, yb, SPR_XPBAR, 1, curxp, maxxp, sprites[SPR_XPBAR].w);
 	}
 	
 	// ITEMS:
-	x = (MSG_X + 64) - 14;
-	y = MSG_NORMAL_Y + 4;
-	
-	int c = 0;
-	int i;
-	for(i=0;i<p->ninventory;i++)
-	{
-			draw_sprite(x, y, SPR_ITEMIMAGE, p->inventory[i].itemId, 0);
-			
-			if (!p->inventory[i].maxammo) { 
-			// do nothing
-			} else {
-				DrawNumberGray(x+17, y+8, p->inventory[i].ammo); //weird position
-				//add support for infinity symbol?
-			}
-			x += 48;
-			
-			if (++c >= 4)
-			{
-				x = (MSG_X + 64) - 14;
-				y += 16;
-				c = 0;
-			}
-	}
+	x = (MSG_X + 64) - 10;
+	y = MSG_NORMAL_Y + 40;
 	
 	// Booster
-
-	draw_sprite(x, y, SPR_ITEMIMAGE, GetPlug()); // doesn't work at the moment, need to fix
-
+	// items list. I generally tried to put the ones that are temporary and indicate a
+	// quantity of stage completion at the front so they'll be more likely to be visible.
+	static int items[] = {
+		ITEM_BOOSTER08,
+		ITEM_BOOSTER20,
+		ITEM_LIFE_POT,
+		ITEM_PUPPY,
+		ITEM_JELLYFISH_JUICE,
+		ITEM_CHARCOAL,
+		ITEM_GUM_BASE,
+		ITEM_EXPLOSIVE,
+		ITEM_SPRINKLER,
+		ITEM_CONTROLLER,
+		ITEM_MA_PIGNON,
+		ITEM_LITTLE_MAN,
+		-1
+	};
+	for(int i=0;items[i] != -1;i++)
+	{
+		if (CheckInventoryList(items[i], p->ninventory) != -1)
+		{
+			draw_sprite(x, y, SPR_ITEMIMAGE, items[i]);
+			x += 28;
+			
+			if (x + sprites[SPR_ITEMIMAGE].w > (MSG_X + MSG_W) - 8)
+				break;
+		}
+	}
+	
+	// health
+	DrawHealth((MSG_X+MSG_W) - 4, MSG_NORMAL_Y+8, p);
 	
 }
 
@@ -278,22 +306,18 @@ int x, y, s;
 // without hacking, but I accounted for it anyway.
 static void DrawHealth(int xright, int y, Profile *p)
 {
-int i, hx;
-	hx = xright - 28 - 16;
-	for(i=0;i<p->maxhp;i++){
-		if (i==0){ //skip a heart
-			continue;
-		}
-		if (i < p->hp){
-			draw_sprite(hx, y, SPR_HEALTHBAR, 0); //full frame
-		} else {
-		draw_sprite(hx, y, SPR_HEALTHBAR, 4); //empty frame
-		}
-		hx += sprites[SPR_HEALTHBAR].w;
-		if (i==6){
-			
-		}
-	}
+int hx, len;
+	
+	hx = xright - 28 - 24;
+	if (p->maxhp > 99) { hx -= 8; }
+	len = (p->hp > 99) ? 8 : 0;
+	draw_sprite(hx-len, y-1, SPR_SS_HEALTH_ICON, 0, 0);
+	DrawNumberRAlign(hx+24, y, SPR_WHITENUMBERS, p->hp);
+	
+	hx = xright - 4;
+	len = (p->maxhp > 99) ? 32 : 24;
+	draw_sprite(hx-len, y, SPR_WHITENUMBERS, 11);		// '/' character
+	DrawNumberRAlign(hx, y, SPR_WHITENUMBERS, p->maxhp);
 }
 
 

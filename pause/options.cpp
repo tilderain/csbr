@@ -129,11 +129,11 @@ Dialog *dlg = opt.dlg;
 	
 	dlg->AddItem("Resolution: ", _res_change, _res_get);
 	dlg->AddItem("Controls", EnterControlsMenu);
-	dlg->AddItem("Replay", EnterReplayMenu);
 	
 	dlg->AddSeparator();
 	
 	dlg->AddItem("Enable Debug Keys", _debug_change, _debug_get);
+	dlg->AddItem("Enable Debug Output", _log_change, _log_get);
 	dlg->AddItem("Save Slots: ", _save_change, _save_get);
 	
 	dlg->AddSeparator();
@@ -220,6 +220,18 @@ void _debug_get(ODItem *item)
 {
 	static const char *strs[] = { "", " =" };
 	strcpy(item->suffix, strs[settings->enable_debug_keys]);
+}
+
+void _log_change(ODItem *item, int dir)
+{
+	settings->log ^= 1;
+	sound(SND_MENU_SELECT);
+}
+
+void _log_get(ODItem *item)
+{
+	static const char *strs[] = { "", " =" };
+	strcpy(item->suffix, strs[settings->log]);
 }
 
 

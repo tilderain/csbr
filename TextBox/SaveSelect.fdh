@@ -42,6 +42,7 @@ void GetSpriteForGun(int wpn, int look, int *spr, int *frame);
 
 //--------------[referenced from TextBox/SaveSelect.cpp]-------------//
 int CheckInventoryList(int item, int nitems);
+int GetPlug(void);
 
 
 /* located in statusbar.cpp */
@@ -49,12 +50,15 @@ int CheckInventoryList(int item, int nitems);
 //--------------[referenced from TextBox/SaveSelect.cpp]-------------//
 void DrawPercentage(int x, int y, int fill_sprite, int fsframe, int curvalue, int maxvalue, int width_at_max);
 void DrawNumberRAlign(int x, int y, int s, int num);
+void DrawNumber(int x, int y, int s);
+void DrawNumberGray(int x, int y, int s);
 
 
 /* located in tsc.cpp */
 
 //--------------[referenced from TextBox/SaveSelect.cpp]-------------//
 ScriptInstance *GetCurrentScriptInstance();
+int GetCurrentScript(void);
 
 
 /* located in input.cpp */

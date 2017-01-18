@@ -205,7 +205,7 @@ void Game::tick(void)
 	else
 	{
 		// record/playback replays
-		Replay::run();
+		//Replay::run();
 		
 		// run scripts
 		RunScripts();
@@ -234,8 +234,8 @@ void Game::reset()
 	StopLoopSounds();
 	StopScripts();
 	
-	Replay::end_record();
-	Replay::end_playback();
+	//Replay::end_record();
+	//Replay::end_playback();
 	
 	game.pause(false);
 	game.setmode(GM_INTRO, 0, true);
@@ -680,6 +680,8 @@ void AssignExtraSprites(void)
 	
 	objprop[OBJ_TOROKO].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	objprop[OBJ_TOROKO_TELEPORT_IN].sprite = SPR_TOROKO;
+	
+	objprop[OBJ_SUE].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	
 	objprop[OBJ_KING].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	

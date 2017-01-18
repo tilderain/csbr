@@ -29,14 +29,14 @@ you try.<NOD<END
 
 #0105
 <MSG...<NOD
-You can open the door now.<NOD<FL+0105<EVE0106
+You can open the door now.<NOD<CLO<FL+0105<EVE0106
 
 #0106
 <KEY<DNP0101<SOU0011<FAO0001<TRA0004:0091:0033:0021
 
 #0107
 <MSG...<NOD
-But eventually...<NOD<CLO<EVE0106
+But eventually...<NOD<CLO<FL+0105<EVE0106
 
 #0200
 <KEY<MSGIt says "Puu's Restaurant".<NOD

@@ -308,6 +308,10 @@ void ai_balrog_drop_in(Object *o)
 		case 3:	// landed
 			if (++o->timer > 20) { o->state = 4; o->frame = 0; }
 		break;
+		
+		case 5:	// cutscene crouch
+			o->frame = 2;
+		break;
 	}
 	
 	if (o->state == 1 || o->state == 2)

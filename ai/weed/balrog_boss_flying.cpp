@@ -298,6 +298,12 @@ void ai_balrog_boss_shooting(Object *o)
 			}
 		}
 		break;
+		case 8: //increase hp for 2nd boss fight
+		{
+			o->hp = 128;
+			o->state = 0;
+		}
+		break;
 	}
 	
 	if (o->state != FLYING)

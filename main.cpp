@@ -79,7 +79,7 @@ bool freshstart;
 	//speed_test();
 	//return 1;
 	
-	#ifdef CONFIG_DATA_EXTRACTOR
+	#ifdef CONFIG_DATA_EXTRACTORRS
 	if (!settings->files_extracted)
 	{
 		if (extract_main())

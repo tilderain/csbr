@@ -603,7 +603,7 @@ static void __maxhp(StringList *args, int num)
 
 static void __xp(StringList *args, int num)
 {
-	player->xp += num;
+	AddXP(num);
 }
 
 static void __spawn(StringList *args, int num)

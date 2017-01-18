@@ -4,6 +4,13 @@
 #0001
 <PRI<MSGEmpty.<NOD<END
 
+#0013
+<KEY<MSGGame saved.<NOD<END
+
+#0014
+<KEY<MSGThis will overwrite the
+existing save in another slot.
+Save anyway?<YNJ0000<EVE0013
 #0015
 <KEY<MSGCancelled.<NOD<END
 #0016

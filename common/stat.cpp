@@ -6,6 +6,7 @@
 
 #include "basics.h"
 #include "misc.fdh"
+#include "../nx.h"
 
 #define MAXBUFSIZE		1024
 char logfilename[64] = { 0 };
@@ -40,35 +41,37 @@ void stat(const char *fmt, ...)
 {
 va_list ar;
 char buffer[MAXBUFSIZE];
-
-	va_start(ar, fmt);
-	vsnprintf(buffer, sizeof(buffer), fmt, ar);
-	va_end(ar);
-	
-	puts(buffer);
-	fflush(stdout);
-	
-	if (logfilename[0])
-		writelog(buffer, true);
+	if (settings->log){
+		va_start(ar, fmt);
+		vsnprintf(buffer, sizeof(buffer), fmt, ar);
+		va_end(ar);
+		
+		puts(buffer);
+		fflush(stdout);
+		
+		if (logfilename[0])
+			writelog(buffer, true);
+	}
 }
 
 void staterr(const char *fmt, ...)
 {
 va_list ar;
 char buffer[MAXBUFSIZE];
-
-	va_start(ar, fmt);
-	vsnprintf(buffer, sizeof(buffer), fmt, ar);
-	va_end(ar);
-	
-	printf(" error << %s >> \n", buffer);
-	fflush(stdout);
-	
-	if (logfilename[0])
-	{
-		writelog(" error << ", false);
-		writelog(buffer, false);
-		writelog(" >>\n", false);
+	if (settings->log){
+		va_start(ar, fmt);
+		vsnprintf(buffer, sizeof(buffer), fmt, ar);
+		va_end(ar);
+		
+		printf(" error << %s >> \n", buffer);
+		fflush(stdout);
+		
+		if (logfilename[0])
+		{
+			writelog(" error << ", false);
+			writelog(buffer, false);
+			writelog(" >>\n", false);
+		}
 	}
 }
 

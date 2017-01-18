@@ -108,6 +108,8 @@ Do you want to buy it?<YNJ1401<EVE1402
 #1502
 <MSG<FAC0012Good choice.<NOD<END
 
+Thanks, you!
+
 #1510
 <MSG<FAC0012Not enough money.<NOD<END
 #1511
@@ -123,6 +125,10 @@ pal.<NOD<END //have you tried working a side job?
 on your hands.<NOD<END
 #1522
 <MSG<FAC0012Make some room, will ya?<NOD<END
+
+What's that hunk'a junk?
+
+Mmm, no, I won't take it.
 
 #SHOP_ENTER
 1|Oh, you're still alive.
@@ -288,7 +294,10 @@ would use it...?<WAI9999<END
 <MSG<TURTaken from a fireplace.<WAI9999<END
 #6013
 <MSG<TURAn explosive for blowing up doors
-and such.<WAI9999<END
+and such.<NOD<CLRCarries sheer destructive
+force at the cost of rapidly 
+depleting ammo.<NOD<CLRMay result in
+universal annihilation.<WAI9999<END
 #6014
 <FLJ3000:1200
 <FLJ3001:1201

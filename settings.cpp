@@ -42,6 +42,8 @@ bool settings_load(Settings *setfile)
 		setfile->show_fps = true;
 		setfile->game_fps = 60;
 		
+		setfile->log = 0;
+		
 		// I found that 8bpp->32bpp blits are actually noticably faster
 		// than 32bpp->32bpp blits on several systems I tested. Not sure why
 		// but calling SDL_DisplayFormat seems to actually be slowing things

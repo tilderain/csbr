@@ -176,5 +176,11 @@ void aftermove_blade_l12_shot(Object *o)
 				sound(SND_FIREBALL);
 		break;
 	}
+	
+	switch(o->dir){
+		case LEFT: o->xinertia -= 0x05A; break;
+		case RIGHT: o->xinertia += 0x05A; break;
+	}
+
 }
 
