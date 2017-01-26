@@ -67,7 +67,6 @@ void ai_hidden_powerup(Object *o);
 void ai_xp_capsule(Object *o);
 void ai_save_point(Object *o);
 void ai_recharge(Object *o);
-void ai_arms_sign(Object *o);
 void ai_chest_closed(Object *o);
 void ai_chest_open(Object *o);
 static void smoke_if_bonus_item(Object *o);
@@ -92,6 +91,7 @@ void ai_scroll_controller(Object *o);
 void ai_quake(Object *o);
 void ai_generic_angled_shot(Object *o);
 void onspawn_spike_small(Object *o);
+void  onspawn_computer(Object *o);
 
 
 /* located in ai/sym/smoke.cpp */

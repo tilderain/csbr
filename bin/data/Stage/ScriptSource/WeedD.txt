@@ -11,7 +11,7 @@
 <MNA<CMU0008<FAI0004<END
 
 #0100
-<PRI<FAO0000<TRA0030:0090:0036:0009
+<PRI<FAO0000<TRA0030:0090:0068:0009
 
 #0101
 <KEY<FAO0000<TRA0010:0090:0036:0009
@@ -42,7 +42,7 @@ it even if we spent the rest
 of our lives.<NOD
 <CLR<FAC0001We don't know that.<NOD
 There might be one nearby.<NOD
-Just sell that,<NOD<CLRIt's 1000 cion!<NOD
+Just sell that,<NOD<WAI0040<CLRIt's 1000 cion!<NOD
 <CLR<FAC0028I can't.<NOD<END
 
 #0304

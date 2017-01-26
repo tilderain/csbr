@@ -29,6 +29,7 @@ INITFUNC(AIRoutines)
 	ONTICK(OBJ_TELEPORTER_LIGHTS, ai_animate2);
 	
 	ONTICK(OBJ_COMPUTER, ai_animate4);
+	ONSPAWN(OBJ_COMPUTER, onspawn_computer);
 	ONTICK(OBJ_TERMINAL, ai_terminal);
 	
 	ONTICK(OBJ_LIFE_CAPSULE, ai_animate4);
@@ -465,19 +466,7 @@ void ai_save_point(Object *o)
 
 void ai_recharge(Object *o)
 {
-	o->dir = o->id1;
-	if (pdistlx(32 << CSF) && pdistly(32 << CSF))
-	{
-		o->frame = 1;
-	}else{
-		o->frame = 0;
-	}
-	LIMITY(0x5ff);
-}
 
-void ai_arms_sign(Object *o)
-{
-	o->dir = o->id1;
 	if (pdistlx(32 << CSF) && pdistly(32 << CSF))
 	{
 		o->frame = 1;
@@ -1180,6 +1169,11 @@ void onspawn_spike_small(Object *o)
 		stat("onspawn_spike_small: spike %08x embedded in wall, deleting", o);
 		o->Delete();
 	}
+}
+
+void onspawn_computer(Object *o)
+{
+	o->x -= (3 << CSF);
 }
 
 

@@ -42,7 +42,7 @@ with items dropped by enemies.<NOD<END
 <PRI<AM+0010:0005<MSG
 <GIT0011Max missiles increased by <NUM0000!<NOD<END
 #0033
-<PRI<MSGInventory is full.
+<PRI<MSGInventory is full.<NOD
 Please discard something.<NOD<END
 
 #0040

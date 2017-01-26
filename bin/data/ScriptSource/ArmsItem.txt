@@ -169,6 +169,10 @@ Yeah, I got nothing.
 You've run me dry.
 Gonna have to wait until the next shipment.
 
+sell
+
+Good doing business with ya.
+
 #5000
 <MSG<TUR<WAI9999<END
 #5001

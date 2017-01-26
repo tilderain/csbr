@@ -34,6 +34,7 @@ void ai_polish(Object *o);
 void ondeath_polish(Object *o);
 void ai_polishbaby(Object *o);
 void ai_sandcroc(Object *o);
+void ondeath_sandcroc(Object *o);
 void ai_sunstone(Object *o);
 void ai_crow(Object *o);
 void ai_crowwithskull(Object *o);

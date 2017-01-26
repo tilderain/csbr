@@ -13,6 +13,7 @@ INITFUNC(AIRoutines)
 	ONTICK(OBJ_POLISHBABY, ai_polishbaby);
 	
 	ONTICK(OBJ_SANDCROC, ai_sandcroc);
+	ONDEATH(OBJ_SANDCROC, ondeath_sandcroc);
 	
 	ONTICK(OBJ_MIMIGAC1, ai_curlys_mimigas);
 	ONTICK(OBJ_MIMIGAC2, ai_curlys_mimigas);
@@ -196,6 +197,7 @@ int x, y;
 	{
 		CreateObject(x, y, OBJ_POLISHBABY);
 	}
+	o->SpawnPowerups();
 	o->Delete();
 }
 
@@ -262,7 +264,7 @@ int pbottom, crocbottom;
 				o->frame++;
 			}
 			
-			if (o->frame==3) o->damage = (o->type==OBJ_SANDCROC_OSIDE) ? 15:10;
+			if (o->frame==3) o->damage = 1;
 			else if (o->frame==4)
 			{
 				o->flags |= FLAG_SHOOTABLE;
@@ -321,6 +323,14 @@ int pbottom, crocbottom;
 	
 	// these guys (from oside) don't track
 	if (o->type == OBJ_SANDCROC_OSIDE) o->xinertia = 0;
+}
+
+void ondeath_sandcroc(Object *o)
+{
+	//to prevent coin drops getting stuck in the ground
+	o->y -= (24 << CSF);
+	o->SpawnPowerups();
+	o->Delete();
 }
 
 
