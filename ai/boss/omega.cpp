@@ -22,8 +22,8 @@
 #define LEGD_MIN				(25<<CSF)
 #define LEGD_MAX				(46<<CSF)
 
-#define OMEGA_DAMAGE			20
-#define HP_TRIGGER_POINT		280
+#define OMEGA_DAMAGE			1
+#define HP_TRIGGER_POINT		150
 
 enum Pieces
 {
@@ -63,7 +63,7 @@ void OmegaBoss::OnMapEntry(void)
 	pieces[RIGHTSTRUT] = CreateObject(0, 0, OBJ_OMEGA_STRUT);
 	
 	game.stageboss.object = CreateObject(0, 0, OBJ_OMEGA_BODY);
-	game.stageboss.object->hp = omg.lasthp = 400;
+	game.stageboss.object->hp = omg.lasthp = 300;
 	
 	game.stageboss.object->flags |= FLAG_SHOW_FLOATTEXT;
 	game.stageboss.object->flags &= ~FLAG_SOLID_MUSHY;
@@ -79,8 +79,8 @@ void OmegaBoss::OnMapEntry(void)
 	omg.leg_descend = LEGD_MIN;
 	pieces[LEFTLEG]->sprite = pieces[RIGHTLEG]->sprite = SPR_OMG_LEG_INAIR;
 	
-	game.stageboss.object->x = ((217 * TILE_W) + 5) << CSF;
-	game.stageboss.object->y = ((14 * TILE_H) - 5) << CSF;
+	game.stageboss.object->x = ((93 * TILE_W) + 5) << CSF;
+	game.stageboss.object->y = ((76 * TILE_H) - 5) << CSF;
 	omg.orgx = game.stageboss.object->x;
 	omg.orgy = game.stageboss.object->y;
 	
@@ -209,7 +209,7 @@ void OmegaBoss::Run(void)
 					}
 					
 					shot->timer = (random(0, 7) >= 4) ? random(300, 400):0;
-					shot->damage = 4;
+					shot->damage = 1;
 				}
 			}
 			else if (omg.firecounter >= omg.endfirestate || sound_is_playing(SND_MISSILE_HIT))
@@ -315,6 +315,8 @@ void OmegaBoss::Run(void)
 				{
 					o->xinertia = 0;
 					omg.leg_descend -= o->yinertia;
+					game.quaketime = 30;
+					sound(SND_QUAKE);
 					if (++omg.timer >= 3)
 					{
 						o->yinertia = 0;
@@ -405,10 +407,11 @@ void OmegaBoss::Run(void)
 	// because we want all the pieces to shake at once
 	if (o->hp != omg.lasthp && !omg.shaketimer)
 	{
+		sound(SND_ENEMY_HURT_BIG);
 		omg.shaketimer = 3;
 		// why did I write this? anyway, I'm sure it's important
-		if (o->x > player->x) o->display_xoff = -1;
-						 else o->display_xoff = 1;
+		if (o->x > player->x) o->display_xoff = -2;
+						 else o->display_xoff = 2;
 		
 		omg.lasthp = o->hp;
 	}

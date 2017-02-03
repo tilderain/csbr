@@ -21,7 +21,7 @@ As a matter of fact,<WAI0050
 you're not.<NOD
 <CLRGet back where you belong
 and forget about all this.<NOD
-<CLRUntil<NOD we meet<NOD<WAI0050 agaain.<NOD<END
+<CLRUntil<NOD we meet<NOD<WAI0050 agaain.<NOD<DNP0200<SOU0025<END
 
 #0600
 <MNA<KEY<HMC<WAI0010<CNP0603:0150:0000<FON0603:0016<CMU0006<FAI0004<MSGHuzzah!<NOD<CLO

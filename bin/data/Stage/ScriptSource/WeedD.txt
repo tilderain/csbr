@@ -17,17 +17,17 @@
 <KEY<FAO0000<TRA0010:0090:0036:0009
 
 #0300
-<KEY<MSG<FAC0001Why is it so expensive?<NOD
+<KEY<FL+0130<MSG<FAC0001Why is it so expensive?<NOD
 Nobody would want that
 sort of thing.<NOD
 <CLR<FAC0028My life is on the line here.<NOD
 You do this just as a hobby,
 right?<NOD
-<CLR<FAC0003You're wrong!<NOD
-If we find the exit,
+<CLR<FAC0001You're wrong!<NOD
+If we find the exit, 
 it makes it easier for
 all of us!<NOD
-We won't have to raise
+We won't have to raise 
 flowers...<NOD
 <CLR<FAC0028Su-...<NOD
 Just stop.<NOD
@@ -44,6 +44,19 @@ of our lives.<NOD
 There might be one nearby.<NOD
 Just sell that,<NOD<WAI0040<CLRIt's 1000 cion!<NOD
 <CLR<FAC0028I can't.<NOD<END
+
+#0301
+<FLJ0130:0302<EVE0300
+
+#0302
+<KEY<MSG<FAC0028I found a stone of air.<NOD
+Now we can breathe in the 
+water...<NOD
+But Su-, you shouldn't go.<NOD<END
+
+#0400
+<KEY<MS3So tired...<NOD<END
+
 
 #0304
 <PRI<DNP0304<SOU0022<CMU0016

@@ -660,11 +660,11 @@ int xoff;
 			
 			if (objprop[o->type].hurt_sound)
 				sound(objprop[o->type].hurt_sound);
-			
-			if (shot){
+		}
+		if (shot)
+		{
 				xoff = (shot->dir == LEFT ? -(12 << CSF) : (12 << CSF)); //centerx makes the blood too far off, we need more
 				effect(shot->CenterX() + xoff, shot->CenterY(), EFFECT_BLOODSPLATTER);
-			}
 		}
 	}
 	else

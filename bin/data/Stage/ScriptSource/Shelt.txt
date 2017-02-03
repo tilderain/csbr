@@ -122,6 +122,9 @@ unavailable.<NOD<END
 possible.<NOD<END
 
 #0300
+<KEY<FL+0121<SOU0022<MSGOpened the treasure chest.<NOD<DNP0300<SOU0014<CI+0250
+<CLRObtained 250 cion.<NOD<END
+
 #0301
 #0302
 #0303

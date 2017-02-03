@@ -55,8 +55,8 @@ BulletInfo bullet_table[] =
 	SPR_SHOT_BLADE_L2,		1,  0, 0, 40,  3,  0x0000,  0, SND_SLASH,		// Blade L2
 	SPR_SHOT_BLADE_L3,		2,  0, 0, 40,  1,  0x0000,  0, SND_FIREBALL,		// Blade L3
 	
-	SPR_SHOT_SNAKE_L1,		0,  0, 1, 20,  4,  0x600,  2, SND_SNAKE_FIRE,	// Snake L1
-	SPR_SHOT_FIREBALL23,	1,	0, 1, 23,  6,  0x200,  2, SND_SNAKE_FIRE,	// Snake L2
+	SPR_SHOT_SNAKE_L1,		0,  0, 1, 40,  2,  0x400,  2, SND_SNAKE_FIRE,	// Snake L1
+	SPR_SHOT_FIREBALL23,	1,	0, 1, 23,  2,  0x200,  2, SND_SNAKE_FIRE,	// Snake L2
 	SPR_SHOT_FIREBALL23,	2,	0, 1, 60,  7,  0x200,  2, SND_SNAKE_FIRE,	// Snake L3
 	
 	SPR_SHOT_NEMESIS_L1,	0,  0, 2, 20,  12, 0x1000, 0, SND_NEMESIS_FIRE,
@@ -195,6 +195,10 @@ int level = curweapon->level;
 		
 		case WPN_SNAKE:
 			PFireSnake(level = 2);
+		break;
+		
+		case WPN_WAVER:
+			PFireSnake(level = 0);
 		break;
 		
 		case WPN_NEMESIS:
@@ -754,9 +758,10 @@ Weapon *spur = &player->weapons[WPN_SPUR];
 	if (statusbar.xpflashcount > FLASH_TIME)
 		statusbar.xpflashcount = FLASH_TIME;
 	
-	int level = IsWeaponMaxed() ? 2 : (spur->level - 1);
-				FireSimpleBulletOffset(OBJ_SPUR_SHOT, B_SPUR_L1+2, -4<<CSF, 0);
-	spur->ammo -= 1;
+	if (spur->ammo < 1) {
+		FireSimpleBulletOffset(OBJ_SPUR_SHOT, B_SPUR_L1+2, -4<<CSF, 0);
+		spur->ammo -= 1;
+	}
 }
 
 static bool can_fire_spur(void)

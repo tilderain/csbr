@@ -30,32 +30,41 @@
 <KEY<FAO0000<TRA0083:0090:0013:0010
 
 #0150
-<KEY<SOU0022<MSGOpened the treasure chest.<NOD<SOU0014<CI+0025
+<KEY<FL+0114<SOU0022<MSGOpened the treasure chest.<NOD<DNP0150<SOU0014<CI+0025
 <CLRObtained 25 cion.<NOD<END
 #0151
-<KEY<SOU0022<MSGOpened the treasure chest.<NOD<SOU0014<CI+0025
+<KEY<FL+0115<SOU0022<MSGOpened the treasure chest.<NOD<DNP0151<SOU0014<CI+0025
 <CLRObtained 25 cion.<NOD<END
 #0152
 <KEY<SOU0022<MSGOpened the treasure chest.<NOD
 <CLRIt's empty...<NOD<END
 #0153
-<KEY<SOU0022<MSGOpened the treasure chest.<NOD
+<KEY<FLJ0111:0001<FL+0111<CNP0153:0021:0000<SOU0022<MSGOpened the treasure chest.<NOD
 <CLRIt's a chewed-up tennis ball.<NOD<END
 
 #0154
-<KEY<SOU0022<MSGOpened the treasure chest.<NOD
+<KEY<FLJ0112:0155<FL+0112<CNP0154:0021:0000<SOU0022<MSGOpened the treasure chest.<NOD
 <CLRIt's a bunch of wine bottles.<NOD
-They break as you touch them.<NOD
-<CLRGot the Glass Shards.<NOD<END
+They break as you touch them.<NOD<END
+
+#0155
+<KEY<MSGIt's full of broken glass.<NOD<END
+
 
 #0200
 <PRI<SAT<MSG"Do NOT touch!!"<NOD<END
 
 #0201
-<KEY<MSGDisable shield?<YNJ0000<FL+0104<CLRShield disabled.<NOD<QUA0050<SOU0026<END
+<KEY<FLJ0104:0203<MSGDisable shield?<YNJ0000<FL+0104<CLRShield disabled.<NOD<QUA0050<SOU0026<END
 
 #0202
-<KEY<MSGDisable shield?<YNJ0000<FL+0110<CNP0110:0000:0000<CLRShield disabled.<NOD<END
+<KEY<FLJ0110:0204<MSGDisable shield?<YNJ0000<FL+0110<CNP0110:0000:0000<CLRShield disabled.<NOD<END
+
+#0203
+<KEY<MSGIt doesn't appear to work anymore.<NOD<END
+
+#0204
+<KEY<MSGIt doesn't appear to work anymore.<NOD<END
 
 #0290
 <FLJ0370:0291<END

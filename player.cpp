@@ -31,6 +31,8 @@ int i;
 	InitWeapon(WPN_SNAKE,			30, 40, 16);
 	InitWeapon(WPN_SPUR,			40, 60, 200);
 	InitWeapon(WPN_NEMESIS,			1,  1,  0);
+	InitWeapon(WPN_WAVER,			1,  1,  0);
+	InitWeapon(WPN_FIREBALL2,		1,  1,  0);
 	
 	player->weapons[WPN_MGUN].SetFireRate(6, 6, 6);
 	//player->weapons[WPN_MGUN].SetRechargeRate(5, 5, 5);
@@ -1625,6 +1627,7 @@ int s;
 		case WPN_BUBBLER: s = SPR_BUBBLER; break;
 		case WPN_SPUR: s = SPR_SPUR; break;
 		case WPN_BLADE: s = SPR_BLADEARMS; break;
+		case WPN_WAVER: s = SPR_SNAKEGUN; break;
 		
 		default:
 			s = SPR_WEAPONS_START + (wpn * 2);

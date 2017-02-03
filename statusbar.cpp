@@ -334,7 +334,7 @@ int i;
 	if (!player->hurt_time && curvalue==1){
 		if (player->hurt_health_time <= 0){
 			player->hurt_flash_health ^= 1;
-			player->hurt_health_time = 35;
+			player->hurt_health_time = 10;
 		} else {
 			player->hurt_health_time--;
 		}

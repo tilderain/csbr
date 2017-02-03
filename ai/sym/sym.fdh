@@ -91,7 +91,7 @@ void ai_scroll_controller(Object *o);
 void ai_quake(Object *o);
 void ai_generic_angled_shot(Object *o);
 void onspawn_spike_small(Object *o);
-void  onspawn_computer(Object *o);
+void onspawn_computer(Object *o);
 
 
 /* located in ai/sym/smoke.cpp */

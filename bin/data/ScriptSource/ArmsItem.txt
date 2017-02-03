@@ -190,13 +190,13 @@ Good doing business with ya.
 #5007
 <MSG<TURBubbler<WAI9999<END
 #5008
-<MSG<TURJellyfish Juice<WAI9999<END
+<MSG<TURWaver<WAI9999<END
 #5009
 <MSG<TURCynical Blade<WAI9999<END
 #5010
 <MSG<TURMissile Launcher 2<WAI9999<END
 #5011
-<MSG<TURGum Base<WAI9999<END
+<MSG<TURFireball 2<WAI9999<END
 #5012
 <MSG<TURCharcoal<WAI9999<END
 #5013
@@ -221,7 +221,7 @@ Good doing business with ya.
 #5020
 <MSG<TURTurbocharge<WAI9999<END
 #5021
-<MSG<TURCurly's Air Tank<WAI9999<END
+<MSG<TURAir Tank<WAI9999<END
 #5022
 <MSG<TURNikumaru Counter<WAI9999<END
 #5023
@@ -235,9 +235,9 @@ Good doing business with ya.
 #5027
 <MSG<TURController<WAI9999<END
 #5028
-<MSG<TURBroken Sprinkler<WAI9999<END
+<MSG<TURMandarin<WAI9999<END
 #5029
-<MSG<TURSprinkler<WAI9999<END
+<MSG<TURRocket Parts 2<WAI9999<END
 #5030
 <MSG<TURTow Rope<WAI9999<END
 #5031
@@ -253,11 +253,14 @@ Good doing business with ya.
 #5036
 <MSG<TURAlien Medal<WAI9999<END
 #5037
-<MSG<TURChaco's Lipstick<WAI9999<END
+<MSG<TURCake<WAI9999<END
 #5038
 <MSG<TURWhimsical Star<WAI9999<END
 #5039
 <MSG<TURIron Bond<WAI9999<END
+
+#5040
+<MSG<TURTRASH<WAI9999<END
 
 #6000
 <MSG<TURNo item.<WAI9999<END
@@ -265,7 +268,7 @@ Good doing business with ya.
 <MSG<TURThe latest in weapons technology.
 Fires a high damage laser.<WAI9999<END
 #6002
-<PRI<TURThe most basic gun.<WAI9999<END
+<MSG<TURThe most basic gun.<WAI9999<END
 <PRI<EVE7002<MPJ7002<MSGNo data for this floor.<NOD<CLR<END
 #6003
 <MSG<TURBounces along the floor.
@@ -284,8 +287,7 @@ Your energy increased.<NOD<END
 <MSG<TURFires highly corrosive acid.
 Good for extinguishing fires.<WAI9999<END
 #6008
-<MSG<TURA fluid that can quench
-fireplaces.<WAI9999<END
+<MSG<TURPenetrates through walls.<WAI9999<END
 #6009
 <MSG<TURA sword launcher.
 Who in their right mind
@@ -332,7 +334,7 @@ of weapon energy lost will be halved.<WAI9999<END
 machine gun replenishes ammo.<WAI9999<END
 #6021
 <MSG<TURYou can breathe underwater with
-this. Curly used to use it.<WAI9999<END
+this.<WAI9999<END
 #6022
 <MSG<TURA fully automatic stopwatch.
 You can't see any buttons.<WAI9999<END
@@ -427,6 +429,9 @@ Equipped the Whimsical Star.<NOD<WAI0003<FRE<EVE5038
 <MSG<TURYour tie to Curly Brace, the only
 warrior you would trust your back to.
 Surely you will meet again one day...<WAI9999<END
+
+#6040
+<MSG<TURIt's the trash, alright?<WAI9999<END
 
 #7002
 <MLP<END

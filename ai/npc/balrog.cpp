@@ -238,6 +238,12 @@ bool fall = true;
 		}
 		break;
 		
+		case 200: //intro
+		{
+			o->y += (7 << CSF);
+			o->state = 0;
+		}
+		
 		case 500:	// used during Balfrog death scene
 		{
 			fall = false;

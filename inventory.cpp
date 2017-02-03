@@ -708,9 +708,8 @@ int shopBuy;
 	}
 	if (justpushed(FIREKEY)) 
 	{
-		// maybe do this?
-		//StartScript(selector->items[selector->cursel].itemId + selector->scriptbase + 1000, SP_ARMSITEM);
-		//shop.lockinput = 1;
+		StartScript(selector->items[selector->cursel].itemId + selector->scriptbase + 1000, SP_ARMSITEM);
+		shop.lockinput = 1;
 	}
 	if (justpushed(INVENTORYKEY)) 
 	{
@@ -779,7 +778,7 @@ void SwapWeapon(int loc1, int loc2){
 int equipidlist[] =
 {
 	18, //booster08		0x01
-	2,  //map			0x02
+	40, //map			0x02 //placeholder
 	19, //armsbarrier	0x04
 	20, //turbocharge	0x08
 	21, //airtank		0x10

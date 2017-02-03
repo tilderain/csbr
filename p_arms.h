@@ -12,8 +12,10 @@ enum
 	WPN_MGUN			= 4,
 	WPN_MISSILE			= 5,
 	WPN_BUBBLER			= 7,
+	WPN_WAVER			= 8,
 	WPN_BLADE			= 9,
 	WPN_SUPER_MISSILE 	= 10,
+	WPN_FIREBALL2	 	= 11,
 	WPN_NEMESIS			= 12,
 	WPN_SPUR			= 13,
 	
