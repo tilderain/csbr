@@ -53,7 +53,7 @@ void npc_generic_walk(Object *o, int basestate);
 /* located in ai/sym/smoke.cpp */
 
 //----------------[referenced from ai/npc/npcregu.cpp]---------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in sound/sound.cpp */

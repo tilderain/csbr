@@ -11,34 +11,39 @@ INITFUNC(AIRoutines)
 void c------------------------------() {}
 */
 
-// spawn a single smoke puff at x,y and heading off in a random direction
-Object *SmokePuff(int x, int y)
-{
-	Object *o = CreateObject(x, y, OBJ_SMOKE_CLOUD);
-	vector_from_angle(random(0,255), random(0x200,0x5ff), &o->xinertia, &o->yinertia);
-	return o;
-}
-
 // spawn a cloud of smoke centered around object o and starting within "range" distance.
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind)
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood)
 {
-	SmokeXY(o->CenterX(), o->CenterY(), nclouds, rangex, rangey, push_behind);
+	SmokeXY(o->CenterX(), o->CenterY(), nclouds, rangex, rangey, blood);
 }
 
 
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, Object *push_behind)
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood)
 {
 Object *s;
 
 	for(int i=0;i<nclouds;i++)
 	{
 		s = SmokePuff(x + (random(-rangex, rangex) << CSF), \
-			 	      y + (random(-rangey, rangey) << CSF));
+			 	      y + (random(-rangey, rangey) << CSF),
+					  blood);
 		
 
 	}
 }
 
+
+// spawn a single smoke puff at x,y and heading off in a random direction
+Object *SmokePuff(int x, int y, bool blood)
+{
+	Object *o = CreateObject(x, y, OBJ_SMOKE_CLOUD);
+	vector_from_angle(random(0,255), random(0x200,0x5ff), &o->xinertia, &o->yinertia);
+	if (blood)
+	{
+			o->sprite = SPR_BLOODHIT;
+	}
+	return o;
+}
 
 // spawns smoke from the given side of the object,
 // as if it the object had smacked into something.
@@ -152,8 +157,16 @@ void ai_smokecloud(Object *o)
 	if (!o->state)
 	{
 		if (!random(0, 1)) o->frame = 1;
-		o->xinertia = random(-(5 << CSF), (5 << CSF));
-		o->yinertia = random(-(5 << CSF), 0x200);
+		if (o->sprite == SPR_BLOODHIT)
+		{
+			o->xinertia = random(-0x200, 0x200);
+			o->yinertia = random(-0x600, 0x000);
+		}
+		else
+		{
+			o->xinertia = random(-(5 << CSF), (5 << CSF));
+			o->yinertia = random(-(5 << CSF), 0x200);
+		}
 		o->state = 1;
 	}
 	

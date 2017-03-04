@@ -25,8 +25,8 @@ void KillObjectsOfType(int type);
 /* located in ai/sym/smoke.cpp */
 
 //----------------[referenced from ai/boss/sisters.cpp]--------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind);
-Object *SmokePuff(int x, int y);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+Object *SmokePuff(int x, int y, bool blood);
 
 
 /* located in sound/sound.cpp */

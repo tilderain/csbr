@@ -31,7 +31,7 @@ void ai_pooh_black_dying(Object *o);
 
 //--------------[referenced from ai/maze/pooh_black.cpp]-------------//
 void SmokeSide(Object *o, int nclouds, int dir);
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in sound/sound.cpp */

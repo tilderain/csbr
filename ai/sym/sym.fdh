@@ -98,10 +98,10 @@ void onspawn_computer(Object *o);
 
 //------------------[referenced from ai/sym/sym.cpp]-----------------//
 void SmokeBoomUp(Object *o);
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind);
-Object *SmokePuff(int x, int y);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+Object *SmokePuff(int x, int y, bool blood);
 void SmokeSide(Object *o, int nclouds, int dir);
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, Object *push_behind);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in sound/sound.cpp */

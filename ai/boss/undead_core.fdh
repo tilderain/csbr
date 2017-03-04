@@ -37,8 +37,8 @@ void transfer_damage(Object *o, Object *target);
 /* located in ai/sym/smoke.cpp */
 
 //--------------[referenced from ai/boss/undead_core.cpp]------------//
-Object *SmokePuff(int x, int y);
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, Object *push_behind);
+Object *SmokePuff(int x, int y, bool blood);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in ai/boss/undead_core.cpp */

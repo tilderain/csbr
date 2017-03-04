@@ -48,8 +48,8 @@ void ai_puppy_ghost(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //-----------------[referenced from ai/hell/hell.cpp]----------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind);
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, Object *push_behind);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in sound/sound.cpp */

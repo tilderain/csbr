@@ -69,7 +69,7 @@ void debug(const char *fmt, ...);
 /* located in ai/sym/smoke.cpp */
 
 //----------------------[referenced from map.cpp]--------------------//
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, Object *push_behind);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in graphics/font.cpp */

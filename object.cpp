@@ -695,8 +695,15 @@ Object * const &o = this;
 	else
 	{
 		// should spawn the smokeclouds first, for z-order reasons
-		SmokeClouds(o, objprop[o->type].death_smoke_amt, 8, 8);
-		effect(o->CenterX(), o->CenterY(), EFFECT_BOOMFLASH);
+		if (o->flags & FLAG_DROP_POWERUPS_DONTUSE) //oops i meant flag_organic
+		{
+			SmokeClouds(o, objprop[o->type].death_smoke_amt, 8, 8, true); //blood = true
+		}
+		else
+		{
+			SmokeClouds(o, objprop[o->type].death_smoke_amt, 8, 8);
+			effect(o->CenterX(), o->CenterY(), EFFECT_BOOMFLASH);
+		}
 		
 		if (objprop[o->type].death_sound)
 			sound(objprop[o->type].death_sound);

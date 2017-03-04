@@ -10,7 +10,7 @@ void ai_frenzied_mimiga(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //------------[referenced from ai/weed/frenzied_mimiga.cpp]----------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in sound/sound.cpp */

@@ -34,7 +34,7 @@ void ai_wall_collapser(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //--------------[referenced from ai/hell/ballos_misc.cpp]------------//
-Object *SmokePuff(int x, int y);
+Object *SmokePuff(int x, int y, bool blood);
 
 
 /* located in sound/sound.cpp */

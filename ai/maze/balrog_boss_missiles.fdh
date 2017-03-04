@@ -37,7 +37,7 @@ void ai_balrog_missile(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //---------[referenced from ai/maze/balrog_boss_missiles.cpp]--------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, Object *push_behind);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
 
 
 /* located in ai/balrog_common.cpp */
