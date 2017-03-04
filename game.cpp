@@ -712,6 +712,8 @@ void AssignExtraSprites(void)
 	objprop[OBJ_FIREBALL23].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	
 	objprop[OBJ_MUSHROOM_ENEMY].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
+	objprop[OBJ_GIANT_MUSHROOM_ENEMY].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
+	objprop[OBJ_KAZUMA_AT_COMPUTER].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	
 	objprop[OBJ_CURLY_AI].sprite = SPR_CURLY;
 	objprop[OBJ_CURLY_AI].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;

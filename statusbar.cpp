@@ -332,11 +332,21 @@ void DrawHealthBar(int x, int y, int curvalue, int maxvalue)
 {
 int i;
 	if (!player->hurt_time && curvalue==1){
+		
 		if (player->hurt_health_time <= 0){
+			
 			player->hurt_flash_health ^= 1;
-			player->hurt_health_time = 10;
+			
+			if (player->hurt_flash_health){
+				player->hurt_health_time = 6;
+			} else {
+				player->hurt_health_time = 18;
+			}
+			
 		} else {
+			
 			player->hurt_health_time--;
+			
 		}
 	} else {
 		player->hurt_flash_health = 0;

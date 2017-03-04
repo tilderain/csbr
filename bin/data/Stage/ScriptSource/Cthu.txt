@@ -34,14 +34,15 @@ out, have fun wandering.<NOD<END
 <CLRYahoo!<NOD
 Welcome to Puu's Restaurant.<NOD<KEY<MYD0002<CLO<CNP0500:0009:0000
 <WAI0090<MSG<FAC0005Now, today's menu is<NOD.<WAI0030.<WAI0030.<NOD
-<CLRHuh,
+<CLR<SOU0003Huh,
 you aren't a Mimiga?<NOD
 <CLRThen hopefully, you want
 to be soap friends with me?<NOD
 <CLR<BSL0500<CMU0004There's no way that's going
 to happen.<NOD
 Poo, I know you.<NOD
-You've come here to kill me?<NOD<FL+0103<CNP0500:0010:0000<END
+You've come here to kill me?<NOD<FL+0103<CNP0500:0010:0000
+<QUA0025<SOU0026<END
 
 #0301
 <BSL0500<CMU0004<CNP0500:0010:0000<END

@@ -577,7 +577,7 @@ void ai_mannan(Object *o)
 		o->flags &= ~FLAG_SOLID_MUSHY;
 		o->state = 3;
 		o->timer = 0;
-		o->frame = 2;
+		o->frame = 5;
 		o->damage = 0;
 	}
 	
@@ -587,10 +587,19 @@ void ai_mannan(Object *o)
 			if (o->shaketime)
 			{
 				SpawnObjectAtActionPoint(o, OBJ_MANNAN_SHOT);
-				o->frame = 1;
+				o->frame = 4;
 				o->state = 2;
 				o->timer = 0;
 			}
+			if (++o->animtimer >= 5)
+			{
+				if (++o->frame >= 4)
+				{
+					o->frame = 0;
+				}
+				o->animtimer = 0;
+			}
+			
 		break;
 		
 		case 2:		// firing
@@ -603,8 +612,8 @@ void ai_mannan(Object *o)
 		case 3:		// dead/blinking
 			switch(++o->timer)
 			{
-				case 50: case 60: o->frame = 3; break;
-				case 53: case 63: o->frame = 2; break;
+				case 50: case 60: o->frame = 5; break;
+				case 53: case 63: o->frame = 6; break;
 				case 100: o->state = 4; break;
 			}
 		break;
@@ -614,7 +623,7 @@ void ai_mannan(Object *o)
 void ai_mannan_shot(Object *o)
 {
 	XACCEL(0x20);
-	ANIMATE(0, 1, 2);
+	ANIMATE(1, 0, 2);
 	
 	if ((o->timer & 3) == 1)
 		sound(SND_IRONH_SHOT_FLY);

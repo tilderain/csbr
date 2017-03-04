@@ -763,7 +763,6 @@ void SwapWeapon(int loc1, int loc2){
 		sound(SND_MENU_SELECT);
 		inv.selection = -1;
 		RefreshInventoryScreen();
-		weapon_slide(LEFT, WPN_NONE); //doesn't matter the weapon
 		return;
 	}
 	if (loc1 == loc2) {

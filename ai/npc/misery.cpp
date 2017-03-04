@@ -125,59 +125,22 @@ void ai_misery_float(Object *o)
 
 void ai_miserys_bubble(Object *o)
 {
-Object *target;
-
 	switch(o->state)
 	{
 		case 0:
 		{
-			// find the Toroko object we are to home in on
-			target = mbubble_find_target();
-			if (!target)
-			{
-				o->state = 9999;
-				return;
-			}
-			
-			o->xmark = target->x - (6 << CSF);
-			o->ymark = target->y - (6 << CSF);
-			
-			ThrowObject(o, o->xmark, o->ymark, 0, (2 << CSF));
+			o->x -= (3 << CSF);
+			o->y -= (4 << CSF);
 			o->state = 1;
-			
-			// correct values: 0x3F0, 0xAE
-			stat("Computed toss values xi: 0x%x, 0x%x", o->xinertia, o->yinertia);
-			stat("Target x/y: 0x%x, 0x%x", target->x, target->y);
-		}
-		case 1:
-			ANIMATE(1, 0, 1);
-			
-			if (abs(o->x - o->xmark) <= (3 << CSF) && \
-				abs(o->y - o->ymark) <= (3 << CSF))
-			{
-				o->state = 2;
-				o->frame = 2;
-				sound(SND_BUBBLE);
-				
-				if ((target = mbubble_find_target()))
-					target->invisible = true;
-			}
-		break;
-		
-		case 2:
+		}break;
+		case 4:
 		{
-			ANIMATE(1, 2, 3);
-			
-			o->xinertia -= 0x20;
-			o->yinertia -= 0x20;
-			LIMITX(0x5FF);
-			LIMITY(0x5FF);
-			
-			if (o->y < -1000)
-				o->Delete();
-		}
-		break;
+			sound(SND_LITTLE_CRASH);
+			SmokeClouds(o, 20, 12, 12);
+			o->Delete();
+		}break;
 	}
+	ANIMATE(12, 1, 2);
 }
 
 static Object *mbubble_find_target(void)

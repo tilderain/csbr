@@ -28,7 +28,7 @@ void ai_bat_up_down(Object *o)
 			if (!o->timer--)
 			{
 				o->state = 2;
-				o->yinertia = 0x300;
+				o->yinertia = 0x200;
 			}
 		break;
 		
@@ -39,13 +39,48 @@ void ai_bat_up_down(Object *o)
 			else
 				o->yinertia += 0x10;
 			
-			LIMITY(0x300);
+			LIMITY(0x250);
+			if (o->blocku)
+			{
+				o->ymark = o->y + (36 << CSF);
+				o->yinertia = 0x100;
+			}
+			
+			if (o->blockd)
+			{
+				o->ymark = o->y - (36 << CSF);
+				o->yinertia = -0x100;
+			}
+			if (o->blockr)
+			{
+				o->dir = LEFT;
+				o->xinertia = -0x100;
+			} 
+			else if (o->blockl)
+			{
+				o->dir = RIGHT;
+				o->xinertia = 0x100;
+			}
 		}
 		break;
 	}
-	
-	FACEPLAYER;
-	ANIMATE(1, 2, 4);
+	if (o->dir == LEFT)
+	{
+		o->xinertia -= 0x10;
+	}
+	else
+	{
+		o->xinertia += 0x10;
+	}
+	if (o->yinertia > 0)
+	{
+		ANIMATE(2, 4, 7);
+	}
+	else
+	{
+		ANIMATE(2, 0, 3);
+	}
+	LIMITX(0x156);
 }
 
 /*

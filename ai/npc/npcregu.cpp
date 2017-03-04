@@ -5,7 +5,6 @@
 
 INITFUNC(AIRoutines)
 {
-	ONTICK(OBJ_KAZUMA_AT_COMPUTER, ai_npc_at_computer);
 	ONTICK(OBJ_SUE_AT_COMPUTER, ai_npc_at_computer);
 	
 	ONTICK(OBJ_JENKA, ai_jenka);
@@ -435,7 +434,7 @@ void onspawn_npc_sue(Object *o)
 	// after Egg Corridor.
 	// when we are <CNP'd to regular Sue from SUE_AT_COMPUTER,
 	// as SUE_AT_COMPUTER is a taller sprite than regular Sue.
-	o->SnapToGround();
+	//o->SnapToGround();
 }
 
 void ai_sue_teleport_in(Object *o)

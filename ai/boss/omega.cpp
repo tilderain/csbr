@@ -63,7 +63,7 @@ void OmegaBoss::OnMapEntry(void)
 	pieces[RIGHTSTRUT] = CreateObject(0, 0, OBJ_OMEGA_STRUT);
 	
 	game.stageboss.object = CreateObject(0, 0, OBJ_OMEGA_BODY);
-	game.stageboss.object->hp = omg.lasthp = 300;
+	game.stageboss.object->hp = omg.lasthp = 270;
 	
 	game.stageboss.object->flags |= FLAG_SHOW_FLOATTEXT;
 	game.stageboss.object->flags &= ~FLAG_SOLID_MUSHY;

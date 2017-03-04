@@ -59,7 +59,26 @@ But Su-, you shouldn't go.<NOD<END
 
 
 #0304
-<PRI<DNP0304<SOU0022<CMU0016
-<MSG<GIT1006Got a =Life Capsule=!<WAI0160<NOD<RMU<ML+0005
-Max health increased by 5!<NOD<END
+<FLJ0140:0305<FL+0140<KEY<MSGSorry, but I've got explicit orders 
+not to let anyone in here.<NOD
+The boss says so.<NOD
+<CLRIf you want, you can take him up on
+it.<NOD<CLRBut I doubt you'll get anywhere.<NOD<END
+
+#0305
+<FLJ0141:0306<FL+0141<KEY<MSGBest advice I have for you is
+to sit back and relax.<NOD You've 
+already gone through hell and back
+just to get here,<NOD haven't you?<NOD<END
+
+#0306
+<KEY<MSGJust don't cause a ruckus, okay?<NOD<END
+
+#0307
+<KEY<MSGI guess the boss sees something in you.<NOD //maybe the boss sees something
+Or, he's lost his mind.<END //maybe
+
+
+
+
 

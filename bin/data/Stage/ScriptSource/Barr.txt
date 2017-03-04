@@ -61,7 +61,7 @@ They break as you touch them.<NOD<END
 <KEY<FLJ0110:0204<MSGDisable shield?<YNJ0000<FL+0110<CNP0110:0000:0000<CLRShield disabled.<NOD<END
 
 #0203
-<KEY<MSGIt doesn't appear to work anymore.<NOD<END
+<KEY<MSGEnable shield?<YNJ0000<FL-0104<CLRShield enabled.<NOD<QUA0050<SOU0026<END
 
 #0204
 <KEY<MSGIt doesn't appear to work anymore.<NOD<END

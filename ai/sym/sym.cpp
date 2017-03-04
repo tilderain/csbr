@@ -257,10 +257,10 @@ void ai_xp(Object *o)
 	}
 	
 	
-	if (++o->animtimer >= 3)
+	if (++o->animtimer >= 2)
 	{
 		o->animtimer = 0;
-		if (++o->frame > 5) o->frame = 0;
+		if (++o->frame > 7) o->frame = 0;
 	}
 	
 	// let player get it!
@@ -456,11 +456,6 @@ void ai_save_point(Object *o)
 	o->BringToFront();
 	
 	ai_animate4(o);
-	if (o->dir == LEFT) { //quick and dirty hack to avoid going into linux just for sifedit
-		if (o->frame < 4) o->frame = 4;
-	} else {
-		o->frame = o->frame % 4;
-	}
 }
 
 

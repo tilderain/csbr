@@ -6,6 +6,7 @@
 //--------------[referenced from ai/village/village.cpp]-------------//
 void ai_toroko_shack(Object *o);
 void ai_mushroom_enemy(Object *o);
+void ai_jumper_soa(Object *o);
 void ai_gravekeeper(Object *o);
 void ai_cage(Object *o);
 

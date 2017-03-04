@@ -264,7 +264,7 @@ bool shop;
 		// face slide-in animation
 		if (fFaceXOffset < 0)
 		{	
-			fFaceXOffset = fFaceXOffset / 1.16; // ease out
+			fFaceXOffset = fFaceXOffset / 1.12; // ease out
 			if (fFaceXOffset > 0) fFaceXOffset = 0;
 		}
 	}
