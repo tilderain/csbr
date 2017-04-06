@@ -48,7 +48,7 @@ void intro_tick()
 		if (script->delaytimer > 20)
 			script->delaytimer = 20;
 	}
-	const char buff[64] = "test build";
+	const char buff[64] = "CSTSF Discord build";
 	const char bufff[64] = "original game do not steal";
 	font_draw_shaded(4, (SCREEN_HEIGHT-GetFontHeight()-15), buff, 0, &greenfont);
 	font_draw_shaded(4, (SCREEN_HEIGHT-GetFontHeight()-4), bufff, 0, &greenfont);

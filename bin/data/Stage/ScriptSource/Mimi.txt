@@ -284,9 +284,27 @@ our village.<NOD<END
 <KEY<MSG<FAC0007Still waiting...<NOD<END
 
 #0700
-<KEY<FON0800:0030<MSG<FAC0012YOU KILLED MY SIGN!!!<NOD<FOM0060<END
+<KEY<ANP0700:0100:0000<FON0800:0030<MSG<FAC0012YOU KILLED MY SIGN!!!<NOD<FOM0060<END
 
+#0800
+<KEY<MSG<FAC0012Going out?<NOD
+I've got you covered.<NOD<SHO0002
 
+#0801
+<KEY<FLJ0170:0802<FL+0170<MSG*yawn*<NOD
+<CLRI hate to say it,<NOD
+but I don't think mining is in 
+the cards for me.<NOD
+Did you see the path leading up to 
+the mine? <NODIt's a wonder they 
+haven't improved it...<NOD
+<CLRHeh, but maybe you can take my
+place?<NOD<END
+
+#0802
+<KEY<MSGThat guy over there looks kinda
+scary. <NODI wouldn't talk to him if
+I were you.<NOD<END
 #0900
 <MSGFON test<NOD<FOM001010<NOD<FOM002525<NOD<FOM0030<NOD30
 <NOD<FOM004040<NOD<FOM005050<NOD<FOM006060<NOD<FOM007070

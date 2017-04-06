@@ -146,7 +146,7 @@ extern int lastammoinc;
 #define OP_YNJ      89            // 1, 0,
 #define OP_ZAM      90            // 0, 0
 #define OP_CIPLUS	91			  // 1, 0
-#define OP_SHO		92			  // 1, 0
+#define OP_SHO		92			  // 3, 0
 #define OP_CIMINUS	93			  // 1, 0
 
 #define OP_COUNT	94

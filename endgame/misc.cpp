@@ -221,6 +221,14 @@ void ai_balrog_medic(Object *o)
 		
 	}
 	
+	switch (o->state) {
+		case 100: //it's a joke.
+			sound(SND_LITTLE_CRASH);
+			SmokeClouds(o, 8, 12, 12);
+			o->SpawnXP(objprop[o->type].xponkill);
+		break;
+	}
+	
 	o->timer--;
 }
 

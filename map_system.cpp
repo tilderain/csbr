@@ -119,7 +119,7 @@ void ms_tick(void)
 		
 		if (ms.expandframe <= 0)
 		{
-			int param = (ms.return_gm == GM_INVENTORY) ? 1 : 0;
+			int param = (ms.return_gm == GM_INVENTORY) ? -1 : 0;
 			game.setmode(ms.return_gm, param);
 		}
 		else

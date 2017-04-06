@@ -363,8 +363,8 @@ int i;
 		draw_sprite(x, y, SPR_HEALTHBAR, 4); //empty frame
 		}
 		x += sprites[SPR_HEALTHBAR].w;
-		if (i==6){
-			
+		if (i==6){ //i was going to put something here so the hearts would start a new line
+					//but i don't think i'll ever get to that point
 		}
 	}
 }

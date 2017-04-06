@@ -37,7 +37,7 @@ bool settings_load(Settings *setfile)
 		setfile->emulate_bugs = false;
 		setfile->no_quake_in_hell = false;
 		setfile->inhibit_fullscreen = false;
-		setfile->files_extracted = false;
+		setfile->files_extracted = true;
 		
 		setfile->show_fps = true;
 		setfile->game_fps = 60;

@@ -804,7 +804,7 @@ Object * const &o = this;
 		
 		// center the sprite at the center of the object
 		xp->x -= (xp->Width() / 2);
-		xp->y -= (xp->Height() / 2);
+		xp->y -= (xp->Height()); //sometimes it spawns in the ground
 		
 		xp->UpdateBlockStates(ALLDIRMASK);
 	}

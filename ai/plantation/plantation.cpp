@@ -925,7 +925,7 @@ void ai_proximity_press_hoz(Object *o)
 		
 		case 2:		// activated
 		{
-			o->damage = 127;
+			o->damage = 1;
 			XMOVE(0xC00);
 			
 			if (++o->timer == 8)

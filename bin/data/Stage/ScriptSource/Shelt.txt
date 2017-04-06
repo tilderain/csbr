@@ -134,7 +134,7 @@ possible.<NOD<END
 <KEY<CMU0021<FAI0004
 <MSG<TURConnecting to network...<WAI0050
 <TURLogged on.<WAI0050
-<TURExecuting chat algorithm.<WAI0100<CLR<MSGSue?<NOD
+<TURExecuting chat algorithm.<WAI0100<EVE0502<CLR<MSGSue?<NOD
 You there?<NOD
 It's me.<NOD
 Kazuma!<NOD
@@ -159,15 +159,14 @@ Your brother is so lonely...<NOD<FAO0004<SMC<CLO
 
 #0502
 <KEY<HMC<CMU0021<FAI0004
-<MSGSuuuuue!<NOD
+<MSGSuuuuu----!<NOD
 Answer me!<NOD
-I'm so hungry...<NOD
-There's nothing to eat and I've
-been reduced to feeding on
+Why did you launch this one...<NOD
+There's nothing to play and you'll
+be reduced to feeding on
 cockroaches.<NOD
 ...Ha-ha. That was a joke.
-Ha-ha.<NOD<CLR...If I have to, though,
-I really will...<NOD<FAO0004<SMC<TRA0011:0302:0008:0006
+Ha-ha.<NOD<CLR...I'm serious though...<NOD<FAO0004<SMC<TRA0011:0302:0008:0006
 
 
 #0700

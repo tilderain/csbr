@@ -21,7 +21,7 @@
 <PRI<MSGYou can't run!<NOD<END
 
 #0200 
-<DNP0200<FL+0120<WAI0800<KEY<FAO0001<WAI0050<CMU0026<MSGYou let a Mimiga drown...<NOD
+<DNP0200<FL+0120<WAI1200<KEY<FAO0001<WAI0050<CMU0026<MSGYou let a Mimiga drown...<NOD
 <CLRContinue?<YNJ0049<CLO
 <WAI0050<FLJ0431:0048<INI
 
@@ -37,7 +37,7 @@ And you are?<NOD
 <CLRYou don't seem like a 
 bad person.<NOD
 <CLRSomeone's waiting for me, so 
-I'll return the favor later.<NOD//walk, introduce self, walk offscreen
+I'll return the favor <SOU0014later.<NOD//walk, introduce self, walk offscreen
 <CLROh, I almost forgot.<NOD
 <CLRBlah blah blah I'm su- amnesia you would say
 It's nice to meet you.<NOD<CLO<MYD0002
@@ -63,6 +63,14 @@ Where's my Mimiga?!<NOD
 #0400
 <KEY<ANP0400:0004:0000<CNP0300:0042:0000<WAI0060
 <MSGHack! Cough!<NOD<END
+
+#0500
+<KEY
+<FL-0160<CNP0500:0012:0004<ANP0500:0020:0004<WAI0140
+<PRI<MSG<FAC0005Grr...<NOD<FAC0000<KEY<CLO
+<WAI0100<CMU0015
+<MSG
+Held off Puu!<WAI0140<NOD<CMU0008<END
 
 #0700
 <KEY<FL-0440<FL-0443<CMU0021<FAI0004

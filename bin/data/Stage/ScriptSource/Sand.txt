@@ -78,8 +78,15 @@ house?<YNJ0000<CLO
 <MS3<CMU0015
 Defeated Omega!<WAI0160<NOD<CLRThe spell on the Sunstones has
 been lifted.<NOD<CLO
-<FOM0016<CMU0006
-<SMP0086:0072<SMP0086:0073<END
+<FOM0016<CMU0006<CMU0040<MSGThanks for testing!<NOD
+There's not much else to do from
+this point, but I hope you had
+a good time instead of a bad one.<NOD
+<CLRplz give feedback<NOD
+<CLRplzzzz<NOD
+<CLRgame by rain plzz don't steal<NOD
+<SMP0086:0072<SMP0086:0073
+<END
 <END
 
 #0220
@@ -172,6 +179,11 @@ Max health increased by 5!<NOD<END
 <MSG<GIT1006Got a =Life Capsule=!<WAI0160<NOD<RMU<ML+0005
 Max health increased by 5!<NOD<END
 
+#1000
+<MOV0101,0070
+
+#1001
+<IT+0004:0250<MSGdog barking<DNP1001<END
 
 #1200
 <KEY<ANP1200:0020:0001

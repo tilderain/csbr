@@ -38,4 +38,4 @@
 <SOU0026<QUA0050<END
 #0400
 <KEY<MSGIn lieu of a heartbreaking cutscene,<NOD
-have this free gun.<NOD<CLR<GIT1002<AM+0002:0100Obtained Doggy-Gun.<NOD<END
+have this free gun.<NOD<CLR<GIT1002<AM+0002:0055Obtained Doggy-Gun.<NOD<DNP0400<END

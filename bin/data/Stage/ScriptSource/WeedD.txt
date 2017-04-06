@@ -17,7 +17,7 @@
 <KEY<FAO0000<TRA0010:0090:0036:0009
 
 #0300
-<KEY<FL+0130<MSG<FAC0001Why is it so expensive?<NOD
+<KEY<FLJ0130:0303<FL+0130<MSG<FAC0001Why is it so expensive?<NOD
 Nobody would want that
 sort of thing.<NOD
 <CLR<FAC0028My life is on the line here.<NOD
@@ -54,9 +54,9 @@ Now we can breathe in the
 water...<NOD
 But Su-, you shouldn't go.<NOD<END
 
-#0400
-<KEY<MS3So tired...<NOD<END
 
+#0303
+<MSG<FAC0001PC LOAD LETTER<END
 
 #0304
 <FLJ0140:0305<FL+0140<KEY<MSGSorry, but I've got explicit orders 
@@ -78,7 +78,17 @@ just to get here,<NOD haven't you?<NOD<END
 <KEY<MSGI guess the boss sees something in you.<NOD //maybe the boss sees something
 Or, he's lost his mind.<END //maybe
 
+#0400
+<KEY<MS3So tired...<NOD<END
+
+#0401
+<KEY<MS3Maybe we'll strike gold...<NOD
+or whatever it is we're looking for.<NOD<END
 
 
+#0402
+<KEY<MS3The Shovel Brigade keep working...<NOD
+It's long, hard work,<NOD
+but I'm sure it'll pay off in the end.<NOD<END
 
 

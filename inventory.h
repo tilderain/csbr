@@ -36,7 +36,7 @@ struct stSelector
 	
 	int scriptbase;
 	Item items[MAXLISTLEN];
-	ShopItem shopitems[8];
+	ShopItem shopitems[8]; //max for now
 	
 };
 
@@ -61,10 +61,19 @@ struct stShop
 	
 	bool inShop;
 	
+	bool inBuySellSelection;
+	
+	bool inSell;
+	
 	stSelector itemsel;
 	stSelector *curselector;
 	
 	char lockinput;
+	
+	int fState;
+	int fTimer;
+	
+	float sellPrice;
 	
 };
 

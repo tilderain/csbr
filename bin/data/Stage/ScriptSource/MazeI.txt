@@ -26,7 +26,7 @@
 #0301
 <SOU0022<CNP0300:0021:0000<FL+0116
 <MSGOpened the treasure chest.<NOD<CLR<GIT1008<CLR
-<IT+0008:0150<MSGObtained a Waver.<NOD<CLO
+<IT+0008:0175<MSGObtained a Waver.<NOD<CLO
 <END
 
 

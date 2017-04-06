@@ -757,7 +757,7 @@ int cmdip;
 				} break; //jumps if cion more than player cion
 			
 			case OP_SHO:
-				game.modeShop = 2;
+				game.modeShop = parm[0];
 				game.setmode(GM_INVENTORY, game.modeShop); break; //param == 2
 			
 			// the PSelectSprite is a hack so when the Mimiga Mask is taken
