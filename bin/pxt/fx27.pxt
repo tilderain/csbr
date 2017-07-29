@@ -1,13 +1,13 @@
 use  :1
-size :3000
+size :4000
 main_model   :1
-main_freq    :100.00
-main_top     :43
-main_offset  :220
+main_freq    :132.33
+main_top     :44
+main_offset  :205
 pitch_model  :2
 pitch_freq   :1.00
-pitch_top    :13
-pitch_offset :21
+pitch_top    :14
+pitch_offset :16
 volume_model :0
 volume_freq  :1.00
 volume_top   :0
@@ -21,15 +21,15 @@ cx      :255
 cy      :0
 
 use  :1
-size :3000
+size :4000
 main_model   :1
-main_freq    :99.00
+main_freq    :132.00
 main_top     :63
 main_offset  :8
 pitch_model  :2
 pitch_freq   :1.00
 pitch_top    :63
-pitch_offset :36
+pitch_offset :10
 volume_model :0
 volume_freq  :1.00
 volume_top   :0
@@ -86,8 +86,8 @@ by      :0
 cx      :0
 cy      :0
 
-{1,3000,1,100.00,43,220,2,1.00,13,21,0,1.00,0,13,63,0,63,164,28,255,0},
-{1,3000,1,99.00,63,8,2,1.00,63,36,0,1.00,0,13,56,79,20,178,9,255,0},
+{1,4000,1,132.33,44,205,2,1.00,14,16,0,1.00,0,13,63,0,63,164,28,255,0},
+{1,4000,1,132.00,63,8,2,1.00,63,10,0,1.00,0,13,56,79,20,178,9,255,0},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
 
@@ -96,15 +96,15 @@ cy      :0
 
 pitch2_model :2
 pitch2_freq  :1.00
-pitch2_top   :13
-pitch2_offset:21
+pitch2_top   :14
+pitch2_offset:16
 dx      :255
 dy      :0
 
 pitch2_model :2
 pitch2_freq  :1.00
 pitch2_top   :63
-pitch2_offset:36
+pitch2_offset:10
 dx      :255
 dy      :0
 
