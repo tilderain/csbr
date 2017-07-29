@@ -163,21 +163,15 @@ bool music_is_boss(int songno)
 
 void music_set_enabled(int newstate)
 {
-	if (newstate != settings->music_enabled)
-	{
-		stat("music_set_enabled(%d)", newstate);
-		
-		settings->music_enabled = newstate;
-		bool play = should_music_play(cursong, newstate);
-		
-		if (play != org_is_playing())
-		{
-			if (play)
-				start_track(cursong);
-			else
-				org_stop();
-		}
-	}
+	stat("music_set_enabled(%d)", newstate);
+	
+	settings->music_enabled = newstate;
+	bool play = should_music_play(cursong, newstate);
+	
+	if (play)
+		start_track(cursong);
+	else
+		org_stop();
 }
 
 static void start_track(int songno)

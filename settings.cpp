@@ -44,6 +44,10 @@ bool settings_load(Settings *setfile)
 		
 		setfile->log = 0;
 		
+		//do default theme settings...
+		
+		settings->theme[THEME_DRUMSINT] = 1;
+		
 		// I found that 8bpp->32bpp blits are actually noticably faster
 		// than 32bpp->32bpp blits on several systems I tested. Not sure why
 		// but calling SDL_DisplayFormat seems to actually be slowing things

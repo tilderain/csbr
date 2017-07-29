@@ -128,6 +128,7 @@ Dialog *dlg = opt.dlg;
 	dlg->Clear();
 	
 	dlg->AddItem("Resolution: ", _res_change, _res_get);
+	dlg->AddItem("Theme", EnterThemeMenu);
 	dlg->AddItem("Controls", EnterControlsMenu);
 	
 	dlg->AddSeparator();
@@ -478,10 +479,47 @@ int i;
 }
 
 
+/*
+void c------------------------------() {}
+*/
 
+static void EnterThemeMenu(ODItem *item, int dir)
+{
+Dialog *dlg = opt.dlg;
 
+	dlg->Clear();
+	sound(SND_MENU_MOVE);
+	
+	dlg->AddItem("Internal Percussion: ", _theme_drumsint_change, _theme_drumsint_get);
+	
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	dlg->AddSeparator();
+	
+	dlg->AddDismissalItem();
+}
 
+void _theme_drumsint_change(ODItem *item, int dir)
+{
+	settings->theme[THEME_DRUMSINT] ^= 1;
+	music_set_enabled(settings->music_enabled); //reset the music so new drums can take effect
+	sound(SND_MENU_SELECT);
+}
 
+void _theme_drumsint_get(ODItem *item)
+{
+	static const char *strs[] = { "Off", "On" };
+	strcpy(item->suffix, strs[settings->theme[THEME_DRUMSINT]]);
+}
 
 
 

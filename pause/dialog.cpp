@@ -6,9 +6,9 @@ using namespace Options;
 extern FocusStack optionstack;
 
 #define DLG_X		((SCREEN_WIDTH / 2) - 88)
-#define DLG_Y		((SCREEN_HEIGHT / 2) - 90)
+#define DLG_Y		((SCREEN_HEIGHT / 2) - 98)
 #define DLG_W		190
-#define DLG_H		180
+#define DLG_H		194
 
 #define REPEAT_WAIT	30
 #define REPEAT_RATE	4

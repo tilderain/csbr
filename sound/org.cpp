@@ -19,6 +19,8 @@
 
 #include "../platform.h"
 
+#include "../settings.h"
+
 
 
 //#define QUIET
@@ -490,9 +492,28 @@ int i, j;
 		// credits track for one, has Per02 set which CS didn't actually have, I don't think
 		if (i >= 8)
 		{
-			switch(song.instrument[i].wave)
+			//we theme now bois
+			if (settings->theme[THEME_DRUMSINT])
 			{
-				case 9: song.instrument[i].wave = 8; break;
+				switch(song.instrument[i].wave)
+				{
+					case 9: song.instrument[i].wave = 8; break;
+				}
+			} 
+			else
+			{
+				stat("setting %d drum to cs perc", i);
+				stat("modulo 8 == %d", i%8);
+				switch(i % 8){
+					case 0: song.instrument[i].wave = 0; break; //bass01
+					case 1: song.instrument[i].wave = 2; break; //snare01
+					case 2: song.instrument[i].wave = 5; break; //hiclose
+					case 3: song.instrument[i].wave = 6; break; //hiopen
+					case 4: song.instrument[i].wave = 4; break; //tom01
+					case 5: song.instrument[i].wave = 8; break; //per01
+					case 6: song.instrument[i].wave = 0; break;
+					case 7: song.instrument[i].wave = 0; break;
+				}
 			}
 		}
 	}

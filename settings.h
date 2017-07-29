@@ -31,6 +31,8 @@ struct Settings
 	bool game_fps;
 	
 	bool log;
+	
+	int theme[32];
 };
 
 bool settings_load(Settings *settings=NULL);
@@ -40,5 +42,10 @@ extern Settings *settings;
 extern Settings normal_settings;
 extern Settings replay_settings;
 
+enum ThemeOptions // is this bad practice? can't tell
+{
+	THEME_DRUMSINT			= 0			// internal percussion
+
+};
 
 #endif
