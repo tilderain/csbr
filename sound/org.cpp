@@ -502,8 +502,6 @@ int i, j;
 			} 
 			else
 			{
-				stat("setting %d drum to cs perc", i);
-				stat("modulo 8 == %d", i%8);
 				switch(i % 8){
 					case 0: song.instrument[i].wave = 0; break; //bass01
 					case 1: song.instrument[i].wave = 2; break; //snare01
