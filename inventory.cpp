@@ -857,7 +857,7 @@ bool shop_;
 				shop.inBuySellSelection = false;
 				shop.inSell = (shop.fState == STATE_BUY_SELECTED) ? false : true;
 			}
-			if (justpushed(FIREKEY))
+			if (justpushed(FIREKEY || INVENTORYKEY))
 			{			
 				ExitInventory();
 			}
