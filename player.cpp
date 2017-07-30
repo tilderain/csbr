@@ -730,7 +730,7 @@ int i, key;
 				if (!inputs[DEBUG_MOVE_KEY] || !settings->enable_debug_keys)
 				{
 					player->lookaway = true;
-					player->inspecting = true;
+					player->inspecttimer = 30;
 				}
 			}
 		}
@@ -778,45 +778,26 @@ int i, key;
 			if (pinputs[key])
 			{
 				player->lookaway = false;
+				player->inspecttimer = 0; 	// stop inspecting away if any keys are pushed
 				break;
 			}
 		}
 		
 		if (!player->blockd)
 			player->lookaway = false;
-	}
-	if (player->inspecting)
-	{
-		int inspectTimeMax = 30;
 		
-		player->inspecttimer += 1;
-		if (player->inspecttimer <= inspectTimeMax){
-			
-			if (PTryActivateScript()){
-				player->inspecttimer = 0;
-				player->inspecting = false;
-			}
-		}else{
-			player->inspecttimer = 0;
-			player->inspecting = false;
-		}
-			// stop inspecting away if any keys are pushed
-		for(i=0;;i++)
+		if (player->inspecttimer && --player->inspecttimer >= 0)
 		{
-			key = actionkeys[i];
-			if (key == -1) break;
-			
-			if (pinputs[key])
+			if (PTryActivateScript())
 			{
-			player->inspecttimer = 0;
-			player->inspecting = false;
-				break;
+				player->inspecttimer = 0;
+			}
+			if (player->inspecttimer == 28)
+			{  // if the script isn't activated instantly, make a questionmark
+				effect(player->CenterX(), player->CenterY(), EFFECT_QMARK);
 			}
 		}
-		// if the script isn't activated instantly, make a questionmark
-		if (player->inspecttimer == 2){ 
-		effect(player->CenterX(), player->CenterY(), EFFECT_QMARK);
-		}
+		
 	}
 	
 }

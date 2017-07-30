@@ -117,32 +117,31 @@ void ai_mgun_trail(Object *o)
 // level 2 or 3 machine-gun blast.
 void ai_mgun_spawner(Object *o)
 {
+
 Object *shot;
 	
-	if (!o->timer){	// first layer (leader)
-		shot = CreateObject(o->x, o->y, OBJ_MGUN_LEADER);
-		o->linkedobject = shot;
-	} else if ((o->timer % 2) == 0) {	// subsequent layers (trail)
-		shot = CreateObject(o->x, o->y, OBJ_MGUN_TRAIL);
-		shot->linkedobject = o->linkedobject;
-	}
-	
-	// fire next layer
-	
-	if ((o->timer % 2) == 0) SetupBullet(shot, o->x, o->y, o->mgun.bultype, o->dir);
-	
-	// apply the wave
-	if (o->dir==UP || o->dir==DOWN)
-		shot->xinertia = o->mgun.wave_amt;
-	else
+	if (o->state == 0 || ++o->timer >= 2)
+	{	// first layer (leader)
+		if(o->state == 0) 
+		{
+			shot = CreateObject(o->x, o->y, OBJ_MGUN_LEADER);
+			o->linkedobject = shot;
+			o->state = 1;
+		}
+		else
+		{
+			shot = CreateObject(o->x, o->y, OBJ_MGUN_TRAIL);
+			shot->linkedobject = o->linkedobject;
+		}
+		SetupBullet(shot, o->x, o->y, o->mgun.bultype, o->dir);
 		shot->yinertia = o->mgun.wave_amt;
+		o->mgun.bultype++;
+		o->timer = 0;
+		o->timer2++;
+	}
+	if (o->timer2 >= o->mgun.nlayers) o->Delete();
 	
-	// fire next layer next time
-	if ((o->timer % 2) == 0) o->mgun.bultype++;
-	
-	if (++o->timer > (5)) o->Delete();
 }
-
 /*
 void c------------------------------() {}
 */

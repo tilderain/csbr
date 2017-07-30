@@ -232,12 +232,12 @@ void ai_jumper_soa(Object *o)
 			if (o->blockl && o->dir == LEFT) //if blockl in 8 pixels (1/2 a block) jump.
 			{
 				o->dir = RIGHT;
-				o->xinertia = 0x100;
+				o->xinertia = 0x110;
 			}
 			else if (o->blockr && o->dir == RIGHT)
 			{
 				o->dir = LEFT;
-				o->xinertia = -0x100;
+				o->xinertia = -0x110;
 			}
 			if (o->blockd)
 			{
@@ -248,12 +248,12 @@ void ai_jumper_soa(Object *o)
 		case CROUCHING:		// hit by shot
 			o->frame = 1;
 			o->xinertia = 0;
-			if (++o->timer >= 10)
+			if (++o->timer >= 7)
 			{
 				if (++o->timer2 >= 5)
 				{
 					o->timer2 = 0;
-					o->yinertia = -0x600;
+					o->yinertia = -0x750;
 				}
 				else
 				{

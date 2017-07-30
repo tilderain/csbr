@@ -305,14 +305,12 @@ void ai_balrog_drop_in(Object *o)
 				o->frame = 2;
 				o->state = 3;
 				o->timer = 0;
-				
-				SmokeSide(o, 4, DOWN);
-				quake(30);
+				quake(5, 0);
 			}
 		break;
 		
 		case 3:	// landed
-			if (++o->timer > 20) { o->state = 4; o->frame = 0; }
+			if (++o->timer > 3) { o->state = 4; o->frame = 0; }
 		break;
 		
 		case 5:	// cutscene crouch
@@ -321,7 +319,7 @@ void ai_balrog_drop_in(Object *o)
 	}
 	
 	if (o->state == 1 || o->state == 2)
-		o->yinertia += 0x20;
+		o->yinertia = 0x640;
 }
 
 

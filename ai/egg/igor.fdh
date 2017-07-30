@@ -27,6 +27,8 @@ void ai_boss_igor(Object *o);
 void ai_boss_igor_defeated(Object *o);
 static void smoke_puff(Object *o, bool initial);
 
+Caret *effect(int x, int y, int effectno);
+
 
 /* located in ai/sym/smoke.cpp */
 

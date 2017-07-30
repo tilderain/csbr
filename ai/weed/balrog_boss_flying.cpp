@@ -234,12 +234,13 @@ void ai_balrog_boss_shooting(Object *o)
 				o->timer = 0;
 				o->frame = 1;
 				
-				EmFireAngledShot(o, OBJ_IGOR_SHOT, 16, 0x200);
+				EmFireAngledShot(o, OBJ_IGOR_SHOT, 12, 0x250);
 				sound(SND_EM_FIRE);
 				
 				if (++o->timer2 > 6)	// number of shots to fire
 				{
 					o->state = JUMP_BEGIN;
+					o->frame = 2;
 					o->timer = 0;
 				}
 			}
@@ -276,9 +277,7 @@ void ai_balrog_boss_shooting(Object *o)
 				o->xinertia = 0;
 				o->damage = 0;
 				
-				quake(15);
-				
-				SmokeSide(o, 6, DOWN);
+				quake(10, 0);
 				
 				o->state = LANDED;
 				o->timer = 0;
@@ -290,8 +289,9 @@ void ai_balrog_boss_shooting(Object *o)
 		case LANDED:
 		{
 			o->frame = 2;
-			if (++o->timer > 5)
+			if (++o->timer > 2)
 			{
+				o->frame = 0;
 				o->state = SHOOT_PLAYER;
 				o->timer = 0;
 				o->timer2 = 0;

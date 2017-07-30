@@ -33,7 +33,7 @@ out, have fun wandering.<NOD<END
 <DNP0300<SOU0014<CI+0100<CLRObtained 100 cion.<NOD
 <CLRYahoo!<NOD
 Welcome to Puu's Restaurant.<NOD<KEY<MYD0002<CLO<CNP0500:0009:0000
-<WAI0090<MSG<FAC0005Now, today's menu is<NOD.<WAI0030.<WAI0030.<NOD
+<WAI0065<MSG<FAC0005Now, today's menu is<NOD.<WAI0030.<WAI0030.<NOD
 <CLR<SOU0003Huh,
 you aren't a Mimiga?<NOD
 <CLRThen hopefully, you want
