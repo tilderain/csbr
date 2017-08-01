@@ -294,9 +294,11 @@ int x, y, w, i, c;
 		{
 			draw_sprite(x, y, SPR_ITEMIMAGE, inv.itemsel.items[i].itemId, 0);
 			
-			if (!player->inventory[i].maxammo) { 
-			// do nothing
-			} else {
+			if (player->inventory[i].itemId && player->inventory[i].maxammo == 0) { 
+				if(settings->theme[THEME_INVNUM]){
+					DrawNumberGray(x+17, y+8, 1);
+				}
+			} else if (player->inventory[i].itemId){
 				DrawNumberGray(x+17, y+8, player->inventory[i].ammo); //weird position
 				//add support for infinity symbol?
 			}
@@ -911,8 +913,10 @@ static void DrawSell(void){
 			draw_sprite(x, y, SPR_ITEMIMAGE, 40, 0); //trash... placeholder for now?
 		}
 		
-		if (!player->inventory[i].maxammo) { 
-		// do nothing
+		if (player->inventory[i].itemId != 0 && player->inventory[i].maxammo == 0) { 
+			if(settings->theme[THEME_INVNUM]){
+				DrawNumberGray(x+17, y+8, 1);
+			}
 		} else {
 			DrawNumberGray(x+17, y+8, player->inventory[i].ammo); //weird position
 			//add support for infinity symbol?
