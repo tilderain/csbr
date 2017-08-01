@@ -280,7 +280,7 @@ void Caret::animdie(int speed)
 {
 Caret * const &c = this;
 
-	if (++c->animtimer > speed)
+	if (c->animtimer++ > speed)
 	{
 		c->animtimer = 0;
 		

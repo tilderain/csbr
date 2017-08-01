@@ -235,6 +235,7 @@ void ai_missile_boom_spawner(Object *o)
 	o->y = o->ymark + (random(-range, range) << CSF);
 	
 	effect(o->x, o->y, EFFECT_BOOMFLASH);
+	sound(SND_MISSILE_HIT);
 	missilehitsmoke(o);
 	
 	damage_all_enemies_in_bb(o, FLAG_INVULNERABLE);

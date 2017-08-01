@@ -313,7 +313,8 @@ Rather powerful on gentle slopes.<WAI9999<END
 #6004
 <MSG<TURAn automatic rapid-fire gun.<WAI9999<END
 #6005
-<MSG<TURWide range and powerful damage.<WAI9999<END
+<MSG<TURWide range and powerful damage.
+Capable of breaking hollow blocks.<WAI9999<END
 #6006
 <MSGA life capsule.<NOD<CLRUse it?<YNJ0000
 <IT-0006<SOU0022<DNP0400<CMU0016
@@ -330,9 +331,11 @@ Good for extinguishing fires.<WAI9999<END
 Who in their right mind
 would use it...?<WAI9999<END
 #6010
-<MSG<TURA tag says "Gum".<WAI9999<END
+<MSG<TURAn exhilirating sort of missile.
+Its acceleration is unmatched.<WAI9999<END
 #6011
-<MSG<TURA clump of gum.<WAI9999<END
+<MSG<TURHolds powerful flames.
+Capable of melting hollow blocks.<WAI9999<END
 #6012
 <MSG<TURTaken from a fireplace.<WAI9999<END
 #6013

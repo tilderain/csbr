@@ -50,6 +50,19 @@ static int wave_dir = 0;
 			case RIGHT: o->xinertia += 0x20; break;
 			case DOWN:  o->yinertia += 0x20; break;
 		}
+		
+		// spin in shot direction
+		if (o->shot.dir == LEFT)
+		{
+			if (--o->frame < 0) o->frame = sprites[o->sprite].nframes - 1;
+		}
+		else
+		{
+			if (++o->frame >= sprites[o->sprite].nframes) o->frame = 0;
+		}
+		
+		static int wave_dir = 0;
+	}
 	
 	if (--o->shot.ttl < 0)
 	{
@@ -58,25 +71,17 @@ static int wave_dir = 0;
 			o->y += o->yinertia;
 		else
 			o->x += o->xinertia;
+		if (o->type == OBJ_SNAKE1_SHOT)
+		{
+			SmokeClouds(o, 1, 0, 0);
+		}
+		else
+		{
+			SmokeClouds(o, 3, 0, 0);
+		}
 		
 		shot_dissipate(o, EFFECT_STARPOOF);
 		return;
-	}
-	
-	// spin in shot direction
-	if (o->shot.dir == LEFT)
-	{
-		if (--o->frame < 0) o->frame = sprites[o->sprite].nframes - 1;
-	}
-	else
-	{
-		if (++o->frame >= sprites[o->sprite].nframes) o->frame = 0;
-	}
-	
-	static int wave_dir = 0;
-
-
-
 	}
 	
 	// periodically abruptly change the wave's direction
@@ -94,7 +99,7 @@ static int wave_dir = 0;
 	
 	if (damage_enemies(o))
 	{
-		shot_dissipate(o, EFFECT_STARPOOF);
+		o->Delete();
 	} else if (IsBlockedInShotDir(o)) {
 		shot_spawn_effect(o, EFFECT_FISHY);
 		o->Delete();
