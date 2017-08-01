@@ -29,7 +29,7 @@
 <PRI<MSG<CATNo swimming.<NOD
 <CLRActually,
 swim as much as you'd like.
--Puu<NOD<END
+-- Puu<NOD<END
 
 #0300
 <SKJ0001:0302<SK+0001<EVE0301
