@@ -23,3 +23,12 @@
 #0200
 <PRI<MSGIt's a robot. What's left of it.<NOD<END
 
+
+#0201
+<PRI<FLJ0113:0001<ITJ0000:0202<EVE0033
+
+#0202
+<KEY<CNP0200:0021:0000<SOU0022<FL+0113<MSGOpened the treasure chest.<NOD
+<CLR<GIT1007<IT+0007:0050Got a 
+Damage Upgrade: Bubbler.<NOD<END
+

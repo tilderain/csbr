@@ -99,8 +99,8 @@ ashes...<NOD<CLR<GIT0007<AM+0007:0100
 cmt-0004 login: <NOD<ANP0401:0000:0000<END
 
 #0500
-<KEY<MSG<FAC0006Su- isn't here right now.<NOD
-She went to the mine.<NOD<END
+<KEY<MSG<FAC0006Su- isn't here.<NOD
+She just went to the mine.<NOD<END
 
 #0600
 <KEY<MSG<FAC0007YAAAAARGH<NOD<END
