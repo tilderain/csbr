@@ -74,8 +74,8 @@ void CoreBoss::OnMapEntry(void)
 	o->flags = (FLAG_SHOW_FLOATTEXT | FLAG_IGNORE_SOLID | FLAG_SCRIPTONDEATH);
 	o->id2 = 1000;
 	
-	o->x = (1207 << CSF);
-	o->y = (212 << CSF);
+	o->x = (624 << CSF);
+	o->y = (272 << CSF);
 	o->xinertia = o->yinertia = 0;
 	o->hp = 650;
 	
@@ -105,19 +105,19 @@ void CoreBoss::OnMapEntry(void)
 	pieces[CBACK]->frame = 0;
 	
 	// set the positions of all the minicores
-	pieces[0]->x = (o->x - 0x1000);
+	pieces[0]->x = (o->x + 0x5000);
 	pieces[0]->y = (o->y - 0x8000);
 	
-	pieces[1]->x = (o->x + 0x2000);
+	pieces[1]->x = (o->x + 0x6000);
 	pieces[1]->y = o->y;
 	
-	pieces[2]->x = (o->x - 0x1000);
+	pieces[2]->x = (o->x + 0x7000);
 	pieces[2]->y = (o->y + 0x8000);
 	
-	pieces[3]->x = (o->x - 0x6000);
+	pieces[3]->x = (o->x + 0x9000);
 	pieces[3]->y = (o->y + 0x4000);
 	
-	pieces[4]->x = (o->x - 0x6000);
+	pieces[4]->x = (o->x + 0x7000);
 	pieces[4]->y = (o->y - 0x4000);
 	
 	this->hittimer = 0;

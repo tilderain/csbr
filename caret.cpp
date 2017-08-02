@@ -235,6 +235,12 @@ int i;
 		}
 		break;
 		
+		case EFFECT_EXCLMMARK:
+		{
+			c = CreateCaret(x, y, SPR_EXCLMMARK, caret_qmark);
+		}
+		break;
+		
 		default:
 			staterr("effect: invalid effect type %d", effectno);
 			return NULL;

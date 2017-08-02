@@ -30,6 +30,8 @@ public:
 	int walkanimtimer;
 	
 	bool jumping;				// 1 if jump physics are enabled
+	bool waterjumping;			// for when frog prince jumps in water,
+								// we can give him an extra jump out of water for good measure
 	
 	uint8_t look;				// 0 = not looking, UP = looking up, DOWN = looking down
 	uint8_t lookscroll;			// which way the screen should scroll because of a look

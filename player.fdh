@@ -52,7 +52,7 @@ static bool RunScriptAtX(int x);
 static bool RunScriptAtLocation(int x, int y);
 void PDoHurtFlash(void);
 void PSelectFrame(void);
-void PSelectSprite(void);
+int PSelectSprite(void);
 void GetSpriteForGun(int wpn, int look, int *spr, int *frame);
 void GetPlayerShootPoint(int *x_out, int *y_out);
 void DrawPlayer(void);

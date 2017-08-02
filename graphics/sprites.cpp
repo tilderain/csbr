@@ -282,8 +282,13 @@ static void create_slope_boxes()
 			sprites[s].slopebox.y2 = (sprites[s].block_d[0].y - 1);
 		}
 	}
-	
+	//why??
 	sprites[SPR_MYCHAR].slopebox.y1 += 3;
+	sprites[SPR_MYCHAR_SWIM].slopebox.y1 += 3;
+	sprites[SPR_MYCHAR_SU].slopebox.y1 += 3;
+	sprites[SPR_MYCHAR_FROG].slopebox.y1 += 3;
+	sprites[SPR_MYCHAR_PRINCE].slopebox.y1 += 3;
+	sprites[SPR_MYCHAR_MIMIGA].slopebox.y1 += 3;
 }
 
 // offset things like blockl/r/u/d, bounding box etc by the draw point of all

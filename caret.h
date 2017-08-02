@@ -25,7 +25,8 @@ enum EffectTypes
 	EFFECT_LAVA_SPLASH,				// just red version of gunfish bubble, really
 	EFFECT_BUBBLE_BURST,			// Bubbler dissipation effect. is NOT CENTERED.
 	EFFECT_SPUR_HIT,				// Spur hit wall effect, used in addition to starsolid.
-	EFFECT_GHOST_SPARKLE			// rising sparkles from Ballos's dog
+	EFFECT_GHOST_SPARKLE,			// rising sparkles from Ballos's dog
+	EFFECT_EXCLMMARK
 };
 
 

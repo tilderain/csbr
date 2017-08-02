@@ -193,7 +193,7 @@ int ino, key;
 						//}
 						
 						#ifndef __SDLSHIM__
-						if (settings->enable_debug_keys && key == '`')		// bring up console
+						if (key == '`' && settings->enable_debug_keys)		// bring up console
 						{
 							if (!freezeframe)
 							{

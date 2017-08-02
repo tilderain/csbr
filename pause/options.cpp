@@ -495,7 +495,7 @@ Dialog *dlg = opt.dlg;
 	dlg->AddSeparator();
 	dlg->AddItem("Ammoless Item Number: ", _theme_invnum_change, _theme_invnum_get);
 	dlg->AddSeparator();
-	dlg->AddSeparator();
+	dlg->AddItem("Faithful Frog Jumping: ", _theme_waterjump_change, _theme_waterjump_get);
 	dlg->AddSeparator();
 	dlg->AddSeparator();
 	dlg->AddSeparator();
@@ -533,6 +533,17 @@ void _theme_invnum_get(ODItem *item)
 	strcpy(item->suffix, strs[settings->theme[THEME_INVNUM]]);
 }
 
+void _theme_waterjump_change(ODItem *item, int dir)
+{
+	settings->theme[THEME_WATERJUMP] ^= 1;
+	sound(SND_MENU_SELECT);
+}
+
+void _theme_waterjump_get(ODItem *item)
+{
+	static const char *strs[] = { "Off", "On" };
+	strcpy(item->suffix, strs[settings->theme[THEME_WATERJUMP]]);
+}
 
 
 

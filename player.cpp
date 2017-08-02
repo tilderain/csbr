@@ -360,7 +360,7 @@ int tile;
 				int splashtype = !(player->touchattr & TA_HURTS_PLAYER) ? \
 									OBJ_WATER_DROPLET : OBJ_LAVA_DROPLET;
 				
-				for(int i=0;i<8;i++)
+				for(int i=0;i<4;i++)
 				{
 					Object *o = CreateObject(x + (random(-8, 8) << CSF), y, splashtype);
 					o->xinertia = random(-0x200, 0x200) + player->xinertia;
@@ -371,54 +371,71 @@ int tile;
 			}
 		}
 		
-		// setup physics constants for water
-		player->walkspeed = 0x196;
-		player->fallspeed = 0x2ff;
-		
-		player->fallaccel = 0x28;
-		player->jumpfallaccel = 0x10;
-		
-		player->walkaccel = 0x2a;
-		player->jumpwalkaccel = 0x10;
-		
-		player->decelspeed = 0x19;
-		// was set at 0x280 but I believe that makes it impossible to clear one of the long
-		// spike jumps in River
-		player->jumpvelocity = 0x2c0;
-		
-		// decrement air left
-		if (player->equipmask & EQUIP_AIRTANK)
-		{
-			player->airleft = 1000;
-			player->airshowtimer = 0;
-		}
-		else
-		{
-			player->airshowtimer = 60;
-			if (!player->drowned)
+		if(!game.flags[2902]){
+			// setup physics constants for water
+			player->walkspeed = 0x196;
+			player->fallspeed = 0x2ff;
+			
+			player->fallaccel = 0x28;
+			player->jumpfallaccel = 0x10;
+			
+			player->walkaccel = 0x2a;
+			player->jumpwalkaccel = 0x10;
+			
+			player->decelspeed = 0x19;
+			// was set at 0x280 but I believe that makes it impossible to clear one of the long
+			// spike jumps in River
+			player->jumpvelocity = 0x2c0;
+			
+			// decrement air left
+			if (player->equipmask & EQUIP_AIRTANK)
 			{
-				if (!player->inputs_locked) player->airleft--;
-				
-				if (player->airleft <= 0 && !game.debug.god)
-				{	// player drowned
-					// if flag 4000 is set, then we do not drown, but are in the Almond
-					// level after Core battle, and should instead execute script 1100.
-					if (game.flags[4000])
-					{	// "your senses dim and the world grows dark"
-						StartScript(1100);
-					}
-					else
-					{	// nope sorry buddy, no such luck this time
-						Object *o = CreateObject(player->x, player->y, OBJ_NULL);
-						o->sprite = SPR_PDROWNED;
-						o->dir = player->dir;
-						
-						killplayer(SCRIPT_DROWNED);
-					}
+				player->airleft = 1000;
+				player->airshowtimer = 0;
+			}
+			else
+			{
+				player->airshowtimer = 60;
+				if (!player->drowned)
+				{
+					if (!player->inputs_locked) player->airleft--;
 					
-					player->drowned = 1;
+					if (player->airleft <= 0 && !game.debug.god)
+					{	// player drowned
+						// if flag 4000 is set, then we do not drown, but are in the Almond
+						// level after Core battle, and should instead execute script 1100.
+						if (game.flags[4000])
+						{	// "your senses dim and the world grows dark"
+							StartScript(1100);
+						}
+						else
+						{	// nope sorry buddy, no such luck this time
+							Object *o = CreateObject(player->x, player->y, OBJ_NULL);
+							o->sprite = SPR_PDROWNED;
+							o->dir = player->dir;
+							
+							killplayer(SCRIPT_DROWNED);
+						}
+						
+						player->drowned = 1;
+					}
 				}
 			}
+		} else {
+			player->walkspeed = 0x296;
+			player->fallspeed = 0x450;
+			
+			player->fallaccel = 0x28;
+			player->jumpfallaccel = 0x10;
+			
+			player->walkaccel = 0x2a;
+			player->jumpwalkaccel = 0x10;
+			
+			player->decelspeed = 0x19;
+			player->jumpvelocity = 0x300;
+		
+			if (player->yinertia < -0x300) player->yinertia = -0x300;		
+			
 		}
 	}
 	else
@@ -463,7 +480,9 @@ int tile;
 	// water current/wind:
 	// for water currents--get the sum total of several points on the player to see
 	// all the directions he's getting blown around at (support multiple directions)
-	DoWaterCurrents();
+	if(!game.flags[2902]){
+		DoWaterCurrents();
+	}
 	player->touchattr = attr;
 }
 
@@ -694,13 +713,38 @@ void PDoJumping(void)
 			if (!player->jumping)
 			{
 				player->jumping = true;
+
 				player->yinertia -= player->jumpvelocity;
 				sound(SND_PLAYER_JUMP);
 			}
+			player->waterjumping = false;
 		}
 		else if ((player->equipmask & (EQUIP_BOOSTER08 | EQUIP_BOOSTER20)))
 		{
 			PStartBooster();
+		}
+		else if (game.flags[2902])
+		{
+			if(player->touchattr & TA_WATER)
+			{
+				if(settings->theme[THEME_WATERJUMP])
+				{
+					player->yinertia = -player->jumpvelocity;
+				}
+				else
+				{
+					player->yinertia -= player->jumpvelocity;
+				}
+				sound(SND_BUBBLE);
+				player->waterjumping = true;
+			} 
+			else if (player->waterjumping == true)
+			{
+				player->waterjumping = false;
+				player->jumping = true;
+				player->yinertia -= player->jumpvelocity;
+				sound(SND_PLAYER_JUMP);
+			}
 		}
 	}
 }
@@ -794,7 +838,14 @@ int i, key;
 			}
 			if (player->inspecttimer == 28)
 			{  // if the script isn't activated instantly, make a questionmark
-				effect(player->CenterX(), player->CenterY(), EFFECT_QMARK);
+				if(game.flags[2902])
+				{
+					effect(player->CenterX(), player->CenterY(), EFFECT_EXCLMMARK);
+				} 
+				else 
+				{
+					effect(player->CenterX(), player->CenterY(), EFFECT_QMARK);
+				}
 			}
 		}
 		
@@ -1227,7 +1278,7 @@ void hurtplayer(int damage)
 {
 	if (damage == 0) return;
 	if (!player || !player->hp) return;
-	if (settings->enable_debug_keys && (game.debug.god || inputs[DEBUG_MOVE_KEY])) return;
+	if ((settings->enable_debug_keys && inputs[DEBUG_MOVE_KEY]) || game.debug.god) return;
 	
 	if (player->hurt_time)
 		return;
@@ -1585,10 +1636,35 @@ void PSelectFrame(void)
 }
 
 // mimiga mask support
-void PSelectSprite(void)
+int PSelectSprite(void)
 {
-	player->sprite = (player->equipmask & EQUIP_MIMIGA_MASK) ? \
+	int spritetochange = SPR_MYCHAR;
+	//player state is set through a flag
+	//su and prince are this way
+	//but entering water should change to swim
+	if(player->equipmask & EQUIP_MIMIGA_MASK)
+	{
+		spritetochange = SPR_MYCHAR_MIMIGA;
+	}
+	//else if (in tile water)
+	//{
+	//	spritetochange = SPR_MYCHAR_SWIM;
+	//}
+	else if (game.flags[2900])
+	{
+		spritetochange = SPR_MYCHAR_SU;
+	}
+	else if (game.flags[2901])
+	{
+		spritetochange = SPR_MYCHAR_FROG;
+	}
+	else if (game.flags[2902])
+	{
+		spritetochange = SPR_MYCHAR_PRINCE;
+	}
+	player->sprite = spritetochange; //(player->equipmask & EQUIP_MIMIGA_MASK) ? \
 					SPR_MYCHAR_MIMIGA : SPR_MYCHAR;
+	return player->sprite;
 }
 
 /*

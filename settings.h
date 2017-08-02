@@ -45,7 +45,8 @@ extern Settings replay_settings;
 enum ThemeOptions // is this bad practice? can't tell
 {
 	THEME_DRUMSINT			= 0,			// internal percussion
-	THEME_INVNUM
+	THEME_INVNUM,
+	THEME_WATERJUMP
 
 };
 

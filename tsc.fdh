@@ -31,7 +31,7 @@ FILE *fileopen(const char *fname, const char *mode);
 /* located in player.cpp */
 
 //----------------------[referenced from tsc.cpp]--------------------//
-void PSelectSprite(void);
+int PSelectSprite(void);
 void PSelectFrame(void);
 
 

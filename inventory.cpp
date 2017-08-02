@@ -325,12 +325,19 @@ int x, y, w, i, c;
 		DrawSelector(&inv.itemsel, inv.x, inv.y);
 		
 		int s, spr, frame;
+		s = PSelectSprite();
 		if (player->curWeapon != WPN_NONE)
 		{
 				GetSpriteForGun(player->curWeapon, 0, &spr, &frame);
-				draw_sprite_at_dp(157, 45, spr, frame, LEFT);	
+				if(s == SPR_MYCHAR_FROG)
+				{
+					draw_sprite_at_dp(157, 45, spr, frame, LEFT);	
+				} else 
+				{
+					draw_sprite_at_dp(152, 44, spr, frame, LEFT);	
+				}
+				
 		}
-		s = (player->equipmask & EQUIP_MIMIGA_MASK) ? SPR_MYCHAR_MIMIGA : SPR_MYCHAR;
 		draw_sprite(152, 32, s, 0, LEFT);
 		
 		// - draw the health ----

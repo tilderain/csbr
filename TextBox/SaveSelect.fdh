@@ -36,7 +36,7 @@ bool settings_save(Settings *setfile);
 
 //--------------[referenced from TextBox/SaveSelect.cpp]-------------//
 void GetSpriteForGun(int wpn, int look, int *spr, int *frame);
-
+int PSelectSprite(void);
 
 /* located in playerstats.cpp */
 

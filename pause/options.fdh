@@ -73,6 +73,8 @@ void _theme_drumsint_change(ODItem *item, int dir);
 void _theme_drumsint_get(ODItem *item);
 void _theme_invnum_change(ODItem *item, int dir);
 void _theme_invnum_get(ODItem *item);
+void _theme_waterjump_change(ODItem *item, int dir);
+void _theme_waterjump_get(ODItem *item);
 
 
 /* located in sound/sound.cpp */

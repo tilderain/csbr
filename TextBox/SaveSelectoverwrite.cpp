@@ -198,7 +198,7 @@ int x, y, s;
 	
 	x = (MSG_X + 12) + fPicXOffset;
 	y = MSG_NORMAL_Y + 12;
-	s = (p->equipmask & EQUIP_MIMIGA_MASK) ? SPR_MYCHAR_MIMIGA : SPR_MYCHAR;
+	s = p->PSelectSprite();
 	
 	draw_sprite(x, y, s, 0, RIGHT);
 	
