@@ -433,6 +433,11 @@ void ai_forcefield(Object *o)
 	o->flags |= (FLAG_SOLID_BRICK | FLAG_INVULNERABLE);
 	
 	ai_animate1(o);
+	if(o->dir == RIGHT) //for the fake forcefield in cent
+	{
+		o->flags ^= FLAG_SOLID_BRICK;
+		o->damage = 0;
+	}
 }
 
 

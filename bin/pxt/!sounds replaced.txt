@@ -5,11 +5,15 @@
 02 txt
 12 menu select
 18 walk
-21 frontier
-27 puu fire
 30 bubbler
 47 soap
 10 hurt
 20 polar star
 2c missile
 16 chest
+25 dry fire ** not in /sound
+
+**custom soundnums
+7 frontier
+8 waver
+9 soa projectile

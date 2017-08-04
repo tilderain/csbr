@@ -271,6 +271,8 @@ void ai_xp(Object *o)
 			case SPR_XP_SMALL: AddXP(XP_SMALL_AMT); break;
 			case SPR_XP_MED: AddXP(XP_MED_AMT); break;
 			case SPR_XP_LARGE: AddXP(XP_LARGE_AMT); break;
+			case SPR_XP_LARGER: AddXP(XP_LARGER_AMT); break;
+			case SPR_XP_LARGEST: AddXP(XP_LARGEST_AMT); break;
 		}
 		
 		o->Delete();

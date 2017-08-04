@@ -1,46 +1,46 @@
 use  :1
-size :1000
-main_model   :0
-main_freq    :20.00
-main_top     :0
-main_offset  :0
-pitch_model  :0
-pitch_freq   :0.00
-pitch_top    :0
-pitch_offset :0
+size :4000
+main_model   :1
+main_freq    :54.00
+main_top     :30
+main_offset  :247
+pitch_model  :5
+pitch_freq   :0.20
+pitch_top    :52
+pitch_offset :5
 volume_model :0
 volume_freq  :0.00
 volume_top   :0
-volume_offset:0
-initialY:0
-ax      :64
-ay      :0
+volume_offset:62
+initialY:53
+ax      :57
+ay      :44
 bx      :128
-by      :0
+by      :24
 cx      :255
 cy      :0
 
-use  :0
-size :0
-main_model   :0
-main_freq    :0.00
-main_top     :0
-main_offset  :0
-pitch_model  :0
-pitch_freq   :0.00
-pitch_top    :0
-pitch_offset :0
+use  :1
+size :4700
+main_model   :4
+main_freq    :451.60
+main_top     :26
+main_offset  :205
+pitch_model  :3
+pitch_freq   :9.70
+pitch_top    :28
+pitch_offset :223
 volume_model :0
 volume_freq  :0.00
-volume_top   :0
+volume_top   :24
 volume_offset:0
-initialY:0
-ax      :0
-ay      :0
-bx      :0
-by      :0
-cx      :0
-cy      :0
+initialY:47
+ax      :32
+ay      :41
+bx      :65
+by      :36
+cx      :112
+cy      :34
 
 use  :0
 size :0
@@ -86,7 +86,39 @@ by      :0
 cx      :0
 cy      :0
 
-{1,1000,0,20.00,0,0,0,0.00,0,0,0,0.00,0,0,0,64,0,128,0,255,0},
+{1,4000,1,54.00,30,247,5,0.20,52,5,0,0.00,0,62,53,57,44,128,24,255,0},
+{1,4700,4,451.60,26,205,3,9.70,28,223,0,0.00,24,0,47,32,41,65,36,112,34},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
-{0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
+
+-> {0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0},
+-> {255,0,255,0,255,0,255,0},
+
+pitch2_model :5
+pitch2_freq  :0.20
+pitch2_top   :52
+pitch2_offset:5
+dx      :255
+dy      :0
+
+pitch2_model :3
+pitch2_freq  :9.70
+pitch2_top   :28
+pitch2_offset:223
+dx      :255
+dy      :0
+
+pitch2_model :0
+pitch2_freq  :0.00
+pitch2_top   :0
+pitch2_offset:0
+dx      :255
+dy      :0
+
+pitch2_model :0
+pitch2_freq  :0.00
+pitch2_top   :0
+pitch2_offset:0
+dx      :255
+dy      :0
+

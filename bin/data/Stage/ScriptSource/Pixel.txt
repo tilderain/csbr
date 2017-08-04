@@ -107,3 +107,14 @@ Do you want to leave her here?<YNJ0256<END
 
 #0260
 
+#0300
+<KEY
+<MSG<FAC0001We've been waiting for you.<NOD
+It's full of monsters from
+here on out.<NOD
+I was hoping you could go 
+with me-.<NOD
+I'll even repay you.<NOD<EVE0301<END
+
+#0301
+<CNP0300:0180:0000<ANP0300:0021:0000<END

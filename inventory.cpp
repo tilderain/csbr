@@ -332,9 +332,10 @@ int x, y, w, i, c;
 				if(s == SPR_MYCHAR_FROG)
 				{
 					draw_sprite_at_dp(157, 45, spr, frame, LEFT);	
-				} else 
+				} 
+				else 
 				{
-					draw_sprite_at_dp(152, 44, spr, frame, LEFT);	
+					draw_sprite_at_dp(157, 45, spr, frame, LEFT);	
 				}
 				
 		}

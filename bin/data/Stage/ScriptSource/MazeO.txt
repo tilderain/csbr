@@ -125,3 +125,33 @@ your way...<NOD<FL+0760<FL+0703<END
 <MSGOpened the treasure chest.<NOD<GIT1019<IT+0019<EQ+0004<CLR
 <CMU0010Got the =Arms Barrier=!<WAI0160<NOD<RMU<END
 
+#0500
+<KEY<MSGCrammed antibiotics into Su's mouth.<NOD
+<CLR<FAC0004Guh...<NOD<END
+<KEY<MSG<The medicine's effects haven't shown up.<NOD<END
+
+#0502
+<KEY<MSG<FAC0013That's your friend?<NOD
+...<NOD
+<CLRWe're in trouble-.<NOD
+The king is a big eater we
+can't take our hands off of.<NOD
+Even right now,<NOD
+we're practically drooling
+in anticipation for the kid
+to stop breathing.<NOD
+<CLRThere is an all-purpose 
+medicine for Mimiga,<NOD but 
+it's obviously not here...<NOD
+<CLR<FAC0000Wait-!<NOD<MYD0000<CLO<WAI0180
+<MSG<FAC0014I'll go for you!<NOD
+<CLR<FAC0013Prince...<NOD
+<CLR<FAC0014The all-purpose medicine is
+Banajaponica, right?<NOD
+Leave it to me.<NOD
+Let me return the favor.<NOD
+I know where the Mimiga live!<NOD
+<CLR<FAO0001Oh, let me borrow your tools!<NOD
+<FL+2902<MOV0014:0009<MYD0002
+<FAI0001<MNA<END
+

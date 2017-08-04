@@ -6,6 +6,8 @@
 #define XP_SMALL_AMT			1
 #define XP_MED_AMT				3
 #define XP_LARGE_AMT			8
+#define XP_LARGER_AMT			25
+#define XP_LARGEST_AMT			50
 
 class Object
 {

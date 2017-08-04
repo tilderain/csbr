@@ -263,7 +263,8 @@ unsigned char tc;
 		{
 			map.motiontiles[map.nmotiontiles].tileno = i;
 			map.motiontiles[map.nmotiontiles].dir = CVTDir(tc & 3);
-			map.motiontiles[map.nmotiontiles].sprite = SPR_WATER_CURRENT;
+			map.motiontiles[map.nmotiontiles].sprite = \
+			(tileattr[i] & TA_WATER ? SPR_WATER_CURRENT : SPR_AIR_CURRENT);
 			
 			map.nmotiontiles++;
 			stat("Added tile %02x to animation list, tc=%02x", i, tc);

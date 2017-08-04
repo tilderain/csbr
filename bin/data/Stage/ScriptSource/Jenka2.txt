@@ -70,5 +70,8 @@ place my faith in you...<NOD<END
 
 
 #0400
+<KEY<MSGOpened the treasure chest.<NOD
+<CLRObtained a
+Damage Upgrade: Dog Vulcan<NOD<END
 #0401
 

@@ -27,8 +27,8 @@ int otiley;
 char seeking_player = 0;
 char wantdir;
 
-/*
-	debug("Curly Console");
+
+	debug("Su Console");
 	debug("TGT: [%d,%d] %d", o->xmark>>CSF, o->ymark>>CSF, game.curlytarget.timeleft);
 	debug("State: %d", o->state);
 	debug("");
@@ -36,24 +36,9 @@ char wantdir;
 	debug("TJT %d", o->curly.tryjumptime);
 	debug("IJT %d:%d", o->curly.impjumptime, o->curly.impjump);
 	game.debug.god = 1;
-if (inputs[DEBUGKEY7]) o->state=999;
-*/
-	
-	// put these here so she'll spawn the shield immediately, even while she's still
-	// knocked out. otherwise she wouldn't have it turned on in the cutscene if the
-	// player defeats the core before she gets up. I know that's unlikely but still.
-	if (!o->curly.spawned_watershield)
-	{
-		Object *shield = CreateObject(0, 0, OBJ_CAI_WATERSHIELD);
-		shield->sprite = SPR_WATER_SHIELD;
-		shield->linkedobject = o;
-		
-		o->BringToFront();				// curly in front of monsters,
-		shield->BringToFront();			// and shield in front of curly
-		
-		o->curly.spawned_watershield = 1;
-	}
-	
+
+	static const int swalkanimframes[] = { 0, 2, 0, 3 };
+
 	switch(o->state)
 	{
 		case 0:
@@ -67,21 +52,9 @@ if (inputs[DEBUGKEY7]) o->state=999;
 		case CAI_START:			// set here after she stops being knocked out in Almond
 		{
 			o->invisible = 0;
-			o->xmark = o->x;
-			o->ymark = o->y;
-			o->dir = player->dir;
 			o->state = CAI_ACTIVE;
 			o->timer = 0;
-			
-			// spawn her gun
-			Object *gun = CreateObject(0, 0, OBJ_CAI_GUN);
-			gun->linkedobject = o;
-			gun->PushBehind(o);
-			
-			if (player->weapons[WPN_MGUN].hasWeapon)
-				o->curly.gunsprite = SPR_PSTAR;
-			else
-				o->curly.gunsprite = SPR_MGUN;
+
 		}
 		break;
 		
@@ -114,31 +87,8 @@ if (inputs[DEBUGKEY7]) o->state=999;
 	// the level is in a Z shape. first we check to see if the player is on the level below ours.
 	if ((player->y > o->y && ((player->y - o->y) > 160<<CSF)) || o->state==999)
 	{
-		// if we're on the top section, head all the way to right, else if we're on the
-		// middle section, head for the trap door that was destroyed by the button
-		otiley = (o->y >> CSF) / TILE_H;
-		
-		game.curlytarget.timeleft = 0;
-		
-		if (otiley < 22)
-		{
-			o->xmark = ((126 * TILE_W) + 8) << CSF;		// center of big chute on right top
-		}
-		else if (otiley > 36 && otiley < 47)
-		{	// fell down chute in center of middle section
-			// continue down chute, don't get hung up on sides
-			o->xmark = (26 * TILE_W) << CSF;
-		}
-		else if (otiley >= 47)
-		{	// bottom section - head for exit door
-			// (this shouldn't ever execute, though, because player can't be lower than this)
-			o->xmark = (81 * TILE_W) << CSF;
+
 			seeking_player = 1;		// stop when reach exit door
-		}
-		else
-		{	// on middle section
-			o->xmark = ((7 * TILE_W) + 8) << CSF;		// trap door which was destroyed by switch
-		}
 		
 		o->ymark = o->y;
 	}
@@ -164,15 +114,6 @@ if (inputs[DEBUGKEY7]) o->state=999;
 		}
 	}
 	
-	// do not fall off the middle railing in Almond
-	if (game.curmap == STAGE_ALMOND)
-	{
-		#define END_OF_RAILING		(((72*TILE_W)-8)<<CSF)
-		if (o->xmark > END_OF_RAILING)
-		{
-			o->xmark = END_OF_RAILING;
-		}
-	}
 	
 	// calculate distance to target
 	xdist = abs(o->x - o->xmark);
@@ -198,8 +139,8 @@ if (inputs[DEBUGKEY7]) o->state=999;
 	{
 		if (++o->curly.reachptimer > 80)
 		{
-			o->xinertia *= 7;
-			o->xinertia /= 8;
+			o->xinertia *= 2;
+			o->xinertia /= 5;
 			o->frame = 0;
 			reached_p = 1;
 		}
@@ -218,7 +159,7 @@ if (inputs[DEBUGKEY7]) o->state=999;
 		// walk towards target
 		if (o->x > o->xmark) o->xinertia -= 0x20;
 		if (o->x < o->xmark) o->xinertia += 0x20;
-		o->frame = o->animframe;
+		o->frame = swalkanimframes[o->animframe];
 		
 		// jump if we hit a wall
 		if ((o->blockr && o->xinertia > 0) || (o->blockl && o->xinertia < 0))
@@ -260,8 +201,8 @@ if (inputs[DEBUGKEY7]) o->state=999;
 	else o->animtimer = o->animframe = 0;		// reset walk anim
 	
 	// force jump/fall frames
-	if (o->yinertia < 0) o->frame = 3;
-	else if (!o->blockd) o->frame = 1;
+	if (o->yinertia < 0) o->frame = 2;
+	else if (!o->blockd) o->frame = 3;
 	else if (o->x==o->xmark) o->frame = 0;
 	
 	// the improbable jump - when AI gets confused, just cheat!
@@ -275,6 +216,8 @@ if (inputs[DEBUGKEY7]) o->state=999;
 		if (o->yinertia > 0 && o->blockd) o->curly.impjump--;
 	}
 	else o->yinertia += 0x33;
+	
+	//fall slower in water
 	
 	// slow down when we hit bricks
 	if (o->blockl || o->blockr)

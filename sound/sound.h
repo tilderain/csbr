@@ -9,6 +9,9 @@
 #define SND_SWITCH_WEAPON		4
 #define SND_MENU_PROMPT		5
 #define SND_HOPPY_JUMP		6
+#define SND_FRONTIER_FIRE	7
+#define SND_WAVER_FIRE		8
+#define SND_SOA_FIRE		9
 #define SND_DOOR		11
 #define SND_BLOCK_DESTROY		12
 #define SND_GET_XP		14

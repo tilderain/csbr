@@ -715,7 +715,7 @@ void AssignExtraSprites(void)
 	objprop[OBJ_GIANT_MUSHROOM_ENEMY].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	objprop[OBJ_KAZUMA_AT_COMPUTER].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	
-	objprop[OBJ_CURLY_AI].sprite = SPR_CURLY;
+	objprop[OBJ_CURLY_AI].sprite = SPR_SUE_SCUBA;
 	objprop[OBJ_CURLY_AI].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
 	
 	objprop[OBJ_CURLY].defaultnxflags |= NXFLAG_FOLLOW_SLOPE;
@@ -764,6 +764,8 @@ void AssignExtraSprites(void)
 	objprop[OBJ_UD_MINICORE_IDLE].sprite = SPR_UD_MINICORE;
 	
 	objprop[OBJ_WHIMSICAL_STAR].sprite = SPR_WHIMSICAL_STAR;	// for bbox only, object is invisible
+	
+	objprop[OBJ_STATUE_BASE].sprite = SPR_SAWBLADE;
 	
 	// these are set by AI; this is just to silence unimplemented object warnings
 	#ifdef DEBUG

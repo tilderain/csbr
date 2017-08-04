@@ -786,7 +786,17 @@ Object * const &o = this;
 		Object *xp = CreateObject(x, y, OBJ_XP);
 		xp->xinertia = random(-0x200, 0x200);
 		
-		if (amt >= XP_LARGE_AMT)
+		if (amt >= XP_LARGEST_AMT)
+		{
+			xp->sprite = SPR_XP_LARGEST;
+			amt -= XP_LARGEST_AMT;
+		}
+		else if (amt >= XP_LARGER_AMT)
+		{
+			xp->sprite = SPR_XP_LARGER;
+			amt -= XP_LARGER_AMT;
+		}
+		else if (amt >= XP_LARGE_AMT)
 		{
 			xp->sprite = SPR_XP_LARGE;
 			amt -= XP_LARGE_AMT;

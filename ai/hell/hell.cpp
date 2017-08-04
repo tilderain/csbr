@@ -28,6 +28,7 @@ INITFUNC(AIRoutines)
 	
 	ONTICK(OBJ_STATUE, ai_statue);
 	ONTICK(OBJ_STATUE_BASE, ai_statue_base);
+	AFTERMOVE(OBJ_STATUE_BASE, aftermove_statue_base);
 	
 	ONTICK(OBJ_PUPPY_GHOST, ai_puppy_ghost);
 }
@@ -884,23 +885,45 @@ void c------------------------------() {}
 // used to bring up the signs when you press DOWN in front of the statues.
 // But unlike OBJ_NULL, it can be positioned in-between a tile boundary.
 // There's also one on top of the clockroom sign on the Outer Wall.
-void ai_statue_base(Object *o)
+
+
+void ai_statue_base(Object *o) //circular sawblade seen in cent
 {
 	if (o->state == 0)
 	{
-		o->state = 1;
-		o->sprite = SPR_NULL;
+		o->state = 1;	
+		o->sprite = SPR_SAWBLADE;
 		
-		if (o->dir == LEFT)
-		{
-			o->x += (8 << CSF);
+		if (o->id2) // need to multiply id2 for angle
+		{ 
+			o->xmark = o->x;
+			o->ymark = o->y;
+			o->angle += 130;
 		}
-		else if (o->dir == RIGHT)
+		else if(o->dir == RIGHT)
 		{
-			o->y += (16 << CSF);
+			o->xmark = o->x;
+			o->ymark = o->y + (16 << CSF);
+		}
+		else
+		{
+			o->xmark = o->x + (16 << CSF);
+			o->ymark = o->y + (16 << CSF);
 		}
 	}
+	o->angle += (o->dir == LEFT ? -1 : 1);
+	ai_animate1(o);
 }
+
+void aftermove_statue_base(Object *o)
+{
+	vector_from_angle(o->angle, (24 << CSF), &o->x, NULL);
+	vector_from_angle(o->angle, (24 << CSF), NULL, &o->y);
+	
+	o->x += o->xmark - (o->Width() / 2);
+	o->y += o->ymark - (o->Height() / 2);
+}
+
 
 // frame is passed in the ANP as if it were a dir, and all of these state numbers can
 // also be set by the scripts, so they really shouldn't be messed with.

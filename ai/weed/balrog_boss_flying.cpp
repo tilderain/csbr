@@ -60,7 +60,7 @@ void ai_balrog_boss_flying(Object *o)
 				o->frame = 1;
 				
 				EmFireAngledShot(o, OBJ_IGOR_SHOT, 16, 0x200);
-				sound(SND_EM_FIRE);
+				sound(SND_SOA_FIRE);
 				
 				if (++o->timer2 > 3)	// number of shots to fire
 				{
@@ -235,7 +235,7 @@ void ai_balrog_boss_shooting(Object *o)
 				o->frame = 1;
 				
 				EmFireAngledShot(o, OBJ_IGOR_SHOT, 12, 0x250);
-				sound(SND_EM_FIRE);
+				sound(SND_SOA_FIRE);
 				
 				if (++o->timer2 > 6)	// number of shots to fire
 				{

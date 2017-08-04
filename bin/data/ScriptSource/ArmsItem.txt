@@ -245,7 +245,7 @@ Thank you for your patronage!
 #5015
 <MSG<TURVital<WAI9999<END
 #5016
-<MSG<TURCure-All<WAI9999<END
+<MSG<TURAntibiotics<WAI9999<END
 #5017
 <MSG<TURClinic Key<WAI9999<END
 #5018
@@ -356,8 +356,8 @@ universal annihilation.<WAI9999<END
 but only once. Will you use it?<YNJ0000<LI+1000<SOU0020<IT-0015<MSG
 Life restored.<FRE<WAI9999<END
 #6016
-<MSG<TURApparently this cures
-anything and everything...<WAI9999<END
+<MSG<TURGeneral antibiotic medicine
+from the Frog Kingdom.<WAI9999<END
 #6017
 <MSG<TURIt says "Labyrinth Clinic".<WAI9999<END
 #6018

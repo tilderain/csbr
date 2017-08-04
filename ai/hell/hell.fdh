@@ -41,8 +41,11 @@ void ai_mesa_block(Object *o);
 void ai_deleet(Object *o);
 void ai_rolling(Object *o);
 void ai_statue_base(Object *o);
+void aftermove_statue_base(Object *o);
 void ai_statue(Object *o);
 void ai_puppy_ghost(Object *o);
+
+void vector_from_angle(uint8_t angle, int speed, int *xs, int *ys);
 
 
 /* located in ai/sym/smoke.cpp */

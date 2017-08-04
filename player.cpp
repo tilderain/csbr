@@ -421,7 +421,9 @@ int tile;
 					}
 				}
 			}
-		} else {
+		} 
+		else
+		{ // set up frog prince constraints
 			player->walkspeed = 0x296;
 			player->fallspeed = 0x450;
 			
@@ -1599,7 +1601,7 @@ void PSelectFrame(void)
 	{	// do walk animation
 		static const uint8_t pwalkanimframes[] = { 0, 1, 0, 2 };
 		
-		if (++player->walkanimtimer >= 5)
+		if (++player->walkanimtimer >= (PSelectSprite() == SPR_MYCHAR_SWIM ? 15 : 5))
 		{
 			player->walkanimtimer = 0;
 			if (++player->walkanimframe >= 4) player->walkanimframe = 0;
@@ -1644,24 +1646,24 @@ int PSelectSprite(void)
 	//but entering water should change to swim
 	if(player->equipmask & EQUIP_MIMIGA_MASK)
 	{
-		spritetochange = SPR_MYCHAR_MIMIGA;
-	}
-	//else if (in tile water)
-	//{
-	//	spritetochange = SPR_MYCHAR_SWIM;
-	//}
-	else if (game.flags[2900])
-	{
-		spritetochange = SPR_MYCHAR_SU;
-	}
-	else if (game.flags[2901])
-	{
 		spritetochange = SPR_MYCHAR_FROG;
 	}
 	else if (game.flags[2902])
 	{
 		spritetochange = SPR_MYCHAR_PRINCE;
 	}
+	else if (game.flags[2900])
+	{
+		spritetochange = SPR_MYCHAR_SU;
+	}
+	else if (player->touchattr & TA_WATER && ~player->equipmask & EQUIP_AIRTANK)
+	{
+		spritetochange = SPR_MYCHAR_SWIM;
+	}
+	//else if (game.flags[2901])
+	//{
+	//	spritetochange = SPR_MYCHAR_FROG;
+	//}
 	player->sprite = spritetochange; //(player->equipmask & EQUIP_MIMIGA_MASK) ? \
 					SPR_MYCHAR_MIMIGA : SPR_MYCHAR;
 	return player->sprite;
@@ -1763,7 +1765,7 @@ int scr_x, scr_y;
 		draw_sprite(scr_x, scr_y, player->sprite, player->frame, player->dir);
 		
 		// draw the air bubble shield if we have it on
-		if (((player->touchattr & TA_WATER) && (player->equipmask & EQUIP_AIRTANK)) || \
+		if (((player->touchattr & TA_WATER) && (player->equipmask & EQUIP_AIRTANK && PSelectSprite() != SPR_MYCHAR_PRINCE)) || \
 			player->movementmode == MOVEMODE_ZEROG)
 		{
 			draw_sprite_at_dp(scr_x, scr_y, SPR_WATER_SHIELD, \

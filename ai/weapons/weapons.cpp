@@ -230,7 +230,7 @@ SIFPointList *plist;
 						((y * TILE_H) + (TILE_H / 2)) << CSF, 4);
 		
 		sound(SND_BLOCK_DESTROY);
-		shot_spawn_effect(o, EFFECT_FISHY);
+		shot_spawn_effect(o, EFFECT_BOOMFLASH);
 		return 1;
 	}
 	
