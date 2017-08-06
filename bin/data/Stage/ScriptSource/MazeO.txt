@@ -126,9 +126,11 @@ your way...<NOD<FL+0760<FL+0703<END
 <CMU0010Got the =Arms Barrier=!<WAI0160<NOD<RMU<END
 
 #0500
-<KEY<MSGCrammed antibiotics into Su's mouth.<NOD
+<FLJ1001:0501<FL+1001<KEY<MSGCrammed antibiotics into Su's mouth.<NOD
 <CLR<FAC0004Guh...<NOD<END
-<KEY<MSG<The medicine's effects haven't shown up.<NOD<END
+#0501
+<KEY<MSGThe medicine's effects haven't
+shown up.<NOD<END
 
 #0502
 <KEY<MSG<FAC0013That's your friend?<NOD
@@ -143,8 +145,11 @@ to stop breathing.<NOD
 <CLRThere is an all-purpose 
 medicine for Mimiga,<NOD but 
 it's obviously not here...<NOD
-<CLR<FAC0000Wait-!<NOD<MYD0000<CLO<WAI0180
-<MSG<FAC0014I'll go for you!<NOD
+<CLR<FAC0000Wait-!<NOD<MYD0000<CLO
+<CNP0600:0150:0002<ANP0600:0150:0002<WAI0010
+<ANP0600:0151:0002<WAI0030<ANP0600:0151:0002<WAI0035
+<ANP0600:0151:0002<WAI0118
+<ANP0600:0000:0002<MSG<FAC0014I'll go for you!<NOD
 <CLR<FAC0013Prince...<NOD
 <CLR<FAC0014The all-purpose medicine is
 Banajaponica, right?<NOD
@@ -153,5 +158,13 @@ Let me return the favor.<NOD
 I know where the Mimiga live!<NOD
 <CLR<FAO0001Oh, let me borrow your tools!<NOD
 <FL+2902<MOV0014:0009<MYD0002
-<FAI0001<MNA<END
+<DNP0600
+<CNP0700:0150:0000<ANP0700:0152:0000<FAI0003<MNA<END
+
+#0700
+<FLJ2902:0701<EVE0500<END
+
+#0701
+<KEY<MSG<FAC0014I'll be right back,<NOD
+I promise!<NOD<END
 

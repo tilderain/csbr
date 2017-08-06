@@ -251,7 +251,8 @@ void ai_xp(Object *o)
 		}
 		else
 		{
-			o->yinertia += 42;
+			bool inwater = (o->CheckAttribute(&sprites[o->sprite].block_u, TA_WATER));
+			if (!inwater) o->yinertia += 42; else o->yinertia += 23;
 		}
 		
 	}

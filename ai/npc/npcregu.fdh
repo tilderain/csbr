@@ -48,6 +48,7 @@ void onspawn_generic_npc(Object *o);
 void ai_generic_npc(Object *o);
 void ai_generic_npc_nofaceplayer(Object *o);
 void npc_generic_walk(Object *o, int basestate);
+void ai_curly_collapsed(Object *o);
 
 
 /* located in ai/sym/smoke.cpp */

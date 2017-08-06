@@ -129,6 +129,26 @@ static const int pwalkanimframes[] = { 0, 1, 0, 2 };
 			}
 		}
 		break;
+		case 150:
+			o->sprite = SPR_MYCHAR_PRINCE;
+			XMOVE(0x200);
+			if(o->blockd)
+			{
+				o->animate_seq(4, pwalkanimframes, NUM_PWALK_FRAMES);
+			} else 
+			{
+				o->frame = (o->yinertia < 0 ? 1 : 2);
+			}
+			o->yinertia += 0x32;
+		break;
+		case 151:
+			o->yinertia = -0x500;
+			sound(SND_PLAYER_JUMP);
+			o->state = 150;
+		break;
+		case 152:
+			o->frame = 11;
+		break;
 	}
 }
 

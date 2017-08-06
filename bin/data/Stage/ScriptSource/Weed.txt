@@ -36,7 +36,29 @@ house?<FL-0227<YNJ0000<CLO
 #0102
 <PRI<SOU0011<DNP0101<FAO0004<TRA0007:0094:0015:0008
 #0103
-<PRI<SOU0011<DNP0103<FAO0004<TRA0008:0094:0009:0011
+<KEY<MSGThe door is covered in soap...<NOD
+You can't get a grip on it...<NOD<WAI0000
+<CNP0000:0000:0000
+<CNP0000:0000:0000
+<MSGStop right there!<NOD<MYD0000<CLO<WAI0120
+<MSG<FAC0005Whew!<NOD We managed to get here
+in time.<NOD You know that we
+can't let you do what you're 
+about to do, right?<NOD
+To do so would mean the end
+of my meals...<NOD
+
+I doubt you know the true 
+consequenses of doing that
+To end my meals...
+To end my power...
+<CLR<FAC0008Yeah, you tell him, boss.
+We're about to give you a
+real shocking now.<NOD
+<CLR<FAC0005<BSL0000<CMU0004I am the one who has control
+over this island.<NOD
+Prepare yourself!<NOD
+<END
 
 #0104
 <PRI

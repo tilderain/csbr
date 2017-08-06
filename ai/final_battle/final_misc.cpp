@@ -5,8 +5,6 @@
 INITFUNC(AIRoutines)
 {
 	ONTICK(OBJ_MIMIGA_CAGED, ai_mimiga_caged);
-	ONTICK(OBJ_CHIE_CAGED, ai_mimiga_caged);
-	ONTICK(OBJ_CHACO_CAGED, ai_mimiga_caged);
 	ONTICK(OBJ_SANTA_CAGED, ai_mimiga_caged);
 	
 	ONTICK(OBJ_DOCTOR_GHOST, ai_doctor_ghost);

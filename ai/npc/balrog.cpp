@@ -316,10 +316,28 @@ void ai_balrog_drop_in(Object *o)
 		case 5:	// cutscene crouch
 			o->frame = 2;
 		break;
+		
+		case 6:
+			o->sprite = SPR_BALROG_SCUBA;
+			o->state = 0;
+		break;
+		case 7:
+			o->sprite = SPR_BALROG_GLASSES;
+			o->state = 0;
+		break;
 	}
 	
 	if (o->state == 1 || o->state == 2)
-		o->yinertia = 0x640;
+	{
+		if (o->sprite == SPR_BALROG_SCUBA)
+		{
+			o->yinertia = 0x320;
+		}
+		else
+		{
+			o->yinertia = 0x640;
+		}
+	}
 }
 
 

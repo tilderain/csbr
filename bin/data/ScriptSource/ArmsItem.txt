@@ -92,8 +92,7 @@ known to portend the future.<WAI9999<END
 #1400 
 //start of shop scripts
 <MSG<FAC0012That'll be <NUM0000 cion.<NOD
-<CLR<FAC0000
-Do you want to buy it?<YNJ1401<EVE1402
+<CLR<FAC0000Buy it for <NUM0000 cion?<YNJ1401<EVE1402
 
 #1401 
 <WAI0001<END
@@ -352,12 +351,12 @@ universal annihilation.<WAI9999<END
 <FLJ3004:1204
 <MSG<TURJenka's pet dog.<WAI9999<END
 #6015
-<KEY<MSGThis will restore your life,
-but only once. Will you use it?<YNJ0000<LI+1000<SOU0020<IT-0015<MSG
-Life restored.<FRE<WAI9999<END
+<FLJ2999:7015<KEY<MSGThis will restore your life,
+but only once. Will you use it?<YNJ0000<LI+1000<EVE8015
 #6016
 <MSG<TURGeneral antibiotic medicine
-from the Frog Kingdom.<WAI9999<END
+from the Frog Kingdom.
+Does it really work for Mimiga..?<WAI9999<END
 #6017
 <MSG<TURIt says "Labyrinth Clinic".<WAI9999<END
 #6018
@@ -479,6 +478,10 @@ Surely you will meet again one day...<WAI9999<END
 #7002
 <MLP<END
 
+#7015
+<KEY<MSG<CATThis will restore your life,
+but only once.<WAI9999<END
+
 #7018
 <KEY<MSGDo you want to remove it?<YNJ0000<EQ-0001<FL-0742<MSG
 Deequipped Booster.<NOD<WAI0003<FRE<EVE5018
@@ -490,3 +493,9 @@ Deequipped Booster v2.0.<NOD<WAI0003<FRE<EVE5023
 <KEY<MSGDo you want to remove it?<YNJ0000<EQ-0128<FL-0722<MSG
 Deequipped the Whimsical Star.<NOD<WAI0003<FRE<EVE5038
 
+#8015
+<WAI0001<EVE9015
+
+
+#9015
+<SOU0020<WAI0022<MSG<CATLife restored.<FRE<WAI9999<END

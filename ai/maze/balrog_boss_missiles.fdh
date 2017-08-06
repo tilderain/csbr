@@ -32,7 +32,10 @@ void ai_balrog_boss_missiles(Object *o);
 void ondeath_balrog_boss_missiles(Object *o);
 static void walking_animation(Object *o);
 void ai_balrog_missile(Object *o);
+void ai_balrog_boss_scuba(Object *o);
+void ai_bubble_soa(Object *o);
 
+void EmFireAngledShot(Object *o, int objtype, int rand_variance, int speed);
 
 /* located in ai/sym/smoke.cpp */
 

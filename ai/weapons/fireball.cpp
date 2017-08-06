@@ -88,8 +88,6 @@ void ai_fireball(Object *o)
 				if (o->CheckSolidIntersect(enemy, pcheckd, 2))
 					{ o->yinertia = -0x400; return; }
 			}
-			
-			shot_dissipate(o, EFFECT_STARPOOF);
 			return;
 		}
 		
@@ -99,10 +97,18 @@ void ai_fireball(Object *o)
 		// deal it up to twice.
 		enemy->DealDamage(o->shot.damage);
 		
-		if (o->timer3 == 1)
-			shot_dissipate(o, EFFECT_STARPOOF);
-		else
-			o->timer3 = 1;
+		if (++o->timer3 > 2) 
+		{
+			if(enemy->hp >= 1) 
+			{
+				enemy->DealDamage(0, o); 
+				o->Delete();
+			}
+			else
+			{
+				shot_dissipate(o, EFFECT_STARPOOF);
+			}
+		}
 	}
 }
 

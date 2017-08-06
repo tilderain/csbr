@@ -16,7 +16,7 @@ INITFUNC(AIRoutines)
 void c------------------------------() {}
 */
 
-void ai_bat_up_down(Object *o)
+void ai_bat_up_down(Object *o) //propeller soa
 {
 	switch(o->state)
 	{

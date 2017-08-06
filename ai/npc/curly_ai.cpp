@@ -17,7 +17,11 @@ INITFUNC(AIRoutines)
 	AFTERMOVE(OBJ_CAI_WATERSHIELD, aftermove_cai_watershield);
 }
 
+
 // curly that fights beside you
+
+static const Point cwp = { 8, 5 };
+
 void ai_curly_ai(Object *o)
 {
 int xdist, ydist;
@@ -27,7 +31,8 @@ int otiley;
 char seeking_player = 0;
 char wantdir;
 
-
+	bool inwater = (o->GetAttributes(&cwp, 1, NULL) & TA_WATER);
+	/*
 	debug("Su Console");
 	debug("TGT: [%d,%d] %d", o->xmark>>CSF, o->ymark>>CSF, game.curlytarget.timeleft);
 	debug("State: %d", o->state);
@@ -36,8 +41,7 @@ char wantdir;
 	debug("TJT %d", o->curly.tryjumptime);
 	debug("IJT %d:%d", o->curly.impjumptime, o->curly.impjump);
 	game.debug.god = 1;
-
-	static const int swalkanimframes[] = { 0, 2, 0, 3 };
+	//frame 1 blink */
 
 	switch(o->state)
 	{
@@ -54,27 +58,7 @@ char wantdir;
 			o->invisible = 0;
 			o->state = CAI_ACTIVE;
 			o->timer = 0;
-
-		}
-		break;
-		
-		case CAI_KNOCKEDOUT:
-		{
-			o->timer = 0;
-			o->state = CAI_KNOCKEDOUT+1;
-			o->frame = 15;
-		}
-		case CAI_KNOCKEDOUT+1:
-		{
-			if (++o->timer > 1000)
-			{	// start fighting
-				o->state = CAI_START;
-			}
-			else if (o->timer > 750)
-			{	// stand up
-				o->flags &= ~FLAG_SCRIPTONACTIVATE;
-				o->frame = 0;
-			}
+			o->curly.reachptimer = 15;
 		}
 		break;
 	}
@@ -87,9 +71,7 @@ char wantdir;
 	// the level is in a Z shape. first we check to see if the player is on the level below ours.
 	if ((player->y > o->y && ((player->y - o->y) > 160<<CSF)) || o->state==999)
 	{
-
-			seeking_player = 1;		// stop when reach exit door
-		
+		seeking_player = 1;		// stop when reach exit door
 		o->ymark = o->y;
 	}
 	else
@@ -135,12 +117,20 @@ char wantdir;
 	
 	// if trying to return to the player then go into a rest state when we've reached him
 	reached_p = 0;
-	if (seeking_player && xdist < (32<<CSF) && ydist < (64<<CSF))
+	if (seeking_player && xdist < (35<<CSF) && ydist < (64<<CSF))
 	{
-		if (++o->curly.reachptimer > 80)
+		if (++o->curly.reachptimer > 13)
 		{
-			o->xinertia *= 2;
-			o->xinertia /= 5;
+			if(o->blockd)
+			{
+				o->xinertia *= 13;
+				o->xinertia /= 16;
+			}
+			else
+			{
+				o->xinertia *= 48;
+				o->xinertia /= 50;
+			}
 			o->frame = 0;
 			reached_p = 1;
 		}
@@ -157,9 +147,17 @@ char wantdir;
 		}
 		
 		// walk towards target
-		if (o->x > o->xmark) o->xinertia -= 0x20;
-		if (o->x < o->xmark) o->xinertia += 0x20;
-		o->frame = swalkanimframes[o->animframe];
+		if(inwater)
+		{
+			if (o->x > o->xmark) o->xinertia -= 0x2a;
+			if (o->x < o->xmark) o->xinertia += 0x2a;
+		}
+		else
+		{
+			if (o->x > o->xmark) o->xinertia -= 0x40;
+			if (o->x < o->xmark) o->xinertia += 0x40;
+		}
+		o->frame = o->animframe + 2;
 		
 		// jump if we hit a wall
 		if ((o->blockr && o->xinertia > 0) || (o->blockl && o->xinertia < 0))
@@ -198,11 +196,15 @@ char wantdir;
 		}
 		else o->curly.tryjumptime = 0;
 	}
-	else o->animtimer = o->animframe = 0;		// reset walk anim
-	
+	else 
+	{
+		o->animtimer = o->animframe = 0;		// reset walk anim
+		randblink(o, 1, 12, 80);
+		
+	}
 	// force jump/fall frames
-	if (o->yinertia < 0) o->frame = 2;
-	else if (!o->blockd) o->frame = 3;
+	if (o->yinertia < 0) o->frame = 4;
+	else if (!o->blockd) o->frame = 2;
 	else if (o->x==o->xmark) o->frame = 0;
 	
 	// the improbable jump - when AI gets confused, just cheat!
@@ -215,10 +217,15 @@ char wantdir;
 		if (o->dir==RIGHT && !o->blockr) o->curly.impjump--;
 		if (o->yinertia > 0 && o->blockd) o->curly.impjump--;
 	}
-	else o->yinertia += 0x33;
-	
-	//fall slower in water
-	
+	//fall slower in water, and limit
+	else if(inwater)
+	{
+		o->yinertia += 0x20;
+	}
+	else
+	{
+		o->yinertia += 0x30;
+	}
 	// slow down when we hit bricks
 	if (o->blockl || o->blockr)
 	{
@@ -235,19 +242,62 @@ char wantdir;
 		}
 	}
 	
-	// look up/down at target
-	o->curly.look = 0;
-	if (!reached_p || abs(o->y - player->y) > (48<<CSF))
+
+	static Point currentpoints[] = { {7, 8},
+									{1, 2}, {1, 8}, {1, 14},
+									{7, 2}, {7, 14},
+									{15,2}, {15, 8}, {15, 14} };
+									
+	bool incurrent;
+	int i;
+	static const int current_dir[] = { LEFTMASK, UPMASK, RIGHTMASK, DOWNMASK };
+	uint8_t currentmask;
+	int tile;
+	
+		// check each point in currentpoints[] for a water current, and if found,
+		// add it to the list of directions we're being blown
+	currentmask = 0;
+	for(i=0;i<9;i++)
 	{
-		if (o->y > o->ymark && ydist >= (12<<CSF) && (!seeking_player || ydist >= (80<<CSF))) o->curly.look = UP;
-		else if (o->y < o->ymark && !o->blockd && ydist >= (80<<CSF)) o->curly.look = DOWN;
+		if (o->GetAttributes(&currentpoints[i], 1, &tile) & TA_CURRENT)
+		{
+			currentmask |= current_dir[tilecode[tile] & 3];
+			incurrent = true;
+		}
+		else
+		{
+			incurrent = false;
+		}
+		
+		// if the center point (the first one) has no current, then don't
+		// bother checking the rest. as during 90% of the game you are NOT underwater.
 	}
 	
-	if (o->curly.look == UP) o->frame += 4;
-	else if (o->curly.look == DOWN) o->frame += 8;
+	// these constants are very critical for Waterway to work properly.
+	// please be careful with them.
+	if (currentmask & LEFTMASK)  o->xinertia -= 0x88;
+	if (currentmask & RIGHTMASK) o->xinertia += 0x88;
+	if (currentmask & UPMASK)    o->yinertia -= 0x80;
+	if (currentmask & DOWNMASK)  o->yinertia += 0x46;
 	
-	LIMITX(0x300);
-	LIMITY(0x5ff);
+
+	
+	if (inwater && !incurrent)
+	{
+		LIMITX(0x170);
+		LIMITY(0x2ff);
+	}
+	else if (incurrent)
+	{
+		LIMITX(0x5ff);
+		LIMITY(0x5ff);
+	}
+	else
+	{
+		LIMITX(0x250);
+		LIMITY(0x5ff);
+	}
+
 }
 
 static void CaiJUMP(Object *o)
@@ -365,8 +415,7 @@ void aftermove_cai_watershield(Object *o)
 		o->Delete();
 		return;
 	}
-	
-	static const Point cwp = { 8, 5 };
+
 	if (curly->GetAttributes(&cwp, 1, NULL) & TA_WATER)
 	{
 		o->invisible = false;

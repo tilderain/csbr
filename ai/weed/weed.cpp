@@ -980,26 +980,68 @@ void ai_malco(Object *o)
 	}
 }
 
-void ai_malco_broken(Object *o)
+void ai_malco_broken(Object *o) //stingray
 {
 	switch(o->state)
 	{
-		case 10:	// set when pulled out of ground
-			sound(SND_BLOCK_DESTROY);
-			SmokeClouds(o, 4, 16, 16);
-			o->state = 0;
+		case 0:
+			o->ymark = o->y;
+			o->timer = random(0, 50);
+			o->state = 1;
+		case 1:
+			if (!o->timer--)
+			{
+				o->state = 2;
+				o->yinertia = -0x160;
+			}
 		break;
 		
-		case 0:
+		case 2:
 		{
-			o->frame = 0;
-			randblink(o, 1, 8, 50);
 			
-			if (game.mode != GM_CREDITS)
-				FACEPLAYER;
+			if (o->blocku)
+			{
+				o->ymark = o->y + (random(0, 100) << CSF);
+				o->yinertia = 0x80;
+			}
+			
+			if (o->blockd)
+			{
+				o->ymark = o->y - (random(0, 100) << CSF);
+				o->yinertia = -0x60;
+			}
+			if (o->blockr)
+			{
+				o->dir = LEFT;
+				o->xinertia = -0x80;
+			} 
+			else if (o->blockl)
+			{
+				o->dir = RIGHT;
+				o->xinertia = 0x80;
+			}
+			
+			if(++o->timer > 400)
+			{
+				o->timer = 0;
+				o->ymark = o->y - (random(-100, 75) << CSF);
+			}
 		}
 		break;
 	}
+	if (o->dir == LEFT) o->xinertia -= 0x07; else o->xinertia += 0x07;
+	if (o->y >= o->ymark) o->yinertia -= 0x03; else o->yinertia += 0x03;
+
+	LIMITX(0x120);
+	LIMITY(0x120);
+
+	if (++o->animtimer > 8)
+	{
+		if(++o->animframe > 3) o->animframe = 0;
+		o->frame = o->animframe;
+		o->animtimer = 0;
+	}
+
 }
 
 

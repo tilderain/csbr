@@ -109,7 +109,7 @@ void ai_toroko_shack(Object *o)
 void c------------------------------() {}
 */
 
-// mushroom enemy ("Pignon") from Mimiga Graveyard
+// soap enemy ("Soa") from cave
 void ai_mushroom_enemy(Object *o)
 {
 	enum {
@@ -120,6 +120,8 @@ void ai_mushroom_enemy(Object *o)
 			SHOT,
 			JUMPING
 	};
+	
+	bool inwater = (o->CheckAttribute(&sprites[o->sprite].block_u, TA_WATER));
 	
 	switch(o->state)
 	{
@@ -143,20 +145,16 @@ void ai_mushroom_enemy(Object *o)
 		case WALKING+1:
 		{
 			if (!--o->timer){
-				o->yinertia += -0x420;
+				if(!inwater)
+				{
+					o->yinertia += -0x420;
+				}
+				else
+				{
+					o->yinertia += -0x210;
+				}
 				o->state = JUMPING;
 			}
-			if (o->blockl && o->dir == LEFT) //if blockl in 8 pixels (1/2 a block) jump.
-			{
-				o->dir = RIGHT;
-				o->xinertia = 0x100;
-			}
-			else if (o->blockr && o->dir == RIGHT)
-			{
-				o->dir = LEFT;
-				o->xinertia = -0x100;
-			}
-			
 			if (!o->blockd){
 				o->state = JUMPING;
 			}
@@ -169,7 +167,6 @@ void ai_mushroom_enemy(Object *o)
 			}
 			o->frame = walkanimframes[o->animframe];
 			
-			XMOVE(0x100);
 		}
 		break;
 		
@@ -180,24 +177,17 @@ void ai_mushroom_enemy(Object *o)
 		
 		case JUMPING:		// hit by shot
 			o->frame = 1;
-			if (o->blockl && o->dir == LEFT) //if blockl in 8 pixels (1/2 a block) jump.
-			{
-				o->dir = RIGHT;
-				o->xinertia = 0x100;
-			}
-			else if (o->blockr && o->dir == RIGHT)
-			{
-				o->dir = LEFT;
-				o->xinertia = -0x100;
-			}
 			if (o->blockd)
 			{
 				o->timer = random(30, 300);
 				o->state = WALKING;
 			}
-			XMOVE(0x100);
 		break;
 	}
+	
+	if (o->blockl || o->blockr) o->xinertia = -o->xinertia;
+	
+	o->dir = (o->xinertia > 0 ? RIGHT : LEFT);
 	
 	if (o->shaketime && o->state != SHOT)
 	{
@@ -206,7 +196,17 @@ void ai_mushroom_enemy(Object *o)
 		o->frame = 6;
 	}
 	
-	o->yinertia += 0x25;
+	if(!inwater)
+	{
+		XMOVE(0x100);
+		o->yinertia += 0x25;
+	}
+	else
+	{
+		XMOVE(0xa0);
+		o->yinertia += 0x15;
+	}
+
 	LIMITY(0x5ff);
 }
 
@@ -219,45 +219,59 @@ void ai_jumper_soa(Object *o)
 			SHOT
 	};
 	
+	bool inwater = (o->CheckAttribute(&sprites[o->sprite].block_u, TA_WATER));
+	
 	switch(o->state)
 	{
 		case 0:
 			o->frame = 0;
 			o->animtimer = 0;
-			o->xinertia = 0;
 			o->timer2 = 1;
 			o->state = JUMPING;	
 		case JUMPING:		// hit by shot
 			o->frame = 0;
-			if (o->blockl && o->dir == LEFT) //if blockl in 8 pixels (1/2 a block) jump.
-			{
-				o->dir = RIGHT;
-				o->xinertia = 0x110;
-			}
-			else if (o->blockr && o->dir == RIGHT)
-			{
-				o->dir = LEFT;
-				o->xinertia = -0x110;
-			}
 			if (o->blockd)
 			{
 				o->state = CROUCHING;
 			}
-			XMOVE(0x100);
+			if(!inwater)
+			{
+				XMOVE(0x110);
+			}
+			else
+			{
+				XMOVE(0xa0);
+			}
+	
 		break;
 		case CROUCHING:		// hit by shot
 			o->frame = 1;
-			o->xinertia = 0;
-			if (++o->timer >= 7)
+			XMOVE(0x01);
+			if (++o->timer >= 10)
 			{
 				if (++o->timer2 >= 5)
 				{
 					o->timer2 = 0;
-					o->yinertia = -0x750;
+					if(!inwater)
+					{
+						o->yinertia = -0x750;
+					}
+					else
+					{
+						o->yinertia = -0x450;
+					}
+					
 				}
 				else
 				{
-					o->yinertia = -0x200;
+					if(!inwater)
+					{
+						o->yinertia = -0x200;
+					}
+					else
+					{
+						o->yinertia = -0x150;
+					}
 				}
 				o->timer = 0;
 				o->state = JUMPING;
@@ -276,7 +290,19 @@ void ai_jumper_soa(Object *o)
 		o->frame = 2;
 	}
 	
-	o->yinertia += 0x25;
+	if(!inwater)
+	{
+		o->yinertia += 0x25;
+	}
+	else
+	{
+		o->yinertia += 0x15;
+	}
+	
+	if (o->blockl || o->blockr) o->xinertia = -o->xinertia;
+	
+	o->dir = (o->xinertia > 0 ? RIGHT : LEFT);
+	
 	LIMITY(0x5ff);
 }
 

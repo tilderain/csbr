@@ -32,6 +32,8 @@ INITFUNC(AIRoutines)
 	GENERIC_NPC(OBJ_CHACO);
 	GENERIC_NPC(OBJ_JACK);
 	GENERIC_NPC_NOFACEPLAYER(OBJ_KAZUMA);
+	
+	ONTICK(OBJ_CURLY_COLLAPSED, ai_curly_collapsed);
 }
 
 /*
@@ -818,6 +820,18 @@ void ai_generic_npc(Object *o)
 	}
 	
 	ai_generic_npc_nofaceplayer(o);
+}
+
+void ai_curly_collapsed(Object *o)
+{
+	if (o->state == 0)
+	{
+		o->state = 1;
+		o->x += (8 << CSF);
+		o->frame = 1;
+
+	}
+	
 }
 
 void ai_generic_npc_nofaceplayer(Object *o)
