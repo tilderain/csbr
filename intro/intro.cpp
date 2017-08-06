@@ -49,7 +49,7 @@ void intro_tick()
 			script->delaytimer = 20;
 	}
 	const char buff[64] = "Indev";
-	const char bufff[64] = "tilderain 2017-07";
+	const char bufff[64] = "tilderain 2017-08";
 	font_draw_shaded(4, (SCREEN_HEIGHT-GetFontHeight()-15), buff, 0, &greenfont);
 	font_draw_shaded(4, (SCREEN_HEIGHT-GetFontHeight()-4), bufff, 0, &greenfont);
 }

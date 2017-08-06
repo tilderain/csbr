@@ -46,7 +46,7 @@ void TB_YNJPrompt::Draw()
 	if (!fVisible)
 		return;
 	
-	draw_sprite(YESNO_X, fCoords.y, SPR_YESNO, game.modeShop ? 1 : 0, 0);
+	draw_sprite(YESNO_X, fCoords.y, SPR_YESNO, game.flags[2999] ? 1 : 0, 0);
 	
 	// draw hand selector
 	if (fState == STATE_YES_SELECTED || \

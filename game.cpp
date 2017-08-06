@@ -648,6 +648,8 @@ void AssignExtraSprites(void)
 	objprop[OBJ_QUAKE].sprite = SPR_NULL;
 	objprop[OBJ_BUTE_SPAWNER].sprite = SPR_NULL;
 	objprop[OBJ_SMOKE_DROPPER].sprite = SPR_NULL;
+	
+	objprop[OBJ_MALCO_BROKEN].sprite = SPR_STINGRAY;
 
 
 	objprop[OBJ_BUTE_ARROW].sprite = SPR_BUTE_ARROW_LEFT;	// so spawn point is applied
@@ -662,6 +664,9 @@ void AssignExtraSprites(void)
 	objprop[OBJ_MISERY_FLOAT].sprite = SPR_MISERY;
 	objprop[OBJ_MISERY_FLOAT].damage = 1;
 	objprop[OBJ_MISERY_STAND].sprite = SPR_MISERY;
+	
+	objprop[OBJ_CHIE_CAGED].sprite = SPR_BALROG_SCUBA;
+	objprop[OBJ_CHACO_CAGED].sprite = SPR_BUBBLE_SOA;
 	
 	objprop[OBJ_PUPPY_WAG].sprite = SPR_PUPPY;
 	objprop[OBJ_PUPPY_BARK].sprite = SPR_PUPPY;

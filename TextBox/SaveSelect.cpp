@@ -110,12 +110,19 @@ int start;
 		// originally, but we won't actually overwrite any save files.
 		if (!Replay::IsPlaying())
 		{
+			if (fHaveProfile[fCurSel] && !(settings->last_save_slot == fCurSel) && fSaving)
+			{
+				StartScript(14); //overwrite existing save
+			} 
+			else
+			{
 			if (fSaving)
 				game_save(fCurSel);
 			
 			sound(SND_MENU_SELECT);
 			settings->last_save_slot = fCurSel;
 			settings_save();		// record new save/load slot
+			}
 		}
 		
 		SetVisible(false);
@@ -126,7 +133,7 @@ int start;
 		ScriptInstance *s = GetCurrentScriptInstance();
 		if (s) s->delaytimer = 0;
 	}
-	if (justpushed(FIREKEY))
+	if (justpushed(FIREKEY || INVENTORYKEY))
 	{
 		if (fSaving)
 		{
@@ -161,7 +168,7 @@ const int w = fCoords.w - 33;
 	if (fHaveProfile[index])
 	{
 		const char *stage = map_get_stage_name(p->stage);
-		font_draw(x+8, y-1, stage, FONT_SPACING);
+		font_draw(x+8, y-3, stage, FONT_SPACING);
 		
 		// draw health.
 		DrawHealth(x+w - 64, y, p);

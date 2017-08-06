@@ -47,7 +47,7 @@ BulletInfo bullet_table[] =
 	SPR_SHOT_SUPERMISSILE13,2,  0, 1, 40,  0, 0x0000, 0, SND_POLAR_STAR_L1_2,	// supermissile l3
 	
 	// damages are doubled because fireball can hit twice before dissipating
-	SPR_SHOT_FIREBALL1,		0,  0, 1, 100, 2, 0x0000, 1, SND_FIREBALL,		// fireball l1
+	SPR_SHOT_FIREBALL1,		0,  0, 1, 100, 1, 0x0000, 1, SND_FIREBALL,		// fireball l1
 	SPR_SHOT_FIREBALL23,	1,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l2
 	SPR_SHOT_FIREBALL23,	2,  0, 1, 100, 3, 0x0000, 1, SND_FIREBALL,		// fireball l3
 	

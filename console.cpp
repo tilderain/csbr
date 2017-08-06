@@ -586,6 +586,7 @@ static void __maxammo(StringList *args, int num)
 
 static void __hp(StringList *args, int num)
 {
+	player->health_anim_value = player->hp;
 	player->hp = num;
 	if (player->hp > player->maxHealth)
 		player->maxHealth = player->hp;

@@ -1771,7 +1771,7 @@ int scr_x, scr_y;
 			draw_sprite_at_dp(scr_x, scr_y, SPR_WATER_SHIELD, \
 							  player->water_shield_frame, player->dir);
 			
-			if (++player->water_shield_timer > 1)
+			if (++player->water_shield_timer > 2)
 			{
 				player->water_shield_frame ^= 1;
 				player->water_shield_timer = 0;

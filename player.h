@@ -85,6 +85,8 @@ public:
 	bool hurt_flash_state;			// if 1, player is invisible because he's blinking
 	int hurt_health_time;
 	bool hurt_flash_health;
+	int health_anim_timer;
+	int health_anim_value;
 	
 	// when displaying the water bubble (air tank item) this is the frame shown
 	uint8_t water_shield_frame;

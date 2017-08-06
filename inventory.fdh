@@ -20,6 +20,9 @@ void DrawHealthBar(int x, int y, int curvalue, int maxvalue);
 
 void InitPercentBar(PercentBar *bar, int starting_value);
 
+void DrawItems(int xstart, int ystart, stSelector *selector, int nitems, bool inshop);
+void DrawItemsShop(int xstart, int ystart, stSelector *selector, int nitems);
+
 /* located in tsc.cpp */
 
 //-------------------[referenced from inventory.cpp]-----------------//

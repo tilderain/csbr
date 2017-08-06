@@ -9,16 +9,16 @@ struct Item
 	int itemId;
 	int ammo;
 	int maxammo;
+	
 };
 
 struct ShopItem
 {
 	int itemId;
 	int price;
-	int flag;
 	int ammo;
 	int maxammo;
-
+	int flag;
 	//custom script?
 };
 
@@ -83,16 +83,16 @@ void inventory_tick(void);
 enum INVENTORY
 {
 	ITEM_NONE = 0,
-	ITEM_ARTHURS_KEY = 1,
-	ITEM_MAP_SYSTEM,
-	ITEM_STANTAS_KEY, //STANTAAAAA!!!!!!!!!!!!
-	ITEM_SILVER_LOCKET,
-	ITEM_BEAST_FANG,
+	ITEM_FRONTIER,
+	ITEM_DOGGY_GUN,
+	ITEM_FIREBALL,	//ITEM_STANTAS_KEY, //STANTAAAAA!!!!!!!!!!!!
+	ITEM_DOG_VULCAN,
+	ITEM_MISSILE,
 	ITEM_LIFE_CAPSULE,
-	ITEM_ID_CARD,
-	ITEM_JELLYFISH_JUICE,
-	ITEM_RUSTY_KEY,
-	ITEM_GUM_KEY,
+	ITEM_BUBBLER,
+	ITEM_WAVER,
+	ITEM_CYNICAL_BLADE,
+	ITEM_MISSILE_2,
 	ITEM_GUM_BASE,
 	ITEM_CHARCOAL,
 	ITEM_EXPLOSIVE,

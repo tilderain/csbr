@@ -757,8 +757,9 @@ int cmdip;
 				} break; //jumps if cion more than player cion
 			
 			case OP_SHO:
-				game.modeShop = parm[0];
-				game.setmode(GM_INVENTORY, game.modeShop); break; //param == 2
+				game.flags[2999] = 1; // shop flag, turns textboxs yellow
+										//and indicates to items whether you can use it or not
+				game.setmode(GM_INVENTORY, parm[0]); break; //pass shopid to shop
 			
 			// the PSelectSprite is a hack so when the Mimiga Mask is taken
 			// it disappears immediately even though the game is in <PRI.

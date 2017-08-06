@@ -242,7 +242,7 @@ bool shop;
 	// draw the frame
 	if (!(fFlags & TB_NO_BORDER))
 	{
-		if (!game.modeShop){
+		if (!game.flags[2999]){
 			DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h);
 		} else {
 			DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h, shop);
@@ -264,7 +264,7 @@ bool shop;
 		// face slide-in animation
 		if (fFaceXOffset < 0)
 		{	
-			fFaceXOffset = fFaceXOffset / 1.15; // ease out
+			fFaceXOffset = fFaceXOffset / 1.1325; // ease out
 			if (fFaceXOffset > 0) fFaceXOffset = 0;
 		}
 	}
@@ -290,7 +290,7 @@ bool shop;
 
 		if (game.mode != GM_INVENTORY) {
 			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &shadowfont);
-		} else if (game.modeShop){
+		} else if (game.flags[2999]){
 			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &shadowfont2);
 		} else {
 			lineWidth = font_draw(text_x, y, fLines[i], char_spacing, &whitefont);

@@ -23,7 +23,45 @@
 #define INVPLUG_X 54
 #define INVPLUG_Y 48
 
-int itemToBeThrown;
+ShopItem shopTable1[] = 
+{
+//	item			  		price 	ammo	maxammo flag
+	ITEM_DOGGY_GUN, 		70, 	180, 	180, 	3000,	
+	 0, 					0, 		0, 		0, 		0,
+	 ITEM_LIFE_POT, 		40, 	0, 		0, 		3001,	
+	 0, 					0, 		0, 		0, 		0,
+	 ITEM_FRONTIER, 		52, 	48, 	48, 	3002,
+	 0, 		0, 		0, 		0, 		0,
+	 0, 		0, 		0, 		0, 		0,
+	 0, 		0, 		0, 		0, 		0
+};
+
+ShopItem shopTable2[] = 
+{
+//	 item			  		price 	ammo	maxammo flag
+	 ITEM_DOGGY_GUN, 		70, 	125, 	125, 	-1,	
+	 ITEM_DOG_VULCAN, 		100, 	300, 	300, 	3004,
+	 ITEM_FIREBALL, 		80, 	50, 	50, 	3005,	
+	 ITEM_FRONTIER, 		80, 	50, 	50, 	3006,
+	 0, 	0, 	0, 	0, 	0,
+	 0, 	0, 	0, 	0, 	0,
+	 0, 	0, 	0, 	0, 	0,
+	 ITEM_LIFE_POT, 		100, 	0, 		0, 		3007
+};
+
+ShopItem* shopTableTable[] = {
+	0, shopTable1, shopTable2
+};
+
+
+/*	[0, 		0, 	0, 	0, 	0,	
+	 0,			0, 	0, 	0, 	0,
+	 0,			0, 	0, 	0, 	0,	
+	 0,			0, 	0, 	0, 	0,
+	 0,			0, 	0, 	0, 	0,	
+	 0,			0, 	0, 	0, 	0,
+	 0,			0, 	0, 	0, 	0,	
+	 0,			0, 	0, 	0, 	0],*/
 
 // can't enter Inven if
 //  * script is running
@@ -36,9 +74,10 @@ int itemToBeThrown;
 
 // param is passed as 1 when returning from Map System.
 
+int itemToBeThrown;
+
 stInventory inv;
 stShop shop;
-
 bool inventory_init(int param)
 {
 	//param == 2 then do shop things
@@ -52,56 +91,8 @@ bool inventory_init(int param)
 		shop.curselector->lastsel = -9999;		// run the script first time
 		shop.inShop = true;
 		stat("Entering shop # %d.", param);
-		switch (param){ //placeholder for now?
-			case 1:
-				shop.itemsel.shopitems[0].itemId = 2;
-				shop.itemsel.shopitems[0].price = 70;
-				shop.itemsel.shopitems[0].ammo = 180;
-				shop.itemsel.shopitems[0].maxammo = 180;
-				shop.itemsel.shopitems[0].flag = 3000; //flags over 3000 reserved for shop
-				
-				shop.itemsel.shopitems[2].itemId = 15;
-				shop.itemsel.shopitems[2].price = 40;
-				shop.itemsel.shopitems[2].ammo = 0;
-				shop.itemsel.shopitems[2].maxammo = 0;
-				shop.itemsel.shopitems[2].flag = 3001;
-				
-				shop.itemsel.shopitems[4].itemId = 1;
-				shop.itemsel.shopitems[4].price = 52;
-				shop.itemsel.shopitems[4].ammo = 48;
-				shop.itemsel.shopitems[4].maxammo = 48;
-				shop.itemsel.shopitems[4].flag = 3002;
-			break;
-			
-			case 2:
-				shop.itemsel.shopitems[0].itemId = 2;
-				shop.itemsel.shopitems[0].price = 70;
-				shop.itemsel.shopitems[0].ammo = 125;
-				shop.itemsel.shopitems[0].maxammo = 125;
-				shop.itemsel.shopitems[0].flag = -1; //flags over 3000 reserved for shop
-				
-				shop.itemsel.shopitems[1].itemId = 4;
-				shop.itemsel.shopitems[1].price = 100;
-				shop.itemsel.shopitems[1].ammo = 300;
-				shop.itemsel.shopitems[1].maxammo = 300;
-				shop.itemsel.shopitems[1].flag = 3004;
-				
-				shop.itemsel.shopitems[2].itemId = 3;
-				shop.itemsel.shopitems[2].price = 80;
-				shop.itemsel.shopitems[2].ammo = 50;
-				shop.itemsel.shopitems[2].maxammo = 50;
-				shop.itemsel.shopitems[2].flag = 3005;
-				
-				shop.itemsel.shopitems[3].itemId = 1;
-				shop.itemsel.shopitems[3].price = 80;
-				shop.itemsel.shopitems[3].ammo = 50;
-				shop.itemsel.shopitems[3].maxammo = 50;
-				shop.itemsel.shopitems[3].flag = 3006;
-			break;
-			
-			default:
-				stat("Invalid shop id.");
-		}
+
+		memcpy(shop.itemsel.shopitems, shopTableTable[param], sizeof(shop.itemsel.shopitems));
 		shop.inBuySellSelection = true;
 		
 	} else {
@@ -273,56 +264,23 @@ int x, y, w, i, c;
 	if (inv.doneDrawing)
 	{
 		draw_sprite(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, 0);
-		// - draw the weapons ----
-
 		
-		// start of items box
-		inv.x = 54;
-		inv.y = 80;
+		DrawItems(54, 80, &inv.itemsel, 16, false);
 		
-		x = inv.x;
-		y = inv.y;
 
-		// draw the arms
-		
-		// - draw the items ----
-
-
-		
-		c = 0;
-		for(i=0;i<inv.itemsel.nitems;i++)
+		if (player->curWeapon)
 		{
-			draw_sprite(x, y, SPR_ITEMIMAGE, inv.itemsel.items[i].itemId, 0);
-			
-			if (player->inventory[i].itemId && player->inventory[i].maxammo == 0) { 
-				if(settings->theme[THEME_INVNUM]){
-					DrawNumberGray(x+17, y+8, 1);
-				}
-			} else if (player->inventory[i].itemId){
-				DrawNumberGray(x+17, y+8, player->inventory[i].ammo); //weird position
-				//add support for infinity symbol?
-			}
-			x += inv.itemsel.spacing_x;
-			
-			if (++c >= inv.itemsel.rowlen)
-			{
-				x = inv.x;
-				y += inv.itemsel.spacing_y;
-				c = 0;
-			}
-		}
-		
-		if (player->curWeapon){
 			draw_sprite(INVWEAPON_X, INVWEAPON_Y, SPR_ITEMIMAGE, player->curWeapon, 0);
 			DrawNumber(INVWEAPON_X+17, INVWEAPON_Y+8, player->weapons[player->curWeapon].ammo);
 		}
 		
-		if (player->equipmask){
+		if (player->equipmask)
+		{
 			draw_sprite(INVPLUG_X, INVPLUG_Y, SPR_ITEMIMAGE, GetPlug(), 0);
 		}
 		// - draw the player ----
 		
-		DrawSelector(&inv.itemsel, inv.x, inv.y);
+		DrawSelector(&inv.itemsel, 54, 80);
 		
 		int s, spr, frame;
 		s = PSelectSprite();
@@ -369,6 +327,7 @@ int currow, curcol;
 				itemToBeThrown = -1;
 				inv.selection = -1; break;
 			case 1303: ThrowItem(); break; //yes
+			case 8015: itemToBeThrown = inv.itemsel.cursel; ThrowItem(); break; //hacky
 			default: return;
 		}
 	}
@@ -384,7 +343,8 @@ int currow, curcol;
 		nrows = currow = curcol = 0;
 	}
 	
-	if (justpushed(LEFTKEY)){
+	if (justpushed(LEFTKEY))
+	{
 		sound(selector->sound);
 		
 		// at beginning of row?
@@ -396,7 +356,9 @@ int currow, curcol;
 				selector->cursel = selector->nitems - 1;
 		}
 		else selector->cursel--;
-	} else if (justpushed(RIGHTKEY)){
+	} 
+	else if (justpushed(RIGHTKEY))
+	{
 		sound(selector->sound);
 		if (selector->cursel == 16){
 			selector->cursel = 3;
@@ -406,45 +368,70 @@ int currow, curcol;
 			selector->cursel = (currow * selector->rowlen);
 		}
 		else selector->cursel++;
-	} else if (justpushed(DOWNKEY)){
-		if (selector->cursel == 16) {
+	} 
+	else if (justpushed(DOWNKEY))
+	{
+		if (selector->cursel == 16)
+		{
 			selector->cursel = 17;
 			sound(selector->sound);
-		} else if (selector->cursel == 17) {
+		} 
+		else if (selector->cursel == 17) 
+		{
 			selector->cursel = 0;
 			sound(selector->sound);
-		} else {
-			if (currow == 3 && curcol == 0){
+		} 
+		else 
+		{
+			if (currow == 3 && curcol == 0)
+			{
 				selector->cursel = 16;
 				sound(selector->sound);
-			}else{
-				if (currow == 3){
+			}
+			else
+			{
+				if (currow == 3)
+				{
 					selector->cursel -= 12;
 					sound(selector->sound);
-				} else {
+				}
+				else 
+				{
 				selector->cursel += selector->rowlen;
 				sound(selector->sound);
 				}
 			}
 		}
-	} else if (justpushed(UPKEY)){
+	}
+	else if (justpushed(UPKEY))
+	{
 		//need to account for weapon and plug
 		//holy hell this is a mess
-		if (selector->cursel == 16) {
+		if (selector->cursel == 16) 
+		{
 			selector->cursel = 12;
 			sound(selector->sound);
-		} else if (selector->cursel == 17) {
+		} 
+		else if (selector->cursel == 17) 
+		{
 			selector->cursel = 16;
 			sound(selector->sound);
-		} else if (currow == 0){
-			if (curcol == 0){
+		} 
+		else if (currow == 0)
+		{
+			if (curcol == 0)
+			{
 				selector->cursel = 17;
 				sound(selector->sound);
-			} else {
+			} 
+			else 
+			{
 				selector->cursel += 12; //this will probably never ever change
 				sound(selector->sound);
 			}
-		} else {
+		}
+		else
+		{
 			selector->cursel -= selector->rowlen;
 			sound(selector->sound);
 		}
@@ -455,7 +442,8 @@ int currow, curcol;
 	{
 		selector->lastsel = selector->cursel;
 		
-		switch(selector->cursel){
+		switch(selector->cursel)
+		{
 			case 16: StartScript(player->curWeapon + selector->scriptbase, SP_ARMSITEM); break;
 		    case 17: StartScript(GetPlug() + selector->scriptbase, SP_ARMSITEM); break;
 			default: StartScript(selector->items[selector->cursel].itemId + selector->scriptbase, SP_ARMSITEM);
@@ -464,12 +452,16 @@ int currow, curcol;
 	
 	else									// selecting an item
 	{
-		if (justpushed(JUMPKEY)){
+		if (justpushed(JUMPKEY))
+		{
 			stat("selector %d", selector->cursel);
-			if (inv.selection == -1){
+			if (inv.selection == -1)
+			{
 				inv.selection = selector->cursel;
 				sound(SND_MENU_SELECT);
-			} else {
+			} 
+			else
+			{
 				//swap items
 				//special behavior for trash and plug and weapon
 				//please clean this up
@@ -567,109 +559,95 @@ static void DrawShop(void){
 	int x, y, w, i, c;
 	bool shop_;
 	
-	inv.x = 38; //settings for item box
-	inv.y = 72;
+	TextBox::DrawFrame(38, 72, 244, 80, shop_); 
+	draw_sprite(38, 72, SPR_SHOP_ITEM, 0, 0);
 	
-	inv.w = 244;
-	inv.h = 80;
+	TextBox::DrawFrame(38, 32, 244, 40, shop_); 
+	draw_sprite(38, 32, SPR_SHOP_SHOP, 0, 0);
 	
-	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h, shop_); 
-	draw_sprite(inv.x, inv.y, SPR_SHOP_ITEM, 0, 0);
-	
-	inv.x = 38; //settings for shop box
-	inv.y = 32;
-	
-	inv.w = 244;
-	inv.h = 40;
-	
-	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h, shop_); 
-	draw_sprite(inv.x, inv.y, SPR_SHOP_SHOP, 0, 0);
-	
-	inv.x = 198;
-	inv.y = 8;
-	
-	inv.w = 84;
-	inv.h = 24;
-	
-	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h, shop_); 
-	draw_sprite(inv.x, inv.y, SPR_SHOP_MONEY, 0, 0);
+	TextBox::DrawFrame(198, 8, 84, 24, shop_); 
+	draw_sprite(198, 8, SPR_SHOP_MONEY, 0, 0);
 
-	// start of shop box
-	inv.x = 54;
-	inv.y = 37;
+	DrawItemsShop(54, 37, &shop.itemsel, 8);
+		
+	DrawSelector(&shop.itemsel, 54, 37);
 	
-	x = inv.x;
-	y = inv.y;
+	DrawItems(54, 80, &shop.itemsel, 16, true);
 	
-	c = 0;
-	for(i=0;i<8;i++)
-	{
-		if (shop.itemsel.shopitems[i].itemId && game.flags[shop.itemsel.shopitems[i].flag]){
-			draw_sprite(x, y, SPR_ITEMIMAGE, 41, 0); //out of stock sign
+	//magic numbers everywhere
+	// - draw the money ----
+	
+	draw_sprite(38 + 205, 8 + 10, SPR_XPBAR, FRAME_XP_MAX, 0);
+	// cion Number
+	DrawNumber(38 + 169, 8 + 9, player->xp);
+}
+
+void DrawItems(int xstart, int ystart, stSelector *selector, int nitems, bool inShop){ 
+//pass in the selctor cuz apparently you can't pass in an *item
+int i;
+	int c = 0;
+	int x = xstart;
+	int y = ystart;
+
+	for(i=0;i<nitems;i++){
+		if ( (i!=15) ){
+			draw_sprite(x, y, SPR_ITEMIMAGE, selector->items[i].itemId, 0);
 		} else {
-			draw_sprite(x, y, SPR_ITEMIMAGE, shop.itemsel.shopitems[i].itemId, 0);
-			if (!shop.itemsel.shopitems[i].maxammo) { 
-				// do nothing
-			} else {
-				DrawNumber(x+17, y+8, shop.itemsel.shopitems[i].ammo); //weird position
-				//add support for infinity symbol?
+			if(inShop) draw_sprite(x, y, SPR_ITEMIMAGE, 40, 0); //trash... placeholder for now?
+		}
+		
+		if (selector->items[i].itemId && player->inventory[i].maxammo == 0) { 
+			if(settings->theme[THEME_INVNUM]){
+				DrawNumberGray(x+17, y+8, 1);
 			}
-		}
-	
-		x += shop.itemsel.spacing_x;
-		
-		if (++c >= shop.itemsel.rowlen)
-		{
-			x = inv.x;
-			y += shop.itemsel.spacing_y;
-			c = 0;
-		}
-	}
-		
-	DrawSelector(&shop.itemsel, inv.x, inv.y);
-	
-	// start of items box
-	inv.x = 54;
-	inv.y = 80;
-	
-	x = inv.x;
-	y = inv.y;
-
-	c = 0;
-	for(i=0;i<player->ninventory;i++)
-	{
-		if ( !(i==15) ){
-			draw_sprite(x, y, SPR_ITEMIMAGE, shop.itemsel.items[i].itemId, 0);
-		} else{
-			draw_sprite(x, y, SPR_ITEMIMAGE, 40, 0); //trash... placeholder for now?
-		}
-		
-		if (!player->inventory[i].maxammo) { 
-		// do nothing
-		} else {
+		} else if (selector->items[i].itemId){
 			DrawNumberGray(x+17, y+8, player->inventory[i].ammo); //weird position
 			//add support for infinity symbol?
 		}
-		x += shop.itemsel.spacing_x;
+	
+		x += selector->spacing_x;
 		
-		if (++c >= shop.itemsel.rowlen)
-		{
-			x = inv.x;
-			y += shop.itemsel.spacing_y;
+		if (++c >= selector->rowlen){
+			x = xstart;
+			y += selector->spacing_y;
 			c = 0;
 		}
 	}
-	
-	//magic numbers everywhere
-	inv.x = 38;
-	inv.y = 8;
-			
-	// - draw the money ----
-	
-	draw_sprite(inv.x + 205, inv.y + 10, SPR_XPBAR, FRAME_XP_MAX, 0);
-	// cion Number
-	DrawNumber(inv.x + 169, inv.y + 9, player->xp);
 }
+
+void DrawItemsShop(int xstart, int ystart, stSelector *selector, int nitems){ 
+//pass in the selctor cuz apparently you can't pass in an *item
+int i;
+	int c = 0;
+	int x = xstart;
+	int y = ystart;
+	
+	for(i=0;i<8;i++){
+		if (selector->shopitems[i].itemId && game.flags[selector->shopitems[i].flag]){
+			draw_sprite(x, y, SPR_ITEMIMAGE, 41, 0); //out of stock sign
+		} else {
+			
+			draw_sprite(x, y, SPR_ITEMIMAGE, selector->shopitems[i].itemId, 0);
+		
+			if (selector->shopitems[i].itemId && selector->shopitems[i].maxammo == 0) { 
+				if(settings->theme[THEME_INVNUM]){
+					DrawNumberGray(x+17, y+8, 1);
+				}
+			} else if (selector->shopitems[i].itemId){
+				DrawNumber(x+17, y+8, selector->shopitems[i].ammo); //weird position
+				//add support for infinity symbol?
+			}
+		}
+		x += selector->spacing_x;
+		
+		if (++c >= selector->rowlen){
+			x = xstart;
+			y += selector->spacing_y;
+			c = 0;
+		}
+	}
+}
+
 
 static void RunShopSelector(stSelector *selector){
 int nrows;
@@ -888,7 +866,7 @@ static void DrawSell(void){
 	inv.y = 40;
 	
 	// - draw the money ----
-	draw_sprite(inv.x, inv.y, SPR_SHOP_MONEY, 0, 0);
+	draw_sprite(198, inv.y, SPR_SHOP_MONEY, 0, 0);
 	
 	draw_sprite(inv.x + 45, inv.y + 10, SPR_XPBAR, FRAME_XP_MAX, 0);
 	// cion Number
@@ -913,32 +891,9 @@ static void DrawSell(void){
 	y = inv.y;
 
 	c = 0;
-	for(i=0;i<player->ninventory;i++)
-	{
-		if ( !(i==15) ){
-			draw_sprite(x, y, SPR_ITEMIMAGE, shop.itemsel.items[i].itemId, 0);
-		} else{
-			draw_sprite(x, y, SPR_ITEMIMAGE, 40, 0); //trash... placeholder for now?
-		}
-		
-		if (player->inventory[i].itemId != 0 && player->inventory[i].maxammo == 0) { 
-			if(settings->theme[THEME_INVNUM]){
-				DrawNumberGray(x+17, y+8, 1);
-			}
-		} else {
-			DrawNumberGray(x+17, y+8, player->inventory[i].ammo); //weird position
-			//add support for infinity symbol?
-		}
-		x += shop.itemsel.spacing_x;
-		
-		if (++c >= shop.itemsel.rowlen)
-		{
-			x = inv.x;
-			y += shop.itemsel.spacing_y;
-			c = 0;
-		}
-	}
 	
+	DrawItems(54, 81, &shop.itemsel, 16, true);
+
 	DrawSelector(&shop.itemsel, inv.x, inv.y);
 
 }
@@ -1037,7 +992,7 @@ int shopBuy;
 		else selector->cursel++;
 	} else if (justpushed(DOWNKEY)){
 		if (currow == 3){
-			selector->cursel -= 4;
+			selector->cursel -= 12;
 			sound(selector->sound);
 		} else {
 		selector->cursel += selector->rowlen;
@@ -1258,7 +1213,7 @@ void ThrowItem(){
 static void ExitInventory(void)
 {
 	StopScripts();
-	game.modeShop = false;
+	game.flags[2999] = false;
 	shop.inShop = false;
 	game.setmode(GM_NORMAL);
 }

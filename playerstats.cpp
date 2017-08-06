@@ -5,6 +5,7 @@
 
 void AddHealth(int hp)
 {
+	player->health_anim_value = player->hp;
 	player->hp += hp;
 	if (player->hp > player->maxHealth) player->hp = player->maxHealth;
 }

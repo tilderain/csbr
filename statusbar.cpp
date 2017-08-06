@@ -331,7 +331,7 @@ void DrawPercentBar(PercentBar *bar, int x, int y, int curvalue, int maxvalue, i
 void DrawHealthBar(int x, int y, int curvalue, int maxvalue)
 {
 int i;
-	if (!player->hurt_time && curvalue==1){
+	if (!player->hurt_time && curvalue==1){ //1hp flash anim
 		
 		if (player->hurt_health_time <= 0){
 			
@@ -353,11 +353,17 @@ int i;
 	}
 	if (player->hurt_flash_health) return;
 	
+	if(player->health_anim_value < curvalue && ++player->health_anim_timer >= 5)
+	{
+		player->health_anim_value++;
+		player->health_anim_timer = 0;
+	}
+	
 	for(i=0;i<maxvalue;i++){
 		if (i==0){ //skip a heart
 			continue;
 		}
-		if (i < curvalue){
+		if (i < curvalue && i < player->health_anim_value){
 			draw_sprite(x, y, SPR_HEALTHBAR, 0); //full frame
 		} else {
 		draw_sprite(x, y, SPR_HEALTHBAR, 4); //empty frame
