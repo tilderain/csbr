@@ -490,13 +490,13 @@ Dialog *dlg = opt.dlg;
 	dlg->Clear();
 	sound(SND_MENU_MOVE);
 	
+	dlg->AddItem("Drums: ", _theme_drumsbeta_change, _theme_drumsbeta_get);
 	dlg->AddItem("Internal Percussion: ", _theme_drumsint_change, _theme_drumsint_get);
 	
 	dlg->AddSeparator();
 	dlg->AddItem("Ammoless Item Number: ", _theme_invnum_change, _theme_invnum_get);
 	dlg->AddSeparator();
 	dlg->AddItem("Faithful Frog Jumping: ", _theme_waterjump_change, _theme_waterjump_get);
-	dlg->AddSeparator();
 	dlg->AddSeparator();
 	dlg->AddSeparator();
 	dlg->AddSeparator();
@@ -545,7 +545,21 @@ void _theme_waterjump_get(ODItem *item)
 	strcpy(item->suffix, strs[settings->theme[THEME_WATERJUMP]]);
 }
 
+void _theme_drumsbeta_change(ODItem *item, int dir)
+{
+Message *msg;
 
+	settings->theme[THEME_DRUMSBETA] ^= 1;
+	sound_init();
+	msg = new Message("Requires a game restart!");
+	
+	sound(SND_MENU_SELECT);
+}
 
+void _theme_drumsbeta_get(ODItem *item)
+{
+	static const char *strs[] = { "Cave Story", "Cave Story Beta" };
+	strcpy(item->suffix, strs[settings->theme[THEME_DRUMSBETA]]);
+}
 
 

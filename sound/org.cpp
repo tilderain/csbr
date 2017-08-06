@@ -24,13 +24,12 @@
 
 
 //#define QUIET
-#define DRUM_PXT
 
-#ifdef DRUM_PXT
-	#define drumK		22050
-#else
-	#define drumK		22050
-#endif
+
+#define drumKpxt		22050 
+
+#define drumKwav		36663
+//i invoke the magic number to do the job for me, if you know what i mean
 
 # define htole16(x) x
 
@@ -64,21 +63,18 @@ static struct
 	signed short samples[256];
 } wavetable[100];
 
-#ifdef DRUM_PXT
 	// sound effect numbers which correspond to the drums
-	static const unsigned char drum_pxt[] =
-	{
-		0x96, 0, 0x97, 0, 0x9a, 0x98,
-		0x99, 0, 0x9b, 0, 0, 0
-	};
-#else
-	// names of the WAV files to load for each drum slot
-	static const char *drum_names[] =
-	{
-		"Bass01", "Bass02", "Snare01", "Snare02", "Tom01", "HiClose",
-		"HiOpen", "Crash", "Per01", "Per02", "Bass03", "Tom02"
-	};
-#endif
+static const unsigned char drum_pxt[] =
+{
+	0x96, 0, 0x97, 0, 0x9a, 0x98,
+	0x99, 0, 0x9b, 0, 0, 0
+};
+// names of the WAV files to load for each drum slot
+static const char *drum_names[] =
+{
+	"Bass01", "Bass02", "Snare01", "Snare02", "Tom01", "HiClose",
+	"HiOpen", "Crash", "Per01", "Per02", "Bass03", "Tom02"
+};
 
 static struct
 {
@@ -128,13 +124,16 @@ static const char *drum_cache = "drum.pcm";
 #define DRUM_VERSION	0x0001
 uint16_t version;
 
-	#ifndef DRUM_PXT
+	if(settings->theme[THEME_DRUMSBETA])
+	{
 		for(d=0;d<NUM_DRUMS;d++)
 		{
 			sprintf(fname, "./drums/%s.wav", drum_names[d]);
 			if (load_drum(fname, d)) return 1;
 		}
-	#else
+	}
+	else
+	{
 		
 		// try and load the drums from cache instead of synthing them
 		fp = fileopen(drum_cache, "rb");
@@ -188,15 +187,13 @@ uint16_t version;
 		}
 		
 		load_drumtable(pxt_path);
-	#endif
+	}
 	
 	//for(d=0;d<256;d++) { lprintf("%d ", drumtable[0].samples[d]); if (d%32==0) lprintf("\n"); }
 	//lprintf("\n");
 	
 	return 0;
 }
-
-#ifndef DRUM_PXT
 
 static Uint8 *audio_pos; // global pointer to the audio buffer to be played
 static Uint32 audio_len; // remaining length of the sample we have to play
@@ -235,7 +232,7 @@ signed short *abuf;
 	audio_pos = wav_buffer; // copy sound buffer
 	audio_len = wav_length; // copy file length
 	
-	drumtable[d].nsamples = audio_len;	// 16-bit stereo sound
+	drumtable[d].nsamples = audio_len / 2 / 2;	// 16-bit stereo sound
 	drumtable[d].samples = (short int *)malloc(drumtable[d].nsamples * 2);
 	
 	#ifndef QUIET
@@ -246,10 +243,10 @@ signed short *abuf;
 	abuf = (signed short *)audio_pos;
 	for(i=0;i<drumtable[d].nsamples;i++)
 	{
-		left = audio_pos[read_pt++];
+		left = abuf[read_pt++]; right = abuf[read_pt++];
 		
-		drumtable[d].samples[i] = (left);
-		drumtable[d].samples[i] += drumtable[d].samples[i] * 64;		// make drums louder--sounds better
+		drumtable[d].samples[i] = (left + right) / 3;
+		//drumtable[d].samples[i] += drumtable[d].samples[i];		// make drums louder--sounds better
 	}
 	
 	SDL_FreeWAV(wav_buffer);
@@ -310,8 +307,6 @@ signed short *abuf;
 }
  */
 
-#else
-
 static bool load_drum_pxt(char *fname, int d)
 {
 int i;
@@ -344,10 +339,6 @@ stPXSound snd;
 	FreePXTBuf(&snd);
 	return 0;
 }
-
-#endif
-
-
 
 
 static bool load_wavetable(const char *fname)
@@ -934,7 +925,7 @@ int gen_samples;
 	//lprintf("drum_hit: playing drum %d[%s] on channel %d, note %02x volume %d panning %d\n", wave, drum_names[wave], m_channel, note, chan->volume, chan->panning);
 	
 	new_sample_rate = GetNoteSampleRate(note, song.instrument[m_channel].pitch);
-	chan->sample_inc = (new_sample_rate / (double)drumK);
+	chan->sample_inc = (new_sample_rate / (settings->theme[THEME_DRUMSBETA] ? (double)drumKwav : (double)drumKpxt)); // drumk
 	
 	// get the new number of samples for the sound
 	gen_samples = (int)((double)drumtable[wave].nsamples / chan->sample_inc);

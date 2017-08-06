@@ -52,6 +52,7 @@ void pxt_freeSoundFX(void);
 void pxt_FreeSound(int slot);
 void FreePXTBuf(stPXSound *snd);
 char pxt_load(const char *fname, stPXSound *snd);
+static bool pxt_loadwav(char *fname, stPXSound *snd);
 static char LoadComponent(FILE *fp, stPXWave *pxw);
 static char ReadToBracket(FILE *fp);
 char pxt_save(const char *fname, stPXSound *snd);

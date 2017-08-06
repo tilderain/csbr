@@ -2,6 +2,8 @@
 // PXT sound file player
 // see bottom of file for info on how to use this module
 
+#include <SDL.h>
+
 #include <stdio.h>
 #include <math.h>			// for sin()
 #include <stdlib.h>
@@ -867,8 +869,15 @@ FILE *fp = NULL;
 	{
 		sprintf(fname, "%sfx%02x.pxt", path, slot);
 		
-		if (pxt_load(fname, &snd)) continue;
-		pxt_Render(&snd);
+		if (slot != 2) {
+			if (pxt_load(fname, &snd)) continue;
+			pxt_Render(&snd);
+		} 
+		else 
+		{
+			if (pxt_loadwav("pxt/message.wav", &snd)) continue;
+		}
+
 		
 		// dirty hack; lower the pitch of the Stream Sounds
 		// to match the way they actually sound in the game
@@ -1142,6 +1151,59 @@ error: ;
 	
 	return 1;
 }
+
+
+
+
+static Uint8 *audio_pos; // global pointer to the audio buffer to be played
+static Uint32 audio_len; // remaining length of the sample we have to play
+
+static bool pxt_loadwav(char *fname, stPXSound *snd)
+{
+SDL_AudioSpec *chunk;
+int i, read_pt;
+int left,right;
+signed short *abuf;
+	
+	static Uint32 wav_length; // length of our sample
+	static Uint8 *wav_buffer; // buffer containing our audio file
+	static SDL_AudioSpec wav_spec; // the specs of our piece of music
+
+	wav_spec.freq = SAMPLE_RATE;
+	wav_spec.format = AUDIO_S16;
+	wav_spec.channels = 1;
+	wav_spec.samples = 512;
+	wav_spec.userdata = NULL;
+
+	//stat("load_drum: loading %s into drum index %d", fname, d);
+	if (!(chunk = SDL_LoadWAV(fname, &wav_spec, &wav_buffer, &wav_length)))
+	{
+		staterr("Missing drum sample: '%s'", fname);
+		return 1;
+	}
+
+	stat("chunk: %d bytes in chunk", audio_len);
+	
+	// set our global static variables
+	audio_pos = wav_buffer; // copy sound buffer
+	audio_len = wav_length; // copy file length
+	
+	snd->final_size = audio_len / 2 / 2 ;	// 16-bit stereo sound
+	snd->final_buffer = (signed char *)malloc(snd->final_size * 2);
+	
+	read_pt = 0;
+	abuf = (signed short *)audio_pos;
+	for(i=0;i<snd->final_size;i++)
+	{
+		left = abuf[read_pt++]; right = abuf[read_pt++];
+		
+		snd->final_buffer[i] = (left + right) / 400;
+		//drumtable[d].samples[i] += drumtable[d].samples[i];		// make drums louder--sounds better
+	}
+	SDL_FreeWAV(wav_buffer);
+	return 0;
+}
+
 
 static char LoadComponent(FILE *fp, stPXWave *pxw)
 {
