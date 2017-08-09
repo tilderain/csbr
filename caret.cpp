@@ -181,7 +181,7 @@ int i;
 		case EFFECT_BONUSFLASH:	  c = CreateCaret(x, y, SPR_SMOKE_CLOUD, caret_bonusflash); break;
 		case EFFECT_HEY: 		  c = CreateCaret(x, y, SPR_HEY, caret_hey); break;
 		case EFFECT_EMPTY:		  c = CreateCaret(x, y, SPR_EMPTY, caret_playertext); break;
-		case EFFECT_SMOKETRAIL:	  c = CreateCaret(x, y, SPR_SMOKETRAIL, caret_animate2); break;
+		case EFFECT_SMOKETRAIL:	  c = CreateCaret(x, y, SPR_SMOKETRAIL, caret_animate1); break;
 		
 		case EFFECT_SMOKETRAIL_SLOW:
 			c = CreateCaret(x, y, SPR_SMOKETRAIL, caret_animate3);
