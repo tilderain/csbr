@@ -1,0 +1,503 @@
+#0000
+<FRE<WAI9999<END
+
+#1000
+<MSG<TURNo weapon.<WAI9999<END
+#1001
+<MSG<TUR- Snake -
+Penetrates through walls.
+Made by Chaba in the Labyrinth.<WAI9999<END
+#1002
+<MSG<TUR- Polar Star -
+The most basic gun.
+It bears the mark of Polaris.
+<WAI9999<END
+#1003
+<MSG<TUR- Fireball -
+Bounces along the floor.
+Rather powerful on gentle slopes.<WAI9999<END
+#1004
+<MSG<TUR- Machine Gun -
+An automatic rapid-fire gun.
+Automatically recharges over time.<WAI9999<END
+#1005
+<MSG<TUR- Missile Launcher -
+Wide range and powerful damage.
+However, its ammunition is limited.<WAI9999<END
+#1007
+<MSG<TUR- Bubbler -
+From the Assembly Hall's fireplace.
+How you use it is up to you.<WAI9999<END
+#1009
+<MSG<TUR- Blade -
+A single-shot, high-damage weapon.
+King's soul dwells within.<WAI9999<END
+#1010
+<MSG<TUR- Super Missile -
+An exhilirating sort of missile.
+Its acceleration is unmatched.<WAI9999<END
+#1012
+<MSG<TUR- Nemesis -
+Lightning of the Goddess.
+For advanced players.<WAI9999<END
+#1013
+<MSG<TUR- Spur -
+Hold down the button to
+fire a laser.<WAI9999<END
+
+#1100
+<MSG<TURHajime<WAI9999<END
+#1101
+<MSG<TURMick<WAI9999<END
+#1102
+<MSG<TURShinobu<WAI9999<END
+#1103
+<MSG<TURKakeru<WAI9999<END
+#1104
+<MSG<TURNene<WAI9999<END
+
+#1200
+<MSG<TURJenka's pet and leader of the dogs.
+While searching for his brothers, he
+got lost and was taken in by Curly.<WAI9999<END
+#1201
+<MSG<TURJenka's pet. Loves treasure-hunting.
+Or treasure *chests*, rather, and
+recently has taken up sleeping in them.<WAI9999<END
+#1202
+<MSG<TURJenka's pet. Loves dark places. Due
+to poor eyesight, he roams the darkness
+using his wild instincts alone.<WAI9999<END
+#1203
+<MSG<TURJenka's pet. Adores bones and has
+buried them in countless places,
+most of which are by now forgotten.<WAI9999<END
+#1204
+<MSG<TURJenka's pet. Spends most of her time
+asleep, but her dreams have been
+known to portend the future.<WAI9999<END
+
+#1300
+<KEY<MSGCan't throw this away!<NOD<END
+
+#1301
+<KEY<MSGDo you want to throw it away?<YNJ1302<EVE1303
+
+#1302
+<WAI0001<END //a hacky way for telling if you want it thrown away
+
+#1303
+<WAI0001<END
+
+#1400 
+//start of shop scripts
+<MSG<FAC0012That'll be <NUM0000 cion.<NOD
+<CLR<FAC0000Buy it for <NUM0000 cion?<YNJ1401<EVE1402
+
+#1401 
+<WAI0001<END
+
+#1402
+<WAI0001<END
+
+#1500
+<MSG<FAC0012Thanks!<NOD<END
+#1501
+<MSG<FAC0012Thanks much!<NOD<END
+#1502
+<MSG<FAC0012Good choice.<NOD<END
+
+Thanks, you!
+
+#1510
+<MSG<FAC0012Not enough cash.<NOD<END
+#1511
+<MSG<FAC0012I gotta pay the bills.<NOD<END
+#1512
+<MSG<FAC0012Don't quit your day job,
+pal.<NOD<END //have you tried working a side job?
+
+#1520
+<MSG<FAC0012Not enough room...?<NOD<END
+#1521
+<MSG<FAC0012Looks like you've got too much
+on your hands.<NOD<END
+#1522
+<MSG<FAC0012Make some room, will ya?<NOD<END
+
+#1600
+<MSG<CAT<FAC0012That's <NUM0000 cion.<WAI9999<END
+
+#1601
+<MSGSell it for <NUM0000 cion?<YNJ1602<EVE1603
+
+
+#1602
+<WAI0001<END
+
+#1603
+<WAI0001<END
+
+
+#1610 
+<MSG<FAC0012Nice doing business with ya!<NOD<END
+
+#1611
+<MSG<FAC0012That was a fair trade,
+wasn't it?<NOD<END
+
+#1612
+<MSG<FAC0012Hey, hey, no problem!<NOD<END
+
+#1613
+<MSG<FAC0012Hehe, thank you.<NOD<END
+
+#1700
+<MSG<FAC0012I've got nothing for you.<NOD<END
+
+#1701
+<MSG<FAC0012Yeah, I got nothing.<NOD<END
+
+#1702
+<MSG<FAC0012You've run me dry!<NOD<END
+
+#1703
+<MSG<FAC0012Gonna have to wait until 
+the next shipment.<NOD<END
+
+
+What's that hunk'a junk?
+
+Mmm, no, I won't take it.
+
+What is that? It looks like junk...
+
+#SHOP_ENTER
+1|Oh, you're still alive.
+0|Welcome back.
+#SHOP_REENTER
+Forget something?
+#fakefakeremovethisafterE3
+Welcome back.
+Oh, you're still alive.
+Well met, adventurer!
+Sample my wares!
+#SHOP_EXIT
+0.6|Farewell!
+0.05|Good shooting!
+0.15|Don't forget to reload!
+0.3|Shell you later!
+#SHOP_NOMONEY
+I think your wallet needs to reload.
+#fakefakefakeremoveaftere3
+I'm not running a charity.
+Not enough %CURRENCY_SYMBOL. Sorry.
+Keep dreamin'.
+Not gunna happen.
+I've got a cat to feed.
+#SHOP_STEAL_COMMAND
+<Steal>
+#SHOP_PURCHASE
+An excellent choice.
+That will get you out of a jam!
+You have fine taste.
+That one's just firing off the shelves!
+Lock and load! Right?
+Thanks much!
+Thank you for your patronage!
+
+#5000
+<MSG<TUR<WAI9999<END
+#5001
+<MSG<TURFrontier<WAI9999<END
+#5002
+<MSG<TURDoggy-Gun<WAI9999<END
+#5003
+<MSG<TURFireball<WAI9999<END
+#5004
+<MSG<TURDog Vulcan<WAI9999<END
+#5005
+<MSG<TURMissile Launcher<WAI9999<END
+#5006
+<MSG<TURLife Capsule<WAI9999<END
+#5007
+<MSG<TURBubbler<WAI9999<END
+#5008
+<MSG<TURWaver<WAI9999<END
+#5009
+<MSG<TURCynical Blade<WAI9999<END
+#5010
+<MSG<TURMissile Launcher 2<WAI9999<END
+#5011
+<MSG<TURFireball 2<WAI9999<END
+#5012
+<MSG<TURCharcoal<WAI9999<END
+#5013
+<MSG<TURExplosive<WAI9999<END
+#5014
+<FLJ3000:1100
+<FLJ3001:1101
+<FLJ3002:1102
+<FLJ3003:1103
+<FLJ3004:1104
+<MSG<TURPuppy<WAI9999<END
+#5015
+<MSG<TURVital<WAI9999<END
+#5016
+<MSG<TURAntibiotics<WAI9999<END
+#5017
+<MSG<TURClinic Key<WAI9999<END
+#5018
+<MSG<TURBooster v0.8<WAI9999<END
+#5019
+<MSG<TURArms Barrier<WAI9999<END
+#5020
+<MSG<TURTurbocharge<WAI9999<END
+#5021
+<MSG<TURAir Tank<WAI9999<END
+#5022
+<MSG<TURNikumaru Counter<WAI9999<END
+#5023
+<MSG<TURBooster v2.0<WAI9999<END
+#5024
+<MSG<TURMimiga Mask<WAI9999<END
+#5025
+<MSG<TURTeleporter Room Key<WAI9999<END
+#5026
+<MSG<TURSu-'s Letter<WAI9999<END
+#5027
+<MSG<TURController<WAI9999<END
+#5028
+<MSG<TURMandarin<WAI9999<END
+#5029
+<MSG<TURRocket Parts 2<WAI9999<END
+#5030
+<MSG<TURTow Rope<WAI9999<END
+#5031
+<MSG<TURClay Figure Medal<WAI9999<END
+#5032
+<MSG<TURLittle Man<WAI9999<END
+#5033
+<MSG<TURMushroom Badge<WAI9999<END
+#5034
+<MSG<TURMa Pignon<WAI9999<END
+#5035
+<MSG<TURCurly's Underwear<WAI9999<END
+#5036
+<MSG<TURAlien Medal<WAI9999<END
+#5037
+<MSG<TURCake<WAI9999<END
+#5038
+<MSG<TURWhimsical Star<WAI9999<END
+#5039
+<MSG<TURIron Bond<WAI9999<END
+
+#5040
+<MSG<TURTRASH<WAI9999<END
+
+#5041
+<MSG<TUROut Of Stock Sign<WAI9999<END
+
+#6000
+<MSG<TURNo item.<WAI9999<END
+#6001
+<MSG<TURThe latest in weapons technology.
+Fires a high damage laser.<WAI9999<END
+#6002
+<MSG<TURThe most basic gun.<WAI9999<END
+<PRI<EVE7002<MPJ7002<MSGNo data for this floor.<NOD<CLR<END
+#6003
+<MSG<TURBounces along the floor.
+Rather powerful on gentle slopes.<WAI9999<END
+#6004
+<MSG<TURAn automatic rapid-fire gun.<WAI9999<END
+#6005
+<MSG<TURWide range and powerful damage.
+Capable of breaking hollow blocks.<WAI9999<END
+#6006
+<MSGA life capsule.<NOD<CLRUse it?<YNJ0000
+<IT-0006<SOU0022<DNP0400<CMU0016
+<MSG<GIT1006Used a Life Capsule.<WAI0200<NOD<RMU<ML+0001
+Your energy increased.<NOD<END
+<WAI9999<END
+#6007
+<MSG<TURFires highly corrosive acid.
+Good for extinguishing fires.<WAI9999<END
+#6008
+<MSG<TURPenetrates through walls.<WAI9999<END
+#6009
+<MSG<TURA sword launcher.
+Who in their right mind
+would use it...?<WAI9999<END
+#6010
+<MSG<TURAn exhilirating sort of missile.
+Its acceleration is unmatched.<WAI9999<END
+#6011
+<MSG<TURHolds powerful flames.
+Capable of melting hollow blocks.<WAI9999<END
+#6012
+<MSG<TURTaken from a fireplace.<WAI9999<END
+#6013
+<MSG<TURAn explosive for blowing up doors
+and such.<NOD<CLRCarries sheer destructive
+force at the cost of rapidly 
+depleting ammo.<NOD<CLRMay result in
+universal annihilation.<WAI9999<END
+#6014
+<FLJ3000:1200
+<FLJ3001:1201
+<FLJ3002:1202
+<FLJ3003:1203
+<FLJ3004:1204
+<MSG<TURJenka's pet dog.<WAI9999<END
+#6015
+<FLJ2999:7015<KEY<MSGThis will restore your life,
+but only once. Will you use it?<YNJ0000<LI+1000<EVE8015
+#6016
+<MSG<TURGeneral antibiotic medicine
+from the Frog Kingdom.
+Does it really work for Mimiga..?<WAI9999<END
+#6017
+<MSG<TURIt says "Labyrinth Clinic".<WAI9999<END
+#6018
+<FLJ0742:7018
+<KEY<MSGPush the jump button again in
+midair to fly even higher.<NOD<CLR
+Do you want to equip it?<YNJ0000<EQ+0001<FL+0742<EQ-0032<FL-0743<MSG
+Booster equipped.<NOD<WAI0003<FRE<EVE5018
+#6019
+<MSG<TURWhen you take damage, the amount
+of weapon energy lost will be halved.<WAI9999<END
+#6020
+<MSG<TURIncreases the rate at which the
+machine gun replenishes ammo.<WAI9999<END
+#6021
+<MSG<TURYou can breathe underwater with
+this.<WAI9999<END
+#6022
+<MSG<TURA fully automatic stopwatch.
+You can't see any buttons.<WAI9999<END
+#6023
+<FLJ0743:7023
+<KEY<MSGPush the jump button in midair and
+you can move in any direction.<NOD<CLR
+Do you want to equip it?<YNJ0000<EQ+0032<FL+0743<EQ-0001<FL-0742<MSG
+Equipped Booster v2.0.<NOD<WAI0003<FRE<EVE5023
+#6024
+<MSG<TURA Mimiga mask Sue's mother made.
+It's a bit big...<WAI9999<END
+#6025
+<MSG<TURA key fished out by a certain
+Mimiga.<WAI9999<END
+#6026
+<KEY<MSGWill you read it?<YNJ0000<MSG<TUR
+This is Su-.<NOD<CLRI wrote a letter so it
+can take up a slot in your inventory
+for the rest of the game<NOD<ENDI don't believe I ever told
+you much about all of us.<NOD<CLRWe came to this island from
+the surface on a research trip.<NOD<CLRProf. Booster was on our
+helicopter, and so was my
+mother, my brother,<NOD<CLRvarious assistants...
+The Doctor as well.<NOD<CLRHe was there to serve our
+medical needs, and did so...<NOD<CLRAt least, until he found
+the Demon Crown...<WAI0020<NOD<CLRThat crown, once the property
+of the master of this island,<NOD<CLRgrants monstrous magical
+powers upon its wearer...<NOD<CLRThe Doctor knew this even
+before coming to the island,<NOD<CLRwhich is why he wormed his
+way into our group in the
+first place.<NOD<CLROnce he had the Crown in
+his possession, no one could
+stand up to him.<NOD<CLRWe had no choice except to
+continue our research of the
+island under his orders.<NOD<CLRThe Doctor seeks to rule the
+Earth's surface using this
+island as a base.<NOD<CLRI think he plans to first
+attack the surface using
+the Mimigas as weapons.<NOD<CLRAnyway, I was able to get away
+somehow, but I fear the other
+researchers are already...<NOD<CLRNow, he's using the unsuspecting
+Mimigas to cultivate more and
+more red flowers.<NOD<CLROnce he is ready to attack, he will
+drive the Mimigas into a murderous
+frenzy using the flowers.<NOD<CLRUsing his terrible powers,
+he will be able to control the
+raging Mimigas to do his bidding.<NOD<CLR
+And that means I, too, will...<NOD<CLRIf you can escape from this prison
+cell, look for the hideout hidden
+in the plantation.<NOD<CLRIf my mother is yet safe,
+she'll be there, coming up
+with a counterplan.<NOD<CLRPlease. Help my mother.<NOD<CLRThe password is
+"Litagano Motscoud".<NOD<CLR<FL+1024<FRE<MSGThe letter ends here...<WAI9999<END
+#6027
+<MSG<TURNecessary to make a rocket.
+Pride of Itoh, the cowardly man.<WAI9999<END
+#6028
+<MSG<TURA busted water sprinkler.<WAI9999<END
+#6029
+<MSG<TURIt's brand-new. ...Perhaps.<WAI9999<END
+#6030
+<MSG<TURA tow rope for robots.<WAI9999<END
+#6031
+<MSG<TURSmall and profoundly heavy.
+It has no use.<WAI9999<END
+
+#6032
+<MSG<TURHey! We there yet?<WAI9999<END
+#6033
+<MSG<TURThe mushroom badge you got from the
+mushroom. It has no real use. To be
+honest, you don't really need it...<FL+1563<WAI9999<END
+#6034
+<MSG<TURAllegedly, it has the power to
+restore memories...<WAI9999<END
+#6035
+<MSG<TURRetrieved from behind the wall.
+Yellow-green panties with a cute
+little insignia. They have no use.<WAI9999<END
+#6036
+<MSG<TUREngraved with the silhouette of an
+alien. It has no use.<WAI9999<END
+#6037
+<MSG<TURRed lipstick.
+It has no use.<WAI9999<END
+#6038
+<KEY<MSGA little trinket you got from
+Chaba in the labyrinth.
+A whimsical star.<NOD<FLJ0722:7038<CLR
+Will you equip it?<YNJ0000<EQ+0128<FL+0722<MSG
+Equipped the Whimsical Star.<NOD<WAI0003<FRE<EVE5038
+#6039
+<MSG<TURYour tie to Curly Brace, the only
+warrior you would trust your back to.
+Surely you will meet again one day...<WAI9999<END
+
+#6040
+<MSG<TURIt's the trash, alright?<WAI9999<END
+
+#6041
+<MSG<TURIt's out of stock.<WAI9999<END
+
+#7002
+<MLP<END
+
+#7015
+<KEY<MSG<CATThis will restore your life,
+but only once.<WAI9999<END
+
+#7018
+<KEY<MSGDo you want to remove it?<YNJ0000<EQ-0001<FL-0742<MSG
+Deequipped Booster.<NOD<WAI0003<FRE<EVE5018
+#7023
+<KEY<MSGDo you want to remove it?<YNJ0000<EQ-0032<FL-0743<MSG
+Deequipped Booster v2.0.<NOD<WAI0003<FRE<EVE5023
+
+#7038
+<KEY<MSGDo you want to remove it?<YNJ0000<EQ-0128<FL-0722<MSG
+Deequipped the Whimsical Star.<NOD<WAI0003<FRE<EVE5038
+
+#8015
+<WAI0001<EVE9015
+
+
+#9015
+<SOU0020<WAI0022<MSG<CATLife restored.<FRE<WAI9999<END
