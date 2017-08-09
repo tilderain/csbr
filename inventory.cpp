@@ -26,11 +26,12 @@
 ShopItem shopTable1[] = 
 {
 //	item			  		price 	ammo	maxammo flag
-	ITEM_DOGGY_GUN, 		70, 	180, 	180, 	3000,	
+	 ITEM_DOGGY_GUN, 		70, 	180, 	180, 	3000,	
+	 ITEM_DOGGY_GUN, 	    45, 	100, 	100, 	3001,
 	 0, 					0, 		0, 		0, 		0,
-	 ITEM_LIFE_POT, 		40, 	0, 		0, 		3001,	
-	 0, 					0, 		0, 		0, 		0,
-	 ITEM_FRONTIER, 		52, 	48, 	48, 	3002,
+	 ITEM_LIFE_POT, 		40, 	0, 		0, 		3002,	
+	 
+	 ITEM_FRONTIER, 		52, 	48, 	48, 	3003,
 	 0, 		0, 		0, 		0, 		0,
 	 0, 		0, 		0, 		0, 		0,
 	 0, 		0, 		0, 		0, 		0
@@ -39,10 +40,11 @@ ShopItem shopTable1[] =
 ShopItem shopTable2[] = 
 {
 //	 item			  		price 	ammo	maxammo flag
-	 ITEM_DOGGY_GUN, 		70, 	125, 	125, 	-1,	
+	 ITEM_DOGGY_GUN, 		100, 	200, 	200, 	-1,	
 	 ITEM_DOG_VULCAN, 		100, 	300, 	300, 	3004,
 	 ITEM_FIREBALL, 		80, 	50, 	50, 	3005,	
 	 ITEM_FRONTIER, 		80, 	50, 	50, 	3006,
+	 
 	 0, 	0, 	0, 	0, 	0,
 	 0, 	0, 	0, 	0, 	0,
 	 0, 	0, 	0, 	0, 	0,
@@ -127,24 +129,34 @@ bool inventory_init(int param)
 }
 
 
-void inventory_tick(void){
+void inventory_tick(void)
+{
 	// run the selectors
 	//if we set param 2 do shop things instead.
-	if (shop.inShop){
+	if (shop.inShop)
+	{
 		DrawScene();
-		if (!shop.inBuySellSelection) {
-			if (!shop.inSell){
+		if (!shop.inBuySellSelection)
+			{
+			if (!shop.inSell)
+			{
 				RunShopSelector(shop.curselector);
 				DrawShop();
-			} else {
+			}
+			else 
+			{
 				RunSellSelector(shop.curselector);
 				DrawSell();
 			}
 			textbox.Draw();
-		} else {
+		} 
+		else 
+		{
 			DrawBuySellSelection();
 		}
-	} else {
+	}
+	else 
+	{
 		if (!inv.exiting) RunSelector(inv.curselector);
 		// draw
 		DrawScene();
@@ -207,7 +219,7 @@ int x, y, w, i, c;
 	//inv.h = 32;
 	inv.x = 38;
 	inv.y = 8;
-	int ROW_SPEED = 16;
+	static const int ROW_SPEED = 18;
 	
 	if (inv.exiting == true)
 	{
@@ -834,7 +846,6 @@ bool shop_;
 				shop.fState = (shop.fState == STATE_BUY_SELECTED) ?
 							STATE_SELL_SELECTED : STATE_BUY_SELECTED;
 			}
-			
 			if (justpushed(JUMPKEY))
 			{
 				sound(SND_MENU_SELECT);
@@ -845,11 +856,11 @@ bool shop_;
 				shop.inBuySellSelection = false;
 				shop.inSell = (shop.fState == STATE_BUY_SELECTED) ? false : true;
 			}
-			if (justpushed(FIREKEY || INVENTORYKEY))
+
+			if (justpushed(FIREKEY) || justpushed(INVENTORYKEY))
 			{			
 				ExitInventory();
 			}
-			
 		}
 		break;
 	}
@@ -1215,6 +1226,7 @@ static void ExitInventory(void)
 	StopScripts();
 	game.flags[2999] = false;
 	shop.inShop = false;
+	shop.inBuySellSelection = false;
 	game.setmode(GM_NORMAL);
 }
 

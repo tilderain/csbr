@@ -47,7 +47,8 @@ enum ThemeOptions // is this bad practice? can't tell
 	THEME_DRUMSINT			= 0,			// internal percussion
 	THEME_INVNUM,
 	THEME_WATERJUMP,
-	THEME_DRUMSBETA
+	THEME_DRUMSBETA,
+	THEME_MUSIC
 
 };
 

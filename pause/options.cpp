@@ -490,16 +490,16 @@ Dialog *dlg = opt.dlg;
 	dlg->Clear();
 	sound(SND_MENU_MOVE);
 	
+	dlg->AddItem("Graphics", _theme_EnterGraphicsMenu);
+	dlg->AddItem("Music: ", _theme_music_change, _theme_music_get);
+	dlg->AddSeparator();
 	dlg->AddItem("Drums: ", _theme_drumsbeta_change, _theme_drumsbeta_get);
 	dlg->AddItem("Internal Percussion: ", _theme_drumsint_change, _theme_drumsint_get);
 	
 	dlg->AddSeparator();
-	dlg->AddItem("Ammoless Item Number: ", _theme_invnum_change, _theme_invnum_get);
+	dlg->AddItem("Ammoless Item Number ", _theme_invnum_change, _theme_invnum_get);
 	dlg->AddSeparator();
-	dlg->AddItem("Faithful Frog Jumping: ", _theme_waterjump_change, _theme_waterjump_get);
-	dlg->AddSeparator();
-	dlg->AddSeparator();
-	dlg->AddSeparator();
+	dlg->AddItem("Faithful Frog Jumping ", _theme_waterjump_change, _theme_waterjump_get);
 	dlg->AddSeparator();
 	dlg->AddSeparator();
 	dlg->AddSeparator();
@@ -529,7 +529,7 @@ void _theme_invnum_change(ODItem *item, int dir)
 
 void _theme_invnum_get(ODItem *item)
 {
-	static const char *strs[] = { "Off", "On" };
+	static const char *strs[] = { "", " =" };
 	strcpy(item->suffix, strs[settings->theme[THEME_INVNUM]]);
 }
 
@@ -541,7 +541,7 @@ void _theme_waterjump_change(ODItem *item, int dir)
 
 void _theme_waterjump_get(ODItem *item)
 {
-	static const char *strs[] = { "Off", "On" };
+	static const char *strs[] = { "", " =" };;
 	strcpy(item->suffix, strs[settings->theme[THEME_WATERJUMP]]);
 }
 
@@ -560,6 +560,22 @@ void _theme_drumsbeta_get(ODItem *item)
 {
 	static const char *strs[] = { "Cave Story", "Cave Story Beta" };
 	strcpy(item->suffix, strs[settings->theme[THEME_DRUMSBETA]]);
+}
+
+static void _theme_EnterGraphicsMenu(ODItem *item, int dir)
+{
+	new Message("Coming ' soon ' !");
+}
+
+void _theme_music_change(ODItem *item, int dir)
+{
+	new Message("Coming ' soon ' !");
+	
+}
+void _theme_music_get(ODItem *item)
+{
+	static const char *strs[] = { "OrgV5 + Custom", "Custom" };
+	strcpy(item->suffix, strs[settings->theme[THEME_MUSIC]]);
 }
 
 

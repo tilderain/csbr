@@ -306,6 +306,9 @@ void ai_balrog_boss_scuba(Object *o)
 				{
 					Object *shot = SpawnObjectAtActionPoint(o, (random(0, 1) == 1 ? OBJ_GIANT_MUSHROOM_ENEMY : OBJ_KAZUMA_AT_COMPUTER));
 					shot->dir = o->dir;
+					effect(o->CenterX() + sprites[o->sprite].frame[o->frame].dir[o->dir].actionpoint.x, \
+						o->CenterY() + sprites[o->sprite].frame[o->frame].dir[o->dir].actionpoint.y, \
+						EFFECT_FISHY);
 					o->state = JUMP_BEGIN;
 					o->frame = 2;
 					o->timer = 0;

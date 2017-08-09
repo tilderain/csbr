@@ -1,0 +1,124 @@
+use  :1
+size :6600
+main_model   :4
+main_freq    :231.00
+main_top     :32
+main_offset  :175
+pitch_model  :2
+pitch_freq   :1.00
+pitch_top    :63
+pitch_offset :179
+volume_model :4
+volume_freq  :5.00
+volume_top   :46
+volume_offset:237
+initialY:0
+ax      :104
+ay      :20
+bx      :200
+by      :29
+cx      :255
+cy      :0
+
+use  :0
+size :4000
+main_model   :5
+main_freq    :1054.00
+main_top     :30
+main_offset  :251
+pitch_model  :5
+pitch_freq   :1.00
+pitch_top    :27
+pitch_offset :245
+volume_model :0
+volume_freq  :0.00
+volume_top   :32
+volume_offset:0
+initialY:0
+ax      :97
+ay      :0
+bx      :117
+by      :63
+cx      :255
+cy      :0
+
+use  :0
+size :0
+main_model   :0
+main_freq    :0.00
+main_top     :0
+main_offset  :0
+pitch_model  :0
+pitch_freq   :0.00
+pitch_top    :0
+pitch_offset :0
+volume_model :0
+volume_freq  :0.00
+volume_top   :0
+volume_offset:0
+initialY:0
+ax      :0
+ay      :0
+bx      :0
+by      :0
+cx      :0
+cy      :0
+
+use  :0
+size :0
+main_model   :0
+main_freq    :0.00
+main_top     :0
+main_offset  :0
+pitch_model  :0
+pitch_freq   :0.00
+pitch_top    :0
+pitch_offset :0
+volume_model :0
+volume_freq  :0.00
+volume_top   :0
+volume_offset:0
+initialY:0
+ax      :0
+ay      :0
+bx      :0
+by      :0
+cx      :0
+cy      :0
+
+{1,6600,4,231.00,32,175,2,1.00,63,179,4,5.00,46,237,0,104,20,200,29,255,0},
+{0,4000,5,1054.00,30,251,5,1.00,27,245,0,0.00,32,0,0,97,0,117,63,255,0},
+{0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
+{0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
+
+-> {0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0},
+-> {255,0,255,0,255,0,255,0},
+
+pitch2_model :2
+pitch2_freq  :1.00
+pitch2_top   :63
+pitch2_offset:179
+dx      :255
+dy      :0
+
+pitch2_model :5
+pitch2_freq  :1.00
+pitch2_top   :27
+pitch2_offset:245
+dx      :255
+dy      :0
+
+pitch2_model :0
+pitch2_freq  :0.00
+pitch2_top   :0
+pitch2_offset:0
+dx      :255
+dy      :0
+
+pitch2_model :0
+pitch2_freq  :0.00
+pitch2_top   :0
+pitch2_offset:0
+dx      :255
+dy      :0
+

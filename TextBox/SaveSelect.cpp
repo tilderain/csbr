@@ -117,9 +117,15 @@ int start;
 			else
 			{
 			if (fSaving)
+			{
 				game_save(fCurSel);
+				sound(SND_SAVE);
+			}
+			else
+			{
+				sound(SND_MENU_SELECT);
+			}
 			
-			sound(SND_MENU_SELECT);
 			settings->last_save_slot = fCurSel;
 			settings_save();		// record new save/load slot
 			}

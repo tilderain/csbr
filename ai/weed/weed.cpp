@@ -579,6 +579,7 @@ void ai_mannan(Object *o)
 		o->timer = 0;
 		o->frame = 5;
 		o->damage = 0;
+		game.flags[o->id1] = 1;
 	}
 	
 	switch(o->state)
@@ -599,7 +600,6 @@ void ai_mannan(Object *o)
 				}
 				o->animtimer = 0;
 			}
-			
 		break;
 		
 		case 2:		// firing
@@ -617,6 +617,29 @@ void ai_mannan(Object *o)
 				case 100: o->state = 4; break;
 			}
 		break;
+	}
+	
+	if(o->state == 0)
+	{
+		bool found_weapons = false;
+		Object *c;
+		FOREACH_OBJECT(c)
+		{
+			if (c->type == OBJ_BUBBLER12_SHOT)
+			{
+				found_weapons = true;
+				break;
+			}
+		}
+		
+		if (found_weapons)
+		{
+			o->flags |= FLAG_SHOOTABLE;
+		}
+		else
+		{
+			o->flags &= ~FLAG_SHOOTABLE;
+		}
 	}
 }
 
@@ -1032,8 +1055,8 @@ void ai_malco_broken(Object *o) //stingray
 	if (o->dir == LEFT) o->xinertia -= 0x07; else o->xinertia += 0x07;
 	if (o->y >= o->ymark) o->yinertia -= 0x03; else o->yinertia += 0x03;
 
-	LIMITX(0x120);
-	LIMITY(0x120);
+	LIMITX(0x14c);
+	LIMITY(0x14c);
 
 	if (++o->animtimer > 8)
 	{

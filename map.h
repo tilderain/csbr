@@ -4,7 +4,7 @@
 
 #define MAX_MOTION_TILES			20
 
-#define MAP_MAXSIZEX				300
+#define MAP_MAXSIZEX				666
 #define MAP_MAXSIZEY				256
 
 #define MAP_PHASE_ADJ_SPEED			64

@@ -137,7 +137,7 @@ static const int pwalkanimframes[] = { 0, 1, 0, 2 };
 				o->animate_seq(4, pwalkanimframes, NUM_PWALK_FRAMES);
 			} else 
 			{
-				o->frame = (o->yinertia < 0 ? 1 : 2);
+				o->frame = (o->yinertia < 0 ? 2 : 1);
 			}
 			o->yinertia += 0x32;
 		break;

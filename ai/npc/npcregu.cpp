@@ -393,7 +393,7 @@ void ai_npc_sue(Object *o)
 		}
 		case 31:
 		{
-			ANIMATE(2, 2, 5);
+			ANIMATE(5, 2, 5);
 			XMOVE(0x400);
 		}
 		break;
@@ -406,6 +406,22 @@ void ai_npc_sue(Object *o)
 		}
 		break;
 		
+		case 50:
+		{
+			o->frame = 15;
+			if(o->blockd)
+			{
+				o->frame = 14;
+				o->state = 51;
+				o->y += (5 << CSF);
+			}
+		}
+		break;
+		case 51:
+		{//coughing after bubble
+			ANIMATE(30, 14, 15);
+		}
+		break;
 		/*default:
 			staterr("-- Sue entered unhandled state %d (0x%02x)", o->state, o->state);
 			exit(1);*/

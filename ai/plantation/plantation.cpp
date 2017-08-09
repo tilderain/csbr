@@ -148,6 +148,13 @@ void ai_midorin(Object *o)
 	{
 		case 0:
 		{
+			if (o->flags & FLAG_DROP_POWERUPS_DONTUSE)
+			{
+					o->flags &= FLAG_SOLID_MUSHY;
+					o->flags &= FLAG_SHOOTABLE;
+					o->flags &= FLAG_NOREARTOPATTACK;
+					o->damage = 1;
+			}
 			o->state = 1;
 			o->timer = 0;
 			o->frame = 0;
@@ -157,8 +164,11 @@ void ai_midorin(Object *o)
 		{
 			if (!random(0, 30))
 			{
-				o->state = 2 + random(0, 1);
-				o->frame = 1;
+				if (o->flags & FLAG_DROP_POWERUPS_DONTUSE)
+				{
+					o->state = 2 + random(0, 1);
+					o->frame = 1;
+				}
 			}
 		}
 		break;
@@ -649,7 +659,7 @@ void ai_mimiga_farmer(Object *o)
 		}
 		case 1:
 		{
-			if (!random(0, 60))
+			if (!random(0, 80))
 			{
 				if (o->type != OBJ_MIMIGA_FARMER_STANDING && random(0, 1))
 				{	// walk
@@ -657,8 +667,28 @@ void ai_mimiga_farmer(Object *o)
 				}
 				else
 				{	// blink
-					o->state = 2;
-					o->frame = 1;
+					if(o->flags & FLAG_DROP_POWERUPS_DONTUSE && !random(0, 2))
+					{
+						if(random(0, 1))
+						{
+							o->state = 3;
+							o->frame = 4;
+						}
+						else
+						{
+							o->state = 4;
+							if(random(0, 1))
+							{
+								o->frame = 4;
+							}
+						}
+
+					}
+					else
+					{
+						o->state = 2;
+						o->frame = 1;
+					}
 				}
 			}
 		}
@@ -666,6 +696,49 @@ void ai_mimiga_farmer(Object *o)
 		case 2:		// blinking
 		{
 			if (++o->timer >= 8)
+			{
+				o->state = 0;
+				o->timer = 0;
+			}
+		}
+		break;
+		
+		case 3:		// rocking
+		{	
+			if(o->timer == 8)
+			{
+				o->frame = 2;
+				sound(SND_DIG);
+			}
+			if(o->timer == 16)
+			{
+				if (random(0,1))
+				{
+					o->frame = 4;
+				}
+			}
+			if (++o->timer >= 24)
+			{
+				o->state = 0;
+				o->timer = 0;
+			}
+		}
+		break;
+		case 4:		// stabbing
+		{
+			if(o->timer == 5)
+			{
+				if (random(0,1))
+				{
+					o->frame = 0;
+				}
+			}
+			if(o->timer == 10)
+			{
+				o->frame = 5;
+				sound(SND_DIG);
+			}
+			if (++o->timer >= 20)
 			{
 				o->state = 0;
 				o->timer = 0;

@@ -12,8 +12,10 @@
 #define SND_FRONTIER_FIRE	7
 #define SND_WAVER_FIRE		8
 #define SND_SOA_FIRE		9
+#define SND_SAVE		10
 #define SND_DOOR		11
 #define SND_BLOCK_DESTROY		12
+#define SND_DIG			13
 #define SND_GET_XP		14
 #define SND_PLAYER_JUMP		15
 #define SND_PLAYER_HURT		16

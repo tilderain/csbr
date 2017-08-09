@@ -264,7 +264,7 @@ Thank you for your patronage!
 #5025
 <MSG<TURTeleporter Room Key<WAI9999<END
 #5026
-<MSG<TURSue's Letter<WAI9999<END
+<MSG<TURSu-'s Letter<WAI9999<END
 #5027
 <MSG<TURController<WAI9999<END
 #5028
@@ -391,7 +391,9 @@ It's a bit big...<WAI9999<END
 Mimiga.<WAI9999<END
 #6026
 <KEY<MSGWill you read it?<YNJ0000<MSG<TUR
-This is Sue.<NOD<CLRI don't believe I ever told
+This is Su-.<NOD<CLRI wrote a letter so it
+can take up a slot in your inventory
+for the rest of the game<NOD<ENDI don't believe I ever told
 you much about all of us.<NOD<CLRWe came to this island from
 the surface on a research trip.<NOD<CLRProf. Booster was on our
 helicopter, and so was my
