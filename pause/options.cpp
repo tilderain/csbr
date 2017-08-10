@@ -499,7 +499,7 @@ Dialog *dlg = opt.dlg;
 	dlg->AddSeparator();
 	dlg->AddItem("Ammoless Item Number ", _theme_invnum_change, _theme_invnum_get);
 	dlg->AddSeparator();
-	dlg->AddItem("Faithful Frog Jumping ", _theme_waterjump_change, _theme_waterjump_get);
+	dlg->AddItem("Faithful Frog Swim ", _theme_waterjump_change, _theme_waterjump_get);
 	dlg->AddSeparator();
 	dlg->AddSeparator();
 	dlg->AddSeparator();
