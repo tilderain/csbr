@@ -12,10 +12,10 @@
 
 
 #0100
-<FLJ0120:0102<KEY<DNP0100<SOU0011<FAO0002<TRA0030:0092:0003:0003
+<FLJ0120:0102<KEY<DNP0100<SOU0011<FAO0002<TRA0033:0092:0003:0003
 
 #0101
-<FLJ0120:0102<KEY<DNP0101<SOU0011<FAO0000<TRA0025:0090:0030:0004
+<FLJ0120:0102<KEY<DNP0101<SOU0011<FAO0000<TRA0031:0090:0030:0004
 
 #0102
 <PRI<MSG...<NOD<END
@@ -92,13 +92,13 @@ Held off Puu!<WAI0140<NOD<CMU0008<END
 <TURExecuting chat algorithm.<WAI0100<CLR
 <MSG<FAC0001Kazuma.<NOD
 Are you there?<NOD
-You okay?<NOD<FAO0004<TRA0018:0700:0002:0000
+You okay?<NOD<FAO0004<TRA0019:0700:0002:0000
 #0701
 <KEY<FAI0004<MSG<FAC0001It's me.<NOD
 Sue Sakamoto.<NOD<CLRYou got away too, then?<NOD
 Where are you right now?<NOD
 I found some Dragon eggs.<NOD
-Is Mom with you?<NOD<FAO0004<TRA0018:0701:0002:0000
+Is Mom with you?<NOD<FAO0004<TRA0019:0701:0002:0000
 #0702
 <KEY<FAI0004<MSG<FAC0001At least one of them does.<NOD
 But it's locked up with
@@ -111,7 +111,7 @@ Scanning for operational teleporters.<NOD<CLRPreparing for connection to
 teleporter "Grasstown"...<NOD<CLR
 <MSG<FAC0001Well, anyway, I'm coming
 to help you.<NOD
-Just wait right there.<NOD<FAO0004<TRA0018:0702:0002:0000
+Just wait right there.<NOD<FAO0004<TRA0019:0702:0002:0000
 #0703
 <KEY<CNP0700:0042:0000<FAI0004<MSG.....<NOD
 When's that other boy
@@ -125,7 +125,7 @@ I'm kinda busy.<NOD<CLR<FAC0007Toroko's been kidnapped
 by the Doctor's henchmen.<NOD<CLR<FAC0001What?!<NOD<CLR<FAC0009And we're holding YOU
 responsible!!<NOD<FAC0000<CLO
 <ANP0710:0008:0000<WAI0100<FAO0004<MSG
-<FAC0003Lemme go!<NOD<CLR<FAC0007Oh no, you don't!<NOD<TRA0001:0099:0005:0008
+<FAC0003Lemme go!<NOD<CLR<FAC0007Oh no, you don't!<NOD<TRA0076:0099:0005:0008
 <END
 <END
 #0704

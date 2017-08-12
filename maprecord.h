@@ -19,7 +19,7 @@ extern MapRecord stages[MAX_STAGES];
 extern int num_stages;
 
 #define STAGE_SAND					10
-#define STAGE_START_POINT			13
+#define STAGE_START_POINT			02
 #define STAGE_IRONH					31
 #define STAGE_BOULDER_CHAMBER		44
 #define STAGE_MAZE_M				45
@@ -35,6 +35,6 @@ extern int num_stages;
 #define STAGE_SEAL_CHAMBER			87
 #define STAGE_SEAL_CHAMBER_2		92
 #define STAGE_CORRIDOR				88
-#define STAGE_KINGS					72		// intro
+#define STAGE_KINGS					01		// intro
 
 #endif
