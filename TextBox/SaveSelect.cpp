@@ -8,8 +8,10 @@
 #include "../inventory.h"
 #include "../replay.h"
 #include "TextBox.h"	// for textbox coordinates; MSG_W etc
+#include "../pause/message.h"
 #include "SaveSelect.h"
 #include "SaveSelect.fdh"
+
 
 // moved here as static data so that the compiler will shut up about a circular dependency
 // that happens if you try to include profile.h from SaveSelect.h.
@@ -108,15 +110,23 @@ int start;
 	{
 		// when shown in a replay, the box is shown and everything just like what was done
 		// originally, but we won't actually overwrite any save files.
-		if (!Replay::IsPlaying())
-		{
-			if (fHaveProfile[fCurSel] && !(settings->last_save_slot == fCurSel) && fSaving)
+			if (fSaving && fHaveProfile[fCurSel] && settings->last_save_slot != fCurSel)
 			{
-				StartScript(14); //overwrite existing save
-			} 
-			else
+				msg = new Options::Message("Overwrite this save in another slot?", "Yes: JUMPKEY   No: AnyKey", true);
+				sound(SND_GUN_CLICK);
+				msg->rawKeyReturn = &overwriteKey;
+				msg->on_dismiss = SaveSelectSave;
+				return;
+			}
+			else if (fSaving && fHaveProfile[fCurSel] )
 			{
-			if (fSaving)
+				msg = new Options::Message("Overwrite this save?", "Yes: JUMPKEY   No: AnyKey", true);
+				sound(SND_GUN_CLICK);
+				msg->rawKeyReturn = &overwriteKey;
+				msg->on_dismiss = SaveSelectSave;
+				return;
+			} 	
+			else if (fSaving)
 			{
 				game_save(fCurSel);
 				sound(SND_SAVE);
@@ -125,21 +135,9 @@ int start;
 			{
 				sound(SND_MENU_SELECT);
 			}
-			
-			settings->last_save_slot = fCurSel;
-			settings_save();		// record new save/load slot
-			}
-		}
-		
-		SetVisible(false);
-		
-		// when the script hit the <SVP, it froze itself in an artifical <WAI9999
-		// waiting for us to complete. Now unfreeze it so can say "Game saved.",
-		// or for loading, just end.
-		ScriptInstance *s = GetCurrentScriptInstance();
-		if (s) s->delaytimer = 0;
+			SaveSettingsAndReturn();
 	}
-	if (justpushed(FIREKEY || INVENTORYKEY))
+	if (justpushed(FIREKEY) || justpushed(INVENTORYKEY))
 	{
 		if (fSaving)
 		{
@@ -154,6 +152,29 @@ int start;
 	}
 }
 
+void SaveSelectSave(Options::Message *msg)
+{
+	if(input_get_mapping(JUMPKEY) == textbox.SaveSelect.overwriteKey)
+	{
+		textbox.SaveSelect.SaveSettingsAndReturn();
+	}
+}
+
+void TB_SaveSelect::SaveSettingsAndReturn()
+{
+	if (fSaving)
+	{
+		game_save(fCurSel);
+		sound(SND_SAVE);
+	}
+	settings->last_save_slot = fCurSel;
+	settings_save();		// record new save/load slot
+	
+	SetVisible(false);
+	
+	ScriptInstance *s = GetCurrentScriptInstance();
+	if (s) s->delaytimer = 0;
+}
 
 void TB_SaveSelect::DrawProfile(int x, int y, int index)
 {
@@ -313,11 +334,19 @@ int i, hx;
 
 void TB_SaveSelect::Draw(void)
 {
+
 	if (!fVisible)
 		return;
 	
 	// handle user input
-	Run_Input();
+	if (msg && msg->dismissed != true) 
+	{ 
+		msg->RunInput(); 
+	} 
+	else 
+	{ 
+		Run_Input(); 
+	}
 	
 	// draw frame
 	TextBox::DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h);
@@ -335,6 +364,8 @@ void TB_SaveSelect::Draw(void)
 	// draw extended info for current selection
 	if (fHaveProfile[fCurSel])
 		DrawExtendedInfo();
+	
+	if (msg && msg->dismissed != true) msg->Draw();
 }
 
 

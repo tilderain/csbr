@@ -258,7 +258,7 @@ TextBox/SaveSelect.o:	TextBox/SaveSelect.cpp TextBox/SaveSelect.fdh nx.h config.
 		screeneffect.h settings.h slope.h \
 		player.h p_arms.h ai/weapons/whimstar.h \
 		replay.h common/FileBuffer.h platform.h \
-		sound/sound.h profile.h inventory.h
+		sound/sound.h profile.h inventory.h pause/message.h
 	g++ -g -O2 -c TextBox/SaveSelect.cpp -D DEBUG `sdl-config --cflags` -Wreturn-type -Wformat -Wno-multichar -o TextBox/SaveSelect.o
 
 profile.o:	profile.cpp profile.fdh nx.h config.h \

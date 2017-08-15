@@ -2,6 +2,8 @@
 #ifndef _SAVESELECT_H
 #define _SAVESELECT_H
 
+#include "../pause/message.h"
+
 #define SS_LOADING		0
 #define SS_SAVING		1
 #define MAX_SAVE_SLOTS	5
@@ -16,6 +18,11 @@ public:
 	
 	bool IsVisible();
 	void Draw();
+	
+	void SaveSettingsAndReturn();
+	
+	Options::Message *msg;
+	int overwriteKey;
 	
 private:
 	void Run_Input();

@@ -60,7 +60,7 @@ void options_tick()
 int i;
 FocusHolder *fh;
 
-	if (justpushed(F3KEY))
+	if (justpushed(F3KEY) || justpushed(ESCKEY))
 	{
 		game.pause(0);
 		return;

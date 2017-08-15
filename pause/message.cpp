@@ -11,11 +11,12 @@ extern int last_sdl_key;	// from inputs.cpp
 #define MESSAGE_W		244
 #define MESSAGE_H		48
 
-Message::Message(const char *msg, const char *msg2)
+Message::Message(const char *msg, const char *msg2, bool noOptionStack)
 {
 	rawKeyReturn = NULL;
 	on_dismiss = NULL;
 	last_sdl_key = -1;
+	dismissed = false;
 	
 	fMsg = strdup(msg);
 	fMsg2 = strdup(msg2 ? msg2 : "");
@@ -35,7 +36,7 @@ Message::Message(const char *msg, const char *msg2)
 		fShowDelay = 4;
 	}
 	
-	optionstack.AddItem(this);
+	if(!noOptionStack) optionstack.AddItem(this);
 }
 
 Message::~Message()
@@ -43,6 +44,7 @@ Message::~Message()
 	optionstack.RemoveItem(this);
 	free(fMsg);
 	free(fMsg2);
+	free(this);
 }
 
 /*
@@ -72,6 +74,7 @@ void Message::RunInput()
 	{
 		if (rawKeyReturn) *rawKeyReturn = last_sdl_key;
 		if (on_dismiss)   (*on_dismiss)(this);
+		dismissed = true;
 		
 		delete this;
 	}

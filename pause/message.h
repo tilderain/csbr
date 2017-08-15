@@ -8,7 +8,7 @@ namespace Options {
 class Message : public FocusHolder
 {
 public:
-	Message(const char *msg, const char *msg2 = NULL);
+	Message(const char *msg, const char *msg2 = NULL, bool noOptionStack = NULL);
 	~Message();
 	
 	void Draw();
@@ -16,6 +16,7 @@ public:
 	
 	int *rawKeyReturn;
 	void (*on_dismiss)(Message *msg);
+	bool dismissed;
 	
 private:
 	char *fMsg, *fMsg2;

@@ -3,6 +3,10 @@
 
 /* located in game.cpp */
 
+void SaveSelectSave(Options::Message *msg);
+
+int input_get_mapping(int keyindex);
+
 //--------------[referenced from TextBox/SaveSelect.cpp]-------------//
 bool game_save(Profile *p);
 
