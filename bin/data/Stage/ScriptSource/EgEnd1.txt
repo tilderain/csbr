@@ -40,7 +40,7 @@ You can open the door now.<NOD<CLO<FL+0105<EVE0106
 #0200
 <KEY<MSGIt says "Puu's Restaurant".<NOD
 Scratched in underneath, it reads:<NOD<CLR
-"Buyer beware!"<NOD<END
+<CAT"Buyer beware!"<NOD<END
 
 #0300
 <PRI<FLJ0100:0001<ITJ0000:0301<EVE0033

@@ -137,9 +137,10 @@ shown up.<NOD<END
 <FLJ1002:0503
 <FL+1002
 <KEY<MSG<FAC0013Do you know her,
-or just here to visit?<NOD
-She doesn't look good at all,<NOD
-no.<NOD I don't think a miracle's
+or are you just here to 
+visit? We could always use a
+helping hand...<CLR Hm?<NOD She doesn't look good 
+at all,<NOD no.<NOD I don't think a miracle's
 going to happen-.<NOD<END
 
 #0503
@@ -178,7 +179,7 @@ I know where the Mimiga live!<NOD
 <KEY<MSG<FAC0013Shouldn't you be attending
 to the king at this time?<NOD
 <CLR<FAC0014No, it's fine.<NOD
-When I come back,<NOD then we 
+When I come back,<NOD we 
 can take care of him.<NOD<END
 
 #0700

@@ -21,6 +21,11 @@ Someone should probably check up
 on that, because she didn't have
 any weaponry...<NOD<END
 
+#0201
+<KEY<MSG<CAT     Forwards: To the waterway
+       Upwards: To the mine
+      Upperwards: ..I forget.<NOD<END
+
 #0210
 <KEY<FAC0012<MSGCleverly done, Mr. Freeman,<NOD
 but you're not supozzzed to
