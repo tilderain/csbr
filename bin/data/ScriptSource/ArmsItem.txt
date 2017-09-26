@@ -219,7 +219,7 @@ Thank you for your patronage!
 #5005
 <MSG<TURMissile Launcher<WAI9999<END
 #5006
-<MSG<TURLife Capsule<WAI9999<END
+<MSG<TURHeart Capsule<WAI9999<END
 #5007
 <MSG<TURBubbler<WAI9999<END
 #5008
@@ -315,9 +315,9 @@ Rather powerful on gentle slopes.<WAI9999<END
 <MSG<TURWide range and powerful damage.
 Capable of breaking hollow blocks.<WAI9999<END
 #6006
-<MSGA life capsule.<NOD<CLRUse it?<YNJ0000
+<MSGA heart capsule.<NOD<CLRUse it?<YNJ0000
 <IT-0006<SOU0022<DNP0400<CMU0016
-<MSG<GIT1006Used a Life Capsule.<WAI0200<NOD<RMU<ML+0001
+<MSG<GIT1006Used a Heart Capsule.<WAI0200<NOD<RMU<ML+0001
 Your energy increased.<NOD<END
 <WAI9999<END
 #6007
@@ -373,7 +373,7 @@ of weapon energy lost will be halved.<WAI9999<END
 machine gun replenishes ammo.<WAI9999<END
 #6021
 <MSG<TURYou can breathe underwater with
-this.<WAI9999<END
+this. Equip it in the Plug slot.<WAI9999<END
 #6022
 <MSG<TURA fully automatic stopwatch.
 You can't see any buttons.<WAI9999<END

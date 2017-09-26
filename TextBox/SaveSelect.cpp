@@ -165,7 +165,6 @@ void TB_SaveSelect::SaveSettingsAndReturn()
 	if (fSaving)
 	{
 		game_save(fCurSel);
-		sound(SND_SAVE);
 	}
 	settings->last_save_slot = fCurSel;
 	settings_save();		// record new save/load slot
