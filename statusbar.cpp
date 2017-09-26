@@ -78,7 +78,61 @@ bool maxed_out;
 	if (game.mode == GM_INTRO) return;
 	RunStatusBar();
 	
-	// draw boss bar
+	DrawBossBar();
+	
+	//if (game.frozen || player->inputs_locked) return; // display status even if inputs locked
+	//if (fade.getstate() != FS_NO_FADE) return; // same
+	
+	if (!player->hurt_flash_state)
+	{
+		if (!game.debug.god )
+		{
+			if (player->hp)
+			{
+			// -- draw the health bar -----------------------------
+			
+			DrawHealthBar(HEALTHFILL_X, HEALTHFILL_Y, player->hp, player->maxHealth);
+			
+			// don't draw the health in numbers
+			//DrawNumberRAlign(HEALTH_X+24, HEALTH_Y, SPR_WHITENUMBERS, PHealthBar.displayed_value);
+			}
+		}
+	}
+	
+	curxp = player->xp;
+	// draw "cion"
+	draw_sprite(51, 218, SPR_XPBAR, FRAME_XP_MAX, 0);
+	// cion Number
+	DrawNumber(17, 217, curxp);
+	
+	// -- draw the weapon bar -----------------------------
+	// draw current weapon
+	if (player->curWeapon != WPN_NONE)
+		draw_sprite(CURWEAPON_X + slide.wpn_offset, WEAPONBAR_Y, SPR_ITEMIMAGE, slide.firstWeapon, 0);
+	
+	// draw ammo, note we draw ammo of firstweapon NOT current weapon, for slide effect
+	DrawWeaponAmmo((AMMO_X + slide.wpn_offset + slide.ammo_offset), AMMO_Y, slide.firstWeapon);
+	
+	// draw other weapons
+	w = slide.firstWeapon;
+	x = STATUS_X + 64 + slide.wpn_offset + 1;
+	for(;;)
+	{
+		if (++w >= WPN_COUNT) w = 0;
+		if (w==slide.firstWeapon) break;
+		
+		if (player->weapons[w].hasWeapon)
+		{
+			draw_sprite(x, WEAPONBAR_Y, SPR_ITEMIMAGE, w, RIGHT);
+			x += 16;
+		}
+	}
+	
+	DrawAirLeft((SCREEN_WIDTH/2) - (5*8), ((SCREEN_HEIGHT)/2)-16);
+
+}
+void DrawBossBar(void)
+{
 	if (game.bossbar.object && !game.bossbar.defeated)
 	{
 		#define BOSSBAR_W	184
@@ -95,57 +149,6 @@ bool maxed_out;
 		RunPercentBar(&game.bossbar.bar, game.bossbar.object->hp);
 		DrawPercentBar(&game.bossbar.bar, BOSS_X+40, BOSS_Y+5, game.bossbar.object->hp, game.bossbar.starting_hp, BOSSBAR_W);
 	}
-	
-	//if (game.frozen || player->inputs_locked) return; // display status even if inputs locked
-	//if (fade.getstate() != FS_NO_FADE) return; // same
-	
-		if (!player->hurt_flash_state)
-		{
-			if (!game.debug.god )
-			{
-				if (player->hp)
-				{
-				// -- draw the health bar -----------------------------
-				
-				DrawHealthBar(HEALTHFILL_X, HEALTHFILL_Y, player->hp, player->maxHealth);
-				
-				// don't draw the health in numbers
-				//DrawNumberRAlign(HEALTH_X+24, HEALTH_Y, SPR_WHITENUMBERS, PHealthBar.displayed_value);
-				}
-			}
-		}
-		
-		curxp = player->xp;
-		// draw "cion"
-		draw_sprite(51, 218, SPR_XPBAR, FRAME_XP_MAX, 0);
-		// cion Number
-		DrawNumber(17, 217, curxp);
-		
-		// -- draw the weapon bar -----------------------------
-		// draw current weapon
-		if (player->curWeapon != WPN_NONE)
-			draw_sprite(CURWEAPON_X + slide.wpn_offset, WEAPONBAR_Y, SPR_ITEMIMAGE, slide.firstWeapon, 0);
-		
-		// draw ammo, note we draw ammo of firstweapon NOT current weapon, for slide effect
-		DrawWeaponAmmo((AMMO_X + slide.wpn_offset + slide.ammo_offset), AMMO_Y, slide.firstWeapon);
-		
-		// draw other weapons
-		w = slide.firstWeapon;
-		x = STATUS_X + 64 + slide.wpn_offset + 1;
-		for(;;)
-		{
-			if (++w >= WPN_COUNT) w = 0;
-			if (w==slide.firstWeapon) break;
-			
-			if (player->weapons[w].hasWeapon)
-			{
-				draw_sprite(x, WEAPONBAR_Y, SPR_ITEMIMAGE, w, RIGHT);
-				x += 16;
-			}
-		}
-		
-		DrawAirLeft((SCREEN_WIDTH/2) - (5*8), ((SCREEN_HEIGHT)/2)-16);
-
 }
 
 void DrawAirLeft(int x, int y)

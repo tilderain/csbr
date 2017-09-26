@@ -6,6 +6,7 @@
 //-------------------[referenced from statusbar.cpp]-----------------//
 bool statusbar_init(void);
 void DrawStatusBar(void);
+void DrawBossBar(void);
 void DrawAirLeft(int x, int y);
 void DrawWeaponAmmo(int x, int y, int wpn);
 void DrawWeaponLevel(int x, int y, int wpn);

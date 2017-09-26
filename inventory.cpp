@@ -27,7 +27,7 @@ ShopItem shopTable1[] =
 {
 //	item			  		price 	ammo	maxammo flag
 	 ITEM_DOGGY_GUN, 		70, 	180, 	180, 	3000,	
-	 ITEM_DOGGY_GUN, 	    45, 	100, 	100, 	3001,
+	 ITEM_DOGGY_GUN, 	    50, 	100, 	100, 	3001,
 	 0, 					0, 		0, 		0, 		0,
 	 ITEM_LIFE_POT, 		40, 	0, 		0, 		3002,	
 	 
@@ -40,10 +40,10 @@ ShopItem shopTable1[] =
 ShopItem shopTable2[] = 
 {
 //	 item			  		price 	ammo	maxammo flag
-	 ITEM_DOGGY_GUN, 		100, 	200, 	200, 	-1,	
-	 ITEM_DOG_VULCAN, 		100, 	300, 	300, 	3004,
-	 ITEM_FIREBALL, 		80, 	50, 	50, 	3005,	
-	 ITEM_FRONTIER, 		80, 	50, 	50, 	3006,
+	 ITEM_DOGGY_GUN, 		115, 	225, 	225, 	-1,	
+	 ITEM_DOG_VULCAN, 		190, 	500, 	500, 	3004,
+	 ITEM_FIREBALL, 		85, 	50, 	50, 	3005,	
+	 ITEM_FRONTIER, 		85, 	50, 	50, 	3006,
 	 
 	 0, 	0, 	0, 	0, 	0,
 	 0, 	0, 	0, 	0, 	0,
@@ -105,6 +105,10 @@ bool inventory_init(int param)
 		inv.itemsel.cursel = RefreshInventoryScreen();
 		inv.selection = -1;
 		inv.curselector->lastsel = -9999;		// run the script first time
+		
+		inv.openDelayTimer = 7; //a pointless delay to make things feel more... accurate.
+		
+		inv.lockinput = 1;
 	
 		// returning from map system?
 		if (param == -1)
@@ -157,9 +161,10 @@ void inventory_tick(void)
 	}
 	else 
 	{
-		if (!inv.exiting) RunSelector(inv.curselector);
+		if (!inv.exiting && inv.doneDrawing) RunSelector(inv.curselector);
 		// draw
 		DrawScene();
+		//DrawBossBar(); looks ugly, but should it be enabled, because it's accurate to the beta?
 		DrawInventory();
 		if (inv.doneDrawing) textbox.Draw();
 	}
@@ -220,11 +225,7 @@ int x, y, w, i, c;
 	inv.x = 38;
 	inv.y = 8;
 	static const int ROW_SPEED = 18;
-	
-	if (inv.exiting == true)
-	{
-		inv.doneDrawing = false;
-	}
+
 	if (!inv.doneDrawing)
 	{
 		inv.lockinput = 1;
@@ -237,24 +238,35 @@ int x, y, w, i, c;
 			inv.curRow -= ROW_SPEED;
 			if (inv.curRow <= 0)
 			{
-				inv.curRow = 0; //is this really neccesary?
-				inv.doneDrawing = false;
-				inv.exiting == false;
-				inv.lockinput = false;
+				inv.curRow = 0;
 				ExitInventory();
 			}
-			draw_sprite_clip_length(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, inv.curRow);
 		}
 		else 
 		{
-			inv.curRow += ROW_SPEED;
-			draw_sprite_clip_length(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, inv.curRow);
-			if (inv.curRow >= sprites[SPR_INVENTORY_SCREEN].h)
+			if(!inv.openDelayTimer)
 			{
-				inv.curRow = sprites[SPR_INVENTORY_SCREEN].h;
-				inv.doneDrawing = true;
+				inv.curRow += ROW_SPEED;
+				if (inv.curRow >= sprites[SPR_INVENTORY_SCREEN].h)
+				{
+					inv.curRow = sprites[SPR_INVENTORY_SCREEN].h;
+					inv.doneDrawing = true;
+				}
+			} 
+			else 
+			{
+				DrawStatusBar();
+				--inv.openDelayTimer;
 			}
 		}
+		set_clip_rect(inv.x, inv.y, \
+		sprites[SPR_INVENTORY_SCREEN].w, inv.curRow);
+		
+		draw_sprite(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, 0);
+		
+		DrawInventoryBits();
+		
+		clear_clip_rect();
 	}
 /* 	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h);
 	inv.y += 32;
@@ -277,8 +289,27 @@ int x, y, w, i, c;
 	{
 		draw_sprite(inv.x, inv.y, SPR_INVENTORY_SCREEN, 0, 0);
 		
-		DrawItems(54, 80, &inv.itemsel, 16, false);
+		DrawInventoryBits();
 		
+		// - draw the health ----
+		//magic numbers everywhere
+		inv.x = 38;
+		inv.y = 8;
+				
+		DrawHealthBar(HEALTH_X, HEALTH_Y, player->hp, player->maxHealth);
+		// - draw the money ----
+		
+		draw_sprite(inv.x + 205, inv.y + 42, SPR_XPBAR, FRAME_XP_MAX, 0);
+		// cion Number
+		DrawNumber(HEALTH_X - 1, inv.y + 41, player->xp); // 36 difference of x
+		
+	}
+}
+
+static void DrawInventoryBits(void)
+{
+	
+		DrawItems(54, 80, &inv.itemsel, 16, false);
 
 		if (player->curWeapon)
 		{
@@ -286,10 +317,6 @@ int x, y, w, i, c;
 			DrawNumber(INVWEAPON_X+17, INVWEAPON_Y+8, player->weapons[player->curWeapon].ammo);
 		}
 		
-		if (player->equipmask)
-		{
-			draw_sprite(INVPLUG_X, INVPLUG_Y, SPR_ITEMIMAGE, GetPlug(), 0);
-		}
 		// - draw the player ----
 		
 		DrawSelector(&inv.itemsel, 54, 80);
@@ -311,19 +338,11 @@ int x, y, w, i, c;
 		}
 		draw_sprite(152, 32, s, 0, LEFT);
 		
-		// - draw the health ----
-		//magic numbers everywhere
-		inv.x = 38;
-		inv.y = 8;
-				
-		DrawHealthBar(HEALTH_X, HEALTH_Y, player->hp, player->maxHealth);
-		// - draw the money ----
+		if (player->equipmask)
+		{
+			draw_sprite(INVPLUG_X, INVPLUG_Y, SPR_ITEMIMAGE, GetPlug(), 0);
+		}
 		
-		draw_sprite(inv.x + 205, inv.y + 42, SPR_XPBAR, FRAME_XP_MAX, 0);
-		// cion Number
-		DrawNumber(HEALTH_X - 1, inv.y + 41, player->xp); // 36 difference of x
-		
-	}
 }
 
 
@@ -479,13 +498,13 @@ int currow, curcol;
 				//please clean this up
 				//ever heard of a switch case?
 				//have to handle hasweapon or remove it
-				if (inv.selection == 15 || selector->cursel == 15){
+				if (inv.selection == 15 || selector->cursel == 15){ //trash
 					if (inv.selection == 15){
 						SwapTrash(inv.selection, selector->cursel);
 					} else {
 						SwapTrash(selector->cursel, inv.selection);
 					}
-				} else if (inv.selection == 16 || selector->cursel == 16){
+				} else if (inv.selection == 16 || selector->cursel == 16){ //WEAPON
 					if (inv.selection == 17 || selector->cursel == 17){
 						sound(SND_BONK_HEAD);
 					} else if (inv.selection == 16){
@@ -495,7 +514,7 @@ int currow, curcol;
 						SwapWeapon(selector->cursel, inv.selection);
 						StartScript(player->curWeapon + selector->scriptbase, SP_ARMSITEM);
 					}
-				} else if (inv.selection == 17 || selector->cursel == 17) {
+				} else if (inv.selection == 17 || selector->cursel == 17) { //PLUG
 					if (inv.selection == 16 || selector->cursel == 16) {
 						sound(SND_BONK_HEAD);
 					} else if (inv.selection == 17){
@@ -505,7 +524,7 @@ int currow, curcol;
 						SwapPlug(selector->cursel, inv.selection);
 						StartScript(GetPlug() + selector->scriptbase, SP_ARMSITEM);
 					}
-				} else {
+				} else { //regular
 					SwapItem(inv.selection, selector->cursel);
 					StartScript(selector->items[selector->cursel].itemId + selector->scriptbase, SP_ARMSITEM);
 				}
@@ -527,6 +546,7 @@ int currow, curcol;
 		if (justpushed(INVENTORYKEY)) 
 		{
 			inv.exiting = true;
+			inv.doneDrawing = false;
 		}
 		
 	}
@@ -1066,18 +1086,10 @@ enum SWAP
 
 
 void SwapItem(int loc1, int loc2){
-	Item temp; //it's only the location of the item that's stored in a selection
-	temp.itemId = player->inventory[loc1].itemId; //so we need to dupe the item attributes temporarily
-	temp.ammo = player->inventory[loc1].ammo;
-	temp.maxammo = player->inventory[loc1].maxammo;
-	
-	player->inventory[loc1].itemId = player->inventory[loc2].itemId;
-	player->inventory[loc1].ammo = player->inventory[loc2].ammo;
-	player->inventory[loc1].maxammo = player->inventory[loc2].maxammo;
-	
-	player->inventory[loc2].itemId = temp.itemId;
-	player->inventory[loc2].ammo = temp.ammo;
-	player->inventory[loc2].maxammo = temp.maxammo;
+Item temp;
+	temp = player->inventory[loc1];
+	player->inventory[loc1] = player->inventory[loc2];
+	player->inventory[loc2] = temp;
 	
 	sound(SND_MENU_SELECT);
 	inv.selection = -1;
@@ -1102,9 +1114,7 @@ void SwapWeapon(int loc1, int loc2){
 		player->weapons[player->curWeapon].ammo = player->inventory[loc2].ammo;
 		player->weapons[player->curWeapon].maxammo = player->inventory[loc2].maxammo;
 		
-		player->inventory[loc2].itemId = temp.itemId;
-		player->inventory[loc2].ammo = temp.ammo;
-		player->inventory[loc2].maxammo = temp.maxammo;
+		player->inventory[loc2] = temp;
 		
 		sound(SND_MENU_SELECT);
 		inv.selection = -1;

@@ -20,6 +20,9 @@ void DrawHealthBar(int x, int y, int curvalue, int maxvalue);
 
 void InitPercentBar(PercentBar *bar, int starting_value);
 
+void DrawStatusBar(void);
+void DrawBossBar(void);
+
 void DrawItems(int xstart, int ystart, stSelector *selector, int nitems, bool inshop);
 void DrawItemsShop(int xstart, int ystart, stSelector *selector, int nitems);
 
@@ -46,6 +49,7 @@ void inventory_tick(void);
 int RefreshInventoryScreen(void);
 void UnlockInventoryInput(void);
 static void DrawInventory(void);
+static void DrawInventoryBits(void);
 static void RunSelector(stSelector *selector);
 static void ExitInventory(void);
 static void DrawSelector(stSelector *selector, int x, int y);
