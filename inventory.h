@@ -44,6 +44,7 @@ struct stInventory
 {
 	int x, y, w, h;
 	int curRow;
+	int openDelayTimer;
 	bool doneDrawing;
 	bool exiting;
 	
