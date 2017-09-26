@@ -697,7 +697,7 @@ Object * const &o = this;
 		// should spawn the smokeclouds first, for z-order reasons
 		if (o->flags & FLAG_DROP_POWERUPS_DONTUSE) //oops i meant flag_organic
 		{
-			SmokeClouds(o, objprop[o->type].death_smoke_amt, 8, 8, true); //blood = true
+			SmokeClouds(o, objprop[o->type].death_smoke_amt, 8, 8, 1); //blood = true
 		}
 		else
 		{

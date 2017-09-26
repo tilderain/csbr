@@ -40,7 +40,7 @@ void EmFireAngledShot(Object *o, int objtype, int rand_variance, int speed);
 /* located in ai/sym/smoke.cpp */
 
 //---------[referenced from ai/maze/balrog_boss_missiles.cpp]--------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in ai/balrog_common.cpp */

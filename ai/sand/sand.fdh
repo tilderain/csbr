@@ -59,7 +59,7 @@ void ai_zzzz_spawner(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //-----------------[referenced from ai/sand/sand.cpp]----------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in sound/sound.cpp */

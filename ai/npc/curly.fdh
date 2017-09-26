@@ -37,5 +37,5 @@ void ai_ccs_gun(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //-----------------[referenced from ai/npc/curly.cpp]----------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
 

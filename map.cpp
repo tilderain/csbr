@@ -832,7 +832,7 @@ void map_ChangeTileWithSmoke(int x, int y, int newtile, int nclouds, bool boomfl
 	
 	int xa = ((x * TILE_W) + (TILE_W / 2)) << CSF;
 	int ya = ((y * TILE_H) + (TILE_H / 2)) << CSF;
-	SmokeXY(xa, ya, nclouds, TILE_W/2, TILE_H/2, push_behind);
+	SmokeXY(xa, ya, nclouds, TILE_W/2, TILE_H/2);
 	
 	if (boomflash)
 		effect(xa, ya, EFFECT_BOOMFLASH);

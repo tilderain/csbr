@@ -349,7 +349,7 @@ extern int flipacceltime;
 		o = o->higher)
 	{
 		if (o == player) continue;	// player drawn specially in DrawPlayer
-		if (o->type == OBJ_SMOKE_CLOUD) continue; //hack to draw sparkles on top of tiles
+		if (o->type == OBJ_SMOKE_CLOUD && o->sprite != SPR_MISSILEHITSMOKE) continue; //hack to draw sparkles on top of tiles
 		
 		// keep it's floattext linked with it's position
 		//o->DamageText->UpdatePos(o);
@@ -423,7 +423,7 @@ extern int flipacceltime;
 		o != NULL;
 		o = o->higher)
 	{
-		if (o->type == OBJ_SMOKE_CLOUD){
+		if (o->type == OBJ_SMOKE_CLOUD && o->sprite != SPR_MISSILEHITSMOKE){
 			scr_x = (o->x >> CSF) - (map.displayed_xscroll >> CSF);
 			scr_y = (o->y >> CSF) - (map.displayed_yscroll >> CSF);
 			scr_x -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.x;

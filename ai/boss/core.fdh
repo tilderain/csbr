@@ -34,7 +34,7 @@ void ai_animate2(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //-----------------[referenced from ai/boss/core.cpp]----------------//
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in ai/boss/core.cpp */

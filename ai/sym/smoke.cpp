@@ -12,13 +12,13 @@ void c------------------------------() {}
 */
 
 // spawn a cloud of smoke centered around object o and starting within "range" distance.
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood)
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood)
 {
 	SmokeXY(o->CenterX(), o->CenterY(), nclouds, rangex, rangey, blood);
 }
 
 
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood)
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, int blood)
 {
 Object *s;
 
@@ -34,14 +34,19 @@ Object *s;
 
 
 // spawn a single smoke puff at x,y and heading off in a random direction
-Object *SmokePuff(int x, int y, bool blood)
+Object *SmokePuff(int x, int y, int blood)
 {
 	Object *o = CreateObject(x, y, OBJ_SMOKE_CLOUD);
 	vector_from_angle(random(0,255), random(0x200,0x5ff), &o->xinertia, &o->yinertia);
-	if (blood)
+	if (blood == 1)
 	{
-			o->sprite = SPR_BLOODHIT;
+		o->sprite = SPR_BLOODHIT;
 	}
+	else if (blood == 2)
+	{
+		o->sprite = SPR_MISSILEHITSMOKE;
+	}
+	
 	return o;
 }
 
@@ -162,6 +167,10 @@ void ai_smokecloud(Object *o)
 			o->xinertia = random(-0x200, 0x200);
 			o->yinertia = random(-0x600, 0x000);
 		}
+		else if (o->sprite == SPR_MISSILEHITSMOKE)
+		{
+			//none
+		}
 		else
 		{
 			o->xinertia = random(-(5 << CSF), (5 << CSF));
@@ -170,7 +179,7 @@ void ai_smokecloud(Object *o)
 		o->state = 1;
 	}
 	
-	if (++o->animtimer >= 5)
+	if (++o->animtimer >= (o->sprite == SPR_MISSILEHITSMOKE ? 3 : 5))
 	{
 		o->animtimer = 0;
 		if (++o->frame >= sprites[o->sprite].nframes)
@@ -180,8 +189,16 @@ void ai_smokecloud(Object *o)
 	o->xinertia /= 2;
 	o->yinertia -= 0x30;
 	*/
-	o->xinertia /= 1.01;
-	o->yinertia += 0x50;
+	if (o->sprite != SPR_MISSILEHITSMOKE)
+	{
+		o->xinertia /= 1.01;
+		o->yinertia += 0x50;
+	}
+	else
+	{
+		o->xinertia *= 20; o->xinertia /= 22;
+		o->yinertia *= 20; o->yinertia /= 22;
+	}
 }
 
 

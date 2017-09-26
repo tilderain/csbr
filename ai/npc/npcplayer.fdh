@@ -25,7 +25,7 @@ void ai_ptelout(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //---------------[referenced from ai/npc/npcplayer.cpp]--------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in sound/sound.cpp */

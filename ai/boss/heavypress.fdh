@@ -34,8 +34,8 @@ static void run_defeated(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //--------------[referenced from ai/boss/heavypress.cpp]-------------//
-Object *SmokePuff(int x, int y, bool blood);
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
+Object *SmokePuff(int x, int y, int blood);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in ai/boss/heavypress.cpp */

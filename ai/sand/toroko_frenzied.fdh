@@ -37,8 +37,8 @@ void ai_toroko_flower(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //------------[referenced from ai/sand/toroko_frenzied.cpp]----------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
-Object *SmokePuff(int x, int y, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
+Object *SmokePuff(int x, int y, int blood);
 
 
 /* located in sound/sound.cpp */

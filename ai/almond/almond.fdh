@@ -20,7 +20,7 @@ void ai_almond_robot(Object *o);
 
 //---------------[referenced from ai/almond/almond.cpp]--------------//
 void SmokeSide(Object *o, int nclouds, int dir);
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in sound/sound.cpp */

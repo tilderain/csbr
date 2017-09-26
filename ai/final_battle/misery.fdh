@@ -61,8 +61,8 @@ static void run_defeated(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //------------[referenced from ai/final_battle/misery.cpp]-----------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in sound/sound.cpp */

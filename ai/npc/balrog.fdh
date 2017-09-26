@@ -48,7 +48,7 @@ void balrog_walk_animation(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //-----------------[referenced from ai/npc/balrog.cpp]---------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
 void SmokeSide(Object *o, int nclouds, int dir);
 
 

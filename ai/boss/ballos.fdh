@@ -43,9 +43,9 @@ void KillObjectsOfType(int type);
 /* located in ai/sym/smoke.cpp */
 
 //----------------[referenced from ai/boss/ballos.cpp]---------------//
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
-Object *SmokePuff(int x, int y, bool blood);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, int blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
+Object *SmokePuff(int x, int y, int blood);
 
 
 /* located in ai/boss/ballos.cpp */

@@ -48,7 +48,7 @@ void onspawn_set_frame_from_id1(Object *o);
 /* located in ai/sym/smoke.cpp */
 
 //---------------------[referenced from ai/ai.cpp]-------------------//
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
 
 
 /* located in sound/sound.cpp */

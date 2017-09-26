@@ -70,6 +70,7 @@ int i;
 	
 	player->hurt_time = 0;
 	player->hurt_flash_state = 0;
+	
 	player->water_shield_frame = 0;
 	player->movementmode = MOVEMODE_NORMAL;
 	player->inputs_locked_lasttime = true;
@@ -97,7 +98,6 @@ int i;
 	// this prevents a splash if we start underwater, and prevents us
 	// from drowning immediately since our air isn't yet set up
 	player->touchattr = TA_WATER;
-	player->airleft = 1000;
 	player->airshowtimer = 0;
 }
 
@@ -1303,7 +1303,7 @@ void hurtplayer(int damage)
 	if (player->hp <= 0)
 	{
 		sound(SND_EXPL_SMALL);
-		SmokeClouds(player, 64, 16, 16);
+		SmokeClouds(player, 64, 4, 4, 2);
 		
 		killplayer(SCRIPT_DIED);
 	}
@@ -1686,7 +1686,7 @@ int s;
 		case WPN_BUBBLER: s = SPR_BUBBLER; break;
 		case WPN_SPUR: s = SPR_SPUR; break;
 		case WPN_BLADE: s = SPR_BLADEARMS; break;
-		case WPN_WAVER: s = SPR_SNAKEGUN; break;
+		case WPN_WAVER: s = SPR_WAVERGUN; break;
 		
 		default:
 			s = SPR_WEAPONS_START + (wpn * 2);

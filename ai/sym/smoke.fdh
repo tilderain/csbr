@@ -16,9 +16,9 @@ void vector_from_angle(uint8_t angle, int speed, int *xs, int *ys);
 /* located in ai/sym/smoke.cpp */
 
 //-----------------[referenced from ai/sym/smoke.cpp]----------------//
-Object *SmokePuff(int x, int y, bool blood);
-void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, bool blood);
-void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, bool blood);
+Object *SmokePuff(int x, int y, int blood);
+void SmokeClouds(Object *o, int nclouds, int rangex, int rangey, int blood);
+void SmokeXY(int x, int y, int nclouds, int rangex, int rangey, int blood);
 void SmokeSide(Object *o, int nclouds, int dir);
 void SmokeCloudsSlow(int x, int y, int nclouds);
 void SmokeBoomUp(Object *o);

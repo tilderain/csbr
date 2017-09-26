@@ -4,9 +4,9 @@
 
 void randblink(Object *o, int blinkframe = 1, int blinktime = 8, int prob = 120);
 
-void SmokeClouds(Object *o, int nclouds, int rangex=0, int rangey=0, bool blood = false);
-void SmokeXY(int x, int y, int nclouds, int rangex=0, int rangey=0, bool blood = false);
-Object *SmokePuff(int x, int y, bool blood = false);
+void SmokeClouds(Object *o, int nclouds, int rangex=0, int rangey=0, int blood = 0);
+void SmokeXY(int x, int y, int nclouds, int rangex=0, int rangey=0, int blood = 0);
+Object *SmokePuff(int x, int y, int blood = 0);
 
 
 #define ANIMATE(SPEED, FIRSTFRAME, LASTFRAME)		\
