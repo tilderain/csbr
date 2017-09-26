@@ -92,7 +92,7 @@ bool fall = true;
 			o->frame = 5;
 			o->xinertia = 0;
 			o->timer = o->timer2 = 0;
-			SmokeClouds(o, 4, 8, 8);
+			SmokeClouds(o, 4, 8, 8, 2);
 			sound(SND_BIG_CRASH);
 			o->balrog.smoking = 1;
 		}
