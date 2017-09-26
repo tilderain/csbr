@@ -271,7 +271,7 @@ void ai_balrog_boss_scuba(Object *o)
 		case 0:
 			o->state = WAIT_BEGIN;
 			o->timer = 0;
-			o->hp = 420;
+			o->hp = 375;
 		case WAIT_BEGIN:	// wait at start of battle
 		{
 			FACEPLAYER;

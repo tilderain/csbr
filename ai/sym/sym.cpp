@@ -213,6 +213,8 @@ void c------------------------------() {}
 
 void ai_xp(Object *o)
 {
+	bool inwater = (o->CheckAttribute(&sprites[o->sprite].block_u, TA_WATER));
+	
 	if (o->state == 0)
 	{
 		o->xinertia = 0;
@@ -251,14 +253,13 @@ void ai_xp(Object *o)
 		}
 		else
 		{
-			bool inwater = (o->CheckAttribute(&sprites[o->sprite].block_u, TA_WATER));
 			if (!inwater) o->yinertia += 42; else o->yinertia += 23;
 		}
 		
 	}
 	
 	
-	if (++o->animtimer >= 2)
+	if (++o->animtimer >= (inwater ? 3 : 2))
 	{
 		o->animtimer = 0;
 		if (++o->frame > 7) o->frame = 0;

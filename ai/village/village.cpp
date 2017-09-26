@@ -236,7 +236,7 @@ void ai_jumper_soa(Object *o)
 			}
 			if(!inwater)
 			{
-				XMOVE(0x110);
+				XMOVE(0x130);
 			}
 			else
 			{
@@ -244,10 +244,10 @@ void ai_jumper_soa(Object *o)
 			}
 	
 		break;
-		case CROUCHING:		// hit by shot
+		case CROUCHING:		
 			o->frame = 1;
 			XMOVE(0x01);
-			if (++o->timer >= 10)
+			if (++o->timer >= 8)
 			{
 				if (++o->timer2 >= 5)
 				{

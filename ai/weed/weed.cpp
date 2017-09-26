@@ -1015,23 +1015,19 @@ void ai_malco_broken(Object *o) //stingray
 			if (!o->timer--)
 			{
 				o->state = 2;
-				o->yinertia = -0x160;
+				o->yinertia = random(-0x160, -0x130);
+				o->timer = random(0, 400);
 			}
 		break;
 		
 		case 2:
 		{
 			
-			if (o->blocku)
+			if (o->blockd || o->blocku)
 			{
-				o->ymark = o->y + (random(0, 100) << CSF);
-				o->yinertia = 0x80;
-			}
-			
-			if (o->blockd)
-			{
-				o->ymark = o->y - (random(0, 100) << CSF);
-				o->yinertia = -0x60;
+
+				o->ymark = o->y - (random(-100, 100) << CSF);
+				o->yinertia = random(-0x35, 0x35);
 			}
 			if (o->blockr)
 			{
