@@ -1,44 +1,22 @@
 use  :1
-size :2200
-main_model   :4
-main_freq    :85.00
-main_top     :52
-main_offset  :174
-pitch_model  :2
+size :1000
+main_model   :1
+main_freq    :5.00
+main_top     :32
+main_offset  :0
+pitch_model  :1
 pitch_freq   :1.00
-pitch_top    :63
-pitch_offset :23
-volume_model :4
-volume_freq  :3.80
-volume_top   :31
-volume_offset:205
-initialY:0
-ax      :104
-ay      :20
-bx      :200
-by      :29
-cx      :255
-cy      :0
-
-use  :1
-size :4000
-main_model   :0
-main_freq    :25.00
-main_top     :20
-main_offset  :43
-pitch_model  :5
-pitch_freq   :1.00
-pitch_top    :0
-pitch_offset :247
+pitch_top    :46
+pitch_offset :244
 volume_model :0
 volume_freq  :0.00
-volume_top   :32
+volume_top   :0
 volume_offset:0
-initialY:0
-ax      :21
-ay      :23
-bx      :120
-by      :30
+initialY:63
+ax      :64
+ay      :63
+bx      :128
+by      :31
 cx      :255
 cy      :0
 
@@ -86,25 +64,47 @@ by      :0
 cx      :0
 cy      :0
 
-{1,2200,4,85.00,52,174,2,1.00,63,23,4,3.80,31,205,0,104,20,200,29,255,0},
-{1,4000,0,25.00,20,43,5,1.00,0,247,0,0.00,32,0,0,21,23,120,30,255,0},
+use  :0
+size :0
+main_model   :0
+main_freq    :0.00
+main_top     :0
+main_offset  :0
+pitch_model  :0
+pitch_freq   :0.00
+pitch_top    :0
+pitch_offset :0
+volume_model :0
+volume_freq  :0.00
+volume_top   :0
+volume_offset:0
+initialY:0
+ax      :0
+ay      :0
+bx      :0
+by      :0
+cx      :0
+cy      :0
+
+{1,1000,1,5.00,32,0,1,1.00,46,244,0,0.00,0,0,63,64,63,128,31,255,0},
+{0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
 {0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0,0,0,0,0,0},
 
 -> {0,0.00,0,0,0,0.00,0,0,0,0.00,0,0,0,0.00,0,0},
 -> {255,0,255,0,255,0,255,0},
 
-pitch2_model :2
+pitch2_model :1
 pitch2_freq  :1.00
-pitch2_top   :63
-pitch2_offset:23
+pitch2_top   :46
+pitch2_offset:244
 dx      :255
 dy      :0
 
-pitch2_model :5
-pitch2_freq  :1.00
+pitch2_model :0
+pitch2_freq  :0.00
 pitch2_top   :0
-pitch2_offset:247
+pitch2_offset:0
 dx      :255
 dy      :0
 

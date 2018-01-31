@@ -12,6 +12,7 @@
 2c missile
 16 chest
 25 dry fire ** not in /sound
+26 item pickup
 
 **custom soundnums
 7 frontier
