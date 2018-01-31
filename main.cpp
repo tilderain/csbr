@@ -22,7 +22,8 @@ int fps = 0;
 static int fps_so_far = 0;
 static uint32_t fpstimer = 0;
 
-#define GAME_WAIT			(1000/GAME_FPS)	// sets framerate
+int GAME_WAIT = 0;
+int oscilframecounter = 0;
 #define VISFLAGS			(SDL_APPACTIVE | SDL_APPINPUTFOCUS)
 int framecount = 0;
 bool freezeframe = false;
@@ -257,14 +258,27 @@ int32_t nexttick = 0;
 		
 		if (timeRemaining <= 0 || game.ffwdtime)
 		{
+			
+			if (settings->game_fps)
+			{
+
+					//GAME_WAIT = (oscilframecounter++ % 3 == 0 ? 16 : 17);
+					GAME_WAIT = 17;
+
+			}
+			else
+			{
+				GAME_WAIT = 20;
+			}
+			
+			nexttick = curtime + GAME_WAIT; // (settings->game_fps ? 17 : 20);
+			
 			run_tick();
 			
 			// try to "catch up" if something else on the system bogs us down for a moment.
 			// but if we get really far behind, it's ok to start dropping frames
 			if (game.ffwdtime)
 				game.ffwdtime--;
-			
-			nexttick = curtime + (settings->game_fps ? 17 : 20); //nexttick = curtime + GAME_WAIT;
 			
 			// pause game if window minimized
 			if ((SDL_GetAppState() & VISFLAGS) != VISFLAGS)
