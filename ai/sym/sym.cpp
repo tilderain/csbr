@@ -877,13 +877,13 @@ static const Point waterattrpoint[] = { 0, -3 };
 	
 	o->frame = random(0, 4);
 	
-	if (++o->timer > 10)
+	if (++o->timer > 55)
 	{
-		if (o->blockl || o->blockr || o->blockd || \
+		//if (o->blockl || o->blockr || o->blockd || \
 			(o->GetAttributes(waterattrpoint, 1, NULL) & TA_WATER))
-		{
+		//{
 			o->Delete();
-		}
+		//}
 	}
 }
 
