@@ -656,7 +656,7 @@ void AssignExtraSprites(void)
 	
 	objprop[OBJ_POLISHBABY].defaultnxflags |= NXFLAG_SLOW_WHEN_HURT;
 	
-	objprop[OBJ_MIMIGAC1].sprite = SPR_MIMIGAC;
+	objprop[OBJ_MIMIGAC1].sprite = SPR_MINICROC;
 	objprop[OBJ_MIMIGAC2].sprite = SPR_MIMIGAC;
 	objprop[OBJ_MIMIGAC_ENEMY].sprite = SPR_MIMIGAC;
 	objprop[OBJ_MIMIGAC_ENEMY].shaketime = 0;
