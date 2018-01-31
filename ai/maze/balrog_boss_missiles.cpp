@@ -302,7 +302,7 @@ void ai_balrog_boss_scuba(Object *o)
 				EmFireAngledShot(o, OBJ_CHACO_CAGED, 50, 0x250);
 				sound(SND_SOA_FIRE);
 				
-				if (++o->timer2 > 6)	// number of shots to fire
+				if (++o->timer2 >= 6)	// number of shots to fire
 				{
 					Object *shot = SpawnObjectAtActionPoint(o, (random(0, 1) == 1 ? OBJ_GIANT_MUSHROOM_ENEMY : OBJ_KAZUMA_AT_COMPUTER));
 					shot->dir = o->dir;
@@ -353,6 +353,10 @@ void ai_balrog_boss_scuba(Object *o)
 				o->timer = 0;
 				o->frame = 2;
 			}
+			if (o->blockl || o->blockr)
+			{
+				o->xinertia = -o->xinertia;
+			}
 		}
 		break;
 		
@@ -402,6 +406,7 @@ void ai_bubble_soa(Object *o)
 					Object *shot;
 					shot = CreateObject(o->x, o->y, OBJ_MUSHROOM_ENEMY);
 					shot->dir = (o->xinertia > 0 ? RIGHT : LEFT);
+					shot->xinertia = (shot->dir == RIGHT ? 0x100 : -0x100);
 					effect(o->CenterX(), o->CenterY(), EFFECT_FISHY);
 					o->Delete();
 				}
@@ -416,7 +421,7 @@ void ai_bubble_soa(Object *o)
 				break;
 	}
 	o->yinertia += 0x00a;
-	LIMITY(0x5FF);
+	LIMITY(0x500);
 	ai_animate4(o);
 }
 
