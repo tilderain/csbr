@@ -128,7 +128,7 @@ void ai_mushroom_enemy(Object *o)
 		case 0:
 			o->frame = 0;
 			o->animtimer = 0;
-			o->xinertia = 0;
+			o->xinertia = (o->dir == RIGHT ? 0x01 : -0x01);
 			o->state = STANDING;
 		case STANDING:		// stand around
 		{
