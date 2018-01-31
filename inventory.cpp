@@ -78,6 +78,10 @@ ShopItem* shopTableTable[] = {
 
 int itemToBeThrown;
 
+int shopBoxSlideY;
+
+bool shopBuySellExiting;
+
 stInventory inv;
 stShop shop;
 bool inventory_init(int param)
@@ -144,13 +148,13 @@ void inventory_tick(void)
 			{
 			if (!shop.inSell)
 			{
-				RunShopSelector(shop.curselector);
 				DrawShop();
+				RunShopSelector(shop.curselector);
 			}
 			else 
 			{
-				RunSellSelector(shop.curselector);
 				DrawSell();
+				RunSellSelector(shop.curselector);
 			}
 			textbox.Draw();
 		} 
@@ -591,27 +595,34 @@ static void DrawShop(void){
 	int x, y, w, i, c;
 	bool shop_;
 	
-	TextBox::DrawFrame(38, 72, 244, 80, shop_); 
-	draw_sprite(38, 72, SPR_SHOP_ITEM, 0, 0);
+	TextBox::DrawFrame(38, 72 + shopBoxSlideY, 244, 80, shop_); 
+	draw_sprite(38, 72 + shopBoxSlideY, SPR_SHOP_ITEM, 0, 0);
 	
-	TextBox::DrawFrame(38, 32, 244, 40, shop_); 
-	draw_sprite(38, 32, SPR_SHOP_SHOP, 0, 0);
+	TextBox::DrawFrame(38, 32 + shopBoxSlideY, 244, 40, shop_); 
+	draw_sprite(38, 32 + shopBoxSlideY, SPR_SHOP_SHOP, 0, 0);
 	
-	TextBox::DrawFrame(198, 8, 84, 24, shop_); 
-	draw_sprite(198, 8, SPR_SHOP_MONEY, 0, 0);
+	TextBox::DrawFrame(198, 8 + shopBoxSlideY, 84, 24, shop_); 
+	draw_sprite(198, 8 + shopBoxSlideY, SPR_SHOP_MONEY, 0, 0);
 
-	DrawItemsShop(54, 37, &shop.itemsel, 8);
-		
-	DrawSelector(&shop.itemsel, 54, 37);
+	//set_clip_rect(38, 32 + shopBoxSlideY, \
+		244, 38);
 	
-	DrawItems(54, 80, &shop.itemsel, 16, true);
+	DrawItemsShop(54, 37 + shopBoxSlideY, &shop.itemsel, 8); //y is added twice, was unintentional but is a cool effect
+	
+	//clear_clip_rect();
+		
+	DrawSelector(&shop.itemsel, 54, 37 + shopBoxSlideY);
+	
+	DrawItems(54, 80, &shop.itemsel, 16 + shopBoxSlideY, true);
 	
 	//magic numbers everywhere
 	// - draw the money ----
 	
-	draw_sprite(38 + 205, 8 + 10, SPR_XPBAR, FRAME_XP_MAX, 0);
+	draw_sprite(38 + 205, 8 + 10 + shopBoxSlideY, SPR_XPBAR, FRAME_XP_MAX, 0);
 	// cion Number
-	DrawNumber(38 + 169, 8 + 9, player->xp);
+	DrawNumber(38 + 169, 8 + 9 + shopBoxSlideY, player->xp);
+	
+	shopBoxSlideY /= 1.3;
 }
 
 void DrawItems(int xstart, int ystart, stSelector *selector, int nitems, bool inShop){ 
@@ -619,13 +630,23 @@ void DrawItems(int xstart, int ystart, stSelector *selector, int nitems, bool in
 int i;
 	int c = 0;
 	int x = xstart;
-	int y = ystart;
+	int y = ystart + shopBoxSlideY;
 
 	for(i=0;i<nitems;i++){
 		if ( (i!=15) ){
 			draw_sprite(x, y, SPR_ITEMIMAGE, selector->items[i].itemId, 0);
 		} else {
-			if(inShop) draw_sprite(x, y, SPR_ITEMIMAGE, 40, 0); //trash... placeholder for now?
+			if(inShop)
+			{
+				if(shop.inSell)
+				{
+					draw_sprite(x, y, SPR_ITEMIMAGE, 42, 0); //exit
+				}
+				else
+				{
+					draw_sprite(x, y, SPR_ITEMIMAGE, 40, 0); //trash... placeholder for now?
+				}
+			}
 		}
 		
 		if (selector->items[i].itemId && player->inventory[i].maxammo == 0) { 
@@ -652,7 +673,7 @@ void DrawItemsShop(int xstart, int ystart, stSelector *selector, int nitems){
 int i;
 	int c = 0;
 	int x = xstart;
-	int y = ystart;
+	int y = ystart + shopBoxSlideY;
 	
 	for(i=0;i<8;i++){
 		if (selector->shopitems[i].itemId && game.flags[selector->shopitems[i].flag]){
@@ -798,7 +819,10 @@ int shopBuy;
 	}
 	if (justpushed(INVENTORYKEY)) 
 	{
-		ExitInventory(); //then go to shop exit script.
+		shop.inBuySellSelection = true; 
+		//then go to shop exit script??
+		shop.fState = 2; //STATE_SELECTION
+		shopBoxSlideY = -36;
 	}
 }
 
@@ -806,44 +830,45 @@ enum
 {
 	STATE_APPEAR,
 	STATE_WAIT,
-	STATE_BUY_SELECTED,
-	STATE_SELL_SELECTED
+	STATE_SELECTION
 };
 
 static void DrawBuySellSelection(void){
 bool shop_;
-
+	
+	if (shop.fState == STATE_APPEAR)
+	{
+		shop.fState = STATE_WAIT;
+		shopBoxSlideY = 360;
+		shop.fTimer = 10;
+	}
+	
 	inv.x = 125;
 	inv.y = 82;
 	
 	inv.w = 68;
 	inv.h = 75;
 	
-	TextBox::DrawFrame(inv.x, inv.y, inv.w, inv.h, shop_); 
+	TextBox::DrawFrame(inv.x, inv.y + shopBoxSlideY, inv.w, inv.h, shop_); 
 	
-	font_draw(inv.x + 12, inv.y + 8, "Buy", 0, &shadowfont2);
+	font_draw(inv.x + 12, inv.y + 8 + shopBoxSlideY, "Buy", 0, &shadowfont2);
 	
-	font_draw(inv.x + 12, inv.y + 24, "Sell", 0, &shadowfont2);
+	font_draw(inv.x + 12, inv.y + 24 + shopBoxSlideY, "Sell", 0, &shadowfont2);
 	
-	font_draw(inv.x + 12, inv.y + 40, "Talk", 0, &shadowfont2);
+	font_draw(inv.x + 12, inv.y + 40 + shopBoxSlideY, "Talk", 0, &shadowfont2);
 	
-	font_draw(inv.x + 12, inv.y + 56, "Exit", 0, &shadowfont2);
+	font_draw(inv.x + 12, inv.y + 56 + shopBoxSlideY, "Exit", 0, &shadowfont2);
 
 	// draw hand selector
-	if (shop.fState == STATE_BUY_SELECTED || \
-		shop.fState == STATE_SELL_SELECTED)
+	if (shop.fState == STATE_SELECTION)
 	{
-		int yoff = (shop.fState == STATE_BUY_SELECTED) ? 8 : 24;
-		draw_sprite(inv.x - 4, inv.y+yoff, SPR_YESNOHAND, 0, 0);
+		
+		int yoff = 8 + (16 * shop.fCurSel);
+		draw_sprite(inv.x - 4, inv.y+yoff + shopBoxSlideY, SPR_YESNOHAND, 0, 0);
 	}
 	
 	switch(shop.fState)
 	{
-		case STATE_APPEAR:
-		{
-			shop.fState = STATE_WAIT;
-			shop.fTimer = 10;
-		}
 		case STATE_WAIT:
 		{
 			if (shop.fTimer)
@@ -852,37 +877,72 @@ bool shop_;
 				break;
 			}
 			
-			shop.fState = STATE_BUY_SELECTED;
+			shop.fState = STATE_SELECTION;
 		}
 		break;
 		
-		case STATE_BUY_SELECTED:
-		case STATE_SELL_SELECTED:
+		case STATE_SELECTION:
 		{
-			if (justpushed(UPKEY) || justpushed(DOWNKEY))
+			shopBoxSlideY /= 1.5;
+			
+			if (justpushed(UPKEY))
 			{
 				sound(SND_MENU_MOVE);
+				shop.fCurSel -= 1;
 				
-				shop.fState = (shop.fState == STATE_BUY_SELECTED) ?
-							STATE_SELL_SELECTED : STATE_BUY_SELECTED;
+				if (shop.fCurSel == 2) shop.fCurSel = 1; //talk not implemented
+				if (shop.fCurSel < 0) shop.fCurSel = 3; //wraparound
 			}
+			if(justpushed(DOWNKEY))
+			{
+				sound(SND_MENU_MOVE);
+				shop.fCurSel += 1;
+				
+				if (shop.fCurSel == 2) shop.fCurSel = 3; //talk not implemented
+				if (shop.fCurSel > 3) shop.fCurSel = 0; //wraparound
+			}
+			
+			shop.fState = shop.fState % 4;
+			
 			if (justpushed(JUMPKEY))
 			{
 				sound(SND_MENU_SELECT);
 				lastinputs[JUMPKEY] = true;
 				lastpinputs[JUMPKEY] = true;
 				
+				if (shop.fCurSel == 3) 
+				{ 
+					shopBuySellExiting = true;
+					shop.fState = STATE_WAIT;
+					shop.fTimer = 999; break; 
+				}
 				
 				shop.inBuySellSelection = false;
-				shop.inSell = (shop.fState == STATE_BUY_SELECTED) ? false : true;
+				shop.inSell = (shop.fCurSel == 0) ? false : true;
+				
+				shopBoxSlideY = 36; //set the slide for both buy and sell
 			}
 
 			if (justpushed(FIREKEY) || justpushed(INVENTORYKEY))
 			{			
-				ExitInventory();
+				shopBuySellExiting = true;
+				shop.fState = STATE_WAIT;
+				shop.fTimer = 999;
 			}
 		}
 		break;
+	}
+	
+	if(shopBuySellExiting)
+	{
+		if (shopBoxSlideY < 0) shopBoxSlideY = 0;
+		shopBoxSlideY += 1;
+		shopBoxSlideY *= 2;
+		if (shopBoxSlideY >= 200) 
+		{
+			shopBuySellExiting = false;
+			ExitInventory();
+		}
 	}
 }
 
@@ -894,7 +954,7 @@ static void DrawSell(void){
 	//money box
 
 	inv.x = 198;
-	inv.y = 40;
+	inv.y = 40 + shopBoxSlideY;
 	
 	// - draw the money ----
 	draw_sprite(198, inv.y, SPR_SHOP_MONEY, 0, 0);
@@ -906,7 +966,7 @@ static void DrawSell(void){
 	//inventory box
 	
 	inv.x = 38;
-	inv.y = 72;
+	inv.y = 72 + shopBoxSlideY;
 	
 	inv.w = 244;
 	inv.h = 80;
@@ -923,9 +983,11 @@ static void DrawSell(void){
 
 	c = 0;
 	
-	DrawItems(54, 81, &shop.itemsel, 16, true);
+	DrawItems(54, 81 + shopBoxSlideY, &shop.itemsel, 16, true);
 
-	DrawSelector(&shop.itemsel, inv.x, inv.y);
+	DrawSelector(&shop.itemsel, inv.x, inv.y + shopBoxSlideY);
+	
+	shopBoxSlideY /= 1.3;
 
 }
 
@@ -1066,14 +1128,17 @@ int shopBuy;
 			StartScript(1601, SP_ARMSITEM);
 			shop.lockinput = 1;
 		} //else junk dialogue
+		if (selector->cursel == 15) goto exitsell; //????????
+		
 	}
-	if (justpushed(FIREKEY)) 
+	if (justpushed(FIREKEY) || justpushed(INVENTORYKEY)) 						//StartScript(selector->items[selector->cursel].itemId + selector->scriptbase + 1000, SP_ARMSITEM);
 	{
-		//StartScript(selector->items[selector->cursel].itemId + selector->scriptbase + 1000, SP_ARMSITEM);
-	}
-	if (justpushed(INVENTORYKEY)) 
-	{
-		ExitInventory(); //then go to shop exit script.
+exitsell:
+		shop.inBuySellSelection = true; 
+		//then go to shop exit script??
+		shop.fState = 2; //STATE_SELECTION
+		shopBoxSlideY = -36;
+		selector->cursel = 0; //prevents crazy stuff happening in the buy menu
 	}
 }
 
@@ -1234,9 +1299,11 @@ void ThrowItem(){
 static void ExitInventory(void)
 {
 	StopScripts();
-	game.flags[2999] = false;
+	game.flags[2999] = false; //textbox gold trim
 	shop.inShop = false;
+	shop.inSell = false;
 	shop.inBuySellSelection = false;
+	shopBoxSlideY = 0;
 	game.setmode(GM_NORMAL);
 }
 
@@ -1248,7 +1315,7 @@ int xsel, ysel;
 	if (inv.selection == -1){
 		selector->flashstate = 1;
 		selector->animtimer = 0;
-	} else if (++selector->animtimer > 30)
+	} else if (++selector->animtimer > 15)
 	{
 		selector->animtimer = 0;
 		selector->flashstate ^= 1;

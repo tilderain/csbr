@@ -74,6 +74,8 @@ struct stShop
 	int fState;
 	int fTimer;
 	
+	int fCurSel;
+	
 	float sellPrice;
 	
 };
