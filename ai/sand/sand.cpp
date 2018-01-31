@@ -15,7 +15,7 @@ INITFUNC(AIRoutines)
 	ONTICK(OBJ_SANDCROC, ai_sandcroc);
 	ONDEATH(OBJ_SANDCROC, ondeath_sandcroc);
 	
-	ONTICK(OBJ_MIMIGAC1, ai_curlys_mimigas);
+	ONTICK(OBJ_MIMIGAC1, ai_minicroc);
 	ONTICK(OBJ_MIMIGAC2, ai_curlys_mimigas);
 	ONTICK(OBJ_MIMIGAC_ENEMY, ai_curlys_mimigas);
 	
@@ -40,6 +40,131 @@ INITFUNC(AIRoutines)
 /*
 void c------------------------------() {}
 */
+
+void ai_minicroc(Object *o)
+{
+	switch(o->state)
+	{
+		case 0:
+		{
+			o->flags &= ~FLAG_SHOOTABLE;
+			if (o->onscreen)
+			{	
+				o->flags |= FLAG_SHOOTABLE;
+				o->state++; //we're in range so we can start moving now
+			}
+		}
+		break;
+		
+		case 1:
+		{
+			XMOVE( random(0x100, 0x150) );
+			
+			if(pdistl(16<<CSF))
+			{
+				o->frame = 3;
+			}
+			else
+			{
+				o->frame = 0;
+			}
+			
+			if(o->blockd)
+			{
+				if(++o->timer >= 8)
+				{
+					o->timer = 0;
+					o->yinertia -= random(0x360, 0x400);
+				}
+				else if (o->timer >= 3)
+				{
+					o->xinertia = 0;
+				}
+			}
+			
+			if (o->blockl)
+			{
+				o->dir = RIGHT;
+			}
+			else if (o->blockr)
+			{
+				o->dir = LEFT;
+			}
+			
+			if(o->shaketime)//it's dirty, but i'm too lazy to think of a better way to alert all the other crocs
+			{
+				Object *croc;
+				FOREACH_OBJECT(croc)
+				{
+					if(croc->type == OBJ_MIMIGAC1 && \
+					abs( croc->CenterX() - o->CenterX() ) <= (80<<CSF) && \
+					abs( croc->CenterY() - o->CenterY() ) <= (40<<CSF) )
+					{
+						if(croc->state == 1)
+						{
+							croc->state = 2;
+							croc->timer = 0;
+						}
+					}
+				}
+				sound(SND_ENEMY_DAMAGE);
+			}
+		}
+		break;
+		case 2:
+		{
+			if(!o->timer)
+			{
+				FACEPLAYER;
+				if(pdistlx(48<<CSF))
+				{
+					o->frame = 2;
+				}
+				else
+				{
+					o->frame = 1;
+				}
+				
+				o->yinertia -= random(0x630, 0x6ca);
+				o->xinertia = random(0x024a, 0x25a);
+				o->xinertia = (o->dir == LEFT ? -o->xinertia : o->xinertia);
+			}
+			if(++o->timer > 30)
+			{
+				o->frame = 0;
+				o->timer = 0;
+				o->timer2 = random(0x400, 0x500);
+				o->state++;
+			}
+		}
+		break;
+		
+		case 3:
+		{
+			if(pdistl(16<<CSF))
+			{
+				o->frame = 3;
+			}
+			else
+			{
+				o->frame = 0;
+			}
+			
+			if(o->blockd)
+			{
+				o->yinertia = -(o->timer2 /= 1.5);
+				if (o->timer2 < 0x020) o->state = 2;
+			}
+		}
+		break;
+	}
+	
+	if(o->shaketime) o->frame = 4;
+	
+	o->xinertia -= (o->dir == LEFT ? -0x02 : 0x02); 
+	o->yinertia += 0x3a;
+
+}
 
 void ai_polish(Object *o)
 {
@@ -233,12 +358,25 @@ int pbottom, crocbottom;
 	{
 		case 0:
 			o->state = 1;
-			o->timer = 0;
 			o->ymark = o->y;
+			if (!o->timer) o->xmark = o->CenterX(); else o->xmark = o->timer; //i hate to change all these states so i'm hacking this
+			o->timer = 0;
 			o->flags &= ~(FLAG_SOLID_MUSHY | FLAG_SHOOTABLE | FLAG_INVULNERABLE | FLAG_IGNORE_SOLID);
 		case 1:
 			// track player invisibly underground
 			o->xinertia = (o->CenterX() < player->CenterX()) ? 0x400:-0x400;
+			
+			if (abs(o->xmark - o->CenterX()) > 24<<CSF) //distance limiting
+			{
+				if (o->dir == LEFT)
+				{
+					if(o->xinertia < 0) o->xinertia = 0x100;
+				}
+				else
+				{
+					if(o->xinertia > 0) o->xinertia = -0x100;
+				}
+			}
 			
 			if (pdistlx(19 << CSF))
 			{
@@ -258,7 +396,7 @@ int pbottom, crocbottom;
 		break;
 		
 		case 2:		// attacking
-			if (++o->animtimer > 3)
+			if (++o->animtimer > 7)
 			{
 				o->animtimer = 0;
 				o->frame++;
@@ -307,18 +445,20 @@ int pbottom, crocbottom;
 				o->timer++;
 				// have to wait before moving: till floattext goes away
 				// else they can see us jump
-				if (o->timer==98)
-				{
-					o->xinertia = (player->CenterX() - o->CenterX());
-				}
-				else o->xinertia = 0;
+				//if (o->timer==98)
+				//{
+				//	o->xinertia = (player->CenterX() - o->CenterX());
+				//}
+				//else o->xinertia = 0;
 			}
 			else
 			{
+				o->timer = o->xmark;
 				o->state = 0;
 			}
 		break;
 	}
+	FACEPLAYER;
 	LIMITY(0x100);
 	
 	// these guys (from oside) don't track

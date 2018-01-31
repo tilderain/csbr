@@ -47,7 +47,12 @@ void ai_skullstep(Object *o);
 void ai_skullstep_foot(Object *o);
 void skullstep_do_step(Object *o, Object *skull, int angle);
 void ai_skeleton(Object *o);
+void ai_minicroc(Object *o);
+void ai_greevil(Object *o);
+void ai_polish_spiked(Object *o);
 void ai_curlys_mimigas(Object *o);
+
+bool hitdetect(Object *o1, Object *o2);
 
 
 /* located in ai/sand/puppy.cpp */
