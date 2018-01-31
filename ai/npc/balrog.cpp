@@ -255,7 +255,7 @@ bool fall = true;
 	{
 		if (++o->balrog.smoketimer > 20 || !random(0, 16))
 		{
-			SmokeClouds(o, 1, 4, 4);
+			SmokeClouds(o, 1, 4, 4, 2);
 			o->balrog.smoketimer = 0;
 		}
 	}

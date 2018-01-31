@@ -176,10 +176,16 @@ void ai_smokecloud(Object *o)
 			o->xinertia = random(-(5 << CSF), (5 << CSF));
 			o->yinertia = random(-(5 << CSF), 0x200);
 		}
+		switch(o->sprite)
+		{
+			case SPR_MISSILEHITSMOKE: o->timer = 3; break;
+			case SPR_BLOODHIT: o->timer = 7; break;
+			default: o->timer = 5;
+		}
 		o->state = 1;
 	}
 	
-	if (++o->animtimer >= (o->sprite == SPR_MISSILEHITSMOKE ? 3 : 5))
+	if (++o->animtimer >= o->timer)
 	{
 		o->animtimer = 0;
 		if (++o->frame >= sprites[o->sprite].nframes)
