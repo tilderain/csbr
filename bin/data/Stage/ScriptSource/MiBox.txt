@@ -69,7 +69,7 @@ fault we're stuck down here.<NOD<EVE0306
 earthquakes recently,<NOD and 
 falling rocks...<NOD
 So, we've been trapped here
-for at least 8 hours.<NOD
+for what feels like half a day.<NOD
 I remember a forcefield...?<NOD
 ...<NOD
 <CLRI'm not sure how much more I 
@@ -99,15 +99,16 @@ after all...<NOD<END
 <KEY<MSGAlright, I guess I'll set up soon..<NOD<END
 
 #0312
-<KEY<FLJ0187:0313<FL+0187<MSGYou rounded with Puu and lived to
-tell the tale? <NODAmazing..<NOD
+<KEY<FLJ0187:0313<FL+0187<MSGYou rounded off with Puu and
+lived to tell the tale? <NODAmazing..<NOD
 Now I really wonder...<NOD<END
 
 #0313
 <KEY<MSGHmm...!<NOD<END
 
 #0400
-<KEY<FLJ0102:0402<FLJ0182:0401<FL+0182<MSG<FAC0012Discount sale!<NOD
+<KEY<FLJ0102:0402<FLJ0182:0401<FL+0182
+<MSG<FAC0012Discount sale!<NOD
 <CLRThat's right, I'm liquidating
 my goods and getting out of
 here!<NOD
@@ -118,6 +119,25 @@ locked us in here.<NOD
 in the crummiest part of town 
 wasn't the best idea...<NOD
 <CLRSo yeah, take a look around.<NOD<SHO0001
+
+<KEY<FLJ0102:0402<FLJ0182:0401<FL+0182
+<MSG<FAC0012Oh, hello.<NOD
+I'm having a discount sale.<NOD
+<CLRI'm sure liquidating goods
+would be more exciting...
+if some monster didn't lock
+us in here.<NOD
+Oh yeah, you should take this
+with you. Just a little trinket,
+but it's on the house.
+<CLROr, at least, I was...<NOD
+until some monster 
+locked us in here.<NOD
+<CLRIt turns out setting up shop 
+in the crummiest part of town 
+wasn't the best idea.<NOD
+<CLRSo yeah, take a look around.<NOD<SHO0001
+
 
 #0401
 <KEY<MSG<FAC0012Welcome.<NOD<SHO0001

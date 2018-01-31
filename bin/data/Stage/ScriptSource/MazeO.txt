@@ -14,7 +14,7 @@
 
 
 #0100
-<KEY<SOU0011<ANP0100:0000:0002<FAO0000
+<KEY<SOU0011<ANP0100:0000:0002<FAO0002
 <TRA0060:0090:0056:0016
 
 #0105
@@ -138,9 +138,12 @@ shown up.<NOD<END
 <FL+1002
 <KEY<MSG<FAC0013Do you know her,
 or are you just here to 
-visit? We could always use a
-helping hand...<CLR Hm?<NOD She doesn't look good 
-at all,<NOD no.<NOD I don't think a miracle's
+visit?<NOD
+<CLRWe could always use a
+helping hand...<NOD
+<CLRHm?<NOD She doesn't look good 
+at all,<NOD no.<NOD
+I don't think a miracle's
 going to happen-.<NOD<END
 
 #0503

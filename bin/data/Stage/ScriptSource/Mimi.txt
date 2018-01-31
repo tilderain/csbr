@@ -26,13 +26,13 @@
 <KEY<FAO0003<TRA0027:0093:0015:0005
 
 #0101
-<KEY<FAO0002<TRA0031:0092:0004:0004
+<KEY<FAO0002<TRA0024:0092:0005:0012
 
 #0102
 <KEY<FAO0002<TRA0025:0092:0006:0014
 
 #0103
-<KEY<FAO0003<TRA0030:0093:0069:0055
+<KEY<FAO0003<TRA0106:0093:0017:0004
 
 #0104
 <FLJ0327:0112
@@ -49,7 +49,7 @@ to make sure they don't
 get out.<NOD<END
 
 #0105
-<KEY<FAO0000<TRA0019:0090:0047:0006
+<KEY<FAO0000<TRA0105:0090:0014:0009
 
 #0107
 <PRI<SOU0011<CNP0107:0000:0000<FAO0004<TRA0027:0094:0007:0010
@@ -58,7 +58,7 @@ get out.<NOD<END
 <PRI<FAO0002<TRA0024:0092:0002:0011
 
 #0109
-<PRI<FAO0004<TRA0009:0094:0010:0009
+<PRI<FAO0004<TRA0014:0094:0015:0003
 
 #0110
 <PRI<FAO0000<TRA0003:0090:0055:0009
@@ -295,9 +295,10 @@ I've got you covered.<NOD<SHO0002
 <CLRI hate to say it,<NOD
 but I don't think mining is in 
 the cards for me.<NOD
-Did you see the path leading up to 
-the mine? <NODIt's a wonder they 
-haven't improved it...<NOD
+Safety first, they say...<NOD
+<CLRDid you see the path leading up to 
+the mine?<NODIt's a wonder they 
+haven't improved it.<NOD
 <CLRHeh, but maybe you can take my
 place?<NOD<END
 
@@ -326,6 +327,13 @@ Wow, that's not good...
 <MSGFON test<NOD<FOM001010<NOD<FOM002525<NOD<FOM0030<NOD30
 <NOD<FOM004040<NOD<FOM005050<NOD<FOM006060<NOD<FOM007070
 <NOD<FOM008080<NOD<FOM009090<NOD<FOM0110110<NOD<FOM0120120<NOD<END
+
+#0901
+<KEY<MSGA totem pole.<NOD
+It has markings in a foreign language.<NOD<END
+
+#0902
+<KEY<MSGPart of a broken totem.<NOD<END
 
 #1000
 <KEY<MSGIt's not real.<NOD<END

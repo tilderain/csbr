@@ -2,7 +2,7 @@
 #ifndef _MAPRECORD_H
 #define _MAPRECORD_H
 
-#define MAX_STAGES		120
+#define MAX_STAGES		255
 struct MapRecord
 {
 	char filename[32];

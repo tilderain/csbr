@@ -27,7 +27,7 @@ There's no going back...<NOD<END
 
 #0300
 <PRI<SOU0022<MSGOpened the treasure chest.<NOD
-<DNP0300<SOU0014<CI+0075<CLRObtained 75 cion.<NOD<END
+<DNP0300<SOU0014<CI+0035<CLRObtained 40 cion.<NOD<END
 
 #0900
 <DNP0900<SKJ0022:0000<SK+0022

@@ -28,11 +28,13 @@ the ground...<NOD<END
 
 #0300
 <PRI<SOU0022<MSGOpened the treasure chest.<NOD
-<DNP0300<SOU0014<CI+0100<CLRObtained 100 cion.<NOD<END
+<DNP0300<SOU0014<CI+0022<CLRObtained 35 cion.<NOD<END
 
 #0301
 <PRI<SOU0022<MSGOpened the treasure chest.<NOD
-<DNP0301<SOU0014<CI+0050<CLRObtained 50 cion.<NOD<END
+<DNP0301<SOU0014<CI+0050<CLRObtained 50 cion.
+wait this is actually a damage
+upgrade fireball<NOD<END
 
 #0302
 <PRI<DNP0302<CMU0004<CNP0200:0115:0002<ANP0200:0030:0002<END

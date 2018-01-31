@@ -11,15 +11,33 @@
 <MNA<CMU0008<FAI0004<END
 
 #0100
-<KEY<FAO0001<TRA0020:0091:0091:0025
+<KEY<FAO0000<TRA0029:0090:0067:0009
+
+#0101
+<KEY<FAO0002<TRA0031:0092:0004:0005
+
+#0102
+<KEY<FAO0002<TRA0044:0092:0002:0006
+
+#0103
+<KEY<FAO0002<TRA0039:0092:0029:0026
+
+#0105
+<KEY<FAO0002<TRA0042:0092:0055:0006
+
+#0106
+<KEY<FAO0002<TRA0039:0092:0055:0016
+
 
 #0200
-<KEY<FAC0012<MSGA girl just ran by here.<NOD
+<KEY<FAC0012<MSGHrm...<NOD
+Some girl just ran past here.<NOD
 I tried to stop her, but she
 just kept on moving.<NOD
-Someone should probably check up
-on that, because she didn't have
-any weaponry...<NOD<END
+Someone should probably
+check up on that,<NOD
+because it looks to me like she
+didn't have any form of defense...<NOD<END
 
 #0201
 <KEY<MSG<CAT     Forwards: To the waterway
