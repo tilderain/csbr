@@ -39,8 +39,8 @@ bool input_init(void)
 		mappings[SDLK_DOWN] = DOWNKEY;
 		mappings[SDLK_z] = JUMPKEY;
 		mappings[SDLK_x] = FIREKEY;
-		mappings[SDLK_d] = PREVWPNKEY;
-		mappings[SDLK_f] = NEXTWPNKEY;
+		mappings[SDLK_MINUS] = PREVWPNKEY;
+		mappings[SDLK_EQUALS] = NEXTWPNKEY;
 		mappings[SDLK_s] = INVENTORYKEY;
 		mappings[SDLK_a] = MAPSYSTEMKEY;
 		
