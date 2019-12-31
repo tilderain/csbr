@@ -180,10 +180,10 @@ I know where the Mimiga live!<NOD
 
 #0510
 <KEY<MSG<FAC0013Shouldn't you be attending
-to the king at this time?<NOD
+to the king right now?<NOD
 <CLR<FAC0014No, it's fine.<NOD
-When I come back,<NOD we 
-can take care of him.<NOD<END
+We can take care of him 
+when I come back.<NOD<END
 
 #0700
 <FLJ2902:0701<EVE0500<END

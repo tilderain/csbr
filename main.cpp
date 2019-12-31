@@ -453,6 +453,7 @@ void AppMinimized(void)
 {
 	stat("Game minimized or lost focus--pausing...");
 	SDL_PauseAudio(1);
+	stopOrganyaMusic();
 	
 	for(;;)
 	{
@@ -466,6 +467,8 @@ void AppMinimized(void)
 	}
 	
 	SDL_PauseAudio(0);
+	playOrganyaMusic();
+	changeOrganyaVolume(ORGDLL_VOLUME);
 	stat("Focus regained, resuming play...");
 }
 

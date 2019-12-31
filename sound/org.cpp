@@ -17,6 +17,8 @@
 
 #include "sslib.fdh"			// SAMPLE_RATE
 
+#include "sound.h"
+
 #include "../platform.h"
 
 #include "../settings.h"
@@ -677,6 +679,7 @@ static void runfade()
 		else
 		{
 			org_set_volume(newvol);
+			changeOrganyaVolume(newvol);
 		}
 		
 		song.last_fade_time = curtime;
