@@ -44,7 +44,6 @@ Message::~Message()
 	optionstack.RemoveItem(this);
 	free(fMsg);
 	free(fMsg2);
-	free(this);
 }
 
 /*
