@@ -5,13 +5,13 @@ sifedit:  sifedit.o MainWindow.o EditArea.o FramesArea.o \
 	 PreviewArea.o SheetManager.o TreeItemList.o SpriteRecord.o gui/MainGUI.o \
 	 gencode.o ../siflib/sif.o ../siflib/sifloader.o ../siflib/sectSprites.o ../siflib/sectStringArray.o \
 	 ../common/BList.o ../common/StringList.o ../common/DString.o ../common/DBuffer.o ../common/bufio.o \
-	 ../common/stat.o ../common/misc.o
+	 ../common/stat.o ../common/misc.o ../platform.o
 	g++ -o sifedit \
 	 sifedit.o MainWindow.o EditArea.o FramesArea.o \
 	 PreviewArea.o SheetManager.o TreeItemList.o SpriteRecord.o gui/MainGUI.o \
 	 gencode.o ../siflib/sif.o ../siflib/sifloader.o ../siflib/sectSprites.o ../siflib/sectStringArray.o \
 	 ../common/BList.o ../common/StringList.o ../common/DString.o ../common/DBuffer.o ../common/bufio.o \
-	 ../common/stat.o ../common/misc.o \
+	 ../common/stat.o ../common/misc.o ../platform.o \
 	 `wx-config --libs` -lstdc++
 
 sifedit.o:	sifedit.cpp sifedit.fdh sifedit.h ../common/BList.h \
@@ -119,11 +119,13 @@ gencode.o:	gencode.cpp gencode.fdh sifedit.h ../common/BList.h \
 	g++ -g -c ../common/bufio.cpp `wx-config --cxxflags` -Wno-multichar -Wno-write-strings -Wunused-variable -o ../common/bufio.o
 
 ../common/stat.o:	../common/stat.cpp ../common/stat.fdh ../common/basics.h
-	g++ -g -c ../common/stat.cpp `wx-config --cxxflags` -Wno-multichar -Wno-write-strings -Wunused-variable -o ../common/stat.o
+	g++ -g -c ../common/stat.cpp `wx-config --cxxflags` `sdl-config --cflags` -Wno-multichar -Wno-write-strings -Wunused-variable -o ../common/stat.o
 
 ../common/misc.o:	../common/misc.cpp ../common/misc.fdh ../common/basics.h
 	g++ -g -c ../common/misc.cpp `wx-config --cxxflags` -Wno-multichar -Wno-write-strings -Wunused-variable -o ../common/misc.o
 
+../platform.o:	../platform.cpp ../platform.fdh ../config.h
+	g++ -g -O2 -c ../platform.cpp -D DEBUG  -Wreturn-type -Wformat -Wno-multichar -o ../platform.o
 
 clean:
 	rm -f sifedit.o
