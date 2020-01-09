@@ -453,8 +453,9 @@ void AppMinimized(void)
 {
 	stat("Game minimized or lost focus--pausing...");
 	SDL_PauseAudio(1);
+#ifdef _WIN32
 	stopOrganyaMusic();
-	
+#endif
 	for(;;)
 	{
 		if ((SDL_GetAppState() & VISFLAGS) == VISFLAGS)
@@ -467,8 +468,10 @@ void AppMinimized(void)
 	}
 	
 	SDL_PauseAudio(0);
+#ifdef _WIN32
 	playOrganyaMusic();
 	changeOrganyaVolume(ORGDLL_VOLUME);
+#endif
 	stat("Focus regained, resuming play...");
 }
 

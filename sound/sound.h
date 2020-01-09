@@ -5,6 +5,7 @@
 
 #define ORGDLL_VOLUME 80
 
+#ifdef _WIN32
 typedef int (__stdcall *ploadOrganya)(const char *);
 typedef int (__stdcall *psetOrganyaPosition)(int);
 typedef int (__stdcall *pgetOrganyaPosition)(void);
@@ -19,7 +20,7 @@ extern pplayOrganyaMusic playOrganyaMusic;
 extern pchangeOrganyaVolume changeOrganyaVolume;
 extern pstopOrganyaMusic stopOrganyaMusic;
 extern pendOrganya endOrganya;
-
+#endif
 
 #define SND_MENU_MOVE		1
 #define SND_MSG		2

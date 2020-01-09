@@ -30,8 +30,7 @@ $(TARGET):  main.o game.o object.o ObjManager.o \
 	 pause/options.o pause/dialog.o pause/message.o pause/objects.o graphics/nxsurface.o \
 	 graphics/graphics.o graphics/sprites.o graphics/tileset.o graphics/font.o graphics/safemode.o \
 	 graphics/palette.o sound/sound.o sound/sslib.o sound/org.o sound/pxt.o \
-	 siflib/sif.o siflib/sifloader.o siflib/sectSprites.o siflib/sectStringArray.o extract/extract.o \
-	 extract/extractpxt.o extract/extractfiles.o extract/extractstages.o extract/crc.o autogen/AssignSprites.o \
+	 siflib/sif.o siflib/sifloader.o siflib/sectSprites.o siflib/sectStringArray.o autogen/AssignSprites.o \
 	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
 	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
 	 common/misc.o \
@@ -61,12 +60,12 @@ $(TARGET):  main.o game.o object.o ObjManager.o \
 	 pause/options.o pause/dialog.o pause/message.o pause/objects.o graphics/nxsurface.o \
 	 graphics/graphics.o graphics/sprites.o graphics/tileset.o graphics/font.o graphics/safemode.o \
 	 graphics/palette.o sound/sound.o sound/sslib.o sound/org.o sound/pxt.o \
-	 siflib/sif.o siflib/sifloader.o siflib/sectSprites.o siflib/sectStringArray.o extract/extract.o \
-	 extract/extractpxt.o extract/extractfiles.o extract/extractstages.o extract/crc.o autogen/AssignSprites.o \
+	 siflib/sif.o siflib/sifloader.o siflib/sectSprites.o siflib/sectStringArray.o autogen/AssignSprites.o \
 	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
 	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
-	 common/misc.o nxicon.o \
+	 common/misc.o \
 	 `sdl-config --libs` -static-libgcc -static-libstdc++ -lm -Wl,--exclude-libs=libmingwex.a
+
 
 main.o:	main.cpp main.fdh nx.h config.h \
 		common/basics.h common/BList.h common/SupportDefs.h \

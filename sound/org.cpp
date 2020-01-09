@@ -679,7 +679,9 @@ static void runfade()
 		else
 		{
 			org_set_volume(newvol);
+#ifdef _WIN32
 			changeOrganyaVolume(newvol);
+#endif
 		}
 		
 		song.last_fade_time = curtime;

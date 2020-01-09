@@ -7,7 +7,23 @@
 #include "../nx.h"
 #include "../settings.h"
 #include "pxt.h"
-#include "Windows.h"
+
+#ifdef _WIN32
+	#include "Windows.h"
+
+	HMODULE hModule = NULL;
+	typedef int (__stdcall *pstartOrganya)(HWND);
+
+	pstartOrganya startOrganya;
+	ploadOrganya loadOrganya;
+	psetOrganyaPosition setOrganyaPosition;
+	pgetOrganyaPosition getOrganyaPosition;
+	pplayOrganyaMusic playOrganyaMusic;
+	pchangeOrganyaVolume changeOrganyaVolume;
+	pstopOrganyaMusic stopOrganyaMusic;
+	pendOrganya endOrganya;
+#endif
+
 #include "sound.h"
 #include "sound.fdh"
 
@@ -17,18 +33,6 @@
 #define MUSIC_BOSS_ONLY	2
 static int lastsong = 0;		// this holds the previous song, for <RMU
 static int cursong = 0;
-
-HMODULE hModule = NULL;
-typedef int (__stdcall *pstartOrganya)(HWND);
-
-pstartOrganya startOrganya;
-ploadOrganya loadOrganya;
-psetOrganyaPosition setOrganyaPosition;
-pgetOrganyaPosition getOrganyaPosition;
-pplayOrganyaMusic playOrganyaMusic;
-pchangeOrganyaVolume changeOrganyaVolume;
-pstopOrganyaMusic stopOrganyaMusic;
-pendOrganya endOrganya;
 
 // there are more than this around 9b; those are drums and are loaded by the org module
 #define NUM_SOUNDS		0x75
@@ -57,7 +61,14 @@ bool sound_init(void)
 	if (SSInit()) return 1;
 	if (pxt_init()) return 1;
 	if (pxt_LoadSoundFX(pxt_dir, sndcache, NUM_SOUNDS)) return 1;
-	
+
+#ifndef _WIN32
+	if (org_init(org_wavetable, pxt_dir, ORG_VOLUME))
+	{
+		staterr("Music failed to initialize");
+		return 1;
+	}
+#elif _WIN32
 	 hModule = LoadLibrary("Org001.dll");
   
 	if(hModule == NULL) {
@@ -80,7 +91,8 @@ bool sound_init(void)
 	endOrganya = (pendOrganya)GetProcAddress(hModule, "EndOrganya");
 	
 	startOrganya(handle);
-	
+#endif
+
 	return 0;
 }
 
@@ -159,7 +171,11 @@ void music(int songno)
 	if (songno != 0 && !should_music_play(songno, settings->music_enabled))
 	{
 		stat("Not playing track %d because music_enabled is %d", songno, settings->music_enabled);
+#ifndef _WIN32
+		org_stop();
+#elif _WIN32
 		stopOrganyaMusic();
+#endif
 		return;
 	}
 	
@@ -201,7 +217,12 @@ void music_set_enabled(int newstate)
 	if (play)
 		start_track(cursong);
 	else
+#ifndef _WIN32
+		org_stop();
+#elif _WIN32
 		stopOrganyaMusic();
+#endif
+
 }
 
 static void start_track(int songno)
@@ -210,18 +231,34 @@ char fname[MAXPATHLEN];
 
 	if (songno == 0)
 	{
+#ifndef _WIN32
+		org_stop();
+#elif _WIN32
 		stopOrganyaMusic();
+#endif
 		return;
 	}
-	stopOrganyaMusic();
+
+#ifndef _WIN32
+		org_stop();
+#elif _WIN32
+		stopOrganyaMusic();
+#endif
+
 	strcpy(fname, org_dir);
 	strcat(fname, org_names[songno]);
 	strcat(fname, ".org");
 	
+#ifndef _WIN32
+	if (!org_load(fname))
+	{
+		org_start(0);
+#elif _WIN32
 	if (loadOrganya(fname))
 	{
 		playOrganyaMusic();
 		changeOrganyaVolume(ORGDLL_VOLUME);
+#endif
 	}
 }
 
