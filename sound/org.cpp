@@ -28,9 +28,9 @@
 //#define QUIET
 
 
-#define drumKpxt		22050 
+#define drumKpxt		73326 
 
-#define drumKwav		36663
+#define drumKwav		73326
 //i invoke the magic number to do the job for me, if you know what i mean
 
 # define htole16(x) x
@@ -883,7 +883,7 @@ double iratio;
 		chan->outbuffer[chan->outpos++] = (int)(audioval * volume_right_ratio);
 		chan->samples_so_far++;
 		
-		chan->phaseacc += chan->sample_inc;
+		chan->phaseacc += chan->sample_inc / ((double)SAMPLE_RATE / (double)(samplK*2));
 		if ((int)chan->phaseacc >= 256) chan->phaseacc -= 256;
 	}
 }

@@ -887,6 +887,10 @@ FILE *fp = NULL;
 		if (slot == 41)
 			pxt_ChangePitch(&snd, 6.0f);
 		
+		// very dirty hack to change the pitch of all the sounds 
+		// to match the non default sample rate
+		pxt_ChangePitch(&snd, 2.1793f);
+		
 		// save the rendered audio to cache
 		/*
 		if (fp)
