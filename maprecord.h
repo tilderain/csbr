@@ -18,6 +18,18 @@ struct MapRecord
 extern MapRecord stages[MAX_STAGES];
 extern int num_stages;
 
+struct EXEMapRecord
+{
+	char tileset[32];
+	char filename[32];
+	int scroll_type;
+	char background[32];
+	char NPCset1[32];
+	char NPCset2[32];
+	uint8_t bossNo;
+	char caption[35];
+};
+
 #define STAGE_SAND					10
 #define STAGE_START_POINT			02
 #define STAGE_IRONH					31

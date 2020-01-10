@@ -18,6 +18,34 @@ unsigned char tilecode[MAX_TILES];			// tile codes for every tile in current til
 unsigned int tileattr[MAX_TILES];			// tile attribute bits for every tile in current tileset
 unsigned int tilekey[MAX_TILES];			// mapping from tile codes -> tile attributes
 
+const char *npcsetnames[] =
+{
+	"guest", "0", "eggs1", "ravil", "weed", "maze",
+	"sand", "omg", "cemet", "bllg", "plant", "frog",
+	"curly", "stream", "ironh", "toro", "x", "dark",
+	"almo1", "eggs2", "twind", "moon", "cent", "heri",
+	"red", "miza", "dr", "almo2", "kings", "hell",
+	"press", "priest", "ballos", "island", NULL
+};
+
+static int find_index(const char *fname, const char *list[])
+{
+	for(int i=0;list[i];i++)
+	{
+		if (!strcasecmp(list[i], fname))
+		{
+			return i;
+		}
+	}
+	
+	return 0xff;
+}
+
+static int find_index(const char *fname, const char *list[]);
+
+
+EXEMapRecord exemapdata[256];
+
 
 // load stage "stage_no", this entails loading the map (pxm), enemies (pxe), tileset (pbm),
 // tile attributes (pxa), and script (tsc).
@@ -279,17 +307,48 @@ bool load_stages(void)
 {
 FILE *fp;
 
-	fp = fileopen("stage.dat", "rb");
+	fp = fileopen("data/csmap.bin", "rb");
 	if (!fp)
 	{
-		staterr("%s(%d): failed to open stage.dat", __FILE__, __LINE__);
+		staterr("%s(%d): failed to open csmap.bin", __FILE__, __LINE__);
 		num_stages = 0;
 		return 1;
 	}
 	
-	num_stages = fgetc(fp);
+	fseek(fp, 0, SEEK_END);
+	long filesize = ftell(fp);
+	if (filesize % sizeof(EXEMapRecord) != 0)
+	{
+		staterr("csmap doesn't have correct size");
+		return 1;
+	}
+
+	num_stages = filesize / sizeof(EXEMapRecord);
+
+	fseek(fp, 0, SEEK_SET);
+
+	fread(exemapdata, sizeof(EXEMapRecord), num_stages, fp);
+
 	for(int i=0;i<num_stages;i++)
-		fread(&stages[i], sizeof(MapRecord), 1, fp);
+	{
+		strcpy(stages[i].filename, exemapdata[i].filename);
+		strcpy(stages[i].stagename, exemapdata[i].caption);
+		
+		stages[i].scroll_type = exemapdata[i].scroll_type;
+		stages[i].bossNo = exemapdata[i].bossNo;
+		
+		stages[i].tileset = find_index(exemapdata[i].tileset, tileset_names);
+		if (stages[i].tileset == 0xff) { staterr("tileset"); return 1; }
+		
+		stages[i].bg_no   = find_index(exemapdata[i].background, backdrop_names);
+		if (stages[i].bg_no == 0xff) { staterr("backdrop"); return 1; }
+		
+		stages[i].NPCset1 = find_index(exemapdata[i].NPCset1, npcsetnames);
+		if (stages[i].NPCset1 == 0xff) { staterr("NPCset1"); return 1; }
+		
+		stages[i].NPCset2 = find_index(exemapdata[i].NPCset2, npcsetnames);
+		if (stages[i].NPCset2 == 0xff) { staterr("NPCset2"); return 1; }
+	}
 	
 	return 0;
 }
