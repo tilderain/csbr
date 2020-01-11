@@ -11,8 +11,6 @@ enum
 	STATE_NO_SELECTED
 };
 
-#define YESNO_X				190
-#define YESNO_Y				135
 #define YESNO_POP_SPEED		4
 
 /*
@@ -32,6 +30,7 @@ void TB_YNJPrompt::SetVisible(bool enable)
 	if (fVisible)
 	{
 		fState = STATE_APPEAR;
+		int YESNO_Y		=		MSG_NORMAL_Y - 35; //170
 		fCoords.y = YESNO_Y + 1;
 		fAnswer = -1;
 	}
@@ -46,6 +45,11 @@ void TB_YNJPrompt::Draw()
 	if (!fVisible)
 		return;
 	
+
+	int YESNO_X		=		MSG_X + 152; //190
+	int YESNO_Y		=		MSG_NORMAL_Y - 35; //170
+
+												//shop trim
 	draw_sprite(YESNO_X, fCoords.y, SPR_YESNO, game.flags[2999] ? 1 : 0, 0);
 	
 	// draw hand selector

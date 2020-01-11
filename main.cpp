@@ -414,7 +414,7 @@ void update_fps()
 		fps_so_far = 0;
 	}
 	int x = (SCREEN_WIDTH - 39);
-	int y = (SCREEN_HEIGHT - 231);
+	int y = 9;//(SCREEN_HEIGHT - 231);
 	DrawNumber(x, y, fps);
 }
 

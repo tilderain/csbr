@@ -38,8 +38,8 @@ void TB_SaveSelect::SetVisible(bool enable, bool saving)
 	if (!enable) return;
 	game.showmapnametime = 0;
 	
-	fCoords.x = 38;
-	fCoords.y = 8;
+	fCoords.x = MSG_X;
+	fCoords.y = (MSG_NORMAL_Y / 2) - (SCREEN_HEIGHT / 3);
 	fCoords.w = 244;
 	fCoords.h = 152;
 	fNumFiles = MAX_SAVE_SLOTS;

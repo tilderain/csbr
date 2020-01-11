@@ -4,6 +4,7 @@
 #include "nx.h"
 #include "inventory.h"
 #include "inventory.fdh"
+#include "math.h"
 
 #define ARMS_X			10
 #define ARMS_Y			8
@@ -12,16 +13,9 @@
 #define ITEMS_Y			60
 
 //placeholders until i get hearts working
-#define HEALTH_X			38 + 170
-#define HEALTH_Y			8 + 9
+
 
 #define FRAME_XP_MAX		3			// "MAX" when XP is at max on L3
-
-#define INVWEAPON_X 54
-#define INVWEAPON_Y 16
-
-#define INVPLUG_X 54
-#define INVPLUG_Y 48
 
 ShopItem shopTable1[] = 
 {
@@ -226,8 +220,8 @@ int x, y, w, i, c;
 		
 	//inv.w = 84;
 	//inv.h = 32;
-	inv.x = 38;
-	inv.y = 8;
+	inv.x = MSG_X;
+	inv.y = (SCREEN_HEIGHT / 2) - (sprites[SPR_INVENTORY_SCREEN].h / 2) + 1;
 	static const int ROW_SPEED = 18;
 
 	if (!inv.doneDrawing)
@@ -296,9 +290,9 @@ int x, y, w, i, c;
 		DrawInventoryBits();
 		
 		// - draw the health ----
-		//magic numbers everywhere
-		inv.x = 38;
-		inv.y = 8;
+
+		int HEALTH_X			= inv.x + 170; //38
+		int HEALTH_Y			= inv.y + 9; // 8
 				
 		DrawHealthBar(HEALTH_X, HEALTH_Y, player->hp, player->maxHealth);
 		// - draw the money ----
@@ -312,18 +306,21 @@ int x, y, w, i, c;
 
 static void DrawInventoryBits(void)
 {
-	
-		DrawItems(54, 80, &inv.itemsel, 16, false);
+		int INVWEAPON_X = inv.x + 16;
+		int INVWEAPON_Y = inv.y + 8;
 
+		DrawItems(INVWEAPON_X, inv.y + 72, &inv.itemsel, 16, false);
+
+		//draw WEAPON
 		if (player->curWeapon)
 		{
 			draw_sprite(INVWEAPON_X, INVWEAPON_Y, SPR_ITEMIMAGE, player->curWeapon, 0);
-			DrawNumber(INVWEAPON_X+17, INVWEAPON_Y+8, player->weapons[player->curWeapon].ammo);
+			DrawNumber(INVWEAPON_X +17, INVWEAPON_Y + 8, player->weapons[player->curWeapon].ammo);
 		}
 		
 		// - draw the player ----
 		
-		DrawSelector(&inv.itemsel, 54, 80);
+		DrawSelector(&inv.itemsel, inv.x + 16, inv.y + 72);
 		
 		int s, spr, frame;
 		s = PSelectSprite();
@@ -332,19 +329,19 @@ static void DrawInventoryBits(void)
 				GetSpriteForGun(player->curWeapon, 0, &spr, &frame);
 				if(s == SPR_MYCHAR_FROG)
 				{
-					draw_sprite_at_dp(157, 45, spr, frame, LEFT);	
+					draw_sprite_at_dp(inv.x + 119, inv.y + 37, spr, frame, LEFT);	
 				} 
 				else 
 				{
-					draw_sprite_at_dp(157, 45, spr, frame, LEFT);	
+					draw_sprite_at_dp(inv.x + 119, inv.y + 37, spr, frame, LEFT);	
 				}
 				
 		}
-		draw_sprite(152, 32, s, 0, LEFT);
+		draw_sprite(inv.x + 114, inv.y + 24, s, 0, LEFT);
 		
 		if (player->equipmask)
 		{
-			draw_sprite(INVPLUG_X, INVPLUG_Y, SPR_ITEMIMAGE, GetPlug(), 0);
+			draw_sprite(INVWEAPON_X, inv.y + 40, SPR_ITEMIMAGE, GetPlug(), 0);
 		}
 		
 }
@@ -594,33 +591,36 @@ int curwpn = 0;
 static void DrawShop(void){
 	int x, y, w, i, c;
 	bool shop_;
+
+	int inv_basex = MSG_X;
+	int inv_basey = (SCREEN_HEIGHT / 2) - (sprites[SPR_INVENTORY_SCREEN].h / 2) + 1;
 	
-	TextBox::DrawFrame(38, 72 + shopBoxSlideY, 244, 80, shop_); 
-	draw_sprite(38, 72 + shopBoxSlideY, SPR_SHOP_ITEM, 0, 0);
+	TextBox::DrawFrame(inv_basex, inv_basey + 64 + shopBoxSlideY, 244, 80, shop_); 
+	draw_sprite(inv_basex, inv_basey + 64 + shopBoxSlideY, SPR_SHOP_ITEM, 0, 0);
 	
-	TextBox::DrawFrame(38, 32 + shopBoxSlideY, 244, 40, shop_); 
-	draw_sprite(38, 32 + shopBoxSlideY, SPR_SHOP_SHOP, 0, 0);
+	TextBox::DrawFrame(inv_basex, inv_basey + 24 + shopBoxSlideY, 244, 40, shop_); 
+	draw_sprite(inv_basex, inv_basey + 24 + shopBoxSlideY, SPR_SHOP_SHOP, 0, 0);
 	
-	TextBox::DrawFrame(198, 8 + shopBoxSlideY, 84, 24, shop_); 
-	draw_sprite(198, 8 + shopBoxSlideY, SPR_SHOP_MONEY, 0, 0);
+	TextBox::DrawFrame(inv_basex + 160, inv_basey + shopBoxSlideY, 84, 24, shop_); 
+	draw_sprite(inv_basex + 160, inv_basey + shopBoxSlideY, SPR_SHOP_MONEY, 0, 0);
 
 	//set_clip_rect(38, 32 + shopBoxSlideY, \
 		244, 38);
 	
-	DrawItemsShop(54, 37 + shopBoxSlideY, &shop.itemsel, 8); //y is added twice, was unintentional but is a cool effect
+	DrawItemsShop(inv_basex + 16, inv_basey + 29 + shopBoxSlideY, &shop.itemsel, 8); //y is added twice, was unintentional but is a cool effect
 	
 	//clear_clip_rect();
 		
-	DrawSelector(&shop.itemsel, 54, 37 + shopBoxSlideY);
+	DrawSelector(&shop.itemsel, inv_basex + 16, inv_basey + 29 + shopBoxSlideY);
 	
-	DrawItems(54, 80, &shop.itemsel, 16 + shopBoxSlideY, true);
+	DrawItems(inv_basex + 16, inv_basey + 72, &shop.itemsel, 16 + shopBoxSlideY, true);
 	
 	//magic numbers everywhere
 	// - draw the money ----
 	
-	draw_sprite(38 + 205, 8 + 10 + shopBoxSlideY, SPR_XPBAR, FRAME_XP_MAX, 0);
+	draw_sprite(inv_basex + 205, inv_basey + 10 + shopBoxSlideY, SPR_XPBAR, FRAME_XP_MAX, 0);
 	// cion Number
-	DrawNumber(38 + 169, 8 + 9 + shopBoxSlideY, player->xp);
+	DrawNumber(inv_basex + 169, inv_basey + 9 + shopBoxSlideY, player->xp);
 	
 	shopBoxSlideY /= 1.3;
 }
@@ -835,7 +835,7 @@ enum
 
 static void DrawBuySellSelection(void){
 bool shop_;
-	
+
 	if (shop.fState == STATE_APPEAR)
 	{
 		shop.fState = STATE_WAIT;
@@ -843,15 +843,19 @@ bool shop_;
 		shop.fTimer = 10;
 	}
 	
-	inv.x = 125;
-	inv.y = 82;
-	
 	inv.w = 68;
 	inv.h = 75;
 	
-	TextBox::DrawFrame(inv.x, inv.y + shopBoxSlideY, inv.w, inv.h, shop_); 
+	inv.x = (SCREEN_WIDTH / 2) - (inv.w / 2);
+	inv.y = (SCREEN_HEIGHT / 2) - (inv.h / 2);
 	
-	font_draw(inv.x + 12, inv.y + 8 + shopBoxSlideY, "Buy", 0, &shadowfont2);
+
+	TextBox::DrawFrame(inv.x, inv.y + shopBoxSlideY, inv.w, inv.h, shop_); 
+
+	int INVWEAPON_X = inv.x + 16;
+	int INVWEAPON_Y = inv.y + 8;
+	
+	font_draw(inv.x + 12, INVWEAPON_Y + shopBoxSlideY, "Buy", 0, &shadowfont2);
 	
 	font_draw(inv.x + 12, inv.y + 24 + shopBoxSlideY, "Sell", 0, &shadowfont2);
 	
@@ -953,11 +957,14 @@ static void DrawSell(void){
 	bool shop_;
 	//money box
 
-	inv.x = 198;
-	inv.y = 40 + shopBoxSlideY;
+	int inv_basex = MSG_X;
+	int inv_basey = (SCREEN_HEIGHT / 2) - (sprites[SPR_INVENTORY_SCREEN].h / 2) + 1;
+
+	inv.x = inv_basex + 160;
+	inv.y = inv_basey + 32 + shopBoxSlideY;
 	
 	// - draw the money ----
-	draw_sprite(198, inv.y, SPR_SHOP_MONEY, 0, 0);
+	draw_sprite(inv.x, inv.y, SPR_SHOP_MONEY, 0, 0);
 	
 	draw_sprite(inv.x + 45, inv.y + 10, SPR_XPBAR, FRAME_XP_MAX, 0);
 	// cion Number
@@ -965,7 +972,7 @@ static void DrawSell(void){
 	
 	//inventory box
 	
-	inv.x = 38;
+	inv.x = inv_basex;
 	inv.y = 72 + shopBoxSlideY;
 	
 	inv.w = 244;
@@ -975,15 +982,10 @@ static void DrawSell(void){
 	draw_sprite(inv.x, inv.y, SPR_SHOP_ITEM, 0, 0);
 	
 	//position of items
-	inv.x = 54;
-	inv.y = 81;
+	inv.x = inv_basex + 16;
+	inv.y = inv_basey + 73;
 	
-	x = inv.x;
-	y = inv.y;
-
-	c = 0;
-	
-	DrawItems(54, 81 + shopBoxSlideY, &shop.itemsel, 16, true);
+	DrawItems(inv.x, inv.y + shopBoxSlideY, &shop.itemsel, 16, true);
 
 	DrawSelector(&shop.itemsel, inv.x, inv.y + shopBoxSlideY);
 	
@@ -1312,6 +1314,9 @@ static void DrawSelector(stSelector *selector, int x, int y)
 int selx, sely;
 int xsel, ysel;
 
+	int INVWEAPON_X = inv.x + 16;
+	int INVWEAPON_Y = inv.y + 8;
+
 	if (inv.selection == -1){
 		selector->flashstate = 1;
 		selector->animtimer = 0;
@@ -1334,18 +1339,18 @@ int xsel, ysel;
 	
 	switch(selector->cursel){
 		case 16: draw_sprite(INVWEAPON_X - 7, INVWEAPON_Y + 2, selector->sprite, 0, 0); break;
-		case 17: draw_sprite(INVPLUG_X - 7, INVPLUG_Y + 2, selector->sprite, 0, 0); break;
+		case 17: draw_sprite(INVWEAPON_X - 7, inv.y + 40 + 2, selector->sprite, 0, 0); break;
 		default: draw_sprite(selx - 7, sely + 2, selector->sprite, 0, 0);
 	}
 	
-	if (inv.selection != -1){
+	if (inv.selection != -1){ //draw other hand
 		xsel = (inv.selection % selector->rowlen);
 		ysel = (inv.selection / selector->rowlen);
 		selx = x + (xsel * selector->spacing_x);
 		sely = y + (ysel * selector->spacing_y);
 		switch(inv.selection){
 			case 16: draw_sprite(INVWEAPON_X - 7, INVWEAPON_Y + 2, selector->sprite, selector->flashstate, 0); break;
-			case 17: draw_sprite(INVPLUG_X - 7, INVPLUG_Y + 2, selector->sprite, selector->flashstate, 0); break;
+			case 17: draw_sprite(INVWEAPON_X - 7, inv.y + 40 + 2, selector->sprite, selector->flashstate, 0); break;
 			default: draw_sprite(selx - 7, sely + 2, selector->sprite, selector->flashstate, 0);
 		}
 	}

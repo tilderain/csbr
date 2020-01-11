@@ -242,6 +242,7 @@ bool shop;
 	// draw the frame
 	if (!(fFlags & TB_NO_BORDER))
 	{
+		//incredibly bad hardcode to use the shop border
 		if (!game.flags[2999]){
 			DrawFrame(fCoords.x, fCoords.y, fCoords.w, fCoords.h);
 		} else {

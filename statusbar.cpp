@@ -13,8 +13,7 @@
 
 #define HEALTH_X			16
 #define HEALTH_Y			225
-#define HEALTHFILL_X		16
-#define HEALTHFILL_Y		225
+
 #define HEALTHFILL_MAXLEN	39
 
 #define WEAPONBAR_Y			17
@@ -91,6 +90,8 @@ bool maxed_out;
 			{
 			// -- draw the health bar -----------------------------
 			
+			int HEALTHFILL_X =		16;
+			int HEALTHFILL_Y =		SCREEN_HEIGHT - 15;
 			DrawHealthBar(HEALTHFILL_X, HEALTHFILL_Y, player->hp, player->maxHealth);
 			
 			// don't draw the health in numbers
@@ -101,9 +102,9 @@ bool maxed_out;
 	
 	curxp = player->xp;
 	// draw "cion"
-	draw_sprite(51, 218, SPR_XPBAR, FRAME_XP_MAX, 0);
+	draw_sprite(51, SCREEN_HEIGHT - 22, SPR_XPBAR, FRAME_XP_MAX, 0);
 	// cion Number
-	DrawNumber(17, 217, curxp);
+	DrawNumber(17, SCREEN_HEIGHT - 23, curxp);
 	
 	// -- draw the weapon bar -----------------------------
 	// draw current weapon
