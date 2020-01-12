@@ -88,7 +88,7 @@ Object *enemy;
 	{
 		if (enemy->flags & FLAG_INVULNERABLE)
 		{
-			shot_spawn_effect(o, EFFECT_STARSOLID);
+			shot_spawn_effect(o, EFFECT_FISHY);
 			sound(SND_TINK);
 		}
 		else
