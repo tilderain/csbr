@@ -105,7 +105,7 @@ extern int initial_zoom;
 	
 	// create edit area
 	fEditArea = new EditArea(fEditAreaContainer, ID_EditArea, wxPoint(0, 0), fEditAreaContainer->GetSize());
-	fEditArea->SetBackground("bkBlue.pbm");
+	fEditArea->SetBackground("bkBlue.bmp");
 	fEditArea->UpdateCtrlShiftStates();
 	fEditArea->SetZoom(initial_zoom);
 	
