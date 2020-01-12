@@ -410,13 +410,14 @@ int x, y;
 		break;
 		
 		case BK_FOLLOWFG:
-			map.parscroll_x = (map.displayed_xscroll >> CSF);
-			map.parscroll_y = (map.displayed_yscroll >> CSF);
+			map.parscroll_x = map.displayed_xscroll;
+			map.parscroll_y = map.displayed_yscroll;
 		break;
 		
 		case BK_PARALLAX:
-			map.parscroll_y = (map.displayed_yscroll >> CSF) / 2;
-			map.parscroll_x = (map.displayed_xscroll >> CSF) / 2;
+			map.parscroll_y = (map.displayed_yscroll / 2);
+			map.parscroll_x = (map.displayed_xscroll / 2);
+			
 		break;
 		
 		case BK_FASTLEFT:		// Ironhead
@@ -451,16 +452,16 @@ int x, y;
 		break;
 	}
 	
-	map.parscroll_x %= backdrop[map.backdrop]->Width();
-	map.parscroll_y %= backdrop[map.backdrop]->Height();
+	map.parscroll_x %= backdrop[map.backdrop]->Width() << CSF;
+	map.parscroll_y %= backdrop[map.backdrop]->Height() << CSF;
 	int w = backdrop[map.backdrop]->Width();
 	int h = backdrop[map.backdrop]->Height();
 	
-	for(y=0;y<SCREEN_HEIGHT+map.parscroll_y; y+=h)
+	for(y=0;y<SCREEN_HEIGHT+((map.parscroll_y * SCALE) >> CSF); y+=h)
 	{
-		for(x=0;x<SCREEN_WIDTH+map.parscroll_x; x+=w)
+		for(x=0;x<SCREEN_WIDTH+((map.parscroll_x * SCALE) >> CSF); x+=w)
 		{
-			DrawSurface(backdrop[map.backdrop], x - map.parscroll_x, y - map.parscroll_y);
+			DrawSurface_Nonaligned(backdrop[map.backdrop], (x << CSF) - map.parscroll_x, (y << CSF) - map.parscroll_y, 0, 0, w, h);
 		}
 	}
 }
@@ -576,14 +577,14 @@ int mapx, mapy;
 int blit_x, blit_y, blit_x_start;
 int scroll_x, scroll_y;
 	
-	scroll_x = (map.displayed_xscroll >> CSF);
-	scroll_y = (map.displayed_yscroll >> CSF);
+	scroll_x = map.displayed_xscroll;
+	scroll_y = map.displayed_yscroll;
 	
-	mapx = (scroll_x / TILE_W);
-	mapy = (scroll_y / TILE_H);
+	mapx = scroll_x / (TILE_W << CSF);
+	mapy = scroll_y / (TILE_H << CSF);
 	
-	blit_y = -(scroll_y % TILE_H);
-	blit_x_start = -(scroll_x % TILE_W);
+	blit_y = -(scroll_y % (TILE_H << CSF));
+	blit_x_start = -(scroll_x % (TILE_W << CSF));
 	
 	// MAP_DRAW_EXTRA_Y etc is 1 if resolution is changed to
 	// something not a multiple of TILE_H.
@@ -597,10 +598,10 @@ int scroll_x, scroll_y;
 			if ((tileattr[t] & TA_FOREGROUND) == foreground)
 				draw_tile(blit_x, blit_y, t);
 			
-			blit_x += TILE_W;
+			blit_x += (TILE_W << CSF);
 		}
 		
-		blit_y += TILE_H;
+		blit_y += (TILE_H << CSF);
 	}
 }
 
@@ -612,7 +613,7 @@ void c------------------------------() {}
 // map scrolling code
 void scroll_normal(void)
 {
-const int scroll_adj_rate = (0x2000 / map.scrollspeed);
+const int scroll_adj_rate = ((double)0x2000 / (double)map.scrollspeed);
 	
 	// how many pixels to let player stray from the center of the screen
 	// before we start scrolling. high numbers let him reach closer to the edges,
@@ -705,8 +706,8 @@ void map_scroll_do(void)
 		}
 	}
 	
-	map.real_xscroll += (double)(map.target_x - map.real_xscroll) / (double)map.scrollspeed;
-	map.real_yscroll += (double)(map.target_y - map.real_yscroll) / (double)map.scrollspeed;
+  	map.real_xscroll += (double)(map.target_x - map.real_xscroll) / (double)map.scrollspeed;
+  	map.real_yscroll += (double)(map.target_y - map.real_yscroll) / (double)map.scrollspeed;
 	
 	map.displayed_xscroll = (map.real_xscroll + map.phase_adj);
 	map.displayed_yscroll = map.real_yscroll;	// we don't compensate on Y, because player falls > 2 pixels per frame
