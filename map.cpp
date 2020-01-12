@@ -705,8 +705,8 @@ void map_scroll_do(void)
 		}
 	}
 	
-	map.real_xscroll += (map.target_x - map.real_xscroll) / map.scrollspeed;
-	map.real_yscroll += (map.target_y - map.real_yscroll) / map.scrollspeed;
+	map.real_xscroll += (double)(map.target_x - map.real_xscroll) / (double)map.scrollspeed;
+	map.real_yscroll += (double)(map.target_y - map.real_yscroll) / (double)map.scrollspeed;
 	
 	map.displayed_xscroll = (map.real_xscroll + map.phase_adj);
 	map.displayed_yscroll = map.real_yscroll;	// we don't compensate on Y, because player falls > 2 pixels per frame
