@@ -84,13 +84,13 @@ void FloatText::AddQty(int amt)
 void FloatText::UpdatePos(Object *assoc_object)
 {
 	// get the center pixel of the object we're associated with
-	this->objX = (assoc_object->x >> CSF) + (sprites[assoc_object->sprite].w / 2);
-	this->objY = (assoc_object->y >> CSF) + (sprites[assoc_object->sprite].h / 2);
+	this->objX = assoc_object->x + ((sprites[assoc_object->sprite].w << CSF) / 2);
+	this->objY = assoc_object->y + ((sprites[assoc_object->sprite].h << CSF) / 2);
 	
 	// adjust for possible draw point
 	SIFDir *dir = &sprites[assoc_object->sprite].frame[assoc_object->frame].dir[assoc_object->dir];
-	this->objX -= dir->drawpoint.x;
-	this->objY -= dir->drawpoint.y;
+	this->objX -= dir->drawpoint.x << CSF;
+	this->objY -= dir->drawpoint.y << CSF;
 }
 
 
@@ -146,7 +146,7 @@ int x, y, i;
 	if (ft->state == FT_SCROLL_AWAY)
 	{
 		// this formula is confusing until you realize that FT_Y_HOLD is a negative number
-		int y = ((ft->objY - (map.displayed_yscroll >> CSF)) + FT_Y_HOLD);
+		int y = (ft->objY - map.displayed_yscroll) + (FT_Y_HOLD << CSF);
 		int h = (SCREEN_HEIGHT - y);
 		
 		set_clip_rect(0, y, SCREEN_WIDTH, h);
@@ -158,16 +158,16 @@ int x, y, i;
 	for(i=1;text[i];i++) text[i] -= '0';
 	int textlen = i;
 	
-	x = ft->objX - (textlen * (8 / 2));			// center the string on the object
-	y = ft->objY + ft->yoff;
+	x = ft->objX - ((textlen * (8 / 2)) << CSF);			// center the string on the object
+	y = ft->objY + (ft->yoff << CSF);
 	// adjust to object's onscreen position
-	x -= (map.displayed_xscroll >> CSF);
-	y -= (map.displayed_yscroll >> CSF);
+	x -= map.displayed_xscroll;
+	y -= map.displayed_yscroll;
 	
 	// draw the text char by char
 	for(i=0;i<textlen;i++)
 	{
-		draw_sprite(x, y, ft->sprite, text[i], 0);
+		draw_sprite_nonaligned(x, y, ft->sprite, text[i], 0);
 		x += 8;
 	}
 	

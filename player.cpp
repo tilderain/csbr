@@ -1744,8 +1744,8 @@ int scr_x, scr_y;
 	//player->DamageText->UpdatePos(player);
 	
 	// get screen position to draw him at
-	scr_x = (player->x >> CSF) - (map.displayed_xscroll >> CSF);
-	scr_y = (player->y >> CSF) - (map.displayed_yscroll >> CSF);
+	scr_x = player->x - map.displayed_xscroll;
+	scr_y = player->y - map.displayed_yscroll;
 	
 	// draw his gun
 	if (player->curWeapon != WPN_NONE)
@@ -1755,21 +1755,24 @@ int scr_x, scr_y;
 		
 		// draw the gun at the player's Action Point. Since guns have their Draw Point set
 		// to point at their handle, this places the handle in the player's hand.
-		draw_sprite_at_dp(scr_x + sprites[player->sprite].frame[player->frame].dir[player->dir].actionpoint.x, \
-						  scr_y + sprites[player->sprite].frame[player->frame].dir[player->dir].actionpoint.y, \
+		draw_sprite_at_dp_nonaligned(scr_x + (sprites[player->sprite].frame[player->frame].dir[player->dir].actionpoint.x << CSF), \
+						  scr_y + (sprites[player->sprite].frame[player->frame].dir[player->dir].actionpoint.y << CSF), \
 						  spr, frame, player->dir);
 	}
 	
 	// draw the player sprite
 	if (!player->hurt_flash_state)
 	{
-		draw_sprite(scr_x, scr_y, player->sprite, player->frame, player->dir);
+		debug("x: %d", scr_y >> CSF);
+		debug("x2: %d", map.displayed_yscroll);
+		debug("x3: %d", player->y);
+		draw_sprite_nonaligned(scr_x, scr_y, player->sprite, player->frame, player->dir);
 		
 		// draw the air bubble shield if we have it on
 		if (((player->touchattr & TA_WATER) && (player->equipmask & EQUIP_AIRTANK && PSelectSprite() != SPR_MYCHAR_PRINCE)) || \
 			player->movementmode == MOVEMODE_ZEROG)
 		{
-			draw_sprite_at_dp(scr_x, scr_y, SPR_WATER_SHIELD, \
+			draw_sprite_at_dp_nonaligned(scr_x, scr_y, SPR_WATER_SHIELD, \
 							  player->water_shield_frame, player->dir);
 			
 			if (++player->water_shield_timer > 2)

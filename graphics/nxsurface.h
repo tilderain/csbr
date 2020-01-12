@@ -70,6 +70,8 @@ public:
 	// blitting
 	void DrawSurface(NXSurface *src, int dstx, int dsty);
 	void DrawSurface(NXSurface *src, int dstx, int dsty, int srcx, int srcy, int wd, int ht);
+	void DrawSurface_Nonaligned(NXSurface *src, int dstx, int dsty, int srcx, int srcy, int wd, int ht);
+	
 	void BlitPatternAcross(NXSurface *src, int x_dst, int y_dst, int y_src, int height);
 	
 	// graphics primitives

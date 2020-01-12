@@ -75,6 +75,9 @@ void _theme_invnum_change(ODItem *item, int dir);
 void _theme_invnum_get(ODItem *item);
 void _theme_waterjump_change(ODItem *item, int dir);
 void _theme_waterjump_get(ODItem *item);
+void _theme_removealign_change(ODItem *item, int dir);
+void _theme_removealign_get(ODItem *item);
+
 
 static void _theme_EnterGraphicsMenu(ODItem *item, int dir);
 

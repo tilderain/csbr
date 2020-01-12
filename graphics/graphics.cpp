@@ -26,6 +26,9 @@ const NXColor CLEAR(0, 0, 0);			// the transparent/colorkey color
 static bool is_fullscreen = false;
 static int current_res = -1;
 
+int SCREEN_WIDTH = 320;
+int SCREEN_HEIGHT = 240;
+
 bool Graphics::init(int resolution)
 {
 	if (use_palette)
@@ -293,6 +296,11 @@ void Graphics::DrawSurface(NXSurface *src, \
 	drawtarget->DrawSurface(src, dstx, dsty, srcx, srcy, wd, ht);
 }
 
+void Graphics::DrawSurface_Nonaligned(NXSurface *src, \
+						   int dstx, int dsty, int srcx, int srcy, int wd, int ht)
+{
+	drawtarget->DrawSurface_Nonaligned(src, dstx, dsty, srcx, srcy, wd, ht);
+}
 
 // blit the specified surface across the screen in a repeating pattern
 void Graphics::BlitPatternAcross(NXSurface *sfc, int x_dst, int y_dst, int y_src, int height)

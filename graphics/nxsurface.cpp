@@ -6,6 +6,7 @@
 #include "graphics.h"
 #include "nxsurface.h"
 #include "nxsurface.fdh"
+#include "../nx.h"
 
 #ifdef CONFIG_MUTABLE_SCALE
 	int SCALE = 3;
@@ -111,6 +112,7 @@ NXSurface *NXSurface::FromFile(const char *pbm_name, bool use_colorkey, int use_
 void c------------------------------() {}
 */
 
+
 // draw some or all of another surface onto this surface.
 void NXSurface::DrawSurface(NXSurface *src, \
 						 	int dstx, int dsty, int srcx, int srcy, int wd, int ht)
@@ -124,6 +126,36 @@ SDL_Rect srcrect, dstrect;
 	
 	dstrect.x = dstx * SCALE;
 	dstrect.y = dsty * SCALE;
+	
+	SDL_BlitSurface(src->fSurface, &srcrect, fSurface, &dstrect);
+}
+
+// draw some or all of another surface onto this surface.
+void NXSurface::DrawSurface_Nonaligned(NXSurface *src, \
+						 	int dstx, int dsty, int srcx, int srcy, int wd, int ht)
+{
+SDL_Rect srcrect, dstrect;
+int mag;
+	if(settings->theme[THEME_REMOVEALIGN])
+	{
+		mag = 1;
+		dstx = (dstx * SCALE) >> CSF;
+		dsty = (dsty * SCALE) >> CSF;
+	}
+	else
+	{
+		mag = SCALE;
+		dstx = (dstx >> CSF);
+		dsty = (dsty >> CSF);
+	}
+	dstrect.x = dstx * mag;
+	dstrect.y = dsty * mag;
+
+	srcrect.x = srcx * SCALE;
+	srcrect.y = srcy * SCALE;
+	
+	srcrect.w = wd * SCALE;
+	srcrect.h = ht * SCALE;
 	
 	SDL_BlitSurface(src->fSurface, &srcrect, fSurface, &dstrect);
 }

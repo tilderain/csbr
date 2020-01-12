@@ -501,7 +501,7 @@ Dialog *dlg = opt.dlg;
 	dlg->AddSeparator();
 	dlg->AddItem("Faithful Frog Swim ", _theme_waterjump_change, _theme_waterjump_get);
 	dlg->AddSeparator();
-	dlg->AddSeparator();
+	dlg->AddItem("Remove sprite alignment", _theme_removealign_change, _theme_removealign_get);
 	dlg->AddSeparator();
 	dlg->AddSeparator();
 	
@@ -544,6 +544,19 @@ void _theme_waterjump_get(ODItem *item)
 	static const char *strs[] = { "", " =" };;
 	strcpy(item->suffix, strs[settings->theme[THEME_WATERJUMP]]);
 }
+
+void _theme_removealign_change(ODItem *item, int dir)
+{
+	settings->theme[THEME_REMOVEALIGN] ^= 1;
+	sound(SND_MENU_SELECT);
+}
+
+void _theme_removealign_get(ODItem *item)
+{
+	static const char *strs[] = { "", " =" };;
+	strcpy(item->suffix, strs[settings->theme[THEME_REMOVEALIGN]]);
+}
+
 
 void _theme_drumsbeta_change(ODItem *item, int dir)
 {

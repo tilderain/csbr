@@ -48,7 +48,8 @@ enum ThemeOptions // is this bad practice? can't tell
 	THEME_INVNUM,
 	THEME_WATERJUMP,
 	THEME_DRUMSBETA,
-	THEME_MUSIC
+	THEME_MUSIC,
+	THEME_REMOVEALIGN
 
 };
 

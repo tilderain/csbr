@@ -12,6 +12,8 @@
 #include "../settings.h"
 using namespace Graphics;
 
+#include "../nx.h"
+
 #include "sprites.h"
 #include "sprites.fdh"
 
@@ -95,6 +97,22 @@ static void Sprites::BlitSprite(int x, int y, int s, int frame, uint8_t dir, \
 				wd, ht);
 }
 
+static void Sprites::BlitSprite_Nonaligned(int x, int y, int s, int frame, uint8_t dir, \
+								int xoff, int yoff, int wd, int ht)
+{
+	LoadSheetIfNeeded(sprites[s].spritesheet);
+	
+	dir %= sprites[s].ndirs;
+	SIFDir *sprdir = &sprites[s].frame[frame].dir[dir];
+	
+	DrawSurface_Nonaligned(spritesheet[sprites[s].spritesheet], \
+				x, y, \
+				(sprdir->sheet_offset.x + xoff), \
+				(sprdir->sheet_offset.y + yoff), \
+				wd, ht);
+}
+
+
 /*
 void c------------------------------() {}
 */
@@ -114,13 +132,24 @@ void Sprites::draw_sprite_at_dp(int x, int y, int s, int frame, uint8_t dir)
 	BlitSprite(x, y, s, frame, dir, 0, 0, sprites[s].w, sprites[s].h);
 }
 
+void Sprites::draw_sprite_nonaligned(int x, int y, int s, int frame, uint8_t dir)
+{
+	BlitSprite_Nonaligned(x, y, s, frame, dir, 0, 0, sprites[s].w, sprites[s].h);
+}
+
+void Sprites::draw_sprite_at_dp_nonaligned(int x, int y, int s, int frame, uint8_t dir)
+{
+	x -= sprites[s].frame[frame].dir[dir].drawpoint.x << CSF;
+	y -= sprites[s].frame[frame].dir[dir].drawpoint.y << CSF;
+	BlitSprite_Nonaligned(x, y, s, frame, dir, 0, 0, sprites[s].w, sprites[s].h);
+}
 
 // draw a portion of a sprite, such as a sprite in the middle of "teleporting".
 // only the area between clipy1 (inclusive) and clipy2 (exclusive) are visible.
 void Sprites::draw_sprite_clipped(int x, int y, int s, int frame, uint8_t dir, \
 						int clipx1, int clipx2, int clipy1, int clipy2)
 {
-	BlitSprite(x + clipx1, y + clipy1, s, frame, dir, clipx1, clipy1, \
+	BlitSprite_Nonaligned(x + clipx1, y + clipy1, s, frame, dir, clipx1, clipy1, \
 				(clipx2 - clipx1), (clipy2 - clipy1));
 }
 

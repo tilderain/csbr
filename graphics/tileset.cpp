@@ -63,7 +63,7 @@ void Tileset::draw_tile(int x, int y, int t)
 	int srcx = (t % 16) * TILE_W;
 	int srcy = (t / 16) * TILE_H;
 	
-	DrawSurface(tileset, x, y, srcx, srcy, TILE_W, TILE_H);
+	DrawSurface_Nonaligned(tileset, x, y, srcx, srcy, TILE_W, TILE_H);
 }
 
 void Tileset::Reload()

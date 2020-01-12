@@ -4,8 +4,8 @@
 
 #include "nxsurface.h"
 // (unscaled) screen size/video mode
-#define SCREEN_WIDTH		320
-#define SCREEN_HEIGHT		240
+extern int SCREEN_WIDTH;
+extern int SCREEN_HEIGHT;
 
 extern NXSurface *screen;
 extern const NXColor DK_BLUE;
@@ -35,6 +35,7 @@ namespace Graphics
 	// NXSurface member functions, most of which are set to target the screen.
 	void DrawSurface(NXSurface *src, int x, int y);
 	void DrawSurface(NXSurface *src, int dstx, int dsty, int srcx, int srcy, int wd, int ht);
+	void DrawSurface_Nonaligned(NXSurface *src, int dstx, int dsty, int srcx, int srcy, int wd, int ht);
 	
 	void BlitPatternAcross(NXSurface *sfc, int x_dst, int y_dst, int y_src, int height);
 	

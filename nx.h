@@ -23,6 +23,10 @@ typedef SIFPoint	Point;
 using namespace Graphics;
 using Sprites::draw_sprite;
 using Sprites::draw_sprite_at_dp;
+
+using Sprites::draw_sprite_nonaligned;
+using Sprites::draw_sprite_at_dp_nonaligned;
+
 using Sprites::draw_sprite_clipped;
 using Sprites::draw_sprite_clip_width;
 using Sprites::draw_sprite_clip_length;
