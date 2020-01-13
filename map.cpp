@@ -410,14 +410,13 @@ int x, y;
 		break;
 		
 		case BK_FOLLOWFG:
-			map.parscroll_x = map.displayed_xscroll;
-			map.parscroll_y = map.displayed_yscroll;
+			map.parscroll_x = SubpixelToScreenCoord(map.displayed_xscroll);
+			map.parscroll_y = SubpixelToScreenCoord(map.displayed_yscroll);
 		break;
 		
 		case BK_PARALLAX:
-			map.parscroll_y = (map.displayed_yscroll / 2);
-			map.parscroll_x = (map.displayed_xscroll / 2);
-			
+			map.parscroll_y = SubpixelToScreenCoord(map.displayed_yscroll) / 2;
+			map.parscroll_x = SubpixelToScreenCoord(map.displayed_xscroll) / 2;
 		break;
 		
 		case BK_FASTLEFT:		// Ironhead
@@ -452,16 +451,16 @@ int x, y;
 		break;
 	}
 	
-	map.parscroll_x %= backdrop[map.backdrop]->Width() << CSF;
-	map.parscroll_y %= backdrop[map.backdrop]->Height() << CSF;
+	map.parscroll_x %= backdrop[map.backdrop]->Width() * SCALE;
+	map.parscroll_y %= backdrop[map.backdrop]->Height() * SCALE;
 	int w = backdrop[map.backdrop]->Width();
 	int h = backdrop[map.backdrop]->Height();
 	
-	for(y=0;y<SCREEN_HEIGHT+((map.parscroll_y * SCALE) >> CSF); y+=h)
+	for(y=0;y<(SCREEN_HEIGHT * SCALE)+map.parscroll_y; y+=h)
 	{
-		for(x=0;x<SCREEN_WIDTH+((map.parscroll_x * SCALE) >> CSF); x+=w)
+		for(x=0;x<(SCREEN_WIDTH * SCALE)+map.parscroll_x; x+=w)
 		{
-			DrawSurface_Nonaligned(backdrop[map.backdrop], (x << CSF) - map.parscroll_x, (y << CSF) - map.parscroll_y, 0, 0, w, h);
+			DrawSurface_Nonaligned(backdrop[map.backdrop], (x * SCALE) - map.parscroll_x, (y * SCALE) - map.parscroll_y, 0, 0, w, h);
 		}
 	}
 }
@@ -577,14 +576,14 @@ int mapx, mapy;
 int blit_x, blit_y, blit_x_start;
 int scroll_x, scroll_y;
 	
-	scroll_x = map.displayed_xscroll;
-	scroll_y = map.displayed_yscroll;
+	scroll_x = SubpixelToScreenCoord(map.displayed_xscroll);
+	scroll_y = SubpixelToScreenCoord(map.displayed_yscroll);
 	
-	mapx = scroll_x / (TILE_W << CSF);
-	mapy = scroll_y / (TILE_H << CSF);
+	mapx = scroll_x / (TILE_W * SCALE);
+	mapy = scroll_y / (TILE_H * SCALE);
 	
-	blit_y = -(scroll_y % (TILE_H << CSF));
-	blit_x_start = -(scroll_x % (TILE_W << CSF));
+	blit_y = -(scroll_y % (TILE_H * SCALE));
+	blit_x_start = -(scroll_x % (TILE_W * SCALE));
 	
 	// MAP_DRAW_EXTRA_Y etc is 1 if resolution is changed to
 	// something not a multiple of TILE_H.
@@ -598,10 +597,10 @@ int scroll_x, scroll_y;
 			if ((tileattr[t] & TA_FOREGROUND) == foreground)
 				draw_tile(blit_x, blit_y, t);
 			
-			blit_x += (TILE_W << CSF);
+			blit_x += (TILE_W * SCALE);
 		}
 		
-		blit_y += (TILE_H << CSF);
+		blit_y += (TILE_H * SCALE);
 	}
 }
 

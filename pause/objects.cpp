@@ -59,7 +59,7 @@ void (*ai_routine[])(Object *) = {
 			o->x += o->xinertia;
 			o->y += o->yinertia;
 			
-			draw_sprite_nonaligned(o->x, o->y, o->sprite, o->frame, o->dir);
+			draw_sprite_nonaligned(SubpixelToScreenCoord(o->x), SubpixelToScreenCoord(o->y), o->sprite, o->frame, o->dir);
 		}
 		
 		o = next;

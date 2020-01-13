@@ -1,5 +1,6 @@
 
 // sprites routines
+#include "../config.h"
 #include "graphics.h"
 #include <string.h>
 #include "../siflib/sif.h"
@@ -11,8 +12,6 @@
 #include "../dirnames.h"
 #include "../settings.h"
 using namespace Graphics;
-
-#include "../nx.h"
 
 #include "sprites.h"
 #include "sprites.fdh"
@@ -139,8 +138,8 @@ void Sprites::draw_sprite_nonaligned(int x, int y, int s, int frame, uint8_t dir
 
 void Sprites::draw_sprite_at_dp_nonaligned(int x, int y, int s, int frame, uint8_t dir)
 {
-	x -= sprites[s].frame[frame].dir[dir].drawpoint.x << CSF;
-	y -= sprites[s].frame[frame].dir[dir].drawpoint.y << CSF;
+	x -= sprites[s].frame[frame].dir[dir].drawpoint.x * SCALE;
+	y -= sprites[s].frame[frame].dir[dir].drawpoint.y * SCALE;
 	BlitSprite_Nonaligned(x, y, s, frame, dir, 0, 0, sprites[s].w, sprites[s].h);
 }
 
@@ -149,7 +148,7 @@ void Sprites::draw_sprite_at_dp_nonaligned(int x, int y, int s, int frame, uint8
 void Sprites::draw_sprite_clipped(int x, int y, int s, int frame, uint8_t dir, \
 						int clipx1, int clipx2, int clipy1, int clipy2)
 {
-	BlitSprite_Nonaligned(x + clipx1, y + clipy1, s, frame, dir, clipx1, clipy1, \
+	BlitSprite(x + clipx1, y + clipy1, s, frame, dir, clipx1, clipy1, \
 				(clipx2 - clipx1), (clipy2 - clipy1));
 }
 

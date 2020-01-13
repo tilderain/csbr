@@ -13,6 +13,7 @@
 #include "../dirnames.h"
 #include "graphics.fdh"
 #include "nx_icon.h"
+#include "../nx.h"
 
 NXSurface *screen = NULL;				// created from SDL's screen
 static NXSurface *drawtarget = NULL;	// target of DrawRect etc; almost always screen
@@ -386,6 +387,19 @@ void Graphics::SetDrawTarget(NXSurface *surface)
 	drawtarget = surface;
 }
 
+// Convert a subpixel unit into position on the screen
+int Graphics::SubpixelToScreenCoord(int coord)
+{
+	if(settings->theme[THEME_REMOVEALIGN])
+	{
+		return (coord * SCALE) / CSFI;
+	}
+	else
+	{
+		return (coord / (CSFI)) * SCALE;
+	}
+
+}
 
 
 

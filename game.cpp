@@ -368,15 +368,15 @@ extern int flipacceltime;
 		}
 		
 		// get object's onscreen position
-		scr_x = (o->x - map.displayed_xscroll);
-		scr_y = (o->y - map.displayed_yscroll);
-		scr_x -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.x >> CSF;
-		scr_y -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.y >> CSF;
+		scr_x = SubpixelToScreenCoord(o->x) - SubpixelToScreenCoord(map.displayed_xscroll);
+		scr_y = SubpixelToScreenCoord(o->y) - SubpixelToScreenCoord(map.displayed_yscroll);
+		scr_x -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.x * SCALE;
+		scr_y -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.y * SCALE;
 		
 		// don't draw objects that are completely offscreen
 		// (+26 so floattext won't suddenly disappear on object near bottom of screen)
-		if ((scr_x >> CSF) <= SCREEN_WIDTH && (scr_y >> CSF) <= SCREEN_HEIGHT+26 && \
-			(scr_x >> CSF)>= -sprites[o->sprite].w && (scr_y >> CSF) >= -sprites[o->sprite].h)
+		if (scr_x <= (SCREEN_WIDTH * SCALE) && scr_y <= (SCREEN_HEIGHT+26) * SCALE && \
+			scr_x >= -sprites[o->sprite].w * SCALE && scr_y >= -sprites[o->sprite].h * SCALE)
 		{
 			if (nOnscreenObjects < MAX_OBJECTS-1)
 			{
@@ -391,7 +391,7 @@ extern int flipacceltime;
 			
 			if (!o->invisible && o->sprite != SPR_NULL)
 			{
-				scr_x += o->display_xoff << CSF;
+				scr_x += o->display_xoff * SCALE;
 				
 				if (o->clip_enable)
 				{
@@ -424,15 +424,15 @@ extern int flipacceltime;
 		o = o->higher)
 	{
 		if (o->type == OBJ_SMOKE_CLOUD && o->sprite != SPR_MISSILEHITSMOKE){
-			scr_x = (o->x - map.displayed_xscroll);
-			scr_y = (o->y - map.displayed_yscroll);
-			scr_x -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.x >> CSF;
-			scr_y -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.y >> CSF;
-			
+				scr_x = SubpixelToScreenCoord(o->x) - SubpixelToScreenCoord(map.displayed_xscroll);
+				scr_y = SubpixelToScreenCoord(o->y) - SubpixelToScreenCoord(map.displayed_yscroll);
+				scr_x -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.x * SCALE;
+				scr_y -= sprites[o->sprite].frame[o->frame].dir[o->dir].drawpoint.y * SCALE;
+		
 			// don't draw objects that are completely offscreen
 			// (+26 so floattext won't suddenly disappear on object near bottom of screen)
-			if ((scr_x >> CSF) <= SCREEN_WIDTH && (scr_y >> CSF) <= SCREEN_HEIGHT+26 && \
-				(scr_x >> CSF)>= -sprites[o->sprite].w && (scr_y >> CSF) >= -sprites[o->sprite].h)
+			if (scr_x <= (SCREEN_WIDTH * SCALE) && scr_y <= (SCREEN_HEIGHT+26) * SCALE && \
+				scr_x >= -sprites[o->sprite].w * SCALE && scr_y >= -sprites[o->sprite].h * SCALE)
 			{
 				if (nOnscreenObjects < MAX_OBJECTS-1)
 				{
@@ -444,11 +444,11 @@ extern int flipacceltime;
 					staterr("%s:%d: Max Objects Overflow", __FILE__, __LINE__);
 					return;
 				}
-				
+
 				if (!o->invisible && o->sprite != SPR_NULL)
 				{
-					scr_x += o->display_xoff << CSF;
-					
+					scr_x += o->display_xoff * SCALE;
+
 					if (o->clip_enable)
 					{
 						draw_sprite_clipped(scr_x, scr_y, o->sprite, o->frame, o->dir, o->clipx1, o->clipx2, o->clipy1, o->clipy2);

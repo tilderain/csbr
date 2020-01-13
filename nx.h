@@ -37,6 +37,7 @@ using Sprites::get_spritesheet;
 using Tileset::draw_tile;
 
 #define CSF				9
+#define CSFI				512
 class Object;
 
 // don't use this, use fileopen() instead.

@@ -104,10 +104,10 @@ int scr_x, scr_y;
 			// and let SDL's clipping handle it if not.
 			if (!c->invisible && !c->deleted)	// must check deleted again in case handler_function set it
 			{
-				scr_x = (c->x - map.displayed_xscroll);
-				scr_y = (c->y - map.displayed_yscroll);
-				scr_x -= sprites[c->sprite].frame[c->frame].dir[0].drawpoint.x << CSF;
-				scr_y -= sprites[c->sprite].frame[c->frame].dir[0].drawpoint.y << CSF;
+				scr_x = SubpixelToScreenCoord(c->x) - SubpixelToScreenCoord(map.displayed_xscroll);
+				scr_y = SubpixelToScreenCoord(c->y) - SubpixelToScreenCoord(map.displayed_yscroll);
+				scr_x -= sprites[c->sprite].frame[c->frame].dir[0].drawpoint.x * SCALE;
+				scr_y -= sprites[c->sprite].frame[c->frame].dir[0].drawpoint.y * SCALE;
 				
 				draw_sprite_nonaligned(scr_x, scr_y, c->sprite, c->frame, RIGHT);
 			}

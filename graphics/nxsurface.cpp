@@ -136,24 +136,12 @@ void NXSurface::DrawSurface_Nonaligned(NXSurface *src, \
 {
 SDL_Rect srcrect, dstrect;
 int mag;
-	if(settings->theme[THEME_REMOVEALIGN])
-	{
-		mag = 1;
-		dstx = (dstx * SCALE) >> CSF;
-		dsty = (dsty * SCALE) >> CSF;
-	}
-	else
-	{
-		mag = SCALE;
-		dstx = (dstx >> CSF);
-		dsty = (dsty >> CSF);
-	}
-	dstrect.x = dstx * mag;
-	dstrect.y = dsty * mag;
 
+	dstrect.x = dstx;
+	dstrect.y = dsty;
 	srcrect.x = srcx * SCALE;
 	srcrect.y = srcy * SCALE;
-	
+
 	srcrect.w = wd * SCALE;
 	srcrect.h = ht * SCALE;
 	

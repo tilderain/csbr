@@ -57,6 +57,8 @@ namespace Graphics
 	void clear_clip_rect();
 	
 	void SetDrawTarget(NXSurface *surface);
+
+	int SubpixelToScreenCoord(int coord);
 };
 
 #endif
