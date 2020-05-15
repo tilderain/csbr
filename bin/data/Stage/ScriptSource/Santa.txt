@@ -9,28 +9,17 @@
 <MNA<CMU0008<FAI0003<END
 #0094
 <MNA<FLJ0341:0099<CMU0002<FAI0004<END
-
-
-
 #0099
 <CMU0028<FAI0004<END
-
 #0100
 <KEY<FAO0003<TRA0012:0093:0083:0009
-
 #0101
 <KEY<DNP0101<SOU0011<FAO0001<TRA0014:0091:0014:0013
-
 #0102
 <KEY<FAO0003<TRA0012:0093:0034:0000
-
-
-
 #0120
 <KEY<MSG<TURWatch out! Deathtrap to your left.
 One touch means instant death!<NOD<END
-
-
 #0300
 <ITJ0008:0301
 <KEY<MSG*Crackle* *Snap!*<NOD<FLJ0242:0000
@@ -42,11 +31,8 @@ The charcoal burns fiercely.<NOD<END
 <MSGYou find something in the
 ashes...<NOD<CLR<GIT1012<IT+0012
 <CMU0010Got the =Charcoal=.<WAI0160<NOD<CLO<RMU<DNP0300<END
-
 #0302
 <KEY<DNP0300<END
-
-
 #0500
 <FLJ0226:0506
 <FLJ0242:0505
@@ -76,4 +62,3 @@ fireplace, if you like.<NOD<END
 <KEY<MSGI heard some kind of crash outside
 a little while ago.<NOD
 That and screams of terror...<NOD<END
-

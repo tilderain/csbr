@@ -9,21 +9,14 @@
 <MNA<FAI0003<END
 #0094
 <MNA<FAI0004<END
-
 #0100
 <KEY<SOU0011<ANP0100:0000:0002
 <FAO0000<TRA0040:0092:0003:0015
-
 #0101
 <KEY<SOU0011<ANP0110:0000:0002
 <FAO0002<TRA0103:0094:0074:0015
-
-
-
 #0200
 #0201
-
-
 #0900
 <DNP0900
 <KEY<MYD0002<MSGPlease kill my master.<NOD
@@ -32,4 +25,3 @@ can be freed...<NOD
 ...The only way to avoid a
 repetition of this tragedy.<NOD<CLRMy master's name is Ballos.<NOD<CLRHis magic powers have gone wild,
 and now he cannot even die...<NOD<ANP0201:0010:0000<FL+1620<END
-

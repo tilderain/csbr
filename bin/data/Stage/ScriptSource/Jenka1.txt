@@ -9,11 +9,8 @@
 <MNA<CMU0019<FAI0003<END
 #0094
 <MNA<CMU0019<FAI0004<END
-
 #0100
 <PRI<SOU0011<DNP0100<FAO0004<TRA0049:0094:0051:0028
-
-
 #0200
 <KEY
 <ITJ0014:0201
@@ -25,7 +22,6 @@
 <KEY<MSG<FAC0013Who are you...?<NOD
 I've never seen you
 around before.<NOD<END
-
 #0201
 <IT-0014
 <FLJ0594:0224
@@ -68,28 +64,22 @@ Four more puppies
 of mine...<NOD<CLRAnd my hips are so weak.<NOD<CLRCould this old woman
 trouble you to find her
 other puppies for her?<NOD<FL+0590<END
-
 #0210
 <KEY<MSG<FAC0013Still four left...<NOD
 Could this old woman
 trouble you to find her
 other puppies for her?<NOD<END
-
 #0211
 <KEY<MSG<FAC0013Three more left.<NOD
 Good luck.<NOD<END
-
 #0212
 <KEY<MSG<FAC0013I think my dearies
 have taken a liking
 to you.<NOD<CLRTwo more to go...<NOD<END
-
 #0213
 <KEY<MSG<FAC0013One more to go...<NOD
 I really wish you would
 abandon the red flowers.<NOD<END
-
-
 #0220
 <KEY<MSG<FAC0013My my, how quick.<NOD<CLR<GIT1014That is indeed one of
 my dear puppies.<NOD<CLR
@@ -110,7 +100,6 @@ back against the robots.<NOD<CLRHad the red flowers not
 existed, the Mimigas might
 have vanished entirely<NOD
 from the island...<NOD<CLRThree more left.<NODGood luck.<NOD<FL+0591<END
-
 #0221
 <KEY<MSG<FAC0013Oooh.<NOD<CLR<GIT1014Yes, yes.<NOD
 That is certainly one of
@@ -140,7 +129,6 @@ If that were true...<NOD<CLRDo you understand now?<NOD
 Do you understand how
 dangerous the red
 flowers are?<NOD<CLR.....<NOD<CLRTwo more to go...<NOD<FL+0592<END
-
 #0222
 <KEY<MSG<FAC0013They seem to just
 adore you.<NOD
@@ -159,7 +147,6 @@ To open the storehouse
 would invite that same
 tragedy all over again...<NOD<CLROne, two, three...<NOD<CLRThere's only one
 left.<NOD<FL+0593<END
-
 #0300
 <FLJ0590:0310<END
 #0301
@@ -170,7 +157,6 @@ left.<NOD<FL+0593<END
 <FLJ0593:0313<END
 #0304
 <FLJ0594:0314<END
-
 #0310
 <KEY<MSGArf!<NOD<END
 #0311
@@ -181,8 +167,5 @@ left.<NOD<FL+0593<END
 <KEY<MSGBooop.<NOD<END
 #0314
 <KEY<MSGFive!<NOD<END
-
-
 #0400
 #0401
-
