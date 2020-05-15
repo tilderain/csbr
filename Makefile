@@ -64,7 +64,7 @@ $(TARGET):  main.o game.o object.o ObjManager.o \
 	 autogen/objnames.o stagedata.o common/FileBuffer.o common/InitList.o common/BList.o \
 	 common/StringList.o common/DBuffer.o common/DString.o common/bufio.o common/stat.o \
 	 common/misc.o \
-	 `sdl-config --libs` -static-libgcc -static-libstdc++ -lm -Wl,--exclude-libs=libmingwex.a
+	 `sdl-config --libs` -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -Wl,-Bdynamic
 
 
 main.o:	main.cpp main.fdh nx.h config.h \
