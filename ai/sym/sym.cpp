@@ -424,10 +424,10 @@ void c------------------------------() {}
 
 void ai_save_point(Object *o)
 {
-	const int topSpeed = 0x100;
-	const int minSpeed = 0x30;
-	const int xDistFromOrigin = (9 << CSF);
-	const int yDistFromOrigin = (5 << CSF);
+	const int topSpeed = 0x300;
+	const int minSpeed = 0x60;
+	const int xDistFromOrigin = (11 << CSF);
+	const int yDistFromOrigin = (7 << CSF);
 	
 	switch(o->state)
 	{
@@ -435,7 +435,7 @@ void ai_save_point(Object *o)
 		{
 			//spawned, set our origin
 			o->xmark = o->x;
-			o->y += (10 << CSF);
+			o->y += (5 << CSF);
 			o->ymark = o->y;
 			
 			o->x = o->xmark + xDistFromOrigin;
@@ -445,23 +445,31 @@ void ai_save_point(Object *o)
 			
 			o->dir = random(0,1);
 			o->state = 1;
-		}break;
+			break;
+		}	
 		case 1:
 		{
 			o->dir = (o->xinertia <= 0) ? LEFT : RIGHT;
-			
-		}break;
+			break;
+		}
 	}
 	// sinusoidal circling pattern
-	o->xinertia += (o->x > o->xmark) ? -0x02 : 0x02;
-	o->yinertia += (o->y > o->ymark) ? -0x02 : 0x02;
+	o->xinertia += (o->x > o->xmark) ? -0x05 : 0x05;
+	o->yinertia += (o->y > o->ymark) ? -0x05 : 0x05;
 	LIMITX(topSpeed);
 	LIMITY(topSpeed);
 	o->BringToFront();
 	
-	ai_animate4(o);
+	if (true){
+		if (++o->animtimer >= 3)
+		{
+			o->animtimer = 0;
+			if (++o->frame >= sprites[o->sprite].nframes-1) o->frame = 0;
+		}
+	} else {
+		ai_animate3(o);
+	}
 }
-
 
 void ai_recharge(Object *o)
 {
